@@ -1,4 +1,4 @@
-package com.cuentas.proyecto_cuentas;
+package com.cuentas.proyectocuentas;
 
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;

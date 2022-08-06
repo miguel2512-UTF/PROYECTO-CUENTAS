@@ -1,0 +1,147 @@
+<!DOCTYPE html>
+<html xmlns:th="https://wwww.thymeleaf.org" lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@4.6.2/dist/css/bootstrap.min.css" integrity="sha384-xOolHFLEh07PJGoPkLv1IbcEPTNtaed2xpHsD9ESMhqIYd0nLMwNLD69Npy4HI+N" crossorigin="anonymous">
+    <title>Usuario</title>
+</head>
+<body>
+    <h1>Usuario</h1>
+    <a href="" data-toggle="modal" data-target="#modal-add"><svg xmlns="http://www.w3.org/2000/svg" width="32" height="32" fill="currentColor" class="bi bi-plus-circle-fill" viewBox="0 0 16 16">
+        <path d="M16 8A8 8 0 1 1 0 8a8 8 0 0 1 16 0zM8.5 4.5a.5.5 0 0 0-1 0v3h-3a.5.5 0 0 0 0 1h3v3a.5.5 0 0 0 1 0v-3h3a.5.5 0 0 0 0-1h-3v-3z"/>
+      </svg></a>
+    <table border="1">
+        <tr>
+            <th>ID</th>
+            <th>Nombre</th>
+            <th>Contraseña</th>
+            <th>Correo</th>
+            <th>Tipo</th>
+            <th>Estado</th>
+            <th>Acciones</th>
+        </tr>
+        <tr th:each="u:${usuarios}">
+            <td th:text="${u.idUsuario}"></td>
+            <td th:text="${u.nombreUsuario}"></td>
+            <td th:text="${u.contrasenaUsuario}"></td>
+            <td th:text="${u.correoUsuario}"></td>
+            <td th:text="${u.tipoUsuario}"></td>
+            <td th:text="${u.estadoUsuario}"></td>
+            <td>
+                <a href="" data-toggle="modal" th:attr="data-target='#modal-editar'+${u.idUsuario}"><button type="button" class="btn btn-dark"><svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-pen-fill" viewBox="0 0 16 16">
+                <path d="m13.498.795.149-.149a1.207 1.207 0 1 1 1.707 1.708l-.149.148a1.5 1.5 0 0 1-.059 2.059L4.854 14.854a.5.5 0 0 1-.233.131l-4 1a.5.5 0 0 1-.606-.606l1-4a.5.5 0 0 1 .131-.232l9.642-9.642a.5.5 0 0 0-.642.056L6.854 4.854a.5.5 0 1 1-.708-.708L9.44.854A1.5 1.5 0 0 1 11.5.796a1.5 1.5 0 0 1 1.998-.001z"/>
+                </svg></button></a>
+                
+                <!-- MODAL EDITAR -->
+                <div class="modal fade" tabindex="-1" th:id="modal-editar+${u.idUsuario}">
+                    <div class="modal-dialog">
+                      <div class="modal-content">
+                        <div class="modal-header">
+                          <h5 class="modal-title">Editar Usuario</h5>
+                        </div>
+                        <div class="modal-body">
+                            <form th:action="@{/usuario/add}" method="post">
+                                <input type="hidden" name="idUsuario" id="idUsuario" th:value="${u.idUsuario}">
+                                <label for="">Nombre</label>
+                                <input type="text" name="nombreUsuario" id="nombreUsuario" autocomplete="off" th:value="${u.nombreUsuario}" required>
+                                <label for="">Contraseña</label>
+                                <input type="text" name="contrasenaUsuario" id="contrasenaUsuario" autocomplete="off" th:value="${u.contrasenaUsuario}" required>
+                                <label for="">Correo</label>
+                                <input type="text" name="correoUsuario" id="correoUsuario" autocomplete="off" th:value="${u.correoUsuario}" required>
+                                <label for="">Tipo</label>
+                                <select name="tipoUsuario" id="tipoUsuario" required>
+                                    <option th:value="${u.tipoUsuario}" th:text="${u.tipoUsuario}" selected>Seleccionar</option>
+                                    <option value="Administrador">Administrador</option>
+                                    <option value="Admin del hogar">Admin del hogar</option>
+                                    <option value="Contador">Contador</option>
+                                </select>
+                                <label for="">Estado</label>
+                                <select name="estadoUsuario" id="estadoUsuario" required>
+                                    <option th:value="${u.estadoUsuario}" th:text="${u.estadoUsuario}" selected>Seleccionar</option>
+                                    <option value="Activo">Activo</option>
+                                    <option value="Inactivo">Inactivo</option>
+                                </select>
+                        </div>
+                        <div class="modal-footer">
+                            <button type="button" class="btn btn-secondary" data-dismiss="modal">Cancelar</button>
+                            <button type="submit" class="btn btn-primary">Editar</button>
+                            </form>
+                        </div>
+                      </div>
+                    </div>
+                </div>
+
+                <a href="" data-toggle="modal" th:attr="data-target='#modal-delete'+${u.idUsuario}"><button type="button" class="btn btn-dark"><svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-trash-fill" viewBox="0 0 16 16">
+                <path d="M2.5 1a1 1 0 0 0-1 1v1a1 1 0 0 0 1 1H3v9a2 2 0 0 0 2 2h6a2 2 0 0 0 2-2V4h.5a1 1 0 0 0 1-1V2a1 1 0 0 0-1-1H10a1 1 0 0 0-1-1H7a1 1 0 0 0-1 1H2.5zm3 4a.5.5 0 0 1 .5.5v7a.5.5 0 0 1-1 0v-7a.5.5 0 0 1 .5-.5zM8 5a.5.5 0 0 1 .5.5v7a.5.5 0 0 1-1 0v-7A.5.5 0 0 1 8 5zm3 .5v7a.5.5 0 0 1-1 0v-7a.5.5 0 0 1 1 0z"/>
+                </svg></button></a>
+
+                <!-- MODAL ELIMINAR -->
+                <div class="modal fade" tabindex="-1" th:id="modal-delete+${u.idUsuario}">
+                    <div class="modal-dialog">
+                      <div class="modal-content">
+                        <div class="modal-header">
+                          <h5 class="modal-title">Eliminar Usuario</h5>
+                        </div>
+                        <div class="modal-body">
+                            <p>Esta seguro que desea eliminar este usuario?</p>
+                        </div>
+                        <div class="modal-footer">
+                            <button type="button" class="btn btn-secondary" data-dismiss="modal">Cancelar</button>
+                            <a th:href="@{/usuario/delete/}+${u.idUsuario}"><button type="submit" class="btn btn-primary">Eliminar</button></a>
+                        </div>
+                      </div>
+                    </div>
+                </div>
+            </td>
+        </tr>
+    </table>
+
+    <!-- MODAL REGISTRAR -->
+    <div class="modal fade" tabindex="-1" id="modal-add">
+        <div class="modal-dialog">
+          <div class="modal-content">
+            <div class="modal-header">
+              <h5 class="modal-title">Registrar Usuario</h5>
+            </div>
+            <div class="modal-body">
+                <form th:action="@{/usuario/add}" method="post" th:object="${usuario}">
+                    <label for="">Nombre</label>
+                    <input type="text" th:field="*{nombreUsuario}" autocomplete="off">
+                    <div class="form-text text-danger" th:if="${#fields.hasErrors('nombreUsuario')}" th:errors="*{nombreUsuario}"></div>
+                    <label for="">Contraseña</label>
+                    <input type="text" th:field="*{contrasenaUsuario}" autocomplete="off">
+                    <div class="form-text text-danger" th:if="${#fields.hasErrors('contrasenaUsuario')}" th:errors="*{contrasenaUsuario}"></div>
+                    <label for="">Correo</label>
+                    <input type="text" th:field="*{correoUsuario}" autocomplete="off">
+                    <div class="form-text text-danger" th:if="${#fields.hasErrors('correoUsuario')}" th:errors="*{correoUsuario}"></div>
+                    <label for="">Tipo</label>
+                    <select th:field="*{tipoUsuario}">
+                        <option value="" selected>Seleccionar</option>
+                        <option value="Administrador">Administrador</option>
+                        <option value="Admin del hogar">Admin del hogar</option>
+                        <option value="Contador">Contador</option>
+                    </select>
+                    <div class="form-text text-danger" th:if="${#fields.hasErrors('tipoUsuario')}" th:errors="*{tipoUsuario}"></div>
+                    <label for="">Estado</label>
+                    <select th:field="*{estadoUsuario}">
+                        <option value="" selected>Seleccionar</option>
+                        <option value="Activo">Activo</option>
+                        <option value="Inactivo">Inactivo</option>
+                    </select>
+                    <div class="form-text text-danger" th:if="${#fields.hasErrors('estadoUsuario')}" th:errors="*{estadoUsuario}"></div>
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-secondary" data-dismiss="modal">Cancelar</button>
+                <button type="submit" class="btn btn-primary">Registrar</button>
+                </form>
+            </div>
+          </div>
+        </div>
+    </div>
+
+    <script src="https://cdn.jsdelivr.net/npm/jquery@3.5.1/dist/jquery.slim.min.js" integrity="sha384-DfXdz2htPH0lsSSs5nCTpuj/zy4C+OGpamoFVy38MVBnE+IbbVYUew+OrCXaRkfj" crossorigin="anonymous"></script>
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@4.6.2/dist/js/bootstrap.bundle.min.js" integrity="sha384-Fy6S3B9q64WdZWQUiU+q4/2Lc9npb8tCaSX9FK7E8HnRr0Jz8D6OP9dO5Vg3Q9ct" crossorigin="anonymous"></script>
+</body>
+</html>
