@@ -45,15 +45,15 @@ public class Prestamo {
     @NotEmpty
     private String numeroCuotas;
 
-    @Column(name = "estadoPrestamo", nullable = true)
-    private Boolean estadoPrestamo;
+    @Column(name = "estadoPrestamo", length =10)
+    private String estadoPrestamo;
 
     public Prestamo() {
     }
 
     public Prestamo(Integer idPrestamo, @NotEmpty String documentoPrestamista, @NotEmpty String nombrePrestamista,
             @NotEmpty String fechaPagoOportuno, @NotEmpty String valorPrestamo, @NotEmpty String tasaPrestamo,
-            @NotEmpty String periodoCuota, @NotEmpty String numeroCuotas, Boolean estadoPrestamo) {
+            @NotEmpty String periodoCuota, @NotEmpty String numeroCuotas, String estadoPrestamo) {
         this.idPrestamo = idPrestamo;
         this.documentoPrestamista = documentoPrestamista;
         this.nombrePrestamista = nombrePrestamista;
@@ -129,14 +129,17 @@ public class Prestamo {
         this.numeroCuotas = numeroCuotas;
     }
 
-    public Boolean getEstadoPrestamo() {
+    public String getEstadoPrestamo() {
         return estadoPrestamo;
     }
 
-    public void setEstadoPrestamo(Boolean estadoPrestamo) {
+    public void setEstadoPrestamo(String estadoPrestamo) {
         this.estadoPrestamo = estadoPrestamo;
     }
 
+    
+
+    
     
 
     
