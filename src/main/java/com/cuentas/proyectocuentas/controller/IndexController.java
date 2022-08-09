@@ -18,14 +18,23 @@ public class IndexController {
         return "redirect:/usuario/listar";
     }
 
+    @GetMapping("/prestamo")
+    public String prestamo(){
+        return "redirect:/prestamo/listar";
+    }
+    
+    @GetMapping("/compromiso")
+    public String compromiso(){
+        return "redirect:/compromiso/listar";
+    }
 
     @GetMapping("/inicio")
     public String inicio(){
         return "views/principal-admin";
     }
 
-    @GetMapping("")
-    public String prestamo(){
-        return"redirect:prestamo/listar";
-    }
+    // @GetMapping("")
+    // public String prestamo(){
+    //     return"redirect:prestamo/listar";
+    // }
 }
