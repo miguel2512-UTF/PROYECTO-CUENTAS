@@ -6,6 +6,7 @@ import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.Table;
+import javax.validation.constraints.Email;
 import javax.validation.constraints.NotEmpty;
 
 @Entity
@@ -26,6 +27,7 @@ public class Usuario {
 
     @Column(length = 50, nullable = false)
     @NotEmpty
+    @Email
     private String correoUsuario;
 
     @Column(length = 15, nullable = false)

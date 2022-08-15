@@ -25,7 +25,10 @@ public class TipoCompromiso {
     @Column(length = 200,nullable=false)
     private String descripcion;
     
-
+    
+    public TipoCompromiso() {
+    }
+    
     public TipoCompromiso(Integer id,  String nombre, String descripcion) {
         this.id = id;
         this.nombre = nombre;

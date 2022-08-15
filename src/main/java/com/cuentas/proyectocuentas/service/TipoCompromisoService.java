@@ -3,10 +3,12 @@ package com.cuentas.proyectocuentas.service;
 import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Service;
 
 import com.cuentas.proyectocuentas.model.ITipoCompromiso;
 import com.cuentas.proyectocuentas.model.TipoCompromiso;
 
+@Service
 public class TipoCompromisoService  implements ITipoCompromisoService {
 
 
@@ -37,4 +39,4 @@ public class TipoCompromisoService  implements ITipoCompromisoService {
             tipocompromisod.deleteById(id);
             
         }
-     
+}    

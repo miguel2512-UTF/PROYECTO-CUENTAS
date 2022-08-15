@@ -34,6 +34,7 @@ public class UsuarioController {
         m.addAttribute("usuarios", usuarioI.findAll());
 
         if (res.hasErrors()) {
+            // atts.addAttribute("hasErrors",true);
             return "views/usuario/usuario";
         }
 
@@ -45,6 +46,20 @@ public class UsuarioController {
     public String delete(@PathVariable Integer idUsuario){
         if (idUsuario > 0) {
             usuarioI.delete(idUsuario);
+        }
+        return "redirect:/usuario/listar";
+    }
+
+    @GetMapping("/cambioestado/{idUsuario}")
+    public String cambioestado(@PathVariable Integer idUsuario){
+        Usuario usuario = new Usuario();
+        usuario=usuarioI.findOne(idUsuario);
+        if (usuario.getEstadoUsuario().equalsIgnoreCase("activo")) {
+            usuario.setEstadoUsuario("Inactivo");
+            usuarioI.save(usuario);
+        }else if (usuario.getEstadoUsuario().equalsIgnoreCase("inactivo")) {
+            usuario.setEstadoUsuario("Activo");
+            usuarioI.save(usuario);
         }
         return "redirect:/usuario/listar";
     }
