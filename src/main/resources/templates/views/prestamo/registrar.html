@@ -1,0 +1,56 @@
+<!DOCTYPE html>
+<html xmlns:th="https://www.thymeleaf.org" lang="en" >
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Editar Prestamo</title>
+</head>
+<body>
+
+    <h1>Registrar Prestamo</h1>
+
+    <section>
+        <form th:action="@{/prestamo/add}" th:object="${prestamo}" method="post">
+
+            <input type="hidden" name="idPrestamo" id="idPrestamo" th:value="${prestamo.idPrestamo}"><br><br>
+
+            <label for="documentoPrestamista"><strong>Documento Prestamista</strong></label><br>
+            <input  type="number" name="documentoPrestamista" id="documentoPrestamista" th:field="*{documentoPrestamista}" placeholder="Ejemplo: 1079032167"><br><br>
+            <div th:if="${#fields.hasErrors('documentoPrestamista')}" th:errors="*{documentoPrestamista}"></div>
+
+            <label for="nombrePrestamista"><strong>Nombre Prestamista</strong></label><br>
+            <input  type="text" name="nombrePrestamista" id="nombrePrestamista" th:field="*{nombrePrestamista}" placeholder="Ejemplo: Cristhian López"><br><br>
+            <div th:if="${#fields.hasErrors('nombrePrestamista')}" th:errors="*{nombrePrestamista}"></div>
+
+            <label for="fechaPagoOportuno"><strong>Fecha pago oportuno </strong></label><br>
+            <input  type="date" name="fechaPagoOportuno" id="fechaPagoOportuno" th:field="*{fechaPagoOportuno}" placeholder="Ejemplo: 1079032167"><br><br>
+            <div th:if="${#fields.hasErrors('fechaPagoOportuno')}" th:errors="*{fechaPagoOportuno}"></div>
+
+            <label for="valorPrestamo"><strong>Valor Prestamo</strong></label><br>
+            <input  type="number" name="valorPrestamo" id="valorPrestamo" th:field="*{valorPrestamo}" placeholder="Ejemplo: 1079032167"><br><br>
+            <div th:if="${#fields.hasErrors('valorPrestamo')}" th:errors="*{valorPrestamo}"></div>
+
+            <label for="tasaPrestamo"><strong>Tasa Prestamo</strong></label><br>
+            <input  type="number" name="tasaPrestamo" id="tasaPrestamo" th:field="*{tasaPrestamo}" placeholder="Ejemplo: 1079032167"><br><br>
+            <div th:if="${#fields.hasErrors('tasaPrestamo')}" th:errors="*{tasaPrestamo}"></div>
+
+            <label for="periodoCuota"><strong>Periodo Cuotas</strong></label><br>
+            <input  type="text" name="periodoCuota" id="periodoCuota" th:field="*{periodoCuota}" placeholder="Ejemplo: 1079032167"><br><br>
+            <div th:if="${#fields.hasErrors('periodoCuota')}" th:errors="*{periodoCuota}"></div>
+
+            <label for="numeroCuotas"><strong>Número Cuotas</strong></label><br>
+            <input  type="text" name="numeroCuotas" id="numeroCuotas" th:field="*{numeroCuotas}" placeholder="Ejemplo: 1079032167"><br><br>
+            <div th:if="${#fields.hasErrors('numeroCuotas')}" th:errors="*{numeroCuotas}"></div>
+
+            <label for="estadoPrestamo"><strong>Estado Prestamo</strong></label><br>
+            <input  type="text" name="estadoPrestamo" id="estadoPrestamo" th:field="*{estadoPrestamo}" placeholder="Ejemplo: 1079032167"><br><br>
+            <div th:if="${#fields.hasErrors('estadoPrestamo')}" th:errors="*{estadoPrestamo}"></div>
+
+            <button type="submit">Registrar Prestamo</button>
+
+        </form>
+    </section>
+    
+</body>
+</html>

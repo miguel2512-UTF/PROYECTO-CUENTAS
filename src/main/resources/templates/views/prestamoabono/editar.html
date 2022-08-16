@@ -1,0 +1,33 @@
+<!DOCTYPE html>
+<html xmlns:th="https://www.thymeleaf.org" lang="en" >
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Editar Prestamo</title>
+</head>
+<body>
+
+    <h1>Editar Prestamo</h1>
+
+    <section>
+        <form th:action="@{/prestamoabono/add}" th:object="${prestamoabono}" method="post">
+
+            <input type="hidden" name="idPrestamoAbono" id="idPrestamoAbono" th:value="${prestamoabono.idPrestamoAbono}"><br><br>
+
+            <label for="fechaAbono"><strong>Fecha Abono</strong></label><br>
+            <input  type="date" name="fechaAbono" id="fechaAbono" th:field="*{fechaAbono}" placeholder="Ejemplo: 21/07/2022"><br><br>
+            <div th:if="${#fields.hasErrors('fechaAbono')}" th:errors="*{fechaAbono}"></div>
+
+            <label for="totalAbono"><strong>Nombre Prestamista</strong></label><br>
+            <input  type="number" name="totalAbono" id="totalAbono" th:field="*{totalAbono}" placeholder="Ejemplo: 250000"><br><br>
+            <div th:if="${#fields.hasErrors('totalAbono')}" th:errors="*{totalAbono}"></div>
+
+
+            <button type="submit">Editar Abono</button>
+
+        </form>
+    </section>
+    
+</body>
+</html>

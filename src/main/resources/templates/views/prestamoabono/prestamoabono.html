@@ -43,7 +43,7 @@
 
         <section class="seccion-prestamos background">
             <article class="prestamos">
-                <h1>Préstamos</h1>
+                <h1>Abonos</h1>
                 <div class="registrar">
                     <a th:href="formulario"><svg xmlns="http://www.w3.org/2000/svg" width="32" height="32" fill="currentColor" class="bi bi-plus-circle-fill" viewBox="0 0 16 16">
                         <path d="M16 8A8 8 0 1 1 0 8a8 8 0 0 1 16 0zM8.5 4.5a.5.5 0 0 0-1 0v3h-3a.5.5 0 0 0 0 1h3v3a.5.5 0 0 0 1 0v-3h3a.5.5 0 0 0 0-1h-3v-3z"/>
@@ -58,36 +58,22 @@
                 <table>
                     <tr class="table-header">
                         <th>Id</th>
-                        <th>Documento Prestamista</th>
-                        <th>Nombre Prestamista</th>
-                        <th>Fecha de Pago Oportuno</th>
-                        <th>Valor del Préstamo</th>
-                        <th>Tasa de Préstamo</th>
-                        <th>Periodo de Cuotas</th>
-                        <th>Número de Cuotas</th>
-                        <th>Estado</th>
+                        <th>Fecha Abono</th>
+                        <th>Total Abono</th>
                         <th>Acciones</th>
                     </tr>
-                    <tr th:if="@{prestamos.size()>0}" th:each="Pr:${prestamos}">
-                        <td th:text="${Pr.idPrestamo}"></td>
-                        <td th:text="${Pr.documentoPrestamista}"></td>
-                        <td th:text="${Pr.nombrePrestamista}"></td>
-                        <td th:text="${Pr.fechaPagoOportuno}"></td>
-                        <td th:text="${Pr.valorPrestamo}"></td>
-                        <td th:text="${Pr.tasaPrestamo}"></td>
-                        <td th:text="${Pr.periodoCuota}"></td>
-                        <td th:text="${Pr.numeroCuotas}"></td>
-                        <td th:text="${Pr.estadoPrestamo}"></td>
+                    <tr th:if="@{prestamoabonos.size()>0}" th:each="Ab:${prestamoabonos}">
+                        <td th:text="${Ab.idPrestamoAbono}"></td>
+                        <td th:text="${Ab.fechaAbono}"></td>
+                        <td th:text="${Ab.totalAbono}"></td>
                         <td>
+                            
                             <button>
-                                <a role="button" th:href="prestamoabono">Abono</a>
-                            </button>
-                            <button>
-                                <a role="button" th:href="@{/prestamo/editar/}+${Pr.idPrestamo}">Editar</a>
+                                <a role="button" th:href="@{/prestamoabono/editar/}+${Ab.idPrestamoAbono}">Editar</a>
                             </button>
                             
                             <button>
-                                <a role="button" th:href="@{/prestamo/delete/}+${Pr.idPrestamo}" onclick="return Confirm('Estas seguro que quieres eliminar el Prestamo');">Eliminar </a>
+                                <a role="button" th:href="@{/prestamoabono/delete/}+${Ab.idPrestamoAbono}" onclick="return Confirm('Estas seguro que quieres eliminar el Prestamo');">Eliminar </a>
                             </button>
                         </td>
                     </tr>
