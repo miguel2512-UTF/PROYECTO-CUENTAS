@@ -24,27 +24,27 @@
             <div th:if="${#fields.hasErrors('nombrePrestamista')}" th:errors="*{nombrePrestamista}"></div>
 
             <label for="fechaPagoOportuno"><strong>Fecha pago oportuno </strong></label><br>
-            <input  type="date" name="fechaPagoOportuno" id="fechaPagoOportuno" th:field="*{fechaPagoOportuno}" placeholder="Ejemplo: 1079032167"><br><br>
+            <input  type="date" name="fechaPagoOportuno" id="fechaPagoOportuno" th:field="*{fechaPagoOportuno}" placeholder="Ejemplo: 01/06/2023"><br><br>
             <div th:if="${#fields.hasErrors('fechaPagoOportuno')}" th:errors="*{fechaPagoOportuno}"></div>
 
             <label for="valorPrestamo"><strong>Valor Prestamo</strong></label><br>
-            <input  type="number" name="valorPrestamo" id="valorPrestamo" th:field="*{valorPrestamo}" placeholder="Ejemplo: 1079032167"><br><br>
+            <input  type="number" name="valorPrestamo" id="valorPrestamo" th:field="*{valorPrestamo}" placeholder="Ejemplo: 1500000"><br><br>
             <div th:if="${#fields.hasErrors('valorPrestamo')}" th:errors="*{valorPrestamo}"></div>
 
             <label for="tasaPrestamo"><strong>Tasa Prestamo</strong></label><br>
-            <input  type="number" name="tasaPrestamo" id="tasaPrestamo" th:field="*{tasaPrestamo}" placeholder="Ejemplo: 1079032167"><br><br>
+            <input  type="text" name="tasaPrestamo" id="tasaPrestamo" th:field="*{tasaPrestamo}" placeholder="Ejemplo: 5%"><br><br>
             <div th:if="${#fields.hasErrors('tasaPrestamo')}" th:errors="*{tasaPrestamo}"></div>
 
             <label for="periodoCuota"><strong>Periodo Cuotas</strong></label><br>
-            <input  type="text" name="periodoCuota" id="periodoCuota" th:field="*{periodoCuota}" placeholder="Ejemplo: 1079032167"><br><br>
+            <input  type="text" name="periodoCuota" id="periodoCuota" th:field="*{periodoCuota}" placeholder="Ejemplo: Mensual"><br><br>
             <div th:if="${#fields.hasErrors('periodoCuota')}" th:errors="*{periodoCuota}"></div>
 
             <label for="numeroCuotas"><strong>Número Cuotas</strong></label><br>
-            <input  type="text" name="numeroCuotas" id="numeroCuotas" th:field="*{numeroCuotas}" placeholder="Ejemplo: 1079032167"><br><br>
+            <input  type="text" name="numeroCuotas" id="numeroCuotas" th:field="*{numeroCuotas}" placeholder="Ejemplo: 12"><br><br>
             <div th:if="${#fields.hasErrors('numeroCuotas')}" th:errors="*{numeroCuotas}"></div>
 
             <label for="estadoPrestamo"><strong>Estado Prestamo</strong></label><br>
-            <input  type="text" name="estadoPrestamo" id="estadoPrestamo" th:field="*{estadoPrestamo}" placeholder="Ejemplo: 1079032167"><br><br>
+            <input  type="text" name="estadoPrestamo" id="estadoPrestamo" th:field="*{estadoPrestamo}" placeholder="Ejemplo: Activo"><br><br>
             <div th:if="${#fields.hasErrors('estadoPrestamo')}" th:errors="*{estadoPrestamo}"></div>
 
             <button type="submit">Registrar Prestamo</button>
