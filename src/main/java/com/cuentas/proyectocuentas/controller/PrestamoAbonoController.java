@@ -57,12 +57,12 @@ public class PrestamoAbonoController {
     //EDITAR
     @GetMapping(path = {"/editar/{idPrestamoAbono}", "/Editar/{idPrestamoAbono}"})
     public String editar (@PathVariable Integer idPrestamoAbono, Model m){
-        PrestamoAbono prestamoAbono=null;
+        PrestamoAbono prestamoabono=null;
         if(idPrestamoAbono > 0){
-            prestamoAbono=prestamoabonoI.findOne(idPrestamoAbono);
+            prestamoabono=prestamoabonoI.findOne(idPrestamoAbono);
         }
-        m.addAttribute("prestamoAbono", prestamoAbono);
-        return "views/prestamoabono/editar";
+        m.addAttribute("prestamoabono", prestamoabono);
+        return "views/prestamoabono/editar"; 
     }
  
 
