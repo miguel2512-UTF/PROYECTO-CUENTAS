@@ -73,7 +73,23 @@
             <input type="checkbox" name="chkestado" id="chkestado" checked class="form-check-input">
             <label for="chkestado"> Activo</label>
         </div>
-    
+        <div>
+        <select th:field="*{usuario}">
+            <option value="">Seleccionar Usuario</option>
+             <th:block th:each="Usuario:${usuario}" >
+             <option th:text="${Usuario.nombreUsuario}" th:value="${Usuario.idUsuario}" ></option>   
+             </th:block> 
+        </select>
+    </div>
+    <div>
+        <select th:field="*{tipocompromiso}">
+            <option value="">Seleccionar Tipo de compromiso </option>
+             <th:block th:each="tipocompromiso:${tipocompromiso}" >
+             <option th:text="${TipoCompromiso.nombre}" th:value="${Usuario.id}" ></option>   
+             </th:block> 
+        </select>
+    </div>
+
         <div>
             <center><button type="submit" class="btn btn-outline-dark">Guardar</button></center>
         </div>

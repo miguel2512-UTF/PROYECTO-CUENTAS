@@ -1,5 +1,7 @@
 package com.cuentas.proyectocuentas.controller;
 
+import java.util.List;
+
 import javax.validation.Valid;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -14,7 +16,11 @@ import org.springframework.web.bind.annotation.SessionAttributes;
 import org.springframework.web.bind.support.SessionStatus;
 
 import com.cuentas.proyectocuentas.model.Compromiso;
+import com.cuentas.proyectocuentas.model.TipoCompromiso;
+import com.cuentas.proyectocuentas.model.Usuario;
 import com.cuentas.proyectocuentas.service.ICompromisoService;
+import com.cuentas.proyectocuentas.service.ITipoCompromisoService;
+import com.cuentas.proyectocuentas.service.IUsuarioService;
 
 
 
@@ -24,6 +30,10 @@ import com.cuentas.proyectocuentas.service.ICompromisoService;
 public class CompromisoController {
     @Autowired
 private ICompromisoService compromisod;
+@Autowired
+private IUsuarioService usuarioI;
+@Autowired
+private ITipoCompromisoService tipocompromisod;
     
     
     @GetMapping("/compromiso")     
@@ -33,7 +43,11 @@ private ICompromisoService compromisod;
     
         @GetMapping("/registrar")     
         public String registrar(Model m){
-            Compromiso compromiso=new Compromiso();
+             Compromiso compromiso=new Compromiso();
+ List<Usuario> usuario= usuarioI.findAll();
+ m.addAttribute("usuario",usuario);
+ List<TipoCompromiso> tipocompromiso= tipocompromisod.findAll();
+ m.addAttribute("tipocompromiso",tipocompromiso);
             m.addAttribute("compromiso",compromiso);
             m.addAttribute("accion","Registrar Compromiso");
             return "views/compromiso/registrar"; 

@@ -60,6 +60,8 @@
             <td th:text="${g.metodoPago}"></td>
             <td th:text="${g.totalPago}"></td>
             <td th:text="${g.fotoFactura}"></td>
+            <td th:text="${g.usuario.nombreUsuario}"></td>
+            <td th:text="${g.tipocompromiso.nombre}"></td>
             <td th:text="${g.estadoPago}"></td>
             <td th:if="${g.estado_ca==true}"> 
                 <span class="badge bg-success active">Activo</span> 
