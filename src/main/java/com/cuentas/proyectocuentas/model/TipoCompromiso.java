@@ -32,19 +32,19 @@ public class TipoCompromiso {
     private String descripcion;
     
     
-     @OneToMany(mappedBy =  "tipocompromiso",fetch = FetchType.LAZY,cascade=CascadeType.ALL )
+    @OneToMany(mappedBy =  "tipocompromiso",fetch = FetchType.LAZY,cascade=CascadeType.ALL )
     private List<Compromiso>compromiso;
 
     public List<Compromiso>getCompromiso(){
-      return compromiso;  
+       return compromiso;  
     }
 
     public void setCompromiso( List<Compromiso>compromiso){
-        this.compromiso=compromiso;
+         this.compromiso=compromiso;
     }
 
     public TipoCompromiso(List<Compromiso>compromiso) {
-        this.compromiso=compromiso;  
+         this.compromiso=compromiso;  
     }
 
     public TipoCompromiso() {
@@ -56,23 +56,30 @@ public class TipoCompromiso {
         this.nombre = nombre;
         this.descripcion = descripcion;
     }
+
     public Integer getId() {
         return id;
     }
+
     public void setId(Integer id) {
         this.id = id;
     }
+
     public String getNombre() {
         return nombre;
     }
+
     public void setNombre(String nombre) {
         this.nombre = nombre;
     }
+
     public String getDescripcion() {
         return descripcion;
     }
+
     public void setDescripcion(String descripcion) {
         this.descripcion = descripcion;
     }
+    
     
     }

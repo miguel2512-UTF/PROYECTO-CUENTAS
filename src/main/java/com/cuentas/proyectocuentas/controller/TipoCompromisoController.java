@@ -35,7 +35,7 @@ public class TipoCompromisoController {
         @GetMapping("/form")
         public String form(Model m){
             TipoCompromiso tipocompromiso=new TipoCompromiso();
-        m.addAttribute("tipocompromisod", tipocompromiso);
+        m.addAttribute("tipocompromiso", tipocompromiso);
         m.addAttribute("accion",
     "Registrar tipocompromiso");
         return "views/tipocompromiso/form";
