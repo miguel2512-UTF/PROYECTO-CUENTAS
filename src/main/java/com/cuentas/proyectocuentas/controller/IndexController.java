@@ -28,6 +28,11 @@ public class IndexController {
         return "redirect:/compromiso/listar";
     }
 
+    @GetMapping("/tipocompromiso")
+    public String tipocompromiso(){
+        return "redirect:/tipocompromiso/listar";
+    }
+
     @GetMapping("/inicio")
     public String inicio(){
         return "views/principal-admin";
