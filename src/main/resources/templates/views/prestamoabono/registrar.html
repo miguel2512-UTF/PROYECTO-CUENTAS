@@ -19,7 +19,7 @@
             <input  type="date" name="fechaAbono" id="fechaAbono" th:field="*{fechaAbono}" placeholder="Ejemplo: 21/07/2022"><br><br>
             <div th:if="${#fields.hasErrors('fechaAbono')}" th:errors="*{fechaAbono}"></div>
 
-            <label for="totalAbono"><strong>Nombre Prestamista</strong></label><br>
+            <label for="totalAbono"><strong>Total Abono</strong></label><br>
             <input  type="number" name="totalAbono" id="totalAbono" th:field="*{totalAbono}" placeholder="Ejemplo: 250000"><br><br>
             <div th:if="${#fields.hasErrors('totalAbono')}" th:errors="*{totalAbono}"></div>
 

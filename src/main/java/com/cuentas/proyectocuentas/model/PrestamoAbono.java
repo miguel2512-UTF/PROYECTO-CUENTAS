@@ -22,12 +22,12 @@ public class PrestamoAbono {
 
     @Column(name = "totalAbono", length =10)
     @NotEmpty
-    private Double totalAbono;
+    private String totalAbono;
 
     public PrestamoAbono() {
     }
 
-    public PrestamoAbono(Integer idPrestamoAbono, @NotEmpty String fechaAbono, @NotEmpty Double totalAbono) {
+    public PrestamoAbono(Integer idPrestamoAbono, @NotEmpty String fechaAbono, @NotEmpty String totalAbono) {
         this.idPrestamoAbono = idPrestamoAbono;
         this.fechaAbono = fechaAbono;
         this.totalAbono = totalAbono;
@@ -49,15 +49,13 @@ public class PrestamoAbono {
         this.fechaAbono = fechaAbono;
     }
 
-    public Double getTotalAbono() {
+    public String getTotalAbono() {
         return totalAbono;
     }
 
-    public void setTotalAbono(Double totalAbono) {
+    public void setTotalAbono(String totalAbono) {
         this.totalAbono = totalAbono;
     }
-
-    
 
     
 }
