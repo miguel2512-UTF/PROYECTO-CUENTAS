@@ -1,12 +1,15 @@
 package com.cuentas.proyectocuentas.model;
 
+import java.io.File;
 import java.sql.Date;
 
 import javax.persistence.Column;
 import javax.persistence.Entity;
+import javax.persistence.FetchType;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
+import javax.persistence.ManyToOne;
 import javax.persistence.Table;
 import javax.validation.constraints.NotEmpty;
 @Entity
@@ -45,16 +48,49 @@ public class Compromiso {
     @NotEmpty
     private Integer totalPago;
 
-
-    @Column(length = 10, nullable = false)
+    @Column(length = 15, nullable = false)
     @NotEmpty
-    private String estadoPago;
+    private File fotoFactura;
 
-    public Compromiso() {
-    }
+    @NotEmpty
+ private String estadoPago;
+
+ @ManyToOne(fetch = FetchType.LAZY)
+private Usuario usuario;
+
+ public Usuario getUsuario(){
+return usuario;
+ }
+
+ public void setUsuario( Usuario usuario){
+ this.usuario=usuario;
+ }
+
+ public Compromiso(Usuario usuario) {
+ this.usuario=usuario;
+ }
+
+ @ManyToOne(fetch = FetchType.LAZY)
+ private TipoCompromiso tipocompromiso;
+ 
+  public TipoCompromiso  geisTipoCompromiso(){
+ return tipocompromiso;
+  }
+ 
+  public void setTipoCompromiso( TipoCompromiso tipocompromiso){
+  this.tipocompromiso =tipocompromiso;
+  }
+ 
+  public Compromiso( TipoCompromiso tipocompromiso) {
+  this.tipocompromiso=tipocompromiso;
+  }
+
+public Compromiso(){
+    
+}
 
     public Compromiso(Integer idCompromiso, String tipoCompromiso, String numeroFactura, String nombreEmpresa,
-            Date fechaPagoOpor, Date fechaSuspen,String metodoPago, Integer totalPago, String estadoPago) {
+            Date fechaPagoOpor, Date fechaSuspen,String metodoPago, Integer totalPago, File fotoFactura, String estadoPago) {
         this.idCompromiso = idCompromiso;
         this.tipoCompromiso = tipoCompromiso;
         this.numeroFactura = numeroFactura;
@@ -63,6 +99,7 @@ public class Compromiso {
         this.fechaSuspen = fechaSuspen;
         this.metodoPago = metodoPago;
         this.totalPago = totalPago;
+        this.fotoFactura = fotoFactura;
         this.estadoPago = estadoPago;
         
     }
@@ -131,6 +168,14 @@ public class Compromiso {
         this.totalPago = totalPago;
     }
 
+    public File getFotoFactura() {
+        return fotoFactura;
+    }
+
+    public void setFotoFactura(File fotoFactura) {
+        this.fotoFactura = fotoFactura;
+    }
+
     public String getEstadoPago() {
         return estadoPago;
     }
@@ -138,5 +183,6 @@ public class Compromiso {
     public void setEstadoPago(String estadoPago) {
         this.estadoPago = estadoPago;
     }
-
 }
+
+    

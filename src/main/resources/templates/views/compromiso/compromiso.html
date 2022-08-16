@@ -1,181 +1,24 @@
 <!DOCTYPE html>
-<html xmlns:th="https://wwww.thymeleaf.org" lang="en">
+<html xmlns:th="https://wwww.thymeleaf.org" lang="es">
 <head>
     <meta charset="UTF-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@4.6.2/dist/css/bootstrap.min.css" integrity="sha384-xOolHFLEh07PJGoPkLv1IbcEPTNtaed2xpHsD9ESMhqIYd0nLMwNLD69Npy4HI+N" crossorigin="anonymous">
-    <title>Compromiso</title>
+    <title>COMPROMISO</title>
+    
 </head>
 <body>
-    <h1>Compromiso</h1>
-    <a href="" data-toggle="modal" data-target="#modal-add"><svg xmlns="http://www.w3.org/2000/svg" width="32" height="32" fill="currentColor" class="bi bi-plus-circle-fill" viewBox="0 0 16 16">
-        <path d="M16 8A8 8 0 1 1 0 8a8 8 0 0 1 16 0zM8.5 4.5a.5.5 0 0 0-1 0v3h-3a.5.5 0 0 0 0 1h3v3a.5.5 0 0 0 1 0v-3h3a.5.5 0 0 0 0-1h-3v-3z"/>
-      </svg></a>
-    <table border="1">
-        <tr>
-            <th>ID</th>
-            <th>Tipo de Compromiso</th>
-            <th>Numero Factura</th>
-            <th>Nombre Empresa</th>
-            <th>Fecha de Pago Oportuno</th>
-            <th>Fecha de Suspensión</th>
-            <th>Método de Pago</th>
-            <th>Total a Pagar</th>
-            <th>Estado</th>
-            <th>Acciones</th>
-        </tr>
-        <tr th:each="u:${compromiso}">
-            <td th:text="${u.idCompromiso}"></td>
-            <td th:text="${u.tipoCompromiso}"></td>
-            <td th:text="${u.numeroFactura}"></td>
-            <td th:text="${u.nombreEmpresa}"></td>
-            <td th:text="${u.fechaPagoOpor}"></td>
-            <td th:text="${u.fechaSuspen}"></td>
-            <td th:text="${u.metodoPago}"></td>
-            <td th:text="${u.totalPago}"></td>
-            <td th:text="${u.estadoPago}"></td>
-            <td>
-                <a href="" data-toggle="modal" th:attr="data-target='#modal-editar'+${u.idCompromiso}"><button type="button" class="btn btn-dark"><svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-pen-fill" viewBox="0 0 16 16">
-                <path d="m13.498.795.149-.149a1.207 1.207 0 1 1 1.707 1.708l-.149.148a1.5 1.5 0 0 1-.059 2.059L4.854 14.854a.5.5 0 0 1-.233.131l-4 1a.5.5 0 0 1-.606-.606l1-4a.5.5 0 0 1 .131-.232l9.642-9.642a.5.5 0 0 0-.642.056L6.854 4.854a.5.5 0 1 1-.708-.708L9.44.854A1.5 1.5 0 0 1 11.5.796a1.5 1.5 0 0 1 1.998-.001z"/>
-                </svg></button></a>
-                
-                <!-- MODAL EDITAR -->
-                <div class="modal fade" tabindex="-1" th:id="modal-editar+${u.idCompromiso}">
-                    <div class="modal-dialog">
-                      <div class="modal-content">
-                        <div class="modal-header">
-                          <h5 class="modal-title">Editar Compromiso</h5>
-                        </div>
-                        <div class="modal-body">
-                            <form th:action="@{/compromiso/add}" method="post">
-                                <input type="hidden" name="idCompromiso" id="idCompromiso" th:value="${u.idCompromiso}">
-                                <label for="">Tipo Compromiso</label>
-                                <select name="tipoCompromiso" id="tipoCompromiso" required>
-                                    <option th:value="${u.tipoCompromiso}" th:text="${u.tipoCompromiso}" selected>Seleccionar</option>
-                                    <option value="Agua">Agua</option>
-                                    <option value="Luz">Luz</option>
-                                    <option value="Internet">Internet</option>
-                                    <option value="Gas">Gas</option>
-                                    <option value="Otro">Otro</option>
-                                </select>
-                                <label for="">Numero Factura</label>
-                                <input type="text" name="numeroFactura" id="numeroFactura" autocomplete="off" th:value="${u.numeroFactura}" required>
-                                <label for="">Nombre Empresa</label>
-                                <input type="text" name="nombreEmpresa" id="nombreEmpresa" autocomplete="off" th:value="${u.nombreEmpresa}" required>
-                                <label for="">Fecha Pago Oportuno</label>
-                                <input type="date" name="fechaPagoOpor" id="fechaPagoOpor" autocomplete="off" th:value="${u.fechaPagoOpor}" required>
-                                <label for="">Fecha Suspension</label>
-                                <input type="date" name="fechaSuspen" id="fechaSuspen" autocomplete="off" th:value="${u.fechaSuspen}" required>
-                                <label for="">Metodo De Pago</label>
-                                <select name="metodoPago" id="metodoPago" required>
-                                    <option th:value="${u.metodoPago}" th:text="${u.metodoPago}" selected>Seleccionar</option>
-                                    <option value="Efectivo">Efectivo</option>
-                                    <option value="Aplicacion">Aplicacion</option>
-                                </select>
-                                <label for="">Total Pago</label>
-                                <input type="number" name="totalPago" id="totalPago" autocomplete="off" th:value="${u.totalPago}" required>
-                                <label for="">Estado Pago</label>
-                                <select name="estadoPago" id="estadoPago" required>
-                                    <option th:value="${u.estadoPago}" th:text="${u.estadoPago}" selected>Seleccionar</option>
-                                    <option value="Pagado">Pagado</option>
-                                    <option value="Por Pagar">Por Pagar</option>
-                                </select>
-                        </div>
-                        <div class="modal-footer">
-                            <button type="button" class="btn btn-secondary" data-dismiss="modal">Cancelar</button>
-                            <button type="submit" class="btn btn-primary">Editar</button>
-                            </form>
-                        </div>
-                      </div>
-                    </div>
-                </div>
-
-                <a href="" data-toggle="modal" th:attr="data-target='#modal-delete'+${u.idCompromiso}"><button type="button" class="btn btn-dark"><svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-trash-fill" viewBox="0 0 16 16">
-                <path d="M2.5 1a1 1 0 0 0-1 1v1a1 1 0 0 0 1 1H3v9a2 2 0 0 0 2 2h6a2 2 0 0 0 2-2V4h.5a1 1 0 0 0 1-1V2a1 1 0 0 0-1-1H10a1 1 0 0 0-1-1H7a1 1 0 0 0-1 1H2.5zm3 4a.5.5 0 0 1 .5.5v7a.5.5 0 0 1-1 0v-7a.5.5 0 0 1 .5-.5zM8 5a.5.5 0 0 1 .5.5v7a.5.5 0 0 1-1 0v-7A.5.5 0 0 1 8 5zm3 .5v7a.5.5 0 0 1-1 0v-7a.5.5 0 0 1 1 0z"/>
-                </svg></button></a>
-
-                <!-- MODAL ELIMINAR -->
-                <div class="modal fade" tabindex="-1" th:id="modal-delete+${u.idCompromiso}">
-                    <div class="modal-dialog">
-                      <div class="modal-content">
-                        <div class="modal-header">
-                          <h5 class="modal-title">Eliminar Compromiso</h5>
-                        </div>
-                        <div class="modal-body">
-                            <p>Esta seguro que desea eliminar este compromiso?</p>
-                        </div>
-                        <div class="modal-footer">
-                            <button type="button" class="btn btn-secondary" data-dismiss="modal">Cancelar</button>
-                            <a th:href="@{/compromiso/delete/}+${u.idCompromiso}"><button type="submit" class="btn btn-primary">Eliminar</button></a>
-                        </div>
-                      </div>
-                    </div>
-                </div>
-            </td>
-        </tr>
-    </table>
-
-    <!-- MODAL REGISTRAR -->
-    <div class="modal fade" tabindex="-1" id="modal-add">
-        <div class="modal-dialog">
-          <div class="modal-content">
-            <div class="modal-header">
-              <h5 class="modal-title">Registrar Compromiso</h5>
-            </div>
-            <div class="modal-body">
-                <form th:action="@{/compromiso/add}" method="post" th:object="${compromiso}">
-                    <label for="">Tipo Compromiso</label>
-                    <select th:field="*{tipoCompromiso}"></select>
-                    <option value="Agua">Agua</option>
-                    <option value="Luz">Luz</option>
-                    <option value="Internet">Internet</option>
-                    <option value="Gas">Gas</option>
-                    <option value="Otro">Otro</option>
-                </select>
-                <div class="form-text text-danger" th:if="${#fields.hasErrors('tipoCompromiso')}" th:errors="*{tipoCompromiso}"></div>
-        </div>
-                    
-                    <label for="">Numero Factura</label>
-                    <input type="number" th:field="*{numeroFactura}" autocomplete="off">
-                    <div class="form-text text-danger" th:if="${#fields.hasErrors('numeroFactura')}" th:errors="*{numeroFactura}"></div>
-                    <label for="">Nombre Empresa</label>
-                    <input type="text" th:field="*{nombreEmpresa}" autocomplete="off">
-                    <div class="form-text text-danger" th:if="${#fields.hasErrors('nombreEmpresa')}" th:errors="*{nombreEmpresa}"></div>
-                    <label for="">Fecha Pago Oportuno</label>
-                    <input type="date" th:field="*{fechaPagoOpor}" autocomplete="off">
-                    <div class="form-text text-danger" th:if="${#fields.hasErrors('fechaPagoOpor')}" th:errors="*{fechaPagoOpor}"></div>
-                    <label for="">Fecha Suspension</label>
-                    <input type="date" th:field="*{fechaSuspen}" autocomplete="off">
-                    <div class="form-text text-danger" th:if="${#fields.hasErrors('fechaSuspen')}" th:errors="*{fechaSuspen}"></div>
-                    <label for="">Metodo De Pago</label>
-                    <select th:field="*{metodoPago}">
-                        <option value="" selected>Seleccionar</option>
-                        <option value="Efectivo">Efectivo</option>
-                        <option value="Aplicacion">Aplicacion</option>
-                    </select>
-                    <label for="">Total Pago</label>
-                    <input type="number" th:field="*{totalPago}" autocomplete="off">
-                    <div class="form-text text-danger" th:if="${#fields.hasErrors('totalPago')}" th:errors="*{totalPago}"></div>
-                    <div class="form-text text-danger" th:if="${#fields.hasErrors('estadoPago')}" th:errors="*{estadoPago}"></div>
-                    <label for="">Estado Pago</label>
-                    <select th:field="*{estadoPago}">
-                        <option value="" selected>Seleccionar</option>
-                        <option value="Pagado">Pagado</option>
-                        <option value="Por Pagar">Por Pagar</option>
-                    </select>
-                    <div class="form-text text-danger" th:if="${#fields.hasErrors('estadoPago')}" th:errors="*{estadoPago}"></div>
-            </div>
-            <div class="modal-footer">
-                <button type="button" class="btn btn-secondary" data-dismiss="modal">Cancelar</button>
-                <button type="submit" class="btn btn-primary">Registrar</button>
-                </form>
-            </div>
-          </div>
-        </div>
-    </div>
-
-    <script src="https://cdn.jsdelivr.net/npm/jquery@3.5.1/dist/jquery.slim.min.js" integrity="sha384-DfXdz2htPH0lsSSs5nCTpuj/zy4C+OGpamoFVy38MVBnE+IbbVYUew+OrCXaRkfj" crossorigin="anonymous"></script>
-    <script src="https://cdn.jsdelivr.net/npm/bootstrap@4.6.2/dist/js/bootstrap.bundle.min.js" integrity="sha384-Fy6S3B9q64WdZWQUiU+q4/2Lc9npb8tCaSX9FK7E8HnRr0Jz8D6OP9dO5Vg3Q9ct" crossorigin="anonymous"></script>
+    <img center width="100" height="100"  src="https://thumbs.dreamstime.com/b/icono-del-micr%C3%B3fono-47049340.jpg">
+    <header>
+        <nav>
+            <ul>
+                <li class="nav-item"><a  th:href="@{/compromiso/registrar}"><B>REGISTRAR</B></a></li>
+                <li class="nav-item"><a  th:href="@{/compromiso/listar}"><B>LISTADO</B></a></li>
+            </ul>
+        </nav>
+        
+    </header>
+    
+    
 </body>
 </html>

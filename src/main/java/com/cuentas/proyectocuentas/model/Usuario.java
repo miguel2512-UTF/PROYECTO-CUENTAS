@@ -1,11 +1,18 @@
 package com.cuentas.proyectocuentas.model;
 
+import java.util.ArrayList;
+import java.util.List;
+
+import javax.persistence.CascadeType;
 import javax.persistence.Column;
 import javax.persistence.Entity;
+import javax.persistence.FetchType;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
+import javax.persistence.OneToMany;
 import javax.persistence.Table;
+import javax.validation.constraints.Email;
 import javax.validation.constraints.NotEmpty;
 
 @Entity
@@ -26,6 +33,7 @@ public class Usuario {
 
     @Column(length = 50, nullable = false)
     @NotEmpty
+    @Email
     private String correoUsuario;
 
     @Column(length = 15, nullable = false)
@@ -36,9 +44,24 @@ public class Usuario {
     @NotEmpty
     private String estadoUsuario;
 
-    public Usuario() {
+    @OneToMany(mappedBy =  "usuario",fetch = FetchType.LAZY,cascade=CascadeType.ALL )
+    private List<Compromiso>compromiso;
+
+    public List<Compromiso>getCompromiso(){
+      return compromiso;  
     }
 
+    public void setCompromiso( List<Compromiso>compromiso){
+        this.compromiso=compromiso;
+    }
+
+    public Usuario(List<Compromiso>compromiso) {
+        this.compromiso=compromiso;  
+    }
+
+    public Usuario() {
+        compromiso=new ArrayList<Compromiso>();
+    }
     public Usuario(int idUsuario, String nombreUsuario, String contrasenaUsuario, String correoUsuario,
             String tipoUsuario, String estadoUsuario) {
         this.idUsuario = idUsuario;

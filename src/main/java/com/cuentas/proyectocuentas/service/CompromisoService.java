@@ -9,29 +9,38 @@ import com.cuentas.proyectocuentas.model.Compromiso;
 import com.cuentas.proyectocuentas.model.ICompromiso;
 
 
+
 @Service
-public class CompromisoService implements ICompromisoService{
+public class CompromisoService implements ICompromisoService {
+    
+    
     @Autowired
-    private ICompromiso compromisoI;
+        private ICompromiso compromisod;
+    
+        @Override
+        public List<Compromiso> findAll() {
+            
+            return (List<Compromiso>) compromisod.findAll();
+        }
+    
+        @Override
+        public void save(Compromiso compromiso) {
+            compromisod.save(compromiso);        
+        }
+    
+        @Override
+        public Compromiso findOne(Integer idCompromiso) {
+            
+            return compromisod.findById(idCompromiso).orElse(null);
+        }
+    
+        @Override
+        public void delete(Integer idCompromiso) {
+            compromisod.deleteById(idCompromiso);
+            
+        }
+     
+    }  
 
-    @Override
-    public List<Compromiso> findAll() {
-        return (List<Compromiso>) compromisoI.findAll();
-    }
 
-    @Override
-    public void save(Compromiso compromiso) {
-        compromisoI.save(compromiso);
-    }
-
-    @Override
-    public Compromiso findOne(Integer idCompromiso) {
-        return compromisoI.findById(idCompromiso).orElse(null);
-    }
-
-    @Override
-    public void delete(Integer idCompromiso) {
-        compromisoI.deleteById(idCompromiso);
-    }
-}
 
