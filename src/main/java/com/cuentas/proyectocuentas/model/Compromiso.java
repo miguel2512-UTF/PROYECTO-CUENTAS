@@ -73,7 +73,7 @@ return usuario;
  @ManyToOne(fetch = FetchType.LAZY)
  private TipoCompromiso tipocompromiso;
  
-  public TipoCompromiso  geisTipoCompromiso(){
+  public TipoCompromiso  getTipoCompromiso(){
  return tipocompromiso;
   }
  
@@ -112,13 +112,6 @@ public Compromiso(){
         this.idCompromiso = idCompromiso;
     }
 
-    public String getTipoCompromiso() {
-        return tipoCompromiso;
-    }
-
-    public void setTipoCompromiso(String tipoCompromiso) {
-        this.tipoCompromiso = tipoCompromiso;
-    }
 
     public String getNumeroFactura() {
         return numeroFactura;
