@@ -59,8 +59,16 @@ public class Usuario {
         this.compromiso=compromiso;  
     }
 
+    /*Relacion de uno a mucho(Usuario a Prestamo) */
+
+    @OneToMany(mappedBy = "usuario", fetch = FetchType.LAZY, cascade = CascadeType.ALL)
+    private List<Prestamo> prestamo;
+
+
     public Usuario() {
         compromiso=new ArrayList<Compromiso>();
+
+        prestamo=new ArrayList<Prestamo>();
     }
     public Usuario(int idUsuario, String nombreUsuario, String contrasenaUsuario, String correoUsuario,
             String tipoUsuario, String estadoUsuario) {

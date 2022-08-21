@@ -51,7 +51,7 @@ public class PrestamoController {
         Prestamo prestamo = new Prestamo();
         m.addAttribute("prestamo", prestamo);
         return "views/prestamo/registrar";
-    }
+    } 
 
 
     //EDITAR

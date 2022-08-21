@@ -1,22 +1,31 @@
 package com.cuentas.proyectocuentas.model;
 
+import java.util.ArrayList;
+import java.util.List;
+
+import javax.persistence.CascadeType;
 import javax.persistence.Column;
 import javax.persistence.Entity;
+import javax.persistence.FetchType;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
+import javax.persistence.ManyToMany;
+import javax.persistence.OneToMany;
 import javax.persistence.Table;
 import javax.validation.constraints.NotEmpty;
+import javax.validation.constraints.Size;
 
 @Entity
 @Table(name="Prestamo")
 public class Prestamo {
-    
+     
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Integer idPrestamo;
 
     @Column(name = "documentoPrestamista", length = 10)
+    @Size(min=10, max=10)
     @NotEmpty
     private String documentoPrestamista;
 
@@ -48,7 +57,17 @@ public class Prestamo {
     @Column(name = "estadoPrestamo", length =10)
     private String estadoPrestamo;
 
+    /*Relacion de muchos a uno (Prestamo a Usuario) */
+
+    @ManyToMany(fetch = FetchType.LAZY)
+    private Usuario usuario;
+
+    /*Relacion de uno a mucho (Prestamo a Abono) */
+    @OneToMany(mappedBy = "prestamo", fetch = FetchType.LAZY, cascade = CascadeType.ALL)
+    private List<PrestamoAbono> prestamoabono;
+
     public Prestamo() {
+        prestamoabono= new ArrayList<PrestamoAbono>();
     }
 
     public Prestamo(Integer idPrestamo, @NotEmpty String documentoPrestamista, @NotEmpty String nombrePrestamista,

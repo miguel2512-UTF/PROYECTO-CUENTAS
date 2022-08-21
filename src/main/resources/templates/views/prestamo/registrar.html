@@ -4,11 +4,11 @@
     <meta charset="UTF-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Editar Prestamo</title>
+    <title>Registrar Prestamo</title>
 </head>
-<body>
+<body> 
 
-    <h1>Registrar Prestamo</h1>
+    <h1>Registrar Prestamo</h1> 
 
     <section>
         <form th:action="@{/prestamo/add}" th:object="${prestamo}" method="post">
@@ -36,7 +36,14 @@
             <div th:if="${#fields.hasErrors('tasaPrestamo')}" th:errors="*{tasaPrestamo}"></div>
 
             <label for="periodoCuota"><strong>Periodo Cuotas</strong></label><br>
-            <input  type="text" name="periodoCuota" id="periodoCuota" th:field="*{periodoCuota}" placeholder="Ejemplo: Mensual"><br><br>
+            <select name="peridoCuota" id="peridoCuota" th:field="*{periodoCuota}">
+                <option value="">Selecciona una opción</option>
+                <option value="Mensual">Mensual</option>
+                <option value="Trimestral">Trimestral</option>
+                <option value="Cuatrimensual">Cuatrimensual</option>
+                <option value="Quinquemestral">Quinquemestral</option>
+                <option value="Semestral">Semestral</option>
+            </select><br><br>
             <div th:if="${#fields.hasErrors('periodoCuota')}" th:errors="*{periodoCuota}"></div>
 
             <label for="numeroCuotas"><strong>Número Cuotas</strong></label><br>

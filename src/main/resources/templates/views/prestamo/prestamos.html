@@ -65,6 +65,7 @@
                         <th>Tasa de Préstamo</th>
                         <th>Periodo de Cuotas</th>
                         <th>Número de Cuotas</th>
+                        <th>Abonos</th>
                         <th>Estado</th>
                         <th>Acciones</th>
                     </tr>
@@ -77,11 +78,14 @@
                         <td th:text="${Pr.tasaPrestamo}"></td>
                         <td th:text="${Pr.periodoCuota}"></td>
                         <td th:text="${Pr.numeroCuotas}"></td>
-                        <td th:text="${Pr.estadoPrestamo}"></td>
                         <td>
                             <button>
                                 <a role="button" th:href="prestamoabono">Abono</a>
                             </button>
+                        </td>
+                        <td th:text="${Pr.estadoPrestamo}"></td>
+                        <td>
+                            
                             <button>
                                 <a role="button" th:href="@{/prestamo/editar/}+${Pr.idPrestamo}">Editar</a>
                             </button>

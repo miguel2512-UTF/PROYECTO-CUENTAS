@@ -36,7 +36,14 @@
             <div th:if="${#fields.hasErrors('tasaPrestamo')}" th:errors="*{tasaPrestamo}"></div>
 
             <label for="periodoCuota"><strong>Periodo Cuotas</strong></label><br>
-            <input  type="text" name="periodoCuota" id="periodoCuota" th:field="*{periodoCuota}" placeholder="Ejemplo: 1079032167"><br><br>
+            <select name="peridoCuota" id="peridoCuota" th:field="*{periodoCuota}">
+                <option value="">Selecciona una opción</option>
+                <option value="Mensual">Mensual</option>
+                <option value="Trimestral">Trimestral</option>
+                <option value="Cuatrimensual">Cuatrimensual</option>
+                <option value="Quinquemestral">Quinquemestral</option>
+                <option value="Semestral">Semestral</option>
+            </select><br><br>
             <div th:if="${#fields.hasErrors('periodoCuota')}" th:errors="*{periodoCuota}"></div>
 
             <label for="numeroCuotas"><strong>Número Cuotas</strong></label><br>
@@ -47,7 +54,7 @@
             <input  type="text" name="estadoPrestamo" id="estadoPrestamo" th:field="*{estadoPrestamo}" placeholder="Ejemplo: 1079032167"><br><br>
             <div th:if="${#fields.hasErrors('estadoPrestamo')}" th:errors="*{estadoPrestamo}"></div>
 
-            <button type="submit">Registrar Prestamo</button>
+            <button type="submit">Editar Prestamo</button>
 
         </form>
     </section>
