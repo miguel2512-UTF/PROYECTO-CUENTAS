@@ -30,7 +30,9 @@ public class TipoCompromiso {
     @NotEmpty
     @Column(length = 200,nullable=false)
     private String descripcion;
-    
+    @NotEmpty
+    private String estado;
+
     
     @OneToMany(mappedBy =  "tipocompromiso",fetch = FetchType.LAZY,cascade=CascadeType.ALL )
     private List<Compromiso>compromiso;
@@ -50,11 +52,13 @@ public class TipoCompromiso {
     public TipoCompromiso() {
         compromiso=new ArrayList<Compromiso>();
     }
-    
-    public TipoCompromiso(Integer id,  String nombre, String descripcion) {
+
+    public TipoCompromiso(Integer id,String nombre,String descripcion,
+            String estado) {
         this.id = id;
         this.nombre = nombre;
         this.descripcion = descripcion;
+        this.estado = estado;
     }
 
     public Integer getId() {
@@ -80,6 +84,18 @@ public class TipoCompromiso {
     public void setDescripcion(String descripcion) {
         this.descripcion = descripcion;
     }
+
+    public String getEstado() {
+        return estado;
+    }
+
+    public void setEstado(String estado) {
+        this.estado = estado;
+    }
+    
+
+
+   
     
     
     }

@@ -73,5 +73,21 @@ public class TipoCompromisoController {
                 tipocompromisod.delete(id);
             }
             return "redirect:../listar";
-        }}
+        }
+
+        @GetMapping("/estado/{id}")
+        public String estado(@PathVariable Integer id){
+            TipoCompromiso tipocompromiso = new TipoCompromiso();
+            tipocompromiso=tipocompromisod.findOne(id);
+            if (tipocompromiso.getEstado().equalsIgnoreCase("activo")) {
+                tipocompromiso.setEstado("Inactivo");
+                tipocompromisod.save(tipocompromiso);
+            }else if (tipocompromiso.getEstado().equalsIgnoreCase("inactivo")) {
+                tipocompromiso.setEstado("Activo");
+                tipocompromisod.save(tipocompromiso);
+            }
+            return "redirect:/tipocompromiso/listar";
+        }
+
+}
 
