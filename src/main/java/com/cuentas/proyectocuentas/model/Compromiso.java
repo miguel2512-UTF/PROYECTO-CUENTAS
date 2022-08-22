@@ -1,7 +1,5 @@
 package com.cuentas.proyectocuentas.model;
 
-import java.io.File;
-import java.sql.Date;
 
 import javax.persistence.Column;
 import javax.persistence.Entity;
@@ -12,170 +10,162 @@ import javax.persistence.Id;
 import javax.persistence.ManyToOne;
 import javax.persistence.Table;
 import javax.validation.constraints.NotEmpty;
+
 @Entity
-@Table(name="Compromiso")
+@Table(name="compromiso")
+
 public class Compromiso {
-
     @Id
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private Integer idCompromiso;
+	@GeneratedValue(strategy = GenerationType.IDENTITY)
+	private Integer idCom;
 
-    @Column(length = 30, nullable = false)
-    @NotEmpty
-    private String tipoCompromiso;
+    @Column(name="numeroFac", length=50)
+	@NotEmpty
+	private String numeroFac;
 
-    @Column(length = 15, nullable = false)
-    @NotEmpty
-    private String numeroFactura;
-
-    @Column(length = 50, nullable = false)
-    @NotEmpty
-    private String nombreEmpresa;
-
-    @Column(length = 50, nullable = false)
-    @NotEmpty
-    private Date fechaPagoOpor;
-
-    @Column(length = 50, nullable = false)
-    @NotEmpty
-    private Date fechaSuspen;
-
-    @Column(length = 15, nullable = false)
-    @NotEmpty
-    private String metodoPago;
-
-    @Column(length = 15, nullable = false)
-    @NotEmpty
-    private Integer totalPago;
-
-    @Column(length = 15, nullable = false)
-    @NotEmpty
-    private File fotoFactura;
-
-    @NotEmpty
- private String estadoPago;
-
- @ManyToOne(fetch = FetchType.LAZY)
-private Usuario usuario;
-
- public Usuario getUsuario(){
-return usuario;
- }
-
- public void setUsuario( Usuario usuario){
- this.usuario=usuario;
- }
-
- public Compromiso(Usuario usuario) {
- this.usuario=usuario;
- }
-
- @ManyToOne(fetch = FetchType.LAZY)
- private TipoCompromiso tipocompromiso;
- 
-  public TipoCompromiso  getTipoCompromiso(){
- return tipocompromiso;
-  }
- 
-  public void setTipoCompromiso( TipoCompromiso tipocompromiso){
-  this.tipocompromiso =tipocompromiso;
-  }
- 
-  public Compromiso( TipoCompromiso tipocompromiso) {
-  this.tipocompromiso=tipocompromiso;
-  }
-
-public Compromiso(){
+	@Column(name="nombreEm", length=30)
+	@NotEmpty
+	private String nombreEm; 
     
-}
+	@Column(name="fecha")
+	@NotEmpty
+	private String fecha;
 
-    public Compromiso(Integer idCompromiso, String tipoCompromiso, String numeroFactura, String nombreEmpresa,
-            Date fechaPagoOpor, Date fechaSuspen,String metodoPago, Integer totalPago, File fotoFactura, String estadoPago) {
-        this.idCompromiso = idCompromiso;
-        this.tipoCompromiso = tipoCompromiso;
-        this.numeroFactura = numeroFactura;
-        this.nombreEmpresa = nombreEmpresa;
-        this.fechaPagoOpor = fechaPagoOpor;
-        this.fechaSuspen = fechaSuspen;
-        this.metodoPago = metodoPago;
-        this.totalPago = totalPago;
-        this.fotoFactura = fotoFactura;
-        this.estadoPago = estadoPago;
-        
+	@Column(name="fechaS")
+	@NotEmpty
+	private String fechaS;
+
+	@Column(name="metodo", length=20)
+	@NotEmpty
+	private String metodo;
+
+    @Column(name="total")
+	@NotEmpty
+	private String total;
+
+
+	
+	private boolean estadoCom;
+
+	@ManyToOne(fetch = FetchType.LAZY)
+	private Usuario usuario;
+	
+
+
+	
+	public Usuario getUsuario() {
+		return usuario;
+	}
+
+	public void setUsuario(Usuario usuario) {
+		this.usuario = usuario;
+	}
+
+	public Compromiso(Usuario usuario) {
+		this.usuario = usuario;
+	}
+    @ManyToOne(fetch = FetchType.LAZY)
+	private TipoCompromiso tipocompromiso;
+	
+
+
+	
+	public TipoCompromiso getTipoCompromiso() {
+		return tipocompromiso;
+	}
+
+	public void setTipoCompromiso(TipoCompromiso tipocompromiso) {
+		this.tipocompromiso = tipocompromiso;
+	}
+
+	public Compromiso(TipoCompromiso tipocompromiso) {
+		this.tipocompromiso = tipocompromiso;
+	}
+    public Compromiso() {
+		
+	}
+
+    public Compromiso(Integer idCom, @NotEmpty String numeroFac, @NotEmpty String nombreEm, @NotEmpty String fecha,
+            @NotEmpty String fechaS, @NotEmpty String metodo, @NotEmpty String total, boolean estadoCom) {
+        this.idCom = idCom;
+        this.numeroFac = numeroFac;
+        this.nombreEm = nombreEm;
+        this.fecha = fecha;
+        this.fechaS = fechaS;
+        this.metodo = metodo;
+        this.total = total;
+        this.estadoCom = estadoCom;
     }
 
-    public Integer getIdCompromiso() {
-        return idCompromiso;
+    public Integer getIdCom() {
+        return idCom;
     }
 
-    public void setIdCompromiso(Integer idCompromiso) {
-        this.idCompromiso = idCompromiso;
+    public void setIdCom(Integer idCom) {
+        this.idCom = idCom;
     }
 
-
-    public String getNumeroFactura() {
-        return numeroFactura;
+    public String getNumeroFac() {
+        return numeroFac;
     }
 
-    public void setNumeroFactura(String numeroFactura) {
-        this.numeroFactura = numeroFactura;
+    public void setNumeroFac(String numeroFac) {
+        this.numeroFac = numeroFac;
     }
 
-    public String getNombreEmpresa() {
-        return nombreEmpresa;
+    public String getNombreEm() {
+        return nombreEm;
     }
 
-    public void setNombreEmpresa(String nombreEmpresa) {
-        this.nombreEmpresa = nombreEmpresa;
+    public void setNombreEm(String nombreEm) {
+        this.nombreEm = nombreEm;
     }
 
-    public Date getFechaPagoOpor() {
-        return fechaPagoOpor;
+    public String getFecha() {
+        return fecha;
     }
 
-    public void setFechaPagoOpor(Date fechaPagoOpor) {
-        this.fechaPagoOpor = fechaPagoOpor;
+    public void setFecha(String fecha) {
+        this.fecha = fecha;
     }
 
-    public Date getFechaSuspen() {
-        return fechaSuspen;
+    public String getFechaS() {
+        return fechaS;
     }
 
-    public void setFechaSuspen(Date fechaSuspen) {
-        this.fechaSuspen = fechaSuspen;
+    public void setFechaS(String fechaS) {
+        this.fechaS = fechaS;
     }
 
-    public String getMetodoPago() {
-        return metodoPago;
+    public String getMetodo() {
+        return metodo;
     }
 
-    public void setMetodoPago(String metodoPago) {
-        this.metodoPago = metodoPago;
+    public void setMetodo(String metodo) {
+        this.metodo = metodo;
     }
 
-    public Integer getTotalPago() {
-        return totalPago;
+    public String getTotal() {
+        return total;
     }
 
-    public void setTotalPago(Integer totalPago) {
-        this.totalPago = totalPago;
+    public void setTotal(String total) {
+        this.total = total;
     }
 
-    public File getFotoFactura() {
-        return fotoFactura;
+    public boolean isEstadoCom() {
+        return estadoCom;
     }
 
-    public void setFotoFactura(File fotoFactura) {
-        this.fotoFactura = fotoFactura;
+    public void setEstadoCom(boolean estadoCom) {
+        this.estadoCom = estadoCom;
     }
 
-    public String getEstadoPago() {
-        return estadoPago;
-    }
-
-    public void setEstadoPago(String estadoPago) {
-        this.estadoPago = estadoPago;
-    }
-}
+   
 
     
+	
+
+	
+    
+}

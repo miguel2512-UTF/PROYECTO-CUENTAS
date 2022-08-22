@@ -44,20 +44,23 @@ public class Usuario {
     @NotEmpty
     private String estadoUsuario;
 
-    @OneToMany(mappedBy =  "usuario",fetch = FetchType.LAZY,cascade=CascadeType.ALL )
-    private List<Compromiso>compromiso;
+   @OneToMany(mappedBy = "usuario",fetch = FetchType.LAZY, cascade =CascadeType.ALL)
+private List<Compromiso> compromiso;
 
-    public List<Compromiso>getCompromiso(){
-      return compromiso;  
-    }
 
-    public void setCompromiso( List<Compromiso>compromiso){
-        this.compromiso=compromiso;
-    }
 
-    public Usuario(List<Compromiso>compromiso) {
-        this.compromiso=compromiso;  
-    }
+	public List<Compromiso> getCompromiso() {
+		return compromiso;
+	}
+
+	public void setCompromiso(List<Compromiso> compromiso) {
+		this.compromiso = compromiso;
+	}
+
+	public Usuario(List<Compromiso> compromiso) {
+		this.compromiso = compromiso;
+	}
+
 
     /*Relacion de uno a mucho(Usuario a Prestamo) */
 
@@ -66,8 +69,8 @@ public class Usuario {
 
 
     public Usuario() {
+        
         compromiso=new ArrayList<Compromiso>();
-
         prestamo=new ArrayList<Prestamo>();
     }
     public Usuario(int idUsuario, String nombreUsuario, String contrasenaUsuario, String correoUsuario,
