@@ -27,8 +27,8 @@ public class Usuario {
     @NotEmpty
     private String nombreUsuario;
 
-    @Column(length = 15, nullable = false)
-    @NotEmpty
+    @Column(length = 50, nullable = false)
+    // @NotEmpty
     private String contrasenaUsuario;
 
     @Column(length = 50, nullable = false)

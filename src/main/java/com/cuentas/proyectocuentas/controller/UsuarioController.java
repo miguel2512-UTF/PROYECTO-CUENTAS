@@ -34,10 +34,13 @@ public class UsuarioController {
         m.addAttribute("usuarios", usuarioI.findAll());
 
         if (res.hasErrors()) {
-            // atts.addAttribute("hasErrors",true);
             return "views/usuario/usuario";
         }
 
+        if (usuario.getIdUsuario()==0) {
+            usuario.setContrasenaUsuario(usuario.getCorreoUsuario());
+        }
+        
         usuarioI.save(usuario);
         return "redirect:/usuario/listar";
     }

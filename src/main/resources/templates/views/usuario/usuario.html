@@ -8,14 +8,45 @@
     <title>Usuario</title>
     <script src="https://cdn.jsdelivr.net/npm/jquery@3.5.1/dist/jquery.slim.min.js" integrity="sha384-DfXdz2htPH0lsSSs5nCTpuj/zy4C+OGpamoFVy38MVBnE+IbbVYUew+OrCXaRkfj" crossorigin="anonymous"></script>
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@4.6.2/dist/js/bootstrap.bundle.min.js" integrity="sha384-Fy6S3B9q64WdZWQUiU+q4/2Lc9npb8tCaSX9FK7E8HnRr0Jz8D6OP9dO5Vg3Q9ct" crossorigin="anonymous"></script>
-</head>
+    <link rel="stylesheet" type="text/css" href="https://cdn.jsdelivr.net/gh/mobius1/vanilla-Datatables@latest/vanilla-dataTables.min.css">
+    <script type="text/javascript" src="https://cdn.jsdelivr.net/gh/mobius1/vanilla-Datatables@latest/vanilla-dataTables.min.js"></script>
+    <script th:inline="javascript">
+      function mostrar(){
+        var checkbox = document.getElementById('mostrar');
+        var row = document.getElementById('tablerow');
+        var estado = document.getElementById('estado');
+
+        if (checkbox.checked==true) {
+          row.setAttribute('th:if',"");
+          row.setAttribute('style','color:white');
+          if (estado=="Activo") {
+            row.setAttribute('style','display:none');
+          }
+        }else{
+          row.setAttribute('th:if',"${u.estadoUsuario.equalsIgnoreCase('inactivo')}");
+        }
+      }
+    </script>
+  </head>
 <body>
     <h1>Usuario</h1>
     <a href="" data-toggle="modal" data-target="#modal-add"><svg xmlns="http://www.w3.org/2000/svg" width="32" height="32" fill="currentColor" class="bi bi-plus-circle-fill" viewBox="0 0 16 16">
         <path d="M16 8A8 8 0 1 1 0 8a8 8 0 0 1 16 0zM8.5 4.5a.5.5 0 0 0-1 0v3h-3a.5.5 0 0 0 0 1h3v3a.5.5 0 0 0 1 0v-3h3a.5.5 0 0 0 0-1h-3v-3z"/>
       </svg></a>
-    <table border="1">
-        <tr>
+    
+    <div class="alerta">
+        <div class="alert alert-warning alert-dismissible fade show" role="alert" th:if="${usuarios.size()==0}">
+        <strong>Precaución!</strong> No hay usuarios para mostrar
+        <button type="button" class="close" data-dismiss="alert" aria-label="Close">
+          <span aria-hidden="true">&times;</span>
+        </button>
+        </div>
+    </div>
+    
+    <input type="checkbox" id="mostrar" onclick="mostrar()">Mostrar usuarios inactivos
+
+    <table border="1" id="datatable-usu">
+        <thead>
             <th>ID</th>
             <th>Nombre</th>
             <th>Contraseña</th>
@@ -23,8 +54,8 @@
             <th>Tipo</th>
             <th>Estado</th>
             <th>Acciones</th>
-        </tr>
-        <tr th:each="u:${usuarios}">
+        </thead>
+        <tr th:each="u:${usuarios}" th:if="${u.estadoUsuario.equalsIgnoreCase('activo')}">
             <td th:text="${u.idUsuario}"></td>
             <td th:text="${u.nombreUsuario}"></td>
             <td th:text="${u.contrasenaUsuario}"></td>
@@ -43,34 +74,34 @@
                         <div class="modal-header">
                           <h5 class="modal-title">Editar Usuario</h5>
                         </div>
-                        <div class="modal-body">
-                            <form th:action="@{/usuario/add}" method="post">
-                                <input type="hidden" name="idUsuario" id="idUsuario" th:value="${u.idUsuario}">
-                                <label for="">Nombre</label>
-                                <input type="text" name="nombreUsuario" id="nombreUsuario" autocomplete="off" th:value="${u.nombreUsuario}" required>
-                                <label for="">Contraseña</label>
-                                <input type="text" name="contrasenaUsuario" id="contrasenaUsuario" autocomplete="off" th:value="${u.contrasenaUsuario}" required>
-                                <label for="">Correo</label>
-                                <input type="email" name="correoUsuario" id="correoUsuario" autocomplete="off" th:value="${u.correoUsuario}" required>
-                                <label for="">Tipo</label>
-                                <select name="tipoUsuario" id="tipoUsuario" required>
-                                    <option th:value="${u.tipoUsuario}" th:text="${u.tipoUsuario}" selected>Seleccionar</option>
-                                    <option value="Administrador">Administrador</option>
-                                    <option value="Admin del hogar">Admin del hogar</option>
-                                    <option value="Contador">Contador</option>
-                                </select>
-                                <label for="">Estado</label>
-                                <select name="estadoUsuario" id="estadoUsuario" required>
-                                    <option th:value="${u.estadoUsuario}" th:text="${u.estadoUsuario}" selected>Seleccionar</option>
-                                    <option value="Activo">Activo</option>
-                                    <option value="Inactivo">Inactivo</option>
-                                </select>
-                        </div>
-                        <div class="modal-footer">
-                            <button type="button" class="btn btn-secondary" data-dismiss="modal">Cancelar</button>
-                            <button type="submit" class="btn btn-primary">Editar</button>
-                            </form>
-                        </div>
+                        <form th:action="@{/usuario/add}" method="post" th:object="${usuario}">
+                          <div class="modal-body">
+                                  <input type="hidden" name="idUsuario" id="idUsuario" th:value="${u.idUsuario}">
+                                  <label for="">Nombre</label>
+                                  <input type="text" name="nombreUsuario" id="nombreUsuario" autocomplete="off" th:value="${u.nombreUsuario}" required>
+                                  <label for="">Contraseña</label>
+                                  <input type="text" name="contrasenaUsuario" id="contrasenaUsuario" autocomplete="off" th:value="${u.contrasenaUsuario}" required>
+                                  <label for="">Correo</label>
+                                  <input type="email" name="correoUsuario" id="correoUsuario" autocomplete="off" th:value="${u.correoUsuario}" required>
+                                  <label for="">Tipo</label>
+                                  <select name="tipoUsuario" id="tipoUsuario" required>
+                                      <option th:value="${u.tipoUsuario}" th:text="${u.tipoUsuario}" selected>Seleccionar</option>
+                                      <option value="Administrador">Administrador</option>
+                                      <option value="Admin del hogar">Admin del hogar</option>
+                                      <option value="Contador">Contador</option>
+                                  </select>
+                                  <label for="">Estado</label>
+                                  <select name="estadoUsuario" id="estadoUsuario" required>
+                                      <option th:value="${u.estadoUsuario}" th:text="${u.estadoUsuario}" selected>Seleccionar</option>
+                                      <option value="Activo">Activo</option>
+                                      <option value="Inactivo">Inactivo</option>
+                                  </select>
+                          </div>
+                          <div class="modal-footer">
+                              <button type="button" class="btn btn-secondary" data-dismiss="modal">Cancelar</button>
+                              <button type="submit" class="btn btn-primary">Editar</button>
+                          </div>
+                        </form>
                       </div>
                     </div>
                 </div>
@@ -116,8 +147,8 @@
                     <label for="">Nombre</label>
                     <input type="text" th:field="*{nombreUsuario}" autocomplete="off">
                     <div class="form-text text-danger" th:if="${#fields.hasErrors('nombreUsuario')}" th:errors="*{nombreUsuario}"></div>
-                    <label for="">Contraseña</label>
-                    <input type="text" th:field="*{contrasenaUsuario}" autocomplete="off">
+                    <!-- <label for="">Contraseña</label>
+                    <input type="text" th:field="*{contrasenaUsuario}" autocomplete="off"> -->
                     <div class="form-text text-danger" th:if="${#fields.hasErrors('contrasenaUsuario')}" th:errors="*{contrasenaUsuario}"></div>
                     <label for="">Correo</label>
                     <input type="text" th:field="*{correoUsuario}" autocomplete="off">
@@ -146,5 +177,18 @@
           </div>
         </div>
     </div>
+
+    <script>
+      var datat=document.querySelector("#datatable-usu"); 
+      var dataTable=new DataTable("#datatable-usu",{ 
+        perPage:10,
+        labels: {
+            placeholder: "Buscar...",
+            perPage: "{select} registros por página",
+            noRows: "No se encontraron registros",
+            info: "Mostrando {start} a {end} de {rows} usuarios (Página {page} de {pages} páginas)",
+        }
+      } ) ;
+    </script>
 </body>
 </html>
