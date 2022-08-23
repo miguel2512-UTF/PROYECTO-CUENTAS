@@ -21,6 +21,7 @@
         <br>
         <form th:action="@{/tipocompromiso/add}" th:object="${tipocompromiso}" method="post" style="width: 35rem;" class="mx-auto"> 
             
+            <input type="hidden" th:field="*{id}">
             
             <div class="form-group">
                 <label for="nombre">Nombre</label>
