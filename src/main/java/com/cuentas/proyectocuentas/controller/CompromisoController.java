@@ -22,32 +22,27 @@ import com.cuentas.proyectocuentas.service.ICompromisoService;
 import com.cuentas.proyectocuentas.service.ITipoCompromisoService;
 import com.cuentas.proyectocuentas.service.IUsuarioService;
 
-
-
 @Controller
 @SessionAttributes("compromiso")
 @RequestMapping("/compromiso")
 public class CompromisoController {
     @Autowired
-private ICompromisoService compromisod;
-@Autowired
-private IUsuarioService usuarioI;
-@Autowired
-private ITipoCompromisoService tipocompromisod;
+    private ICompromisoService compromisod;
+    @Autowired
+    private IUsuarioService usuarioI;
+    @Autowired
+    private ITipoCompromisoService tipocompromisod;
     
     
-    @GetMapping("/compromiso")     
-        public String compromiso(){
-            return "views/compromiso/compromiso"; 
-        }
+   
     
         @GetMapping("/registrar")     
         public String registrar(Model m){
-             Compromiso compromiso=new Compromiso();
- List<Usuario> usuario= usuarioI.findAll();
- m.addAttribute("usuario",usuario);
- List<TipoCompromiso> tipocompromiso= tipocompromisod.findAll();
- m.addAttribute("tipocompromiso",tipocompromiso);
+            Compromiso compromiso=new Compromiso();
+            List<TipoCompromiso> tipocompromiso = tipocompromisod.findAll();
+m.addAttribute("tipocompromiso", tipocompromiso);
+List<Usuario> usuario = usuarioI.findAll();
+m.addAttribute("usuario",usuario);
             m.addAttribute("compromiso",compromiso);
             m.addAttribute("accion","Registrar Compromiso");
             return "views/compromiso/registrar"; 
@@ -69,33 +64,31 @@ private ITipoCompromisoService tipocompromisod;
             return "views/compromiso/listar";    
         }
     
-        @GetMapping("/actualizar/{idCompromiso}")
-        public String editar(@PathVariable Integer idCompromiso,Model m){
+        @GetMapping("/actualizar/{idCom}")
+        public String editar(@PathVariable Integer idCom,Model m){
         Compromiso compromiso=null;
-        if(idCompromiso>0){
-        compromiso=compromisod.findOne(idCompromiso);
+        if(idCom>0){
+        compromiso=compromisod.findOne(idCom);
         }else{
         return "redirect:listar";
         }
-        m.addAttribute("compromiso",compromiso);
-        m.addAttribute("accion","Actualizar Compromiso");
-        return "views/compromiso/registrar"; 
+        List<TipoCompromiso> tipocompromiso = tipocompromisod.findAll();
+m.addAttribute("tipocompromiso", tipocompromiso);
+List<Usuario> usuario = usuarioI.findAll();
+m.addAttribute("usuario",usuario);
+            m.addAttribute("compromiso",compromiso);
+            m.addAttribute("accion","Actualizar Compromiso");
+            return "views/compromiso/registrar"; 
     }
     
-    @GetMapping("/delete/{idCompromiso}")
-    public String delete(@PathVariable Integer idCompromiso) {
-    if(idCompromiso > 0) {
-    compromisod.delete(idCompromiso);
+    @GetMapping("/delete/{idCom}")
+    public String delete(@PathVariable Integer idCom) {
+    if(idCom > 0) {
+    compromisod.delete(idCom);
     
     }
     
     return "redirect:../listar"; 
     }
-    }
-     
-        
     
-    
-
-
-
+}

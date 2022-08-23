@@ -1,5 +1,8 @@
 package com.cuentas.proyectocuentas.model;
 
+
+
+
 import java.util.ArrayList;
 import java.util.List;
 
@@ -33,24 +36,26 @@ public class TipoCompromiso {
     @NotEmpty
     private String estado;
 
-    
-    @OneToMany(mappedBy =  "tipocompromiso",fetch = FetchType.LAZY,cascade=CascadeType.ALL )
-    private List<Compromiso>compromiso;
+    @OneToMany(mappedBy = "tipocompromiso",fetch = FetchType.LAZY, cascade =CascadeType.ALL)
+private List<Compromiso> compromiso;
 
-    public List<Compromiso>getCompromiso(){
-       return compromiso;  
-    }
 
-    public void setCompromiso( List<Compromiso>compromiso){
-         this.compromiso=compromiso;
-    }
 
-    public TipoCompromiso(List<Compromiso>compromiso) {
-         this.compromiso=compromiso;  
-    }
+	public List<Compromiso> getCompromiso() {
+		return compromiso;
+	}
 
-    public TipoCompromiso() {
+	public void setCompromiso(List<Compromiso> compromiso) {
+		this.compromiso = compromiso;
+	}
+
+	public TipoCompromiso(List<Compromiso> compromiso) {
+		this.compromiso = compromiso;
+	}
+   
+    public TipoCompromiso(){
         compromiso=new ArrayList<Compromiso>();
+        
     }
 
     public TipoCompromiso(Integer id,String nombre,String descripcion,
