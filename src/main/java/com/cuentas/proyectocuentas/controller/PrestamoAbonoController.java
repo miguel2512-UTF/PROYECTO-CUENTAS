@@ -16,6 +16,7 @@ import org.springframework.web.bind.support.SessionStatus;
 
 import com.cuentas.proyectocuentas.model.PrestamoAbono;
 import com.cuentas.proyectocuentas.service.IPrestamoAbonoService;
+import com.cuentas.proyectocuentas.service.IPrestamoService;
 
 @Controller
 @SessionAttributes("prestamoabono")
@@ -25,6 +26,9 @@ public class PrestamoAbonoController {
     @Autowired
     private IPrestamoAbonoService prestamoabonoI;
 
+    @Autowired
+    private IPrestamoService prestamoI;
+
 
     //LISTAR
     @GetMapping("/listar")
@@ -32,6 +36,7 @@ public class PrestamoAbonoController {
         m.addAttribute("prestamoabonos", prestamoabonoI.findAll());
         PrestamoAbono prestamoabono=new PrestamoAbono();
         m.addAttribute("prestamoabono", prestamoabono);
+        m.addAttribute("prestamo", prestamoI.findAll());
         return "views/prestamoabono/prestamoabono";
     }
 
@@ -50,6 +55,7 @@ public class PrestamoAbonoController {
     public String formulario(Model m){
         PrestamoAbono prestamoabono = new PrestamoAbono();
         m.addAttribute("prestamoabono", prestamoabono);
+        m.addAttribute("prestamo", prestamoI.findAll());
         return "views/prestamoabono/registrar";
     }
 
@@ -62,6 +68,7 @@ public class PrestamoAbonoController {
             prestamoabono=prestamoabonoI.findOne(idPrestamoAbono);
         }
         m.addAttribute("prestamoabono", prestamoabono);
+        m.addAttribute("prestamo", prestamoI.findAll());
         return "views/prestamoabono/editar"; 
     }
  

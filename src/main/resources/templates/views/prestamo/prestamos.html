@@ -80,7 +80,7 @@
                         <td th:text="${Pr.numeroCuotas}"></td>
                         <td>
                             <button>
-                                <a role="button" th:href="prestamoabono">Abono</a>
+                                <a role="button" th:href="@{/prestamoabono/}+${Pr.idPrestamo}">Abono</a>
                             </button>
                         </td>
                         <td th:text="${Pr.estadoPrestamo}"></td>

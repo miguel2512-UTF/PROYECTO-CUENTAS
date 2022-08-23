@@ -76,13 +76,10 @@ public class PrestamoController {
     }
 
     //PRESTAMO ABONO
-    @GetMapping("/prestamoabono")
+    @GetMapping("/prestamoabono/listar/{idPrestamo}")
     public String prestamoabono(){
-        return "redirect:../views/prestamoabono";
+        return "redirect:../prestamoabono/listar";
     }
-
-
-
-
+ 
     
 }

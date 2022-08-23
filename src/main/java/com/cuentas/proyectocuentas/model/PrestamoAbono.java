@@ -33,10 +33,12 @@ public class PrestamoAbono {
     public PrestamoAbono() {
     }
 
-    public PrestamoAbono(Integer idPrestamoAbono, @NotEmpty String fechaAbono, @NotEmpty String totalAbono) {
+    public PrestamoAbono(Integer idPrestamoAbono, @NotEmpty String fechaAbono, @NotEmpty String totalAbono,
+            Prestamo prestamo) {
         this.idPrestamoAbono = idPrestamoAbono;
         this.fechaAbono = fechaAbono;
         this.totalAbono = totalAbono;
+        this.prestamo = prestamo;
     }
 
     public Integer getIdPrestamoAbono() {
@@ -63,5 +65,14 @@ public class PrestamoAbono {
         this.totalAbono = totalAbono;
     }
 
+    public Prestamo getPrestamo() {
+        return prestamo;
+    }
+
+    public void setPrestamo(Prestamo prestamo) {
+        this.prestamo = prestamo;
+    }
+
+    
     
 }

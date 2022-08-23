@@ -57,12 +57,14 @@
                 </div>        
                 <table>
                     <tr class="table-header">
-                        <th>Id</th>
+                        <th>Nombre prestamista</th>
+						<th>Id</th>
                         <th>Fecha Abono</th>
                         <th>Total Abono</th>
                         <th>Acciones</th>
-                    </tr>
+                    </tr> 
                     <tr th:if="@{prestamoabonos.size()>0}" th:each="Ab:${prestamoabonos}">
+						<td th:text="${Ab.prestamo.nombrePrestamista}"></td>
                         <td th:text="${Ab.idPrestamoAbono}"></td>
                         <td th:text="${Ab.fechaAbono}"></td>
                         <td th:text="${Ab.totalAbono}"></td>
@@ -73,7 +75,7 @@
                             </button>
                             
                             <button>
-                                <a role="button" th:href="@{/prestamoabono/delete/}+${Ab.idPrestamoAbono}" onclick="return Confirm('Estas seguro que quieres eliminar el Prestamo');">Eliminar </a>
+                                <a role="button" th:href="@{/prestamoabono/delete/}+${Ab.idPrestamoAbono}" onclick="return confirm('Estas seguro que quieres eliminar el Abono del prestamista ');">Eliminar </a>
                             </button>
                         </td>
                     </tr>

@@ -11,6 +11,7 @@ import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.ManyToMany;
+import javax.persistence.ManyToOne;
 import javax.persistence.OneToMany;
 import javax.persistence.Table;
 import javax.validation.constraints.NotEmpty;
@@ -59,7 +60,7 @@ public class Prestamo {
 
     /*Relacion de muchos a uno (Prestamo a Usuario) */
 
-    @ManyToMany(fetch = FetchType.LAZY)
+    @ManyToOne(fetch = FetchType.LAZY)
     private Usuario usuario;
 
     /*Relacion de uno a mucho (Prestamo a Abono) */
@@ -70,9 +71,10 @@ public class Prestamo {
         prestamoabono= new ArrayList<PrestamoAbono>();
     }
 
-    public Prestamo(Integer idPrestamo, @NotEmpty String documentoPrestamista, @NotEmpty String nombrePrestamista,
-            @NotEmpty String fechaPagoOportuno, @NotEmpty String valorPrestamo, @NotEmpty String tasaPrestamo,
-            @NotEmpty String periodoCuota, @NotEmpty String numeroCuotas, String estadoPrestamo) {
+    public Prestamo(Integer idPrestamo, @Size(min = 10, max = 10) @NotEmpty String documentoPrestamista,
+            @NotEmpty String nombrePrestamista, @NotEmpty String fechaPagoOportuno, @NotEmpty String valorPrestamo,
+            @NotEmpty String tasaPrestamo, @NotEmpty String periodoCuota, @NotEmpty String numeroCuotas,
+            String estadoPrestamo, Usuario usuario, List<PrestamoAbono> prestamoabono) {
         this.idPrestamo = idPrestamo;
         this.documentoPrestamista = documentoPrestamista;
         this.nombrePrestamista = nombrePrestamista;
@@ -82,6 +84,8 @@ public class Prestamo {
         this.periodoCuota = periodoCuota;
         this.numeroCuotas = numeroCuotas;
         this.estadoPrestamo = estadoPrestamo;
+        this.usuario = usuario;
+        this.prestamoabono = prestamoabono;
     }
 
     public Integer getIdPrestamo() {
@@ -156,11 +160,23 @@ public class Prestamo {
         this.estadoPrestamo = estadoPrestamo;
     }
 
-    
+    public Usuario getUsuario() {
+        return usuario;
+    }
+
+    public void setUsuario(Usuario usuario) {
+        this.usuario = usuario;
+    }
+
+    public List<PrestamoAbono> getPrestamoabono() {
+        return prestamoabono;
+    }
+
+    public void setPrestamoabono(List<PrestamoAbono> prestamoabono) {
+        this.prestamoabono = prestamoabono;
+    }
 
     
-    
-
     
 
 }

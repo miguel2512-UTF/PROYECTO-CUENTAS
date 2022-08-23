@@ -15,6 +15,12 @@
 
             <input type="hidden" name="idPrestamoAbono" id="idPrestamoAbono" th:value="${prestamoabono.idPrestamoAbono}"><br><br>
 
+            <label for="idPrestamo"><strong>Nombre Prestamista</strong></label>
+            <select th:field="*{prestamo}" id="prestamo">
+                <option value="">Seleccionar</option>
+                <option th:each="Pr:${prestamo}" th:text="${Pr.nombrePrestamista}" th:value="${Pr.idPrestamo}"></option>
+            </select><br><br>
+
             <label for="fechaAbono"><strong>Fecha Abono</strong></label><br>
             <input  type="date" name="fechaAbono" id="fechaAbono" th:field="*{fechaAbono}"><br><br>
             <div th:if="${#fields.hasErrors('fechaAbono')}" th:errors="*{fechaAbono}"></div>
