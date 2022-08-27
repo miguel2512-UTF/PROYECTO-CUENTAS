@@ -10,24 +10,7 @@
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@4.6.2/dist/js/bootstrap.bundle.min.js" integrity="sha384-Fy6S3B9q64WdZWQUiU+q4/2Lc9npb8tCaSX9FK7E8HnRr0Jz8D6OP9dO5Vg3Q9ct" crossorigin="anonymous"></script>
     <link rel="stylesheet" type="text/css" href="https://cdn.jsdelivr.net/gh/mobius1/vanilla-Datatables@latest/vanilla-dataTables.min.css">
     <script type="text/javascript" src="https://cdn.jsdelivr.net/gh/mobius1/vanilla-Datatables@latest/vanilla-dataTables.min.js"></script>
-    <script th:inline="javascript">
-      function mostrar(){
-        var checkbox = document.getElementById('mostrar');
-        var row = document.getElementById('tablerow');
-        var estado = document.getElementById('estado');
-
-        if (checkbox.checked==true) {
-          row.setAttribute('th:if',"");
-          row.setAttribute('style','color:white');
-          if (estado=="Activo") {
-            row.setAttribute('style','display:none');
-          }
-        }else{
-          row.setAttribute('th:if',"${u.estadoUsuario.equalsIgnoreCase('inactivo')}");
-        }
-      }
-    </script>
-  </head>
+</head>
 <body>
     <h1>Usuario</h1>
     <a href="" data-toggle="modal" data-target="#modal-add"><svg xmlns="http://www.w3.org/2000/svg" width="32" height="32" fill="currentColor" class="bi bi-plus-circle-fill" viewBox="0 0 16 16">
@@ -55,13 +38,13 @@
             <th>Estado</th>
             <th>Acciones</th>
         </thead>
-        <tr th:each="u:${usuarios}" th:if="${u.estadoUsuario.equalsIgnoreCase('activo')}">
+        <tr th:each="u:${usuarios}" id="tablerow">
             <td th:text="${u.idUsuario}"></td>
             <td th:text="${u.nombreUsuario}"></td>
             <td th:text="${u.contrasenaUsuario}"></td>
             <td th:text="${u.correoUsuario}"></td>
             <td th:text="${u.tipoUsuario}"></td>
-            <td th:text="${u.estadoUsuario}"></td>
+            <td th:text="${u.estadoUsuario}" id="estado"></td>
             <td>
                 <a href="" data-toggle="modal" th:attr="data-target='#modal-editar'+${u.idUsuario}"><button type="button" class="btn btn-dark"><svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-pen-fill" viewBox="0 0 16 16">
                 <path d="m13.498.795.149-.149a1.207 1.207 0 1 1 1.707 1.708l-.149.148a1.5 1.5 0 0 1-.059 2.059L4.854 14.854a.5.5 0 0 1-.233.131l-4 1a.5.5 0 0 1-.606-.606l1-4a.5.5 0 0 1 .131-.232l9.642-9.642a.5.5 0 0 0-.642.056L6.854 4.854a.5.5 0 1 1-.708-.708L9.44.854A1.5 1.5 0 0 1 11.5.796a1.5 1.5 0 0 1 1.998-.001z"/>
@@ -80,7 +63,7 @@
                                   <label for="">Nombre</label>
                                   <input type="text" name="nombreUsuario" id="nombreUsuario" autocomplete="off" th:value="${u.nombreUsuario}" required>
                                   <label for="">Contraseña</label>
-                                  <input type="text" name="contrasenaUsuario" id="contrasenaUsuario" autocomplete="off" th:value="${u.contrasenaUsuario}" required>
+                                  <input type="text" name="contrasenaUsuario" id="contrasenaUsuario" autocomplete="off" th:value="${u.contrasenaUsuario}" pattern="(?=.*\d)(?=.*[a-z])(?=.*[A-Z]).{8,}" title="La contraseña debe tener mínimo 8 caracteres, un número, una mayúscula y una minúscula" required>
                                   <label for="">Correo</label>
                                   <input type="email" name="correoUsuario" id="correoUsuario" autocomplete="off" th:value="${u.correoUsuario}" required>
                                   <label for="">Tipo</label>
@@ -189,6 +172,49 @@
             info: "Mostrando {start} a {end} de {rows} usuarios (Página {page} de {pages} páginas)",
         }
       } ) ;
+    </script>
+
+    <script>
+      var checkbox = document.getElementById('mostrar');
+      var row = document.querySelectorAll('#tablerow');
+      var estado = document.querySelectorAll('#estado');
+      
+      if (checkbox.checked==false) {
+        for (let index = 0; index < estado.length; index++) {
+          if (estado[index].textContent=="Inactivo") {
+            for (let index = 0; index < row.length; index++) {
+              if (estado[index].textContent=="Inactivo") {
+                row[index].setAttribute('style','display:none');
+              }
+            }
+          }
+          console.log(estado[index].textContent)
+        }
+      }
+      
+      function mostrar(){
+        if (checkbox.checked==true) {
+          for (let index = 0; index < estado.length; index++) {
+            if (estado[index].textContent=="Inactivo") {
+              for (let index = 0; index < row.length; index++) {
+                if (estado[index].textContent=="Inactivo") {
+                  row[index].setAttribute('style','display:');
+                }
+              }
+            }
+          }
+        }else if (checkbox.checked==false){
+          for (let index = 0; index < estado.length; index++) {
+            if (estado[index].textContent=="Inactivo") {
+              for (let index = 0; index < row.length; index++) {
+                if (estado[index].textContent=="Inactivo") {
+                  row[index].setAttribute('style','display:none');
+                }
+              }
+            }
+          }
+        }
+      }
     </script>
 </body>
 </html>

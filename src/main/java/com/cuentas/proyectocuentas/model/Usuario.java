@@ -14,6 +14,7 @@ import javax.persistence.OneToMany;
 import javax.persistence.Table;
 import javax.validation.constraints.Email;
 import javax.validation.constraints.NotEmpty;
+import javax.validation.constraints.Pattern;
 
 @Entity
 @Table(name="Usuario")
@@ -25,6 +26,7 @@ public class Usuario {
 
     @Column(length = 30, nullable = false)
     @NotEmpty
+    @Pattern(regexp = "[A-Za-z0-9_-]{1,}")
     private String nombreUsuario;
 
     @Column(length = 50, nullable = false)
