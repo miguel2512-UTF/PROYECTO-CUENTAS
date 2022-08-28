@@ -5,6 +5,7 @@
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Registrar Abono</title>
+    <link rel="stylesheet" type="text/css" th:href="@{/assets/css/estiloC.css}">
 </head>
 <body>
 
@@ -15,20 +16,24 @@
 
             <input type="hidden" name="idPrestamoAbono" id="idPrestamoAbono" th:value="${prestamoabono.idPrestamoAbono}"><br><br>
 
-            <label for="idPrestamo"><strong>Nombre Prestamista</strong></label>
-            <select th:field="*{prestamo}" id="prestamo">
+            <div>
+            <label for="idPrestamo"><strong>Valor del prestamo</strong></label>
+            <select th:field="*{prestamo}" id="prestamo" required min="1000000">
                 <option value="">Seleccionar</option>
-                <option th:each="Pr:${prestamo}" th:text="${Pr.nombrePrestamista}" th:value="${Pr.idPrestamo}"></option>
-            </select><br><br>
-
+                <option th:each="Pr:${prestamo}" th:text="${Pr.valorPrestamo}" th:value="${Pr.idPrestamo}"></option>
+            </select>
+            <span class="validity"></span>
+            </div><br>
+            <div>
             <label for="fechaAbono"><strong>Fecha Abono</strong></label><br>
-            <input  type="date" name="fechaAbono" id="fechaAbono" th:field="*{fechaAbono}"><br><br>
-            <div th:if="${#fields.hasErrors('fechaAbono')}" th:errors="*{fechaAbono}"></div>
+            <input  type="date" name="fechaAbono" id="fechaAbono" th:field="*{fechaAbono}" required>
+            </div><br>
 
+            <div>
             <label for="totalAbono"><strong>Total Abono</strong></label><br>
-            <input  type="number" name="totalAbono" id="totalAbono" th:field="*{totalAbono}" placeholder="Ejemplo: 250.000"><br><br>
-            <div th:if="${#fields.hasErrors('totalAbono')}" th:errors="*{totalAbono}"></div>
-
+            <input  type="number" name="totalAbono"  id="totalAbono" th:field="*{totalAbono}" placeholder="Ejemplo: 250.000" min="50000" required>
+            <span class="validity"></span>
+            </div><br>
 
             <button type="submit">Registrar Abono</button>
 

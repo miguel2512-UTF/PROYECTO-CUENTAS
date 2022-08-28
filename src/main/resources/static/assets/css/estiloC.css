@@ -1,0 +1,19 @@
+input:invalid + span:after{
+    content: "✖";
+    padding-left: 5px;
+}
+
+input:valid + span:after{
+    content: "✓";
+    padding-left: 5px;
+}
+
+select:invalid + span:after{
+    content: "✖";
+    padding-left: 5px;
+}
+
+select:valid + span:after{
+    content: "✓";
+    padding-left: 5px;
+}

@@ -1,6 +1,6 @@
 package com.cuentas.proyectocuentas.model;
 
-
+ 
 
 
 import java.util.ArrayList;

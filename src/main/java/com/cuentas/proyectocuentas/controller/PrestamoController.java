@@ -77,7 +77,12 @@ public class PrestamoController {
 
     //PRESTAMO ABONO
     @GetMapping("/prestamoabono/listar/{idPrestamo}")
-    public String prestamoabono(){
+    public String prestamoabono(@PathVariable Integer idPrestamo, Model m){
+        Prestamo prestamo=null;
+        if(idPrestamo > 0){
+            prestamo=prestamoI.findOne(idPrestamo);
+        }
+        m.addAttribute("prestamo", prestamo);
         return "redirect:../prestamoabono/listar";
     }
  

@@ -26,7 +26,7 @@ public class Prestamo {
     private Integer idPrestamo;
 
     @Column(name = "documentoPrestamista", length = 10)
-    @Size(min=10, max=10)
+    @Size(min=8, max=10)
     @NotEmpty
     private String documentoPrestamista;
 
@@ -38,7 +38,7 @@ public class Prestamo {
     @NotEmpty
     private String fechaPagoOportuno;
 
-    @Column(name = "valorPrestamo", nullable = false)
+    @Column(name = "valorPrestamo", length = 100000000)
     @NotEmpty
     private String valorPrestamo;
 
