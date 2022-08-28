@@ -43,6 +43,9 @@ public class Compromiso {
 	@NotEmpty
 	private String total;
 
+    
+
+    @Column()
 
 	
 	private boolean estadoCom;
@@ -81,6 +84,11 @@ public class Compromiso {
 	public Compromiso(TipoCompromiso tipocompromiso) {
 		this.tipocompromiso = tipocompromiso;
 	}
+    public Compromiso(Usuario usuario, TipoCompromiso tipocompromiso) {
+        this.usuario = usuario;
+        this.tipocompromiso = tipocompromiso;
+    }
+
     public Compromiso() {
 		
 	}
