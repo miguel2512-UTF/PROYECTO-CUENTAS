@@ -22,6 +22,9 @@
         <h1>Listado </h1>
         <a class="botton" th:href="@{/inicio}"><i class="bi bi-house-door"></i></a>
         <a class="botton" th:href="@{/tipocompromiso/form}"><i class="bi bi-file-plus"></i></a><br><br>
+    
+            
+        <hr>
         <table id="datat">
             <thead>
                 <th>Id</th>
@@ -31,11 +34,11 @@
                 <th colspan="2">Acciones</th>
             </thead>
             <tbody>
-                <tr th:if="${tipocompromiso.size>0}" th:each="c:${tipocompromiso}">
+                <tr th:if="${tipocompromiso.size>0}" th:each="c:${tipocompromiso}" id="tablerow">
                     <td th:text="${c.id}"></td>
                     <td th:text="${c.nombre}"></td>
                     <td th:text="${c.descripcion}"></td>
-                    <td th:text="${c.estado}"></td>
+                    <td th:text="${c.estado}" id="estado"></td>
                     <td> 
                       
                         <a role="button" class="btn btn-warning btn-sm" th:href="@{/tipocompromiso/editar/}+${c.id}"> 
@@ -93,7 +96,22 @@
         
         
         </script>
+      
+    <script >
+        const openModal = document.querySelector('.hola');
+    const modal = document.querySelector('.modal');
+    const closeModal = document.querySelector('.modal_close');
     
+    openModal.addEventListener('click', (e)=>{
+        e.preventDefault();
+        modal.classList.add('modal--show');
+    });
+    
+    closeModal.addEventListener('click', (e)=>{
+        e.preventDefault();
+        modal.classList.remove('modal--show');
+    });
+    </script>
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.1.1/dist/js/bootstrap.bundle.min.js" integrity="sha384-/bQdsTh/da6pkI1MST/rWKFNjaCP5gBSY4sEBT38Q/9RBh9AH40zEOg7Hlq2THRZ" crossorigin="anonymous"></script>
 </body>
 </html>
