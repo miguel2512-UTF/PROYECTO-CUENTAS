@@ -10,6 +10,7 @@ import javax.persistence.Id;
 import javax.persistence.ManyToOne;
 import javax.persistence.Table;
 import javax.validation.constraints.NotEmpty;
+import javax.validation.constraints.Size;
 
 @Entity
 @Table(name="compromiso")
@@ -19,10 +20,12 @@ public class Compromiso {
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	private Integer idCom;
 
-    @Column(name="numeroFac", length=50)
-	@NotEmpty
+    @Size(min=5, max=10,message="No se cumple el tamaño determinado")
+    @Column(name="numeroFac", length=50,unique=true)
+	@NotEmpty 
 	private String numeroFac;
 
+   
 	@Column(name="nombreEm", length=30)
 	@NotEmpty
 	private String nombreEm; 

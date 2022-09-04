@@ -49,14 +49,14 @@ m.addAttribute("usuario",usuario);
         }
     
         @PostMapping("/reg")
-        public String reg(@Valid Compromiso compromiso, BindingResult res, Model m, SessionStatus status){
+        public String reg(@Valid Compromiso compromiso, BindingResult res, Model m, SessionStatus status) throws Exception{
             if(res.hasErrors()){
                 return "views/compromiso/registrar";
-                }
+                }else{
              compromisod.save(compromiso);
              status.setComplete();
              return "redirect:listar";
-        }
+        }}
     
         @GetMapping(path={"/listar"})
         public String listar(Model m){
