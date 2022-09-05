@@ -127,6 +127,7 @@
             <div class="modal-body">
                 <form th:action="@{/usuario/add}" method="post" th:object="${usuario}">
                   <script th:inline="javascript" th:if="${#fields.hasErrors('*')}">$("#modal-add").modal("show");</script>
+                  <script th:inline="javascript" th:if="${errorMessage}">$("#modal-add").modal("show");</script>
                     <label for="">Nombre</label>
                     <input type="text" th:field="*{nombreUsuario}" autocomplete="off">
                     <div class="form-text text-danger" th:if="${#fields.hasErrors('nombreUsuario')}" th:errors="*{nombreUsuario}"></div>
@@ -136,6 +137,7 @@
                     <label for="">Correo</label>
                     <input type="text" th:field="*{correoUsuario}" autocomplete="off">
                     <div class="form-text text-danger" th:if="${#fields.hasErrors('correoUsuario')}" th:errors="*{correoUsuario}"></div>
+                    <div class="form-text text-danger" th:if="${errorMessage1}" th:text="${errorMessage1}"></div>
                     <label for="">Tipo</label>
                     <select th:field="*{tipoUsuario}">
                         <option value="" selected>Seleccionar</option>
@@ -151,6 +153,7 @@
                         <option value="Inactivo">Inactivo</option>
                     </select>
                     <div class="form-text text-danger" th:if="${#fields.hasErrors('estadoUsuario')}" th:errors="*{estadoUsuario}"></div>
+                    <div class="form-text text-danger" th:if="${errorMessage}" th:text="${errorMessage}"></div>            
             </div>
             <div class="modal-footer">
                 <button type="button" class="btn btn-secondary" data-dismiss="modal">Cancelar</button>
