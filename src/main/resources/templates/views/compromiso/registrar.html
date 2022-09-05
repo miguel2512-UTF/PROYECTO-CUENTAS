@@ -25,7 +25,8 @@
         <label for="numeroFac">Numero Factura</label>
         <input type="text" name="numeroFac" id="numeroFac" class="form-control" th:field="*{numeroFac}">
         <div class="form-text text-danger" th:if="${#fields.hasErrors('numeroFac')}" th:errors="*{numeroFac}"></div>
-        </div>
+        <div class="form-text text-danger" th:if="${errorMessage}" th:text="${errorMessage}"></div> 
+    </div>
         <div class="form-group">
             <label for="nombreEm">Nombre Empresa</label>
             <input type="text" name="nombreEm" id="nombreEm" class="form-control"  th:field="*{nombreEm}">
@@ -33,12 +34,12 @@
         </div>
         <div class="form-group">
         <label for="fecha">Fecha Pago Oportuno</label>
-        <input type="date" value="2022-08-30" min="2022-09-05" name="fecha" id="fecha"  class="form-control" th:field="*{fecha}">
+        <input type="date" value="2022-08-30" min="2022-09-10" name="fecha" id="fecha"  class="form-control" th:field="*{fecha}">
         <div class="form-text text-danger" th:if="${#fields.hasErrors('fecha')}" th:errors="*{fecha}"></div>
         </div>
         <div class="form-group">
             <label for="fechaS">Fecha suspension</label>
-            <input type="date" value="2022-08-30" min="2022-09-05"   name="fechaS" id="fechaS" class="form-control" th:field="*{fechaS}">
+            <input type="date" value="2022-08-30" min="2022-09-10"   name="fechaS" id="fechaS" class="form-control" th:field="*{fechaS}">
             <div class="form-text text-danger" th:if="${#fields.hasErrors('fechaS')}" th:errors="*{fechaS}"></div>
         </div>
         <div class="form-group">

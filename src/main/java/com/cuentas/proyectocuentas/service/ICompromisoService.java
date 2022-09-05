@@ -11,7 +11,7 @@ public interface ICompromisoService {
     public void save (Compromiso compromiso) throws Exception ;
     public Compromiso findOne(Integer idCom);
     public void delete(Integer idCom);
-   
+   public Compromiso createCompromiso(Compromiso compromiso) throws Exception;
         
    
     
