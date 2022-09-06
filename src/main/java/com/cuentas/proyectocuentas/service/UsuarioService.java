@@ -1,6 +1,7 @@
 package com.cuentas.proyectocuentas.service;
 
 import java.util.List;
+import java.util.Optional;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -31,5 +32,29 @@ public class UsuarioService implements IUsuarioService{
     @Override
     public void delete(Integer idUsuario) {
         usuarioI.deleteById(idUsuario);
+    }
+
+    private boolean checkUsernameAvailable(Usuario usuario) throws Exception{
+        Optional<Usuario> userFound=usuarioI.findByNombreUsuario(usuario.getNombreUsuario());
+        if (userFound.isPresent()) {
+            throw new Exception("Username no disponible");	
+        }
+        return true;
+    }
+
+    private boolean checkEmailAvailable(Usuario usuario) throws Exception{
+        Optional<Usuario> emailFound=usuarioI.findByCorreoUsuario(usuario.getCorreoUsuario());
+        if (emailFound.isPresent()) {
+            throw new Exception("Email no disponible");
+        }
+        return true;
+    }
+    
+    @Override
+    public Usuario createUser(Usuario usuario) throws Exception {
+        if (checkUsernameAvailable(usuario) && checkEmailAvailable(usuario)) {
+            usuario = usuarioI.save(usuario);
+        }
+        return usuario;
     }
 }

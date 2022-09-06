@@ -49,11 +49,24 @@ m.addAttribute("usuario",usuario);
         }
     
         @PostMapping("/reg")
-        public String reg(@Valid Compromiso compromiso, BindingResult res, Model m, SessionStatus status){
+        public String reg(@Valid Compromiso compromiso, BindingResult res, Model m, SessionStatus status) throws Exception{
             if(res.hasErrors()){
+                try {
+                compromisod.createCompromiso(compromiso);
+            } catch (Exception e) {
+                if (e.getMessage().equalsIgnoreCase("numero de factura  no disponible")) {
+                    m.addAttribute("errorMessage",e.getMessage());
+                }
+            }
                 return "views/compromiso/registrar";
                 }
-             compromisod.save(compromiso);
+                try {
+                   compromisod.createCompromiso(compromiso);
+                } catch (Exception e) {
+                    m.addAttribute("errorMessage",e.getMessage());
+                    return "views/compromiso/registrar";
+                } 
+             //compromisod.save(compromiso);
              status.setComplete();
              return "redirect:listar";
         }

@@ -34,6 +34,13 @@ public class UsuarioController {
         m.addAttribute("usuarios", usuarioI.findAll());
 
         if (res.hasErrors()) {
+            try {
+                usuarioI.createUser(usuario);
+            } catch (Exception e) {
+                if (e.getMessage().equalsIgnoreCase("username no disponible") || e.getMessage().equalsIgnoreCase("email no disponible")) {
+                    m.addAttribute("errorMessage",e.getMessage());
+                }
+            }
             return "views/usuario/usuario";
         }
 
@@ -41,7 +48,13 @@ public class UsuarioController {
             usuario.setContrasenaUsuario(usuario.getCorreoUsuario());
         }
         
-        usuarioI.save(usuario);
+        try {
+            usuarioI.createUser(usuario);
+        } catch (Exception e) {
+            m.addAttribute("errorMessage",e.getMessage());
+            return "views/usuario/usuario";
+        }
+        //usuarioI.save(usuario);
         return "redirect:/usuario/listar";
     }
 

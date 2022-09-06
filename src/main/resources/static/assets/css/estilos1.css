@@ -1,0 +1,33 @@
+body {
+    width: 100vh;
+    margin: 0 auto;
+   background-color: #92e27a;
+    background-repeat:no-repeat;
+ 
+  background-size: cover;
+  height: 100vh;
+  }
+  ul {
+    list-style-type: none;
+    
+    width: 100%;
+    overflow: hidden;
+    background-color: #005200;
+}
+
+li {
+    float: left;
+   
+}
+
+li a{
+  font-family: Comic Sans MS,arial,verdana;
+    display: block;
+    color: white;
+    text-align: center;
+    padding: 14px 12px;
+    text-decoration: none;
+}
+li a:hover {
+    background-color:#71c55b;
+}

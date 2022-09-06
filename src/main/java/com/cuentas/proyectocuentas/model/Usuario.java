@@ -24,7 +24,7 @@ public class Usuario {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private int idUsuario;
 
-    @Column(length = 30, nullable = false)
+    @Column(length = 30, nullable = false, unique = true)
     @NotEmpty
     @Pattern(regexp = "[A-Za-z0-9_-]{1,}")
     private String nombreUsuario;
@@ -33,7 +33,7 @@ public class Usuario {
     // @NotEmpty
     private String contrasenaUsuario;
 
-    @Column(length = 50, nullable = false)
+    @Column(length = 50, nullable = false, unique = true)
     @NotEmpty
     @Email
     private String correoUsuario;
