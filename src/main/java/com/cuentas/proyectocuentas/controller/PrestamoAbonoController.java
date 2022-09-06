@@ -13,7 +13,6 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.SessionAttributes;
 import org.springframework.web.bind.support.SessionStatus;
 
-import com.cuentas.proyectocuentas.model.Prestamo;
 import com.cuentas.proyectocuentas.model.PrestamoAbono;
 import com.cuentas.proyectocuentas.service.IPrestamoAbonoService;
 import com.cuentas.proyectocuentas.service.IPrestamoService;
