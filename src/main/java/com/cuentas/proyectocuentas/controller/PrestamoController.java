@@ -14,6 +14,7 @@ import org.springframework.web.bind.annotation.SessionAttributes;
 import org.springframework.web.bind.support.SessionStatus;
 
 import com.cuentas.proyectocuentas.service.IPrestamoService;
+import com.cuentas.proyectocuentas.service.IUsuarioService;
 import com.cuentas.proyectocuentas.model.Prestamo;
  
 @Controller
@@ -24,6 +25,9 @@ public class PrestamoController {
     @Autowired
     private IPrestamoService prestamoI;
 
+    @Autowired
+    private IUsuarioService usuarioI;
+
 
     //LISTAR
     @GetMapping("/listar")
@@ -31,6 +35,7 @@ public class PrestamoController {
         m.addAttribute("prestamos", prestamoI.findAll());
         Prestamo prestamo=new Prestamo();
         m.addAttribute("prestamo", prestamo);
+        m.addAttribute("usuario", usuarioI.findAll());
         return "views/prestamo/prestamos";
     }
 
@@ -76,7 +81,7 @@ public class PrestamoController {
     }
 
     //PRESTAMO ABONO
-    @GetMapping("/prestamoabono/listar/{idPrestamo}")
+    @GetMapping("/prestamoabono/listar")
     public String prestamoabono(@PathVariable Integer idPrestamo, Model m){
         Prestamo prestamo=null;
         if(idPrestamo > 0){
