@@ -28,7 +28,7 @@ public class TipoCompromiso {
     private Integer id;
     @NotEmpty
     @Size(min=2,max=50)
-    @Column(length = 20,nullable=false)
+    @Column(length = 20,nullable=false, unique = true)
     private String nombre;
     @NotEmpty
     @Column(length = 200,nullable=false)

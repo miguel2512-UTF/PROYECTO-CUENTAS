@@ -46,10 +46,21 @@ public class TipoCompromisoController {
         @PostMapping("/add")
         public String add(@Valid TipoCompromiso tipocompromiso,BindingResult res, Model m,SessionStatus status){
             if(res.hasErrors()){
+                try {
+                    tipocompromisod.createTipoCompromiso(tipocompromiso);
+                } catch (Exception e) {
+                    if (e.getMessage().equalsIgnoreCase("el nombre  ya esta registrado")) {
+                        m.addAttribute("errorMessage",e.getMessage());
+                    }
+                }
                 return "/views/tipocompromiso/form";
-            }
-            tipocompromisod.save(tipocompromiso);
-            status.setComplete();
+            } try {
+                tipocompromisod.createTipoCompromiso(tipocompromiso);
+             } catch (Exception e) {
+                 m.addAttribute("errorMessage",e.getMessage());
+                 return "views/tipocompromiso/form";
+             } 
+          status.setComplete();
             return "redirect:listar";
         }    
        
