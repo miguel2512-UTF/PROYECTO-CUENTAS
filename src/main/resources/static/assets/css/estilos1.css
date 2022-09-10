@@ -1,7 +1,12 @@
+*{
+  font-family: Comic Sans MS,arial,verdana;
+
+}
+
 body {
     width: 100vh;
     margin: 0 auto;
-   background-color: #92e27a;
+   background-color:white ;
     background-repeat:no-repeat;
  
   background-size: cover;
@@ -12,7 +17,7 @@ body {
     
     width: 100%;
     overflow: hidden;
-    background-color: #005200;
+    background-color: #005c00;
 }
 
 li {
@@ -29,5 +34,32 @@ li a{
     text-decoration: none;
 }
 li a:hover {
-    background-color:#71c55b;
+    background-color:#4ea93b;
+   color: white;
 }
+button{
+  background-color: #005c00;
+  color: white;
+  padding: 10px;
+  font-size: 110%;
+
+}
+button:hover{
+  background-color:#4ea93b;
+
+}
+button a{
+  text-decoration: none;
+  color: white;
+ 
+}
+
+button a:hover{
+  background-color:#4ea93b;
+  color: white;
+
+}
+
+
+ 
+ 

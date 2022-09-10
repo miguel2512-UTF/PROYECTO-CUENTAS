@@ -51,7 +51,7 @@ public class Compromiso {
     @Column()
 
 	
-	private boolean estadoCom;
+	private String estadoCom;
 
 	@ManyToOne(fetch = FetchType.LAZY)
 	private Usuario usuario;
@@ -97,7 +97,7 @@ public class Compromiso {
 	}
 
     public Compromiso(Integer idCom, @NotEmpty String numeroFac, @NotEmpty String nombreEm, @NotEmpty String fecha,
-            @NotEmpty String fechaS, @NotEmpty String metodo, @NotEmpty String total, boolean estadoCom) {
+            @NotEmpty String fechaS, @NotEmpty String metodo, @NotEmpty String total, String estadoCom) {
         this.idCom = idCom;
         this.numeroFac = numeroFac;
         this.nombreEm = nombreEm;
@@ -164,13 +164,20 @@ public class Compromiso {
         this.total = total;
     }
 
-    public boolean isEstadoCom() {
+    public String getEstadoCom() {
         return estadoCom;
     }
 
-    public void setEstadoCom(boolean estadoCom) {
+    public void setEstadoCom(String estadoCom) {
         this.estadoCom = estadoCom;
     }
+
+   
+    
+
+
+   
+    
 
    
 

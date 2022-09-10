@@ -10,4 +10,6 @@ public interface ITipoCompromisoService {
     public void save (TipoCompromiso tipocompromiso);
     public TipoCompromiso findOne(Integer id);
     public void delete(Integer id);
+    public TipoCompromiso createTipoCompromiso(TipoCompromiso tipocompromiso) throws Exception;
+        
 }
