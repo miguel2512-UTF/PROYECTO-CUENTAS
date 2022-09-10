@@ -66,8 +66,14 @@ public class Prestamo {
     @OneToMany(mappedBy = "prestamo", fetch = FetchType.LAZY, cascade = CascadeType.ALL)
     private List<PrestamoAbono> prestamoabono;
 
+    /*Relacion de uno a mucho (Prestamo a Abono) */
+    @OneToMany(mappedBy = "prestamo", fetch = FetchType.LAZY, cascade = CascadeType.ALL)
+    private List<PagoPrestamo> pagoprestamo;
+
     public Prestamo() {
         prestamoabono= new ArrayList<PrestamoAbono>();
+        pagoprestamo= new ArrayList<PagoPrestamo>();
+
     }
 
     public Prestamo(Integer idPrestamo, @Size(min = 10, max = 10) @NotEmpty String documentoPrestamista,

@@ -14,10 +14,10 @@
         <form th:action="@{/prestamoabono/add}" th:object="${prestamoabono}" method="post">
 
             <input type="hidden" name="idPrestamoAbono" id="idPrestamoAbono" th:value="${prestamoabono.idPrestamoAbono}"><br><br>
-
+            
             <label for="idPrestamo"><strong>Nombre Prestamista</strong></label>
             <select th:field="*{prestamo}" id="prestamo">
-                <option value="">Seleccionar</option>
+                <option value="">Seleccionar</option> 
                 <option th:each="Pr:${prestamo}" th:text="${Pr.nombrePrestamista}" th:value="${Pr.idPrestamo}"></option>
             </select><br><br>
 

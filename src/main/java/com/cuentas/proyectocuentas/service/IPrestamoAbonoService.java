@@ -10,5 +10,5 @@ public interface IPrestamoAbonoService {
     public void save (PrestamoAbono prestamoabono);
     public PrestamoAbono findOne(Integer idPrestamoAbono);
     public void delete(Integer idPrestamoAbono);
-    
-}
+     
+} 

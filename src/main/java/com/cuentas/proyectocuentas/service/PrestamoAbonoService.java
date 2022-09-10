@@ -10,7 +10,7 @@ import com.cuentas.proyectocuentas.model.PrestamoAbono;
 
 @Service
 public class PrestamoAbonoService implements IPrestamoAbonoService{
-
+ 
     @Autowired
     private IPrestamoAbono prestamoabonoI;
 
@@ -18,7 +18,7 @@ public class PrestamoAbonoService implements IPrestamoAbonoService{
     @Override
     public List<PrestamoAbono> findAll() {
         return (List<PrestamoAbono>) prestamoabonoI.findAll();
-    }
+    } 
 
     @Override
     public void save(PrestamoAbono prestamoabono) {
