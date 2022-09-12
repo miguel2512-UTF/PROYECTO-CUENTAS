@@ -46,15 +46,16 @@ public class UsuarioController {
 
         if (usuario.getIdUsuario()==0) {
             usuario.setContrasenaUsuario(usuario.getCorreoUsuario());
+            try {
+                usuarioI.createUser(usuario);
+            } catch (Exception e) {
+                m.addAttribute("errorMessage",e.getMessage());
+                return "views/usuario/usuario";
+            } 
+        }else if (usuario.getIdUsuario()>0) {
+            usuarioI.save(usuario);
         }
         
-        try {
-            usuarioI.createUser(usuario);
-        } catch (Exception e) {
-            m.addAttribute("errorMessage",e.getMessage());
-            return "views/usuario/usuario";
-        }
-        //usuarioI.save(usuario);
         return "redirect:/usuario/listar";
     }
 

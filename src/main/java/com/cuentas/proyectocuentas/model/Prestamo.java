@@ -55,6 +55,7 @@ public class Prestamo {
     private String numeroCuotas;
 
     @Column(name = "estadoPrestamo", length =10)
+    @NotEmpty
     private String estadoPrestamo;
 
     /*Relacion de muchos a uno (Prestamo a Usuario) */

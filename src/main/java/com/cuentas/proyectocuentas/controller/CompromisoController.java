@@ -50,21 +50,27 @@ m.addAttribute("usuario",usuario);
     
         @PostMapping("/reg")
         public String reg(@Valid Compromiso compromiso, BindingResult res, Model m, SessionStatus status) throws Exception{
+            m.addAttribute("compromisos", compromisod.findAll());
+            List<TipoCompromiso> tipocompromiso = tipocompromisod.findAll();
+            m.addAttribute("tipocompromiso", tipocompromiso);
+            List<Usuario> usuario = usuarioI.findAll();
+            m.addAttribute("usuario",usuario);
+
             if(res.hasErrors()){
                 try {
                 compromisod.createCompromiso(compromiso);
             } catch (Exception e) {
-                if (e.getMessage().equalsIgnoreCase("numero de factura  no disponible")) {
+                if (e.getMessage().equalsIgnoreCase("numero de factura no disponible")) {
                     m.addAttribute("errorMessage",e.getMessage());
                 }
             }
-                return "views/compromiso/registrar";
+                return "views/compromiso/compromiso";
                 }
                 try {
                    compromisod.createCompromiso(compromiso);
                 } catch (Exception e) {
                     m.addAttribute("errorMessage",e.getMessage());
-                    return "views/compromiso/registrar";
+                    return "views/compromiso/compromiso";
                 } 
              //compromisod.save(compromiso);
              status.setComplete();
@@ -73,8 +79,15 @@ m.addAttribute("usuario",usuario);
     
         @GetMapping(path={"/listar"})
         public String listar(Model m){
-            m.addAttribute("compromiso", compromisod.findAll());
-            return "views/compromiso/listar";    
+            m.addAttribute("compromisos", compromisod.findAll());
+            Compromiso compromiso=new Compromiso();
+            m.addAttribute("compromiso",compromiso);
+            List<TipoCompromiso> tipocompromiso = tipocompromisod.findAll();
+            m.addAttribute("tipocompromiso", tipocompromiso);
+            List<Usuario> usuario = usuarioI.findAll();
+            m.addAttribute("usuario",usuario);
+
+            return "views/compromiso/compromiso";    
         }
     
         @GetMapping("/actualizar/{idCom}")

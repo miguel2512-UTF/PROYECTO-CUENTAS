@@ -5,7 +5,7 @@
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@4.6.2/dist/css/bootstrap.min.css" integrity="sha384-xOolHFLEh07PJGoPkLv1IbcEPTNtaed2xpHsD9ESMhqIYd0nLMwNLD69Npy4HI+N" crossorigin="anonymous">
-    <title>Usuario</title>
+    <title>Tipo Compromiso</title>
     <link rel="stylesheet" href="../assets/css/estilos2.css">
     <link rel="icon" href="../assets/img/Icon-cuentascasa.png">
     <script src="https://cdn.jsdelivr.net/npm/jquery@3.5.1/dist/jquery.slim.min.js" integrity="sha384-DfXdz2htPH0lsSSs5nCTpuj/zy4C+OGpamoFVy38MVBnE+IbbVYUew+OrCXaRkfj" crossorigin="anonymous"></script>
@@ -16,71 +16,58 @@
 <body>
     <div th:replace="/views/header :: nav"></div>
     <div class="title">
-      <h1>Usuario</h1>
+      <h1>Tipo Compromiso</h1>
       <a href="" data-toggle="modal" data-target="#modal-add"><svg xmlns="http://www.w3.org/2000/svg" width="32" height="32" fill="currentColor" class="bi bi-plus-circle-fill" viewBox="0 0 16 16">
         <path d="M16 8A8 8 0 1 1 0 8a8 8 0 0 1 16 0zM8.5 4.5a.5.5 0 0 0-1 0v3h-3a.5.5 0 0 0 0 1h3v3a.5.5 0 0 0 1 0v-3h3a.5.5 0 0 0 0-1h-3v-3z"/>
       </svg></a>
     </div>
     
     <div class="alerta">
-        <div class="alert alert-warning alert-dismissible fade show" role="alert" th:if="${usuarios.size()==0}">
-        <strong>Precaución!</strong> No hay usuarios para mostrar
+        <div class="alert alert-warning alert-dismissible fade show" role="alert" th:if="${tipocompromisos.size()==0}">
+        <strong>Precaución!</strong> No hay tipo compromisos para mostrar
         <button type="button" class="close" data-dismiss="alert" aria-label="Close">
           <span aria-hidden="true">&times;</span>
         </button>
         </div>
     </div>
     
-    <input type="checkbox" id="mostrar">Mostrar usuarios inactivos
+    <input type="checkbox" id="mostrar">Mostrar tipocompromisos inactivos
 
-    <table border="1" id="datatable-usu">
+    <table border="1" id="datat">
         <thead>
-            <th>ID</th>
+            <th>Id</th>
             <th>Nombre</th>
-            <th>Contraseña</th>
-            <th>Correo</th>
-            <th>Tipo</th>
+            <th>Descripción</th>
             <th>Estado</th>
             <th>Acciones</th>
         </thead>
-        <tr th:each="u:${usuarios}" id="tablerow">
-            <td th:text="${u.idUsuario}"></td>
-            <td th:text="${u.nombreUsuario}"></td>
-            <td th:text="${u.contrasenaUsuario}"></td>
-            <td th:text="${u.correoUsuario}"></td>
-            <td th:text="${u.tipoUsuario}"></td>
-            <td th:text="${u.estadoUsuario}" id="estado"></td>
+        <tr th:each="c:${tipocompromisos}" id="tablerow">
+            <td th:text="${c.id}"></td>
+            <td th:text="${c.nombre}"></td>
+            <td th:text="${c.descripcion}"></td>
+            <td th:text="${c.estado}" id="estado"></td>
             <td>
-                <a href="" data-toggle="modal" th:attr="data-target='#modal-editar'+${u.idUsuario}"><button type="button" class="btn btn-dark"><svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-pen-fill" viewBox="0 0 16 16">
+                <a href="" data-toggle="modal" th:attr="data-target='#modal-editar'+${c.id}"><button type="button" class="btn btn-dark"><svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-pen-fill" viewBox="0 0 16 16">
                 <path d="m13.498.795.149-.149a1.207 1.207 0 1 1 1.707 1.708l-.149.148a1.5 1.5 0 0 1-.059 2.059L4.854 14.854a.5.5 0 0 1-.233.131l-4 1a.5.5 0 0 1-.606-.606l1-4a.5.5 0 0 1 .131-.232l9.642-9.642a.5.5 0 0 0-.642.056L6.854 4.854a.5.5 0 1 1-.708-.708L9.44.854A1.5 1.5 0 0 1 11.5.796a1.5 1.5 0 0 1 1.998-.001z"/>
                 </svg></button></a>
                 
                 <!-- MODAL EDITAR -->
-                <div class="modal fade" tabindex="-1" th:id="modal-editar+${u.idUsuario}">
+                <div class="modal fade" tabindex="-1" th:id="modal-editar+${c.id}">
                     <div class="modal-dialog">
                       <div class="modal-content">
                         <div class="modal-header">
-                          <h5 class="modal-title">Editar Usuario</h5>
+                          <h5 class="modal-title">Editar Tipo Compromiso</h5>
                         </div>
-                        <form th:action="@{/usuario/add}" method="post" th:object="${usuario}">
+                        <form th:action="@{/tipocompromiso/add}" method="post" th:object="${tipocompromiso}">
                           <div class="modal-body">
-                                  <input type="hidden" name="idUsuario" id="idUsuario" th:value="${u.idUsuario}">
+                                  <input type="hidden" name="id" id="id" th:value="${c.id}">
                                   <label for="">Nombre</label>
-                                  <input type="text" name="nombreUsuario" id="nombreUsuario" autocomplete="off" th:value="${u.nombreUsuario}" required>
-                                  <label for="">Contraseña</label>
-                                  <input type="text" name="contrasenaUsuario" id="contrasenaUsuario" autocomplete="off" th:value="${u.contrasenaUsuario}" pattern="(?=.*\d)(?=.*[a-z])(?=.*[A-Z]).{8,}" title="La contraseña debe tener mínimo 8 caracteres, un número, una mayúscula y una minúscula" required>
-                                  <label for="">Correo</label>
-                                  <input type="email" name="correoUsuario" id="correoUsuario" autocomplete="off" th:value="${u.correoUsuario}" required>
-                                  <label for="">Tipo</label>
-                                  <select name="tipoUsuario" id="tipoUsuario" required>
-                                      <option th:value="${u.tipoUsuario}" th:text="${u.tipoUsuario}" selected>Seleccionar</option>
-                                      <option value="Administrador">Administrador</option>
-                                      <option value="Admin del hogar">Admin del hogar</option>
-                                      <option value="Contador">Contador</option>
-                                  </select>
+                                  <input type="text" name="nombre" id="nombre" autocomplete="off" th:value="${c.nombre}" required>
+                                  <label for="">Descripción</label>
+                                  <input type="text" name="descripcion" id="descripcion" autocomplete="off" th:value="${c.descripcion}" required>
                                   <label for="">Estado</label>
-                                  <select name="estadoUsuario" id="estadoUsuario" required>
-                                      <option th:value="${u.estadoUsuario}" th:text="${u.estadoUsuario}" selected>Seleccionar</option>
+                                  <select name="estado" id="estado" required>
+                                      <option th:value="${c.estado}" th:text="${c.estado}" selected>Seleccionar</option>
                                       <option value="Activo">Activo</option>
                                       <option value="Inactivo">Inactivo</option>
                                   </select>
@@ -94,26 +81,26 @@
                     </div>
                 </div>
 
-                <a href="" data-toggle="modal" th:attr="data-target='#modal-delete'+${u.idUsuario}"><button type="button" class="btn btn-dark"><svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-trash-fill" viewBox="0 0 16 16">
+                <a href="" data-toggle="modal" th:attr="data-target='#modal-delete'+${c.id}"><button type="button" class="btn btn-dark"><svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-trash-fill" viewBox="0 0 16 16">
                 <path d="M2.5 1a1 1 0 0 0-1 1v1a1 1 0 0 0 1 1H3v9a2 2 0 0 0 2 2h6a2 2 0 0 0 2-2V4h.5a1 1 0 0 0 1-1V2a1 1 0 0 0-1-1H10a1 1 0 0 0-1-1H7a1 1 0 0 0-1 1H2.5zm3 4a.5.5 0 0 1 .5.5v7a.5.5 0 0 1-1 0v-7a.5.5 0 0 1 .5-.5zM8 5a.5.5 0 0 1 .5.5v7a.5.5 0 0 1-1 0v-7A.5.5 0 0 1 8 5zm3 .5v7a.5.5 0 0 1-1 0v-7a.5.5 0 0 1 1 0z"/>
                 </svg></button></a>
 
                 <!-- MODAL ELIMINAR -->
-                <div class="modal fade" tabindex="-1" th:id="modal-delete+${u.idUsuario}">
+                <div class="modal fade" tabindex="-1" th:id="modal-delete+${c.id}">
                     <div class="modal-dialog">
                       <div class="modal-content">
                         <div class="modal-header">
-                          <h5 th:if="${u.estadoUsuario.equalsIgnoreCase('activo')}" class="modal-title">Inactivar Usuario</h5>
-                          <h5 th:if="${u.estadoUsuario.equalsIgnoreCase('inactivo')}" class="modal-title">Activar Usuario</h5>
+                          <h5 th:if="${c.estado.equalsIgnoreCase('activo')}" class="modal-title">Inactivar Tipo Compromiso</h5>
+                          <h5 th:if="${c.estado.equalsIgnoreCase('inactivo')}" class="modal-title">Activar Tipo Compromiso</h5>
                         </div>
                         <div class="modal-body">
-                            <p th:if="${u.estadoUsuario.equalsIgnoreCase('activo')}">Esta seguro que desea inactivar este usuario?</p>
-                            <p th:if="${u.estadoUsuario.equalsIgnoreCase('inactivo')}">Esta seguro que desea activar este usuario?</p>
+                            <p th:if="${c.estado.equalsIgnoreCase('activo')}">Esta seguro que desea inactivar este tipo compromiso?</p>
+                            <p th:if="${c.estado.equalsIgnoreCase('inactivo')}">Esta seguro que desea activar este tipo compromiso?</p>
                         </div>
                         <div class="modal-footer">
                             <button type="button" class="btn btn-secondary" data-dismiss="modal">Cancelar</button>
-                            <a th:if="${u.estadoUsuario.equalsIgnoreCase('activo')}" th:href="@{/usuario/cambioestado/}+${u.idUsuario}"><button type="submit" class="btn bg-cuentas">Inactivar</button></a>
-                            <a th:if="${u.estadoUsuario.equalsIgnoreCase('inactivo')}" th:href="@{/usuario/cambioestado/}+${u.idUsuario}"><button type="submit" class="btn bg-cuentas">Activar</button></a>
+                            <a th:if="${c.estado.equalsIgnoreCase('activo')}" th:href="@{/tipocompromiso/estado/}+${c.id}"><button type="submit" class="btn bg-cuentas">Inactivar</button></a>
+                            <a th:if="${c.estado.equalsIgnoreCase('inactivo')}" th:href="@{/tipocompromiso/estado/}+${c.id}"><button type="submit" class="btn bg-cuentas">Activar</button></a>
                         </div>
                       </div>
                     </div>
@@ -127,37 +114,25 @@
         <div class="modal-dialog">
           <div class="modal-content">
             <div class="modal-header">
-              <h5 class="modal-title">Registrar Usuario</h5>
+              <h5 class="modal-title">Registrar Tipo Compromiso</h5>
             </div>
             <div class="modal-body">
-                <form th:action="@{/usuario/add}" method="post" th:object="${usuario}">
+                <form th:action="@{/tipocompromiso/add}" method="post" th:object="${tipocompromiso}">
                   <script th:inline="javascript" th:if="${#fields.hasErrors('*')}">$("#modal-add").modal("show");</script>
                   <script th:inline="javascript" th:if="${errorMessage}">$("#modal-add").modal("show");</script>
                     <label for="">Nombre</label>
-                    <input type="text" th:field="*{nombreUsuario}" autocomplete="off">
-                    <div class="form-text text-danger" th:if="${#fields.hasErrors('nombreUsuario')}" th:errors="*{nombreUsuario}"></div>
-                    <!-- <label for="">Contraseña</label>
-                    <input type="text" th:field="*{contrasenaUsuario}" autocomplete="off"> -->
-                    <div class="form-text text-danger" th:if="${#fields.hasErrors('contrasenaUsuario')}" th:errors="*{contrasenaUsuario}"></div>
-                    <label for="">Correo</label>
-                    <input type="text" th:field="*{correoUsuario}" autocomplete="off">
-                    <div class="form-text text-danger" th:if="${#fields.hasErrors('correoUsuario')}" th:errors="*{correoUsuario}"></div>
-                    <div class="form-text text-danger" th:if="${errorMessage1}" th:text="${errorMessage1}"></div>
-                    <label for="">Tipo</label>
-                    <select th:field="*{tipoUsuario}">
-                        <option value="" selected>Seleccionar</option>
-                        <option value="Administrador">Administrador</option>
-                        <option value="Admin del hogar">Admin del hogar</option>
-                        <option value="Contador">Contador</option>
-                    </select>
-                    <div class="form-text text-danger" th:if="${#fields.hasErrors('tipoUsuario')}" th:errors="*{tipoUsuario}"></div>
+                    <input type="text" th:field="*{nombre}" autocomplete="off">
+                    <div class="form-text text-danger" th:if="${#fields.hasErrors('nombre')}" th:errors="*{nombre}"></div>
+                    <label for="">Descripción</label>
+                    <input type="text" th:field="*{descripcion}" autocomplete="off">
+                    <div class="form-text text-danger" th:if="${#fields.hasErrors('descripcion')}" th:errors="*{descripcion}"></div>
                     <label for="">Estado</label>
-                    <select th:field="*{estadoUsuario}">
+                    <select th:field="*{estado}">
                         <option value="" selected>Seleccionar</option>
                         <option value="Activo">Activo</option>
                         <option value="Inactivo">Inactivo</option>
                     </select>
-                    <div class="form-text text-danger" th:if="${#fields.hasErrors('estadoUsuario')}" th:errors="*{estadoUsuario}"></div>
+                    <div class="form-text text-danger" th:if="${#fields.hasErrors('estado')}" th:errors="*{estado}"></div>
                     <div class="form-text text-danger" th:if="${errorMessage}" th:text="${errorMessage}"></div>            
             </div>
             <div class="modal-footer">
@@ -170,14 +145,14 @@
     </div>
 
     <script>
-      var datat=document.querySelector("#datatable-usu"); 
-      var dataTable=new DataTable("#datatable-usu",{ 
+      var datat=document.querySelector("#datat"); 
+      var dataTable=new DataTable("#datat",{ 
         perPage:10,
         labels: {
             placeholder: "Buscar...",
             perPage: "{select} registros por página",
             noRows: "No se encontraron registros",
-            info: "Mostrando {start} a {end} de {rows} usuarios (Página {page} de {pages} páginas)",
+            info: "Mostrando {start} a {end} de {rows} tipo compromisos (Página {page} de {pages} páginas)",
         }
       } ) ;
     </script>

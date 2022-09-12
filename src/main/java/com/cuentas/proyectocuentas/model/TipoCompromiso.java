@@ -26,18 +26,22 @@ public class TipoCompromiso {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Integer id;
-    @NotEmpty
+
     @Size(min=2,max=50)
     @Column(length = 20,nullable=false, unique = true)
-    private String nombre;
     @NotEmpty
+    private String nombre;
+
     @Column(length = 200,nullable=false)
+    @NotEmpty
     private String descripcion;
+
+    @Column(nullable = false)
     @NotEmpty
     private String estado;
 
     @OneToMany(mappedBy = "tipocompromiso",fetch = FetchType.LAZY, cascade =CascadeType.ALL)
-private List<Compromiso> compromiso;
+    private List<Compromiso> compromiso;
 
 
 

@@ -7,6 +7,7 @@ import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -19,46 +20,49 @@ import com.cuentas.proyectocuentas.service.ITipoCompromisoService;
 @Controller
 @SessionAttributes("tipocompromiso")
 @RequestMapping("/tipocompromiso")
-
 public class TipoCompromisoController {
     
     @Autowired
     private ITipoCompromisoService tipocompromisod;
-        
-        @GetMapping(path={"/listar","","/"})
-        public String listar(Model m){
-            m.addAttribute("tipocompromiso", tipocompromisod.findAll());
-            return "views/tipocompromiso/listar";
-            
-        }
       
         @GetMapping("/form")
         public String form(Model m){
             TipoCompromiso tipocompromiso=new TipoCompromiso();
-        m.addAttribute("tipocompromiso", tipocompromiso);
-        m.addAttribute("accion",
-    "Registrar tipocompromiso");
-        return "views/tipocompromiso/form";
+            m.addAttribute("tipocompromiso", tipocompromiso);
+            m.addAttribute("accion","Registrar tipocompromiso");
+            return "views/tipocompromiso/form";
         }
     
-    
+        @GetMapping("/listar")
+        public String listar(Model m){
+            m.addAttribute("tipocompromisos", tipocompromisod.findAll());
+            TipoCompromiso tipocompromiso=new TipoCompromiso();
+            m.addAttribute("tipocompromiso",tipocompromiso);
+
+            return "views/tipocompromiso/tipocompromiso";
+        }
     
         @PostMapping("/add")
-        public String add(@Valid TipoCompromiso tipocompromiso,BindingResult res, Model m,SessionStatus status){
+        public String add(@Valid @ModelAttribute("tipocompromiso") TipoCompromiso tipocompromiso,BindingResult res, Model m,SessionStatus status){
+            m.addAttribute("tipocompromisos", tipocompromisod.findAll());
+            m.addAttribute("tipocompromiso", tipocompromiso);
+
             if(res.hasErrors()){
                 try {
                     tipocompromisod.createTipoCompromiso(tipocompromiso);
                 } catch (Exception e) {
-                    if (e.getMessage().equalsIgnoreCase("el nombre  ya esta registrado")) {
+                    if (e.getMessage().equalsIgnoreCase("NOMBRE no disponible")) {
                         m.addAttribute("errorMessage",e.getMessage());
                     }
                 }
-                return "/views/tipocompromiso/form";
-            } try {
+                return "views/tipocompromiso/tipocompromiso";
+            } 
+            
+            try {
                 tipocompromisod.createTipoCompromiso(tipocompromiso);
              } catch (Exception e) {
                  m.addAttribute("errorMessage",e.getMessage());
-                 return "views/tipocompromiso/form";
+                 return "views/tipocompromiso/tipocompromiso";
              } 
           status.setComplete();
             return "redirect:listar";

@@ -1,0 +1,263 @@
+<!DOCTYPE html>
+<html xmlns:th="https://wwww.thymeleaf.org" lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@4.6.2/dist/css/bootstrap.min.css" integrity="sha384-xOolHFLEh07PJGoPkLv1IbcEPTNtaed2xpHsD9ESMhqIYd0nLMwNLD69Npy4HI+N" crossorigin="anonymous">
+    <title>Préstamo</title>
+    <link rel="stylesheet" href="../assets/css/estilos2.css">
+    <link rel="icon" href="../assets/img/Icon-cuentascasa.png">
+    <script src="https://cdn.jsdelivr.net/npm/jquery@3.5.1/dist/jquery.slim.min.js" integrity="sha384-DfXdz2htPH0lsSSs5nCTpuj/zy4C+OGpamoFVy38MVBnE+IbbVYUew+OrCXaRkfj" crossorigin="anonymous"></script>
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@4.6.2/dist/js/bootstrap.bundle.min.js" integrity="sha384-Fy6S3B9q64WdZWQUiU+q4/2Lc9npb8tCaSX9FK7E8HnRr0Jz8D6OP9dO5Vg3Q9ct" crossorigin="anonymous"></script>
+    <link rel="stylesheet" type="text/css" href="https://cdn.jsdelivr.net/gh/mobius1/vanilla-Datatables@latest/vanilla-dataTables.min.css">
+    <script type="text/javascript" src="https://cdn.jsdelivr.net/gh/mobius1/vanilla-Datatables@latest/vanilla-dataTables.min.js"></script>
+</head>
+<body>
+    <div th:replace="/views/header :: nav"></div>
+    <div class="title">
+      <h1>Préstamo</h1>
+      <a href="" data-toggle="modal" data-target="#modal-add"><svg xmlns="http://www.w3.org/2000/svg" width="32" height="32" fill="currentColor" class="bi bi-plus-circle-fill" viewBox="0 0 16 16">
+        <path d="M16 8A8 8 0 1 1 0 8a8 8 0 0 1 16 0zM8.5 4.5a.5.5 0 0 0-1 0v3h-3a.5.5 0 0 0 0 1h3v3a.5.5 0 0 0 1 0v-3h3a.5.5 0 0 0 0-1h-3v-3z"/>
+      </svg></a>
+    </div>
+    
+    <div class="alerta">
+        <div class="alert alert-warning alert-dismissible fade show" role="alert" th:if="${prestamos.size()==0}">
+        <strong>Precaución!</strong> No hay préstamos para mostrar
+        <button type="button" class="close" data-dismiss="alert" aria-label="Close">
+          <span aria-hidden="true">&times;</span>
+        </button>
+        </div>
+    </div>
+    
+    <input type="checkbox" id="mostrar">Mostrar préstamos inactivos
+
+    <table border="1" id="table-prestamo">
+        <thead>
+            <th>Id</th>
+            <th>Documento Prestamista</th>
+            <th>Nombre Prestamista</th>
+            <th>Fecha de Pago Oportuno</th>
+            <th>Valor del Préstamo</th>
+            <th>Tasa de Préstamo</th>
+            <th>Periodo de Cuotas</th>
+            <th>Número de Cuotas</th>
+            <th>Pagos y Abonos</th>
+            <th>Estado</th>
+            <th>Acciones</th>
+        </thead>
+        <tr th:each="Pr:${prestamos}" id="tablerow">
+            <td th:text="${Pr.idPrestamo}"></td>
+            <td th:text="${Pr.documentoPrestamista}"></td>
+            <td th:text="${Pr.nombrePrestamista}"></td>
+            <td th:text="${Pr.fechaPagoOportuno}"></td>
+            <td th:text="${Pr.valorPrestamo}"></td>
+            <td th:text="${Pr.tasaPrestamo}"></td>
+            <td th:text="${Pr.periodoCuota}"></td>
+            <td th:text="${Pr.numeroCuotas}"></td>
+            <td>
+                <button>
+                    <a role="button" th:href="@{/pagoprestamo/listar}">Pago</a>
+                    <a role="button" th:href="@{/prestamoabono/listar}">Abono</a>
+                </button>
+            </td>
+            <td th:text="${Pr.estadoPrestamo}" id="estado"></td>
+            <td>
+                <a href="" data-toggle="modal" th:attr="data-target='#modal-editar'+${Pr.idPrestamo}"><button type="button" class="btn btn-dark"><svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-pen-fill" viewBox="0 0 16 16">
+                <path d="m13.498.795.149-.149a1.207 1.207 0 1 1 1.707 1.708l-.149.148a1.5 1.5 0 0 1-.059 2.059L4.854 14.854a.5.5 0 0 1-.233.131l-4 1a.5.5 0 0 1-.606-.606l1-4a.5.5 0 0 1 .131-.232l9.642-9.642a.5.5 0 0 0-.642.056L6.854 4.854a.5.5 0 1 1-.708-.708L9.44.854A1.5 1.5 0 0 1 11.5.796a1.5 1.5 0 0 1 1.998-.001z"/>
+                </svg></button></a>
+                
+                <!-- MODAL EDITAR -->
+                <div class="modal fade" tabindex="-1" th:id="modal-editar+${Pr.idPrestamo}">
+                    <div class="modal-dialog">
+                      <div class="modal-content">
+                        <div class="modal-header">
+                          <h5 class="modal-title">Editar Préstamo</h5>
+                        </div>
+                        <form th:action="@{/prestamo/add}" method="post" th:object="${prestamo}">
+                          <div class="modal-body">
+                                  <input type="hidden" name="idPrestamo" id="idPrestamo" th:value="${Pr.idPrestamo}">
+                                  <label for="">Documento Prestamista</label>
+                                  <input type="number" name="documentoPrestamista" id="documentoPrestamista" step="1" min="10000000" max="9999999999" placeholder="Ej: 1079032167" autocomplete="off" th:value="${Pr.documentoPrestamista}" required>
+                                  <label for="">Nombre Prestamista</label>
+                                  <input type="text" name="nombrePrestamista" id="nombrePrestamista" minlength="5" maxlength="50" placeholder="Ejemplo: Cristhian López" autocomplete="off" th:value="${Pr.nombrePrestamista}" required>
+                                  <label for="">Fecha pago oportuno</label>
+                                  <input type="date" name="fechaPagoOportuno" id="fechaPagoOportuno" th:value="${Pr.fechaPagoOportuno}" min="2021-01-01" max="2022-12-31" required>
+                                  <label for="valorPrestamo">Valor Prestamo</label>
+                                  <input  type="number" name="valorPrestamo" id="valorPrestamo" th:value="${Pr.valorPrestamo}" step="1" min="1000000" placeholder="Ejemplo: 1500000" required>
+                                  <label for="tasaPrestamo">Tasa Prestamo</label>
+                                  <input  type="text" name="tasaPrestamo" id="tasaPrestamo" th:value="${Pr.tasaPrestamo}" minlength="2" maxlength="4" placeholder="Ejemplo: 5%" required>
+                                  <label for="">Periodo Cuotas</label>
+                                  <select name="periodoCuota" id="periodoCuota" required>
+                                      <option th:value="${Pr.periodoCuota}" th:text="${Pr.periodoCuota}" selected>Seleccionar</option>
+                                      <option value="Mensual">Mensual</option>
+                                      <option value="Trimestral">Trimestral</option>
+                                      <option value="Cuatrimensual">Cuatrimensual</option>
+                                      <option value="Quinquemestral">Quinquemestral</option>
+                                      <option value="Semestral">Semestral</option>
+                                  </select>
+                                  <label for="numeroCuotas">Número Cuotas</label>
+                                  <input  type="number" name="numeroCuotas" id="numeroCuotas" th:value="${Pr.numeroCuotas}" min="1" max="96" required placeholder="Ejemplo: 12">
+                                  <label for="">Estado Préstamo</label>
+                                  <select name="estadoPrestamo" id="estadoPrestamo" required>
+                                      <option th:value="${Pr.estadoPrestamo}" th:text="${Pr.estadoPrestamo}" selected>Seleccionar</option>
+                                      <option value="Activo">Activo</option>
+                                      <option value="Inactivo">Inactivo</option>
+                                      <option value="Congelado">Congelado</option>
+                                  </select>
+                          </div>
+                          <div class="modal-footer">
+                              <button type="button" class="btn btn-secondary" data-dismiss="modal">Cancelar</button>
+                              <button type="submit" class="btn bg-cuentas">Editar</button>
+                          </div>
+                        </form>
+                      </div>
+                    </div>
+                </div>
+
+                <a href="" data-toggle="modal" th:attr="data-target='#modal-delete'+${Pr.idPrestamo}"><button type="button" class="btn btn-dark"><svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-trash-fill" viewBox="0 0 16 16">
+                <path d="M2.5 1a1 1 0 0 0-1 1v1a1 1 0 0 0 1 1H3v9a2 2 0 0 0 2 2h6a2 2 0 0 0 2-2V4h.5a1 1 0 0 0 1-1V2a1 1 0 0 0-1-1H10a1 1 0 0 0-1-1H7a1 1 0 0 0-1 1H2.5zm3 4a.5.5 0 0 1 .5.5v7a.5.5 0 0 1-1 0v-7a.5.5 0 0 1 .5-.5zM8 5a.5.5 0 0 1 .5.5v7a.5.5 0 0 1-1 0v-7A.5.5 0 0 1 8 5zm3 .5v7a.5.5 0 0 1-1 0v-7a.5.5 0 0 1 1 0z"/>
+                </svg></button></a>
+
+                <!-- MODAL ELIMINAR -->
+                <div class="modal fade" tabindex="-1" th:id="modal-delete+${Pr.idPrestamo}">
+                    <div class="modal-dialog">
+                      <div class="modal-content">
+                        <div class="modal-header">
+                          <h5 th:if="${Pr.estadoPrestamo.equalsIgnoreCase('activo')}" class="modal-title">Inactivar Préstamo</h5>
+                          <h5 th:if="${Pr.estadoPrestamo.equalsIgnoreCase('inactivo')}" class="modal-title">Activar Préstamo</h5>
+                        </div>
+                        <div class="modal-body">
+                            <p th:if="${Pr.estadoPrestamo.equalsIgnoreCase('activo')}">Esta seguro que desea inactivar este préstamo?</p>
+                            <p th:if="${Pr.estadoPrestamo.equalsIgnoreCase('inactivo')}">Esta seguro que desea activar este préstamo?</p>
+                        </div>
+                        <div class="modal-footer">
+                            <button type="button" class="btn btn-secondary" data-dismiss="modal">Cancelar</button>
+                            <a th:if="${Pr.estadoPrestamo.equalsIgnoreCase('activo')}" th:href="@{/usuario/cambioestado/}+${Pr.idPrestamo}"><button type="submit" class="btn bg-cuentas">Inactivar</button></a>
+                            <a th:if="${Pr.estadoPrestamo.equalsIgnoreCase('inactivo')}" th:href="@{/usuario/cambioestado/}+${Pr.idPrestamo}"><button type="submit" class="btn bg-cuentas">Activar</button></a>
+                        </div>
+                      </div>
+                    </div>
+                </div>
+            </td>
+        </tr>
+    </table>
+    
+    <!-- MODAL REGISTRAR -->
+    <div class="modal fade" tabindex="-1" id="modal-add">
+        <div class="modal-dialog">
+          <div class="modal-content">
+            <div class="modal-header">
+              <h5 class="modal-title">Registrar Préstamo</h5>
+            </div>
+            <div class="modal-body">
+                <form th:action="@{/prestamo/add}" method="post" th:object="${prestamo}">
+                  <script th:inline="javascript" th:if="${#fields.hasErrors('*')}">$("#modal-add").modal("show");</script>
+                  <script th:inline="javascript" th:if="${errorMessage}">$("#modal-add").modal("show");</script>
+                    <label for="">Documento Prestamista</label>
+                    <input type="number" th:field="*{documentoPrestamista}" step="1" min="10000000" max="9999999999" placeholder="Ej: 1079032167" autocomplete="off">
+                    <div class="form-text text-danger" th:if="${#fields.hasErrors('documentoPrestamista')}" th:errors="*{documentoPrestamista}"></div>
+                    <label for="">Nombre Prestamista</label>
+                    <input type="text" minlength="5" maxlength="50" th:field="*{nombrePrestamista}" placeholder="Ejemplo: Cristhian López" autocomplete="off">
+                    <div class="form-text text-danger" th:if="${#fields.hasErrors('nombrePrestamista')}" th:errors="*{nombrePrestamista}"></div>
+                    <label for="">Fecha pago oportuno </label>
+                    <input type="date" th:field="*{fechaPagoOportuno}" min="2021-01-01" max="2022-12-31" autocomplete="off">
+                    <div class="form-text text-danger" th:if="${#fields.hasErrors('fechaPagoOportuno')}" th:errors="*{fechaPagoOportuno}"></div>
+                    <label for="">Valor Préstamo</label>
+                    <input type="number" step="1" min="1000000" th:field="*{valorPrestamo}" placeholder="Ejemplo: 1500000" autocomplete="off">
+                    <div class="form-text text-danger" th:if="${#fields.hasErrors('valorPrestamo')}" th:errors="*{valorPrestamo}"></div>
+                    <label for="tasaPrestamo">Tasa Prestamo</label>
+                    <input type="text" minlength="2" maxlength="4" th:field="*{tasaPrestamo}" placeholder="Ejemplo: 5%" autocomplete="off">
+                    <div class="form-text text-danger" th:if="${#fields.hasErrors('tasaPrestamo')}" th:errors="*{tasaPrestamo}"></div>
+                    <label for="">Periodo Cuotas</label>
+                    <select th:field="*{periodoCuota}" minlength="7" maxlength="14">
+                        <option value="">Selecciona una opción</option>
+                        <option value="Mensual">Mensual</option>
+                        <option value="Trimestral">Trimestral</option>
+                        <option value="Cuatrimensual">Cuatrimensual</option>
+                        <option value="Quinquemestral">Quinquemestral</option>
+                        <option value="Semestral">Semestral</option>
+                    </select>
+                    <div class="form-text text-danger" th:if="${#fields.hasErrors('periodoCuota')}" th:errors="*{periodoCuota}"></div>
+                    <label for="">Número Cuotas</label>
+                    <input type="number" min="1" max="96" th:field="*{numeroCuotas}" placeholder="Ejemplo: 12" autocomplete="off">
+                    <div class="form-text text-danger" th:if="${#fields.hasErrors('numeroCuotas')}" th:errors="*{numeroCuotas}"></div>
+                    <label for="">Estado Préstamo</label>
+                    <select th:field="*{estadoPrestamo}">
+                        <option value="" selected>Selecciona una opción</option>
+                        <option value="Inactivo">Inactivo</option>
+                        <option value="Activo">Activo</option>
+                        <option value="Congelado">Congelado</option>
+                    </select>
+                    <div class="form-text text-danger" th:if="${#fields.hasErrors('estadoPrestamo')}" th:errors="*{estadoPrestamo}"></div>
+                    <div class="form-text text-danger" th:if="${errorMessage}" th:text="${errorMessage}"></div>            
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-secondary" data-dismiss="modal">Cancelar</button>
+                <button type="submit" class="btn bg-cuentas">Registrar</button>
+                </form>
+            </div>
+          </div>
+        </div>
+    </div>
+
+    <script>
+      var datat=document.querySelector("#table-prestamo"); 
+      var dataTable=new DataTable("#table-prestamo",{ 
+        perPage:10,
+        labels: {
+            placeholder: "Buscar...",
+            perPage: "{select} registros por página",
+            noRows: "No se encontraron registros",
+            info: "Mostrando {start} a {end} de {rows} préstamos (Página {page} de {pages} páginas)",
+        }
+      } ) ;
+    </script>
+
+    <script>
+      var checkbox = document.getElementById('mostrar');
+      var row = document.querySelectorAll('#tablerow');
+      var estado = document.querySelectorAll('#estado');
+
+      checkbox.addEventListener("click",mostrar)
+      
+      if (checkbox.checked==false) {
+        for (let index = 0; index < estado.length; index++) {
+          if (estado[index].textContent=="Inactivo") {
+            for (let index = 0; index < row.length; index++) {
+              if (estado[index].textContent=="Inactivo") {
+                row[index].setAttribute('style','display:none');
+              }
+            }
+          }
+          console.log(estado[index].textContent)
+        }
+      }
+      
+      function mostrar(){
+        if (checkbox.checked==true) {
+          for (let index = 0; index < estado.length; index++) {
+            if (estado[index].textContent=="Inactivo") {
+              for (let index = 0; index < row.length; index++) {
+                if (estado[index].textContent=="Inactivo") {
+                  row[index].setAttribute('style','display:');
+                }
+              }
+            }
+          }
+        }else if (checkbox.checked==false){
+          for (let index = 0; index < estado.length; index++) {
+            if (estado[index].textContent=="Inactivo") {
+              for (let index = 0; index < row.length; index++) {
+                if (estado[index].textContent=="Inactivo") {
+                  row[index].setAttribute('style','display:none');
+                }
+              }
+            }
+          }
+        }
+      }
+    </script>
+</body>
+</html>

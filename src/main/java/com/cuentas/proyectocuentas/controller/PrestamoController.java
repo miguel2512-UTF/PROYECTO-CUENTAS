@@ -36,15 +36,17 @@ public class PrestamoController {
         Prestamo prestamo=new Prestamo();
         m.addAttribute("prestamo", prestamo);
         m.addAttribute("usuario", usuarioI.findAll());
-        return "views/prestamo/prestamos";
+        return "views/prestamo/prestamo";
     }
 
 
     //AGREGAR
     @PostMapping("/add")
     public String add(@Valid Prestamo prestamo, BindingResult res, Model m, SessionStatus status){
+        m.addAttribute("prestamos", prestamoI.findAll());
+        
         if (res.hasErrors()) {
-            return "views/prestamo/registrar";
+            return "views/prestamo/prestamo";
         }
         prestamoI.save(prestamo);
         status.setComplete();

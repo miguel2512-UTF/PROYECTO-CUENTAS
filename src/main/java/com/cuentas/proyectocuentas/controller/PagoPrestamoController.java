@@ -7,6 +7,7 @@ import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -31,9 +32,9 @@ public class PagoPrestamoController {
     //LISTAR
     @GetMapping("/listar")
     public String listar(Model m){
-        m.addAttribute("pagoprestamo", pagoprestamoI.findAll());
-        PagoPrestamoController pagoprestamo=new PagoPrestamoController();
-        m.addAttribute("pagoabono", pagoprestamo);
+        m.addAttribute("pagoprestamos", pagoprestamoI.findAll());
+        PagoPrestamo pagoprestamo=new PagoPrestamo();
+        m.addAttribute("pagoprestamo", pagoprestamo);
         m.addAttribute("prestamo", prestamoI.findAll());
         return "views/pagoprestamo/pagoprestamo";
     }
@@ -41,9 +42,12 @@ public class PagoPrestamoController {
     
     //AGREGAR
     @PostMapping("/add")
-    public String add(@Valid PagoPrestamo pagoprestamo, BindingResult res, Model m, SessionStatus status){
+    public String add(@Valid @ModelAttribute("pagoprestamo") PagoPrestamo pagoprestamo, BindingResult res, Model m, SessionStatus status){
+        m.addAttribute("pagoprestamos", pagoprestamoI.findAll());
+        m.addAttribute("prestamo", prestamoI.findAll());
+        
         if (res.hasErrors()) {
-            return "views/pagoprestamo/registrar";
+            return "views/pagoprestamo/pagoprestamo";
         }
         pagoprestamoI.save(pagoprestamo);
         status.setComplete();

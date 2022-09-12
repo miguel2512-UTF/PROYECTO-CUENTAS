@@ -7,6 +7,7 @@ import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -34,18 +35,21 @@ public class PrestamoAbonoController {
     public String listar(Model m){
         m.addAttribute("prestamoabonos", prestamoabonoI.findAll());
         PrestamoAbono prestamoabono=new PrestamoAbono();
-        m.addAttribute("prestamoabono", prestamoabono);
+        m.addAttribute("abono", prestamoabono);
         m.addAttribute("prestamo", prestamoI.findAll());
         return "views/prestamoabono/prestamoabono";
     }
 
     //AGREGAR
     @PostMapping("/add")
-    public String add(@Valid PrestamoAbono prestamoabono, BindingResult res, Model m, SessionStatus status){
+    public String add(@Valid @ModelAttribute("abono") PrestamoAbono abono, BindingResult res, Model m, SessionStatus status){
+        m.addAttribute("prestamoabonos", prestamoabonoI.findAll());
+        m.addAttribute("prestamo", prestamoI.findAll());
+
         if (res.hasErrors()) {
-            return "views/prestamoabono/registrar";
+            return "views/prestamoabono/prestamoabono";
         }
-        prestamoabonoI.save(prestamoabono);
+        prestamoabonoI.save(abono);
         status.setComplete();
         return "redirect:listar";
     }
@@ -82,3 +86,4 @@ public class PrestamoAbonoController {
 
     
 }
+

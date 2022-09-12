@@ -11,6 +11,7 @@ import javax.persistence.Id;
 import javax.persistence.ManyToOne;
 import javax.persistence.Table;
 import javax.validation.constraints.NotEmpty;
+import javax.validation.constraints.NotNull;
 
 @Entity
 @Table(name = "PagoPrestamo")
@@ -33,6 +34,7 @@ public class PagoPrestamo {
 
     /*Relacion de muchos a uno (Pago a Prestamo) */
     @ManyToOne(fetch = FetchType.LAZY)
+    @NotNull
     private Prestamo prestamo;
 
     public PagoPrestamo() {

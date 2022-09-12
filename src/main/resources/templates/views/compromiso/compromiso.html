@@ -1,0 +1,271 @@
+<!DOCTYPE html>
+<html xmlns:th="https://wwww.thymeleaf.org" lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@4.6.2/dist/css/bootstrap.min.css" integrity="sha384-xOolHFLEh07PJGoPkLv1IbcEPTNtaed2xpHsD9ESMhqIYd0nLMwNLD69Npy4HI+N" crossorigin="anonymous">
+    <title>Compromiso</title>
+    <link rel="stylesheet" href="../assets/css/estilos2.css">
+    <link rel="icon" href="../assets/img/Icon-cuentascasa.png">
+    <script src="https://cdn.jsdelivr.net/npm/jquery@3.5.1/dist/jquery.slim.min.js" integrity="sha384-DfXdz2htPH0lsSSs5nCTpuj/zy4C+OGpamoFVy38MVBnE+IbbVYUew+OrCXaRkfj" crossorigin="anonymous"></script>
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@4.6.2/dist/js/bootstrap.bundle.min.js" integrity="sha384-Fy6S3B9q64WdZWQUiU+q4/2Lc9npb8tCaSX9FK7E8HnRr0Jz8D6OP9dO5Vg3Q9ct" crossorigin="anonymous"></script>
+    <link rel="stylesheet" type="text/css" href="https://cdn.jsdelivr.net/gh/mobius1/vanilla-Datatables@latest/vanilla-dataTables.min.css">
+    <script type="text/javascript" src="https://cdn.jsdelivr.net/gh/mobius1/vanilla-Datatables@latest/vanilla-dataTables.min.js"></script>
+</head>
+<body>
+    <div th:replace="/views/header :: nav"></div>
+    <div class="title">
+      <h1>Compromiso</h1>
+      <a href="" data-toggle="modal" data-target="#modal-add"><svg xmlns="http://www.w3.org/2000/svg" width="32" height="32" fill="currentColor" class="bi bi-plus-circle-fill" viewBox="0 0 16 16">
+        <path d="M16 8A8 8 0 1 1 0 8a8 8 0 0 1 16 0zM8.5 4.5a.5.5 0 0 0-1 0v3h-3a.5.5 0 0 0 0 1h3v3a.5.5 0 0 0 1 0v-3h3a.5.5 0 0 0 0-1h-3v-3z"/>
+      </svg></a>
+    </div>
+    
+    <div class="alerta">
+        <div class="alert alert-warning alert-dismissible fade show" role="alert" th:if="${compromisos.size()==0}">
+        <strong>Precaución!</strong> No hay compromisos para mostrar
+        <button type="button" class="close" data-dismiss="alert" aria-label="Close">
+          <span aria-hidden="true">&times;</span>
+        </button>
+        </div>
+    </div>
+
+    <a class="nav-item" th:href="@{/tipocompromiso/listar}"><i class="bi bi-card-list">tipo compromiso</i></a>
+    
+    <input type="checkbox" id="mostrar">Mostrar compromisos inactivos
+
+    <table border="1" id="datat">
+        <thead>
+            <th>#</th>
+            <th>Numero Factura</th>
+            <th>Nombre Empresa</th>
+            <th>Fecha Pago</th>
+            <th>Fecha Suspension</th>
+            <th>Metodo Pago</th>
+            <th>Total</th>
+            <th>Usuario</th>
+            <th>Tipo Compromiso</th>
+            <th>Estado</th>            
+            <th>Acciones</th>
+        </thead>
+        <tr th:each="g:${compromisos}" id="tablerow">
+            <td th:text="${g.idCom}"></td>
+            <td th:text="${g.numeroFac}"></td>
+            <td th:text="${g.nombreEm}"></td>
+            <td th:text="${g.fecha}"></td>
+            <td th:text="${g.fechaS}"></td>
+            <td th:text="${g.metodo}"></td>
+            <td th:text="${g.Total}"></td>
+            <td th:text="${g.Usuario.nombreUsuario}"></td>
+            <td th:text="${g.TipoCompromiso.nombre}"></td> 
+            <td th:text="${g.estadoCom}" id="estado"></td>
+            <td>
+                <a href="" data-toggle="modal" th:attr="data-target='#modal-editar'+${g.idCom}"><button type="button" class="btn btn-dark"><svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-pen-fill" viewBox="0 0 16 16">
+                <path d="m13.498.795.149-.149a1.207 1.207 0 1 1 1.707 1.708l-.149.148a1.5 1.5 0 0 1-.059 2.059L4.854 14.854a.5.5 0 0 1-.233.131l-4 1a.5.5 0 0 1-.606-.606l1-4a.5.5 0 0 1 .131-.232l9.642-9.642a.5.5 0 0 0-.642.056L6.854 4.854a.5.5 0 1 1-.708-.708L9.44.854A1.5 1.5 0 0 1 11.5.796a1.5 1.5 0 0 1 1.998-.001z"/>
+                </svg></button></a>
+                
+                <!-- MODAL EDITAR -->
+                <div class="modal fade" tabindex="-1" th:id="modal-editar+${g.idCom}">
+                    <div class="modal-dialog">
+                      <div class="modal-content">
+                        <div class="modal-header">
+                          <h5 class="modal-title">Editar Compromiso</h5>
+                        </div>
+                        <form th:action="@{/compromiso/reg}" method="post" th:object="${compromiso}">
+                          <div class="modal-body">
+                                  <input type="hidden" name="idCom" id="idCom" th:value="${g.idCom}">
+                                  <label for="">Número Factura</label>
+                                  <input type="text" name="numeroFac" id="numeroFac" autocomplete="off" th:value="${g.numeroFac}" required>
+                                  <label for="">Nombre Empresa</label>
+                                  <input type="text" name="nombreEm" id="nombreEm" autocomplete="off" th:value="${g.nombreEm}" required>
+                                  <label for="">Fecha Pago Oportuno</label>
+                                  <input type="date" name="fecha" id="fecha" value="2022-08-30" min="2022-09-10" autocomplete="off" th:value="${g.fecha}" required>
+                                  <label for="">Fecha Suspensión</label>
+                                  <input type="date" name="fechaS" id="fechaS" value="2022-08-30" min="2022-09-10" autocomplete="off" th:value="${g.fechaS}" required>
+                                  <label for="">Método de Pago</label>
+                                  <select name="metodo" id="metodo" required>
+                                      <option th:value="${g.metodo}" th:text="${g.metodo}" selected>Seleccionar</option>
+                                      <option value="Efectivo">Efectivo</option>
+                                      <option value="Aplicacion">Aplicacion</option>
+                                  </select>
+                                  <label for="">Total Pago</label>
+                                  <input type="text" name="total" id="total" autocomplete="off" th:value="${g.total}" required>
+                                  <select name="Usuario" required>
+                                    <option value="">SELECCIONAR USUARIO</option>
+                                    <th:block th:each="Usuario : ${usuario}">
+                                    <option th:text="${Usuario.nombreUsuario}" th:value="${Usuario.idUsuario}"></option>
+                                    </th:block>
+                                  </select>
+                                  <select name="TipoCompromiso" required>
+                                    <option value="">SELECCIONAR Tipo Compromiso</option>
+                                    <th:block th:each="TipoCompromiso : ${tipocompromiso}">
+                                    <option th:text="${TipoCompromiso.nombre}" th:value="${TipoCompromiso.id}"></option>
+                                    </th:block>
+                                  </select>
+                                  <label for="">Estado</label>
+                                  <select name="estadoCom" id="estadoCom" required>
+                                      <option th:value="${g.estadoCom}" th:text="${g.estadoCom}" selected></option>
+                                      <option value="Pago">Pago</option>
+                                      <option value="Por Pagar">Por Pagar</option>
+                                  </select>
+                          </div>
+                          <div class="modal-footer">
+                              <button type="button" class="btn btn-secondary" data-dismiss="modal">Cancelar</button>
+                              <button type="submit" class="btn bg-cuentas">Editar</button>
+                          </div>
+                        </form>
+                      </div>
+                    </div>
+                </div>
+
+                <a href="" data-toggle="modal" th:attr="data-target='#modal-delete'+${g.idCom}"><button type="button" class="btn btn-dark"><svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-trash-fill" viewBox="0 0 16 16">
+                <path d="M2.5 1a1 1 0 0 0-1 1v1a1 1 0 0 0 1 1H3v9a2 2 0 0 0 2 2h6a2 2 0 0 0 2-2V4h.5a1 1 0 0 0 1-1V2a1 1 0 0 0-1-1H10a1 1 0 0 0-1-1H7a1 1 0 0 0-1 1H2.5zm3 4a.5.5 0 0 1 .5.5v7a.5.5 0 0 1-1 0v-7a.5.5 0 0 1 .5-.5zM8 5a.5.5 0 0 1 .5.5v7a.5.5 0 0 1-1 0v-7A.5.5 0 0 1 8 5zm3 .5v7a.5.5 0 0 1-1 0v-7a.5.5 0 0 1 1 0z"/>
+                </svg></button></a>
+
+                <!-- MODAL ELIMINAR -->
+                <div class="modal fade" tabindex="-1" th:id="modal-delete+${g.idCom}">
+                    <div class="modal-dialog">
+                      <div class="modal-content">
+                        <div class="modal-header">
+                          <h5 th:if="${g.estadoCom.equalsIgnoreCase('activo')}" class="modal-title">Inactivar Usuario</h5>
+                          <h5 th:if="${g.estadoCom.equalsIgnoreCase('inactivo')}" class="modal-title">Activar Usuario</h5>
+                        </div>
+                        <div class="modal-body">
+                            <p th:if="${g.estadoCom.equalsIgnoreCase('activo')}">Esta seguro que desea inactivar este usuario?</p>
+                            <p th:if="${g.estadoCom.equalsIgnoreCase('inactivo')}">Esta seguro que desea activar este usuario?</p>
+                        </div>
+                        <div class="modal-footer">
+                            <button type="button" class="btn btn-secondary" data-dismiss="modal">Cancelar</button>
+                            <a th:if="${g.estadoCom.equalsIgnoreCase('activo')}" th:href="@{/usuario/cambioestado/}+${g.estadoCom}"><button type="submit" class="btn bg-cuentas">Inactivar</button></a>
+                            <a th:if="${g.estadoCom.equalsIgnoreCase('inactivo')}" th:href="@{/usuario/cambioestado/}+${g.estadoCom}"><button type="submit" class="btn bg-cuentas">Activar</button></a>
+                        </div>
+                      </div>
+                    </div>
+                </div>
+            </td>
+        </tr>
+    </table>
+    
+    <!-- MODAL REGISTRAR -->
+    <div class="modal fade" tabindex="-1" id="modal-add">
+        <div class="modal-dialog">
+          <div class="modal-content">
+            <div class="modal-header">
+              <h5 class="modal-title">Registrar Compromiso</h5>
+            </div>
+            <div class="modal-body">
+                <form th:action="@{/compromiso/reg}" method="post" th:object="${compromiso}">
+                  <script th:inline="javascript" th:if="${#fields.hasErrors('*')}">$("#modal-add").modal("show");</script>
+                  <script th:inline="javascript" th:if="${errorMessage}">$("#modal-add").modal("show");</script>
+                    <label for="">Número Factura</label>
+                    <input type="text" name="numeroFac" id="numeroFac" th:field="*{numeroFac}">
+                    <div class="form-text text-danger" th:if="${#fields.hasErrors('numeroFac')}" th:errors="*{numeroFac}"></div>
+                    <div class="form-text text-danger" th:if="${errorMessage}" th:text="${errorMessage}"></div> 
+                    <label for="">Nombre Empresa</label>
+                    <input type="text" name="nombreEm" id="nombreEm" th:field="*{nombreEm}">
+                    <div class="form-text text-danger" th:if="${#fields.hasErrors('nombreEm')}" th:errors="*{nombreEm}"></div>
+                    <label for="">Fecha Pago Oportuno</label>
+                    <input type="date" name="fecha" id="fecha" th:field="*{fecha}">
+                    <div class="form-text text-danger" th:if="${#fields.hasErrors('fecha')}" th:errors="*{fecha}"></div>
+                    <label for="">Fecha Suspensión</label>
+                    <input type="date" name="fechaS" id="fechaS" th:field="*{fechaS}">
+                    <div class="form-text text-danger" th:if="${#fields.hasErrors('fechaS')}" th:errors="*{fechaS}"></div>
+                    <label for="">Método de Pago</label>
+                    <select th:field="*{metodo}">
+                        <option value="" selected>Seleccionar</option>
+                        <option value="Efectivo">Efectivo</option>
+                        <option value="Aplicacion">Aplicación</option>
+                    </select>
+                    <div class="form-text text-danger" th:if="${#fields.hasErrors('metodo')}" th:errors="*{metodo}"></div>
+                    <label for="">Total Pago</label>
+                    <input type="number" name="total" id="total" th:field="*{total}">
+                    <div class="form-text text-danger" th:if="${#fields.hasErrors('total')}" th:errors="*{total}"></div>
+                    <select th:field="*{Usuario}">
+                      <option value="">SELECCIONAR USUARIO</option>
+                      <th:block th:each="Usuario : ${usuario}">
+                      <option th:text="${Usuario.nombreUsuario}" th:value="${Usuario.idUsuario}"></option>
+                      </th:block>
+                    </select>
+                    <select th:field="*{TipoCompromiso}">
+                      <option value="">SELECCIONAR Tipo Compromiso</option>
+                      <th:block th:each="TipoCompromiso : ${tipocompromiso}">
+                      <option th:text="${TipoCompromiso.nombre}" th:value="${TipoCompromiso.id}"></option>
+                      </th:block>
+                    </select>
+                    <label for="">Estado</label>
+                    <select th:field="*{estadoCom}">
+                        <option value="" selected>Seleccionar</option>
+                        <option value="Pago">Pago</option>
+                        <option value="Por Pagar">Por Pagar</option>
+                    </select>
+                    <div class="form-text text-danger" th:if="${#fields.hasErrors('estadoCom')}" th:errors="*{estadoCom}"></div>
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-secondary" data-dismiss="modal">Cancelar</button>
+                <button type="submit" class="btn bg-cuentas">Registrar</button>
+                </form>
+            </div>
+          </div>
+        </div>
+    </div>
+
+    <script>
+      var datat=document.querySelector("#datat"); 
+      var dataTable=new DataTable("#datat",{ 
+        perPage:10,
+        labels: {
+            placeholder: "Buscar...",
+            perPage: "{select} registros por página",
+            noRows: "No se encontraron registros",
+            info: "Mostrando {start} a {end} de {rows} compromisos (Página {page} de {pages} páginas)",
+        }
+      } ) ;
+    </script>
+
+    <script>
+      var checkbox = document.getElementById('mostrar');
+      var row = document.querySelectorAll('#tablerow');
+      var estado = document.querySelectorAll('#estado');
+
+      checkbox.addEventListener("click",mostrar)
+      
+      if (checkbox.checked==false) {
+        for (let index = 0; index < estado.length; index++) {
+          if (estado[index].textContent=="Inactivo") {
+            for (let index = 0; index < row.length; index++) {
+              if (estado[index].textContent=="Inactivo") {
+                row[index].setAttribute('style','display:none');
+              }
+            }
+          }
+          console.log(estado[index].textContent)
+        }
+      }
+      
+      function mostrar(){
+        if (checkbox.checked==true) {
+          for (let index = 0; index < estado.length; index++) {
+            if (estado[index].textContent=="Inactivo") {
+              for (let index = 0; index < row.length; index++) {
+                if (estado[index].textContent=="Inactivo") {
+                  row[index].setAttribute('style','display:');
+                }
+              }
+            }
+          }
+        }else if (checkbox.checked==false){
+          for (let index = 0; index < estado.length; index++) {
+            if (estado[index].textContent=="Inactivo") {
+              for (let index = 0; index < row.length; index++) {
+                if (estado[index].textContent=="Inactivo") {
+                  row[index].setAttribute('style','display:none');
+                }
+              }
+            }
+          }
+        }
+      }
+    </script>
+</body>
+</html>
