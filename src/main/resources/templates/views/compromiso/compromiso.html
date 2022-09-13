@@ -72,7 +72,7 @@
                         <div class="modal-header">
                           <h5 class="modal-title">Editar Compromiso</h5>
                         </div>
-                        <form th:action="@{/compromiso/reg}" method="post" th:object="${compromiso}">
+                        <form th:action="@{/compromiso/reg1}" method="post" th:object="${compromiso}">
                           <div class="modal-body">
                                   <input type="hidden" name="idCom" id="idCom" th:value="${g.idCom}">
                                   <label for="">Número Factura</label>
@@ -80,9 +80,9 @@
                                   <label for="">Nombre Empresa</label>
                                   <input type="text" name="nombreEm" id="nombreEm" autocomplete="off" th:value="${g.nombreEm}" required>
                                   <label for="">Fecha Pago Oportuno</label>
-                                  <input type="date" name="fecha" id="fecha" value="2022-08-30" min="2022-09-10" autocomplete="off" th:value="${g.fecha}" required>
+                                  <input type="date" name="fecha" id="fecha" value="2022-08-30" min="2022-09-20" autocomplete="off" th:value="${g.fecha}" required>
                                   <label for="">Fecha Suspensión</label>
-                                  <input type="date" name="fechaS" id="fechaS" value="2022-08-30" min="2022-09-10" autocomplete="off" th:value="${g.fechaS}" required>
+                                  <input type="date" name="fechaS" id="fechaS" value="2022-08-30" min="2022-09-20" autocomplete="off" th:value="${g.fechaS}" required>
                                   <label for="">Método de Pago</label>
                                   <select name="metodo" id="metodo" required>
                                       <option th:value="${g.metodo}" th:text="${g.metodo}" selected>Seleccionar</option>
@@ -159,17 +159,17 @@
                   <script th:inline="javascript" th:if="${#fields.hasErrors('*')}">$("#modal-add").modal("show");</script>
                   <script th:inline="javascript" th:if="${errorMessage}">$("#modal-add").modal("show");</script>
                     <label for="">Número Factura</label>
-                    <input type="text" name="numeroFac" id="numeroFac" th:field="*{numeroFac}">
+                    <input type="number" name="numeroFac" id="numeroFac" th:field="*{numeroFac}">
                     <div class="form-text text-danger" th:if="${#fields.hasErrors('numeroFac')}" th:errors="*{numeroFac}"></div>
                     <div class="form-text text-danger" th:if="${errorMessage}" th:text="${errorMessage}"></div> 
                     <label for="">Nombre Empresa</label>
                     <input type="text" name="nombreEm" id="nombreEm" th:field="*{nombreEm}">
                     <div class="form-text text-danger" th:if="${#fields.hasErrors('nombreEm')}" th:errors="*{nombreEm}"></div>
                     <label for="">Fecha Pago Oportuno</label>
-                    <input type="date" name="fecha" id="fecha" th:field="*{fecha}">
+                    <input type="date" value="2022-08-30" min="2022-09-20"   name="fecha" id="fecha" class="form-control" th:field="*{fecha}">
                     <div class="form-text text-danger" th:if="${#fields.hasErrors('fecha')}" th:errors="*{fecha}"></div>
                     <label for="">Fecha Suspensión</label>
-                    <input type="date" name="fechaS" id="fechaS" th:field="*{fechaS}">
+                    <input type="date" value="2022-08-30" min="2022-09-20"   name="fechaS" id="fechaS" class="form-control" th:field="*{fechaS}">
                     <div class="form-text text-danger" th:if="${#fields.hasErrors('fechaS')}" th:errors="*{fechaS}"></div>
                     <label for="">Método de Pago</label>
                     <select th:field="*{metodo}">
@@ -196,8 +196,8 @@
                     <label for="">Estado</label>
                     <select th:field="*{estadoCom}">
                         <option value="" selected>Seleccionar</option>
-                        <option value="Pago">Pago</option>
-                        <option value="Por Pagar">Por Pagar</option>
+                        <option value="Activo">Activo</option>
+                        <option value="Inactivo">Inactivo</option>
                     </select>
                     <div class="form-text text-danger" th:if="${#fields.hasErrors('estadoCom')}" th:errors="*{estadoCom}"></div>
             </div>

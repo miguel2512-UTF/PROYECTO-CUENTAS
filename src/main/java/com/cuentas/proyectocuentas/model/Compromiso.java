@@ -10,6 +10,8 @@ import javax.persistence.Id;
 import javax.persistence.ManyToOne;
 import javax.persistence.Table;
 import javax.validation.constraints.NotEmpty;
+import javax.validation.constraints.NotNull;
+import javax.validation.constraints.Pattern;
 import javax.validation.constraints.Size;
 
 @Entity
@@ -28,6 +30,7 @@ public class Compromiso {
    
 	@Column(name="nombreEm", length=30)
 	@NotEmpty
+    @Pattern(regexp = "[A-Za-z0-9]{1,}")
 	private String nombreEm; 
     
 	@Column(name="fecha")
@@ -50,10 +53,11 @@ public class Compromiso {
 
     @Column()
 
-	
+	@NotEmpty
 	private String estadoCom;
 
 	@ManyToOne(fetch = FetchType.LAZY)
+    @NotNull
 	private Usuario usuario;
 	
 
@@ -71,6 +75,7 @@ public class Compromiso {
 		this.usuario = usuario;
 	}
     @ManyToOne(fetch = FetchType.LAZY)
+    @NotNull
 	private TipoCompromiso tipocompromiso;
 	
 

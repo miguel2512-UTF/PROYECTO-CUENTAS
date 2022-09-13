@@ -76,6 +76,20 @@ m.addAttribute("usuario",usuario);
              status.setComplete();
              return "redirect:listar";
         }
+
+        @PostMapping("/reg1")
+        public String reg1(@Valid Compromiso compromiso, BindingResult res, Model m, SessionStatus status) throws Exception{
+            
+
+            if(res.hasErrors()){
+              
+                return "views/compromiso/compromiso";
+                }
+                compromisod.save(compromiso);
+                status.setComplete();
+               
+             return "redirect:listar";
+        }
     
         @GetMapping(path={"/listar"})
         public String listar(Model m){
@@ -103,8 +117,8 @@ m.addAttribute("tipocompromiso", tipocompromiso);
 List<Usuario> usuario = usuarioI.findAll();
 m.addAttribute("usuario",usuario);
             m.addAttribute("compromiso",compromiso);
-            m.addAttribute("accion","Actualizar Compromiso");
-            return "views/compromiso/registrar"; 
+           
+            return "views/compromiso/listar"; 
     }
     
     @GetMapping("/delete/{idCom}")
