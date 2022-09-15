@@ -182,37 +182,37 @@
 
                     <div>                 
                     <label for="">Documento Prestamista</label>
-                    <input type="number" th:field="*{documentoPrestamista}" step="1" min="10000000" max="9999999999" placeholder="Ej: 1079032167" autocomplete="off">
+                    <input type="number" th:field="*{documentoPrestamista}" step="1" min="10000000" max="9999999999" placeholder="Ej: 1079032167" autocomplete="off" required>
                     <div class="form-text text-danger" th:if="${#fields.hasErrors('documentoPrestamista')}" th:errors="*{documentoPrestamista}"></div>
                     <span class="validity"></span>
                     </div>
                     <div>
                     <label for="">Nombre Prestamista</label>
-                    <input type="text" minlength="5" maxlength="50" th:field="*{nombrePrestamista}" placeholder="Ejemplo: Cristhian López" autocomplete="off">
+                    <input type="text" minlength="5" maxlength="50" th:field="*{nombrePrestamista}" placeholder="Ejemplo: Cristhian López" autocomplete="off" required>
                     <div class="form-text text-danger" th:if="${#fields.hasErrors('nombrePrestamista')}" th:errors="*{nombrePrestamista}"></div>
                     <span class="validity"></span>
                     </div>
                     <div>
                     <label for="">Fecha pago oportuno </label>
-                    <input type="date" th:field="*{fechaPagoOportuno}" min="2021-01-01" max="2022-12-31" autocomplete="off">
+                    <input type="date" th:field="*{fechaPagoOportuno}" min="2021-01-01" max="2022-12-31" autocomplete="off" required>
                     <div class="form-text text-danger" th:if="${#fields.hasErrors('fechaPagoOportuno')}" th:errors="*{fechaPagoOportuno}"></div>
                     <span class="validity"></span>
                     </div>
                     <div>
                     <label for="">Valor Préstamo</label>
-                    <input type="number" step="1" min="1000000" th:field="*{valorPrestamo}" placeholder="Ejemplo: 1500000" autocomplete="off">
+                    <input type="number" step="1" min="1000000" th:field="*{valorPrestamo}" placeholder="Ejemplo: 1500000" autocomplete="off" required>
                     <div class="form-text text-danger" th:if="${#fields.hasErrors('valorPrestamo')}" th:errors="*{valorPrestamo}"></div>
                     <span class="validity"></span>
                     </div>
                     <div>
                     <label for="tasaPrestamo">Tasa Prestamo</label>
-                    <input type="text" minlength="2" maxlength="4" th:field="*{tasaPrestamo}" placeholder="Ejemplo: 5%" autocomplete="off">
+                    <input type="text" minlength="2" maxlength="4" th:field="*{tasaPrestamo}" placeholder="Ejemplo: 5%" autocomplete="off" required>
                     <div class="form-text text-danger" th:if="${#fields.hasErrors('tasaPrestamo')}" th:errors="*{tasaPrestamo}"></div>
                     <span class="validity"></span>
                     </div>
                     <div>
                     <label for="">Periodo Cuotas</label>
-                    <select th:field="*{periodoCuota}" minlength="7" maxlength="14">
+                    <select th:field="*{periodoCuota}" minlength="7" maxlength="14" required>
                         <option value="">Selecciona una opción</option>
                         <option value="Mensual">Mensual</option>
                         <option value="Trimestral">Trimestral</option>
@@ -225,13 +225,13 @@
                     </div>
                     <div>
                     <label for="">Número Cuotas</label>
-                    <input type="number" min="1" max="96" th:field="*{numeroCuotas}" placeholder="Ejemplo: 12" autocomplete="off">
+                    <input type="number" min="1" max="96" th:field="*{numeroCuotas}" placeholder="Ejemplo: 12" autocomplete="off" required>
                     <div class="form-text text-danger" th:if="${#fields.hasErrors('numeroCuotas')}" th:errors="*{numeroCuotas}"></div>
                     <span class="validity"></span>
                     </div>
                     <div>
                     <label for="">Estado Préstamo</label>
-                    <select th:field="*{estadoPrestamo}">
+                    <select th:field="*{estadoPrestamo}" required>
                         <option value="" selected>Selecciona una opción</option>
                         <option value="Inactivo">Inactivo</option>
                         <option value="Activo">Activo</option>
