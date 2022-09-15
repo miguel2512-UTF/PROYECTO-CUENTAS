@@ -87,14 +87,18 @@
                                   <span class="validity"></span>
                                   </div>
                                   <div>
+                                    <div class="col-md-6">
                                   <label for="">Fecha Pago Oportuno</label>
                                   <input type="date" name="fecha" id="fecha" value="2022-08-30" min="2022-09-20" autocomplete="off" th:value="${g.fecha}" required>
                                   <span class="validity"></span>
                                   </div>
+                                  </div>
                                   <div>
+                                    <div class="col-md-6">
                                   <label for="">Fecha Suspensión</label>
                                   <input type="date" name="fechaS" id="fechaS" value="2022-08-30" min="2022-09-20" autocomplete="off" th:value="${g.fechaS}" required>
                                   <span class="validity"></span>
+                                  </div>
                                   </div>
                                   <div>
                                   <label for="">Método de Pago</label>
@@ -197,16 +201,20 @@
                     <span class="validity"></span>
                     </div>
                     <div>
+                      <div class="col-md-6">
                     <label for="">Fecha Pago Oportuno</label>
                     <input type="date" value="2022-08-30" min="2022-09-20"   name="fecha" id="fecha" class="form-control" th:field="*{fecha}" required>
                     <div class="form-text text-danger" th:if="${#fields.hasErrors('fecha')}" th:errors="*{fecha}"></div>
                     <span class="validity"></span>
                     </div>
+                    </div>
                     <div>
+                      <div class="col-md-6">
                     <label for="">Fecha Suspensión</label>
                     <input type="date" value="2022-08-30" min="2022-09-20"   name="fechaS" id="fechaS" class="form-control" th:field="*{fechaS}" required>
                     <div class="form-text text-danger" th:if="${#fields.hasErrors('fechaS')}" th:errors="*{fechaS}"></div>
                     <span class="validity"></span>
+                    </div>
                     </div>
                     <div>
                     <label for="">Método de Pago</label>
