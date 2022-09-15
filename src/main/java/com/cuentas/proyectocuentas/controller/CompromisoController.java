@@ -120,6 +120,8 @@ m.addAttribute("usuario",usuario);
            
             return "views/compromiso/listar"; 
     }
+   
+    
     
     @GetMapping("/delete/{idCom}")
     public String delete(@PathVariable Integer idCom) {
@@ -130,5 +132,18 @@ m.addAttribute("usuario",usuario);
     
     return "redirect:../listar"; 
     }
-    
+    @GetMapping("/estado/{idCom}")
+    public String estado(@PathVariable Integer idCom){
+       Compromiso compromiso = new Compromiso();
+        compromiso=compromisod.findOne(idCom);
+        if (compromiso.getEstadoCom().equalsIgnoreCase("pago")) {
+           compromiso.setEstadoCom("Por pagar");
+            compromisod.save(compromiso);
+        }else if (compromiso.getEstadoCom().equalsIgnoreCase("por pagar")) {
+            compromiso.setEstadoCom("Pago");
+            compromisod.save(compromiso);
+        }
+        return "redirect:/compromiso/listar";
+    }
+   
 }

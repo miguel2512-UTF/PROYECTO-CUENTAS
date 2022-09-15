@@ -112,7 +112,7 @@
                           </div>
                           <div class="modal-footer">
                               <button type="button" class="btn btn-secondary" data-dismiss="modal">Cancelar</button>
-                              <button type="submit" class="btn bg-cuentas">Editar</button>
+                              <button type="submit" class="btn bg-cuentas" onclick="return confirm('Estás seguro que quieres editar');">Editar</button>
                           </div>
                         </form>
                       </div>
@@ -125,27 +125,28 @@
 
                 <!-- MODAL ELIMINAR -->
                 <div class="modal fade" tabindex="-1" th:id="modal-delete+${g.idCom}">
-                    <div class="modal-dialog">
-                      <div class="modal-content">
-                        <div class="modal-header">
-                          <h5 th:if="${g.estadoCom.equalsIgnoreCase('activo')}" class="modal-title">Inactivar Usuario</h5>
-                          <h5 th:if="${g.estadoCom.equalsIgnoreCase('inactivo')}" class="modal-title">Activar Usuario</h5>
-                        </div>
-                        <div class="modal-body">
-                            <p th:if="${g.estadoCom.equalsIgnoreCase('activo')}">Esta seguro que desea inactivar este usuario?</p>
-                            <p th:if="${g.estadoCom.equalsIgnoreCase('inactivo')}">Esta seguro que desea activar este usuario?</p>
-                        </div>
-                        <div class="modal-footer">
-                            <button type="button" class="btn btn-secondary" data-dismiss="modal">Cancelar</button>
-                            <a th:if="${g.estadoCom.equalsIgnoreCase('activo')}" th:href="@{/usuario/cambioestado/}+${g.estadoCom}"><button type="submit" class="btn bg-cuentas">Inactivar</button></a>
-                            <a th:if="${g.estadoCom.equalsIgnoreCase('inactivo')}" th:href="@{/usuario/cambioestado/}+${g.estadoCom}"><button type="submit" class="btn bg-cuentas">Activar</button></a>
-                        </div>
+                  <div class="modal-dialog">
+                    <div class="modal-content">
+                      <div class="modal-header">
+                        <h5 th:if="${g.estadoCom.equalsIgnoreCase('pago')}" class="modal-title">Inactivar Compromiso</h5>
+                        <h5 th:if="${g.estadoCom.equalsIgnoreCase('por pagar')}" class="modal-title">Activar  Compromiso</h5>
+                      </div>
+                      <div class="modal-body">
+                          <p th:if="${g.estadoCom.equalsIgnoreCase('pago')}">Esta seguro que desea inactivar este  compromiso?</p>
+                          <p th:if="${g.estadoCom.equalsIgnoreCase('por pagar')}">Esta seguro que desea activar este  compromiso?</p>
+                      </div>
+                      <div class="modal-footer">
+                          <button type="button" class="btn btn-secondary" data-dismiss="modal">Cancelar</button>
+                          <a th:if="${g.estadoCom.equalsIgnoreCase('pago')}" th:href="@{/compromiso/estado/}+${g.idCom}"><button type="submit" class="btn bg-cuentas">Por pagar</button></a>
+                          <a th:if="${g.estadoCom.equalsIgnoreCase('por pagar')}" th:href="@{/compromiso/estado/}+${g.idCom}"><button type="submit" class="btn bg-cuentas">Pago</button></a>
                       </div>
                     </div>
-                </div>
-            </td>
-        </tr>
-    </table>
+                  </div>
+              </div>
+          </td>
+      </tr>
+  </table>
+  
     
     <!-- MODAL REGISTRAR -->
     <div class="modal fade" tabindex="-1" id="modal-add">
@@ -196,14 +197,14 @@
                     <label for="">Estado</label>
                     <select th:field="*{estadoCom}">
                         <option value="" selected>Seleccionar</option>
-                        <option value="Activo">Activo</option>
-                        <option value="Inactivo">Inactivo</option>
+                        <option value="Pago">Pago</option>
+                        <option value="Por pagar">Por pagar</option>
                     </select>
                     <div class="form-text text-danger" th:if="${#fields.hasErrors('estadoCom')}" th:errors="*{estadoCom}"></div>
             </div>
             <div class="modal-footer">
                 <button type="button" class="btn btn-secondary" data-dismiss="modal">Cancelar</button>
-                <button type="submit" class="btn bg-cuentas">Registrar</button>
+                <button type="submit" class="btn bg-cuentas" onclick="return confirm('Estás seguro que quieres registrar este compromiso');">Registrar</button>
                 </form>
             </div>
           </div>
@@ -232,9 +233,9 @@
       
       if (checkbox.checked==false) {
         for (let index = 0; index < estado.length; index++) {
-          if (estado[index].textContent=="Inactivo") {
+          if (estado[index].textContent=="Por pagar") {
             for (let index = 0; index < row.length; index++) {
-              if (estado[index].textContent=="Inactivo") {
+              if (estado[index].textContent=="Por pagar") {
                 row[index].setAttribute('style','display:none');
               }
             }
@@ -246,9 +247,9 @@
       function mostrar(){
         if (checkbox.checked==true) {
           for (let index = 0; index < estado.length; index++) {
-            if (estado[index].textContent=="Inactivo") {
+            if (estado[index].textContent=="Por pagar") {
               for (let index = 0; index < row.length; index++) {
-                if (estado[index].textContent=="Inactivo") {
+                if (estado[index].textContent=="Por pagar") {
                   row[index].setAttribute('style','display:');
                 }
               }
@@ -256,9 +257,9 @@
           }
         }else if (checkbox.checked==false){
           for (let index = 0; index < estado.length; index++) {
-            if (estado[index].textContent=="Inactivo") {
+            if (estado[index].textContent=="Por pagar") {
               for (let index = 0; index < row.length; index++) {
-                if (estado[index].textContent=="Inactivo") {
+                if (estado[index].textContent=="Por pagar") {
                   row[index].setAttribute('style','display:none');
                 }
               }
