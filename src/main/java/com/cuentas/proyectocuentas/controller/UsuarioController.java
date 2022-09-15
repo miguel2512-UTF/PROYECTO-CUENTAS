@@ -80,4 +80,29 @@ public class UsuarioController {
         }
         return "redirect:/usuario/listar";
     }
+
+    @GetMapping("/login")
+    public String login(Model m){
+        m.addAttribute("usuario", new Usuario());
+        return "login";
+    }
+    
+    @PostMapping("/iniciars")
+    public String iniciars(Usuario usuario, Model m){
+        Usuario usu=new Usuario();
+
+        if (usuarioI.login(usuario)!=null) {
+            usu=usuarioI.login(usuario);
+        }
+
+        if (usuario.getNombreUsuario().equalsIgnoreCase(usu.getNombreUsuario()) && usuario.getNombreUsuario()!=null) {
+            if (usuario.getContrasenaUsuario().equalsIgnoreCase(usu.getContrasenaUsuario()) && usuario.getContrasenaUsuario()!=null) {
+               return "redirect:/inicio"; 
+            }
+        }else{
+            m.addAttribute("Error","Contraseña o usuario incorrecto");
+            return "login";
+        }
+        return null;
+    }
 }

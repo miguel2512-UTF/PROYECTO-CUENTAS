@@ -57,4 +57,21 @@ public class UsuarioService implements IUsuarioService{
         }
         return usuario;
     }
+
+    @Override
+    public Usuario login(Usuario usuario) {
+        Optional<Usuario> usu=usuarioI.findByNombreUsuario(usuario.getNombreUsuario());
+        Usuario usu1=new Usuario();
+
+        if (usu.isPresent()) {
+            usu1=usu.get();
+        }
+        
+        if (usuario.getNombreUsuario().equalsIgnoreCase(usu1.getNombreUsuario()) && usuario.getContrasenaUsuario().equalsIgnoreCase(usu1.getContrasenaUsuario())) {
+            System.out.println("Se encontro el user");
+            return usu1;
+        }else{
+            return null; 
+        }
+    }
 }

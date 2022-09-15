@@ -10,4 +10,5 @@ public interface IUsuarioService {
     public Usuario findOne(Integer idUsuario);
     public void delete(Integer idUsuario);
     public Usuario createUser(Usuario usuario) throws Exception;
+    public Usuario login(Usuario usuario);
 }
