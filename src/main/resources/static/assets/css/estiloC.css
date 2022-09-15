@@ -2,10 +2,11 @@ input:invalid{
     border: 1px solid red;
     border-radius: 5px;
 
-}
-input:valid{
-    border: 1.5px solid #57b846;
-    border-radius: 5px;
+} 
+input:valid + span:after{
+    content:"✔";
+    border: 3px solid #57b846;
+    border-radius: 15px;
 
 }
 
@@ -14,7 +15,8 @@ select:invalid{
     border-radius: 5px;
 
 }
-select:valid{
-    border: 1.5px solid #57b846;
-    border-radius: 5px;
+select:valid + span:after{
+    content: "✔";
+    border: 3px solid #57b846;
+    border-radius: 15px;
 }

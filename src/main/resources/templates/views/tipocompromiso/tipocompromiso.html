@@ -6,6 +6,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@4.6.2/dist/css/bootstrap.min.css" integrity="sha384-xOolHFLEh07PJGoPkLv1IbcEPTNtaed2xpHsD9ESMhqIYd0nLMwNLD69Npy4HI+N" crossorigin="anonymous">
     <title>Tipo Compromiso</title>
+    <link rel="stylesheet" type="text/css" th:href="@{/assets/css/estiloC.css}">
     <link rel="stylesheet" href="../assets/css/estilos2.css">
     <link rel="icon" href="../assets/img/Icon-cuentascasa.png">
     <script src="https://cdn.jsdelivr.net/npm/jquery@3.5.1/dist/jquery.slim.min.js" integrity="sha384-DfXdz2htPH0lsSSs5nCTpuj/zy4C+OGpamoFVy38MVBnE+IbbVYUew+OrCXaRkfj" crossorigin="anonymous"></script>
@@ -61,16 +62,25 @@
                         <form th:action="@{/tipocompromiso/add}" method="post" th:object="${tipocompromiso}">
                           <div class="modal-body">
                                   <input type="hidden" name="id" id="id" th:value="${c.id}">
+                                  <div>
                                   <label for="">Nombre</label>
                                   <input type="text" name="nombre" id="nombre" autocomplete="off" th:value="${c.nombre}" required>
+                                  <span class="validity"></span>
+                                  </div>
+                                  <div>
                                   <label for="">Descripción</label>
                                   <input type="text" name="descripcion" id="descripcion" autocomplete="off" th:value="${c.descripcion}" required>
+                                  <span class="validity"></span>
+                                  </div>
+                                  <div>
                                   <label for="">Estado</label>
                                   <select name="estado" id="estado" required>
                                       <option th:value="${c.estado}" th:text="${c.estado}" selected>Seleccionar</option>
                                       <option value="Activo">Activo</option>
                                       <option value="Inactivo">Inactivo</option>
                                   </select>
+                                  <span class="validity"></span>
+                                  </div>
                           </div>
                           <div class="modal-footer">
                               <button type="button" class="btn btn-secondary" data-dismiss="modal">Cancelar</button>
@@ -120,20 +130,29 @@
                 <form th:action="@{/tipocompromiso/add}" method="post" th:object="${tipocompromiso}">
                   <script th:inline="javascript" th:if="${#fields.hasErrors('*')}">$("#modal-add").modal("show");</script>
                   <script th:inline="javascript" th:if="${errorMessage}">$("#modal-add").modal("show");</script>
+                    <div>
                     <label for="">Nombre</label>
-                    <input type="text" th:field="*{nombre}" autocomplete="off">
+                    <input type="text" th:field="*{nombre}" autocomplete="off" required>
                     <div class="form-text text-danger" th:if="${#fields.hasErrors('nombre')}" th:errors="*{nombre}"></div>
+                    <span class="validity"></span>
+                    </div>
+                    <div>
                     <label for="">Descripción</label>
-                    <input type="text" th:field="*{descripcion}" autocomplete="off">
+                    <input type="text" th:field="*{descripcion}" autocomplete="off" required>
                     <div class="form-text text-danger" th:if="${#fields.hasErrors('descripcion')}" th:errors="*{descripcion}"></div>
+                    <span class="validity"></span>
+                    </div>
+                    <div>
                     <label for="">Estado</label>
-                    <select th:field="*{estado}">
+                    <select th:field="*{estado}" required>
                         <option value="" selected>Seleccionar</option>
                         <option value="Activo">Activo</option>
                         <option value="Inactivo">Inactivo</option>
                     </select>
                     <div class="form-text text-danger" th:if="${#fields.hasErrors('estado')}" th:errors="*{estado}"></div>
-                    <div class="form-text text-danger" th:if="${errorMessage}" th:text="${errorMessage}"></div>            
+                    <div class="form-text text-danger" th:if="${errorMessage}" th:text="${errorMessage}"></div> 
+                    <span class="validity"></span>
+                    </div>        
             </div>
             <div class="modal-footer">
                 <button type="button" class="btn btn-secondary" data-dismiss="modal">Cancelar</button>
