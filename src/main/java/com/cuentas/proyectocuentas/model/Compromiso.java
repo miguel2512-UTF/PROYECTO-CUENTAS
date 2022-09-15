@@ -77,17 +77,6 @@ public class Compromiso {
     @ManyToOne(fetch = FetchType.LAZY)
     @NotNull
 	private TipoCompromiso tipocompromiso;
-	
-
-
-	
-	public TipoCompromiso getTipoCompromiso() {
-		return tipocompromiso;
-	}
-
-	public void setTipoCompromiso(TipoCompromiso tipocompromiso) {
-		this.tipocompromiso = tipocompromiso;
-	}
 
 	public Compromiso(TipoCompromiso tipocompromiso) {
 		this.tipocompromiso = tipocompromiso;
@@ -175,6 +164,14 @@ public class Compromiso {
 
     public void setEstadoCom(String estadoCom) {
         this.estadoCom = estadoCom;
+    }
+
+    public TipoCompromiso getTipocompromiso() {
+        return tipocompromiso;
+    }
+
+    public void setTipocompromiso(TipoCompromiso tipocompromiso) {
+        this.tipocompromiso = tipocompromiso;
     }
 
    
