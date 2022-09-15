@@ -101,8 +101,8 @@ public class Compromiso {
 		
 	}
 
-    public Compromiso(Integer idCom, @NotEmpty String numeroFac, @NotEmpty String nombreEm, @NotEmpty String fecha,
-            @NotEmpty String fechaS, @NotEmpty String metodo, @NotEmpty String total, String estadoCom) {
+    public Compromiso(Integer idCom,  String numeroFac,  String nombreEm, String fecha,
+            String fechaS,  String metodo, String total, String estadoCom) {
         this.idCom = idCom;
         this.numeroFac = numeroFac;
         this.nombreEm = nombreEm;

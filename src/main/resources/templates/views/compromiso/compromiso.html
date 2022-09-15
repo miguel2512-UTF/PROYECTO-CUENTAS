@@ -104,11 +104,12 @@
                                     </th:block>
                                   </select>
                                   <label for="">Estado</label>
-                                  <select name="estadoCom" id="estadoCom" required>
-                                      <option th:value="${g.estadoCom}" th:text="${g.estadoCom}" selected></option>
-                                      <option value="Pago">Pago</option>
-                                      <option value="Por Pagar">Por Pagar</option>
+                                  <select th:field="*{estadoCom}" id="estado">
+                                      <option value="" selected>Seleccionar</option>
+                                      <option value="pago">pago</option>
+                                      <option value="por pagar">por pagar</option>
                                   </select>
+                                  <div class="form-text text-danger" th:if="${#fields.hasErrors('estadoCom')}" th:errors="*{estadoCom}"></div>
                           </div>
                           <div class="modal-footer">
                               <button type="button" class="btn btn-secondary" data-dismiss="modal">Cancelar</button>
