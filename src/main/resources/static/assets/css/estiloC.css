@@ -1,19 +1,20 @@
-input:invalid + span:after{
-    content: "❌";
-    padding-left: 5px;
+input:invalid{
+    border: 1px solid red;
+    border-radius: 5px;
+
+}
+input:valid{
+    border: 1.5px solid #57b846;
+    border-radius: 5px;
+
 }
 
-input:valid + span:after{
-    content: "✔";
-    padding-left: 5px;
-}
+select:invalid{
+    border: 1px solid red;
+    border-radius: 5px;
 
-select:invalid + span:after{
-    content: "❌";
-    padding-left: 5px;
 }
-
-select:valid + span:after{
-    content: "✔";
-    padding-left: 5px;
+select:valid{
+    border: 1.5px solid #57b846;
+    border-radius: 5px;
 }
