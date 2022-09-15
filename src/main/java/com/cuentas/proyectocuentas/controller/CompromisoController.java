@@ -136,10 +136,7 @@ m.addAttribute("usuario",usuario);
     public String estado(@PathVariable Integer idCom){
        Compromiso compromiso = new Compromiso();
         compromiso=compromisod.findOne(idCom);
-        if (compromiso.getEstadoCom().equalsIgnoreCase("pago")) {
-           compromiso.setEstadoCom("Por pagar");
-            compromisod.save(compromiso);
-        }else if (compromiso.getEstadoCom().equalsIgnoreCase("por pagar")) {
+         if (compromiso.getEstadoCom().equalsIgnoreCase("por pagar")) {
             compromiso.setEstadoCom("Pago");
             compromisod.save(compromiso);
         }

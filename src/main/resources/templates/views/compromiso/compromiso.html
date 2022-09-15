@@ -157,16 +157,13 @@
                   <div class="modal-dialog">
                     <div class="modal-content">
                       <div class="modal-header">
-                        <h5 th:if="${g.estadoCom.equalsIgnoreCase('pago')}" class="modal-title">Inactivar Compromiso</h5>
-                        <h5 th:if="${g.estadoCom.equalsIgnoreCase('por pagar')}" class="modal-title">Activar  Compromiso</h5>
+                        <h5 th:if="${g.estadoCom.equalsIgnoreCase('por pagar')}" class="modal-title">Realizado el pago de Compromiso</h5>
                       </div>
                       <div class="modal-body">
-                          <p th:if="${g.estadoCom.equalsIgnoreCase('pago')}">Esta seguro que desea inactivar este  compromiso?</p>
-                          <p th:if="${g.estadoCom.equalsIgnoreCase('por pagar')}">Esta seguro que desea activar este  compromiso?</p>
+                          <p th:if="${g.estadoCom.equalsIgnoreCase('por pagar')}">Esta seguro que ya pago este  compromiso?</p>
                       </div>
                       <div class="modal-footer">
                           <button type="button" class="btn btn-secondary" data-dismiss="modal">Cancelar</button>
-                          <a th:if="${g.estadoCom.equalsIgnoreCase('pago')}" th:href="@{/compromiso/estado/}+${g.idCom}"><button type="submit" class="btn bg-cuentas">Por pagar</button></a>
                           <a th:if="${g.estadoCom.equalsIgnoreCase('por pagar')}" th:href="@{/compromiso/estado/}+${g.idCom}"><button type="submit" class="btn bg-cuentas">Pago</button></a>
                       </div>
                     </div>
@@ -175,8 +172,6 @@
           </td>
       </tr>
   </table>
-  
-    
     <!-- MODAL REGISTRAR -->
     <div class="modal fade" tabindex="-1" id="modal-add">
         <div class="modal-dialog">
