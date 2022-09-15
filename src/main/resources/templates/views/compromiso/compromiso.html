@@ -129,12 +129,12 @@
                   <div class="modal-dialog">
                     <div class="modal-content">
                       <div class="modal-header">
-                        <h5 th:if="${c.estado.equalsIgnoreCase('pago')}" class="modal-title">Inactivar Compromiso</h5>
-                        <h5 th:if="${c.estado.equalsIgnoreCase('por pagar')}" class="modal-title">Activar  Compromiso</h5>
+                        <h5 th:if="${g.estadoCom.equalsIgnoreCase('pago')}" class="modal-title">Inactivar Compromiso</h5>
+                        <h5 th:if="${g.estadoCom.equalsIgnoreCase('por pagar')}" class="modal-title">Activar  Compromiso</h5>
                       </div>
                       <div class="modal-body">
-                          <p th:if="${c.estado.equalsIgnoreCase('pago')}">Esta seguro que desea inactivar este  compromiso?</p>
-                          <p th:if="${c.estado.equalsIgnoreCase('por pagar')}">Esta seguro que desea activar este  compromiso?</p>
+                          <p th:if="${g.estadoCom.equalsIgnoreCase('pago')}">Esta seguro que desea inactivar este  compromiso?</p>
+                          <p th:if="${g.estadoCom.equalsIgnoreCase('por pagar')}">Esta seguro que desea activar este  compromiso?</p>
                       </div>
                       <div class="modal-footer">
                           <button type="button" class="btn btn-secondary" data-dismiss="modal">Cancelar</button>

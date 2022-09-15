@@ -6,6 +6,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@4.6.2/dist/css/bootstrap.min.css" integrity="sha384-xOolHFLEh07PJGoPkLv1IbcEPTNtaed2xpHsD9ESMhqIYd0nLMwNLD69Npy4HI+N" crossorigin="anonymous">
     <title>Pagos</title>
+    <link rel="stylesheet" type="text/css" th:href="@{/assets/css/estiloC.css}">
     <link rel="stylesheet" href="../assets/css/estilos2.css">
     <link rel="icon" href="../assets/img/Icon-cuentascasa.png">
     <script src="https://cdn.jsdelivr.net/npm/jquery@3.5.1/dist/jquery.slim.min.js" integrity="sha384-DfXdz2htPH0lsSSs5nCTpuj/zy4C+OGpamoFVy38MVBnE+IbbVYUew+OrCXaRkfj" crossorigin="anonymous"></script>
@@ -63,17 +64,29 @@
                         <form th:action="@{/pagoprestamo/add}" method="post" th:object="${pagoprestamo}">
                           <div class="modal-body">
                                   <input type="hidden" name="idPagoPrestamo" id="idPagoPrestamo" th:value="${Pp.idPagoPrestamo}">
+                                  <div>
                                   <label for="">Valor del préstamo</label>
                                   <select name="prestamo" id="prestamo" required min="1000000">
                                     <option th:value="${Pp.prestamo.idPrestamo}" th:text="${Pp.prestamo.valorPrestamo}">Seleccionar</option>
                                     <option th:each="Pp:${prestamo}" th:text="${Pp.valorPrestamo}" th:value="${Pp.idPrestamo}"></option>
                                   </select>
+                                  <span class="validity"></span>
+                                  </div>
+                                  <div>
                                   <label for="">Fecha Pago</label>
                                   <input type="date" name="fechaPago" id="fechaPago" th:value="${Pp.fechaPago}" min="2021-01-01" max="2022-12-31" required>
+                                  <span class="validity"></span>
+                                  </div>
+                                  <div>
                                   <label for="">Total Pago</label>
                                   <input  type="number" name="totalPago" id="totalPago" th:value="${Pp.totalPago}" placeholder="Ejemplo: 250.000" min="50000" required>
+                                  <span class="validity"></span>
+                                  </div>
+                                  <div>
                                   <label for="">Imagen Pago</label>
-                                  <input type="text" name="imagenPago" id="imagenPago" th:value="${Pp.imagenPago}" required>
+                                  <input type="file" name="imagenPago" id="imagenPago" th:field="*{imagenPago}" required accept="image/*">
+                                  <span class="validity"></span>
+                                  </div>
                           </div>
                           <div class="modal-footer">
                               <button type="button" class="btn btn-secondary" data-dismiss="modal">Cancelar</button>
@@ -90,24 +103,22 @@
 
                 <!-- MODAL ELIMINAR -->
                 <div class="modal fade" tabindex="-1" th:id="modal-delete+${Pp.idPagoPrestamo}">
-                    <div class="modal-dialog">
-                      <div class="modal-content">
-                        <div class="modal-header">
-                          <h5 th:if="${Pp.fechaPago.equalsIgnoreCase('activo')}" class="modal-title">Inactivar Pago Préstamo</h5>
-                          <h5 th:if="${Pp.fechaPago.equalsIgnoreCase('inactivo')}" class="modal-title">Activar Pago Préstamo</h5>
-                        </div>
-                        <div class="modal-body">
-                            <p th:if="${Pp.fechaPago.equalsIgnoreCase('activo')}">Esta seguro que desea inactivar este pago?</p>
-                            <p th:if="${Pp.fechaPago.equalsIgnoreCase('inactivo')}">Esta seguro que desea activar este pago?</p>
-                        </div>
-                        <div class="modal-footer">
-                            <button type="button" class="btn btn-secondary" data-dismiss="modal">Cancelar</button>
-                            <a th:if="${Pp.fechaPago.equalsIgnoreCase('activo')}" th:href="@{/usuario/cambioestado/}+${Pp.idPagoPrestamo}"><button type="submit" class="btn bg-cuentas">Inactivar</button></a>
-                            <a th:if="${Pp.fechaPago.equalsIgnoreCase('inactivo')}" th:href="@{/usuario/cambioestado/}+${Pp.idPagoPrestamo}"><button type="submit" class="btn bg-cuentas">Activar</button></a>
-                        </div>
+                  <div class="modal-dialog">
+                    <div class="modal-content">
+                      <div class="modal-header">
+                        <h5 class="modal-title">Eliminar Pago</h5>
                       </div>
+                      <div class="modal-body">
+                        <p>Esta seguro que desea ELIMINAR el Pago?</p>
                     </div>
-                </div>
+                      
+                      <div class="modal-footer">
+                        <button type="button" class="btn btn-secondary" data-dismiss="modal">Cancelar</button>
+                        <a role="button" class="btn bg-cuentas" th:href="@{/pagoprestamo/delete/}+${Pp.idPagoPrestamo}"> Eliminar Pago</a>
+                          </div>
+                    </div>
+                  </div>
+              </div>
             </td>
         </tr>
     </table>
@@ -123,21 +134,33 @@
                 <form th:action="@{/pagoprestamo/add}" method="post" th:object="${pagoprestamo}">
                   <script th:inline="javascript" th:if="${#fields.hasErrors('*')}">$("#modal-add").modal("show");</script>
                   <script th:inline="javascript" th:if="${errorMessage}">$("#modal-add").modal("show");</script>
+                    <div>
                     <label for="">Valor del préstamo</label>
-                    <select th:field="*{prestamo}" min="1000000">
+                    <select th:field="*{prestamo}" min="1000000" required>
                         <option value="">Seleccionar</option>
                         <option th:each="Pp:${prestamo}" th:text="${Pp.valorPrestamo}" th:value="${Pp.idPrestamo}"></option>
                     </select>
                     <div class="form-text text-danger" th:if="${#fields.hasErrors('prestamo')}" th:errors="*{prestamo}"></div>
+                    <span class="validity"></span>
+                    </div>
+                    <div>
                     <label for="">Fecha Pago</label>
-                    <input  type="date" th:field="*{fechaPago}" min="2021-01-01" max="2022-12-31">
+                    <input  type="date" th:field="*{fechaPago}" min="2021-01-01" max="2022-12-31" required>
                     <div class="form-text text-danger" th:if="${#fields.hasErrors('fechaPago')}" th:errors="*{fechaPago}"></div>
+                    <span class="validity"></span>
+                    </div>
+                    <div>
                     <label for="">Total Pago</label>
-                    <input type="number" th:field="*{totalPago}" placeholder="Ejemplo: 250.000" min="50000">
+                    <input type="number" th:field="*{totalPago}" placeholder="Ejemplo: 250.000" min="50000" required>
                     <div class="form-text text-danger" th:if="${#fields.hasErrors('totalPago')}" th:errors="*{totalPago}"></div>
+                    <span class="validity"></span>
+                    </div>
+                    <div>
                     <label for="">Imagen Pago</label>
-                    <input type="file" th:field="*{imagenPago}">
-                    <div class="form-text text-danger" th:if="${errorMessage}" th:text="${errorMessage}"></div>            
+                    <input type="file" th:field="*{imagenPago}" accept="image/*" required>
+                    <div class="form-text text-danger" th:if="${errorMessage}" th:text="${errorMessage}"></div> 
+                    <span class="validity"></span>
+                    </div>          
             </div>
             <div class="modal-footer">
                 <button type="button" class="btn btn-secondary" data-dismiss="modal">Cancelar</button>
