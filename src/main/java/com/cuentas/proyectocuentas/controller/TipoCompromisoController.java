@@ -67,7 +67,19 @@ public class TipoCompromisoController {
           status.setComplete();
             return "redirect:listar";
         }    
-       
+        @PostMapping("/add1")
+        public String reg1(@Valid TipoCompromiso tipocompromiso, BindingResult res, Model m, SessionStatus status) throws Exception{
+            
+
+            if(res.hasErrors()){
+              
+                return "views/tipocompromiso/tipocompromiso";
+                }
+                tipocompromisod.save(tipocompromiso);
+                status.setComplete();
+               
+             return "redirect:listar";
+        }
         
         @GetMapping("/editar/{id}")
         public String editar(@PathVariable Integer id,Model m){
