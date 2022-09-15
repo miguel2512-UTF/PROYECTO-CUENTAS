@@ -32,7 +32,7 @@ public class TipoCompromisoController {
             m.addAttribute("accion","Registrar tipocompromiso");
             return "views/tipocompromiso/form";
         }
-    
+     
         @GetMapping("/listar")
         public String listar(Model m){
             m.addAttribute("tipocompromisos", tipocompromisod.findAll());

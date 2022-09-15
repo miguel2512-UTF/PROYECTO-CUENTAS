@@ -6,6 +6,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@4.6.2/dist/css/bootstrap.min.css" integrity="sha384-xOolHFLEh07PJGoPkLv1IbcEPTNtaed2xpHsD9ESMhqIYd0nLMwNLD69Npy4HI+N" crossorigin="anonymous">
     <title>Usuario</title>
+    <link rel="stylesheet" type="text/css" th:href="@{/assets/css/estiloC.css}">
     <link rel="stylesheet" href="../assets/css/estilos2.css">
     <link rel="icon" href="../assets/img/Icon-cuentascasa.png">
     <script src="https://cdn.jsdelivr.net/npm/jquery@3.5.1/dist/jquery.slim.min.js" integrity="sha384-DfXdz2htPH0lsSSs5nCTpuj/zy4C+OGpamoFVy38MVBnE+IbbVYUew+OrCXaRkfj" crossorigin="anonymous"></script>
@@ -65,12 +66,22 @@
                         <form th:action="@{/usuario/add}" method="post" th:object="${usuario}">
                           <div class="modal-body">
                                   <input type="hidden" name="idUsuario" id="idUsuario" th:value="${u.idUsuario}">
+                                  <div>
                                   <label for="">Nombre</label>
                                   <input type="text" name="nombreUsuario" id="nombreUsuario" autocomplete="off" th:value="${u.nombreUsuario}" required>
+                                  <span class="validity"></span>
+                                  </div>
+                                  <div>
                                   <label for="">Contraseña</label>
                                   <input type="text" name="contrasenaUsuario" id="contrasenaUsuario" autocomplete="off" th:value="${u.contrasenaUsuario}" pattern="(?=.*\d)(?=.*[a-z])(?=.*[A-Z]).{8,}" title="La contraseña debe tener mínimo 8 caracteres, un número, una mayúscula y una minúscula" required>
+                                  <span class="validity"></span>
+                                  </div>
+                                  <div>
                                   <label for="">Correo</label>
                                   <input type="email" name="correoUsuario" id="correoUsuario" autocomplete="off" th:value="${u.correoUsuario}" required>
+                                  <span class="validity"></span>
+                                  </div>
+                                  <div>
                                   <label for="">Tipo</label>
                                   <select name="tipoUsuario" id="tipoUsuario" required>
                                       <option th:value="${u.tipoUsuario}" th:text="${u.tipoUsuario}" selected>Seleccionar</option>
@@ -78,12 +89,17 @@
                                       <option value="Admin del hogar">Admin del hogar</option>
                                       <option value="Contador">Contador</option>
                                   </select>
+                                  <span class="validity"></span>
+                                  </div>
+                                  <div>
                                   <label for="">Estado</label>
                                   <select name="estadoUsuario" id="estadoUsuario" required>
                                       <option th:value="${u.estadoUsuario}" th:text="${u.estadoUsuario}" selected>Seleccionar</option>
                                       <option value="Activo">Activo</option>
                                       <option value="Inactivo">Inactivo</option>
                                   </select>
+                                  <span class="validity"></span>
+                                  </div>
                           </div>
                           <div class="modal-footer">
                               <button type="button" class="btn btn-secondary" data-dismiss="modal">Cancelar</button>
@@ -133,32 +149,44 @@
                 <form th:action="@{/usuario/add}" method="post" th:object="${usuario}">
                   <script th:inline="javascript" th:if="${#fields.hasErrors('*')}">$("#modal-add").modal("show");</script>
                   <script th:inline="javascript" th:if="${errorMessage}">$("#modal-add").modal("show");</script>
+                    <div>
                     <label for="">Nombre</label>
-                    <input type="text" th:field="*{nombreUsuario}" autocomplete="off">
+                    <input type="text" th:field="*{nombreUsuario}" autocomplete="off" required>
                     <div class="form-text text-danger" th:if="${#fields.hasErrors('nombreUsuario')}" th:errors="*{nombreUsuario}"></div>
                     <!-- <label for="">Contraseña</label>
                     <input type="text" th:field="*{contrasenaUsuario}" autocomplete="off"> -->
                     <div class="form-text text-danger" th:if="${#fields.hasErrors('contrasenaUsuario')}" th:errors="*{contrasenaUsuario}"></div>
+                    <span class="validity"></span>
+                    </div>
+                    <div>
                     <label for="">Correo</label>
-                    <input type="text" th:field="*{correoUsuario}" autocomplete="off">
+                    <input type="text" th:field="*{correoUsuario}" autocomplete="off" required>
                     <div class="form-text text-danger" th:if="${#fields.hasErrors('correoUsuario')}" th:errors="*{correoUsuario}"></div>
                     <div class="form-text text-danger" th:if="${errorMessage1}" th:text="${errorMessage1}"></div>
+                    <span class="validity"></span>
+                    </div>
+                    <div>
                     <label for="">Tipo</label>
-                    <select th:field="*{tipoUsuario}">
+                    <select th:field="*{tipoUsuario}" required>
                         <option value="" selected>Seleccionar</option>
                         <option value="Administrador">Administrador</option>
                         <option value="Admin del hogar">Admin del hogar</option>
                         <option value="Contador">Contador</option>
                     </select>
                     <div class="form-text text-danger" th:if="${#fields.hasErrors('tipoUsuario')}" th:errors="*{tipoUsuario}"></div>
+                    <span class="validity"></span>
+                    </div>
+                    <div>
                     <label for="">Estado</label>
-                    <select th:field="*{estadoUsuario}">
+                    <select th:field="*{estadoUsuario}" required>
                         <option value="" selected>Seleccionar</option>
                         <option value="Activo">Activo</option>
                         <option value="Inactivo">Inactivo</option>
                     </select>
                     <div class="form-text text-danger" th:if="${#fields.hasErrors('estadoUsuario')}" th:errors="*{estadoUsuario}"></div>
                     <div class="form-text text-danger" th:if="${errorMessage}" th:text="${errorMessage}"></div>            
+                    <span class="validity"></span>
+                    </div>
             </div>
             <div class="modal-footer">
                 <button type="button" class="btn btn-secondary" data-dismiss="modal">Cancelar</button>

@@ -6,6 +6,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@4.6.2/dist/css/bootstrap.min.css" integrity="sha384-xOolHFLEh07PJGoPkLv1IbcEPTNtaed2xpHsD9ESMhqIYd0nLMwNLD69Npy4HI+N" crossorigin="anonymous">
     <title>Abonos</title>
+    <link rel="stylesheet" type="text/css" th:href="@{/assets/css/estiloC.css}">
     <link rel="stylesheet" href="../assets/css/estilos2.css">
     <link rel="icon" href="../assets/img/Icon-cuentascasa.png">
     <script src="https://cdn.jsdelivr.net/npm/jquery@3.5.1/dist/jquery.slim.min.js" integrity="sha384-DfXdz2htPH0lsSSs5nCTpuj/zy4C+OGpamoFVy38MVBnE+IbbVYUew+OrCXaRkfj" crossorigin="anonymous"></script>
@@ -61,15 +62,24 @@
                         <form th:action="@{/prestamoabono/add}" method="post" th:object="${abono}">
                           <div class="modal-body">
                                   <input type="hidden" name="idPrestamoAbono" id="idPrestamoAbono" th:value="${Ab.idPrestamoAbono}">
+                                  <div>
                                   <label for="">Nombre Prestamista</label>
                                   <select name="prestamo" required>
                                     <option th:value="${Ab.prestamo.idPrestamo}" th:text="${Ab.prestamo.nombrePrestamista}">Seleccionar</option> 
                                     <option th:each="Pr:${prestamo}" th:text="${Pr.nombrePrestamista}" th:value="${Pr.idPrestamo}"></option>
                                   </select>
+                                  <span class="validity"></span>
+                                  </div>
+                                  <div>
                                   <label for="">Fecha Abono</label>
                                   <input type="date" name="fechaAbono" id="fechaAbono" th:value="${Ab.fechaAbono}" required>
+                                  <span class="validity"></span>
+                                  </div>
+                                  <div>
                                   <label for="">Total Abono</label>
                                   <input type="number" name="totalAbono" id="totalAbono" th:value="${Ab.totalAbono}" placeholder="Ejemplo: 250.000" required>
+                                  <span class="validity"></span>
+                                  </div>
                           </div>
                           <div class="modal-footer">
                               <button type="button" class="btn btn-secondary" data-dismiss="modal">Cancelar</button>
@@ -89,18 +99,16 @@
                     <div class="modal-dialog">
                       <div class="modal-content">
                         <div class="modal-header">
-                          <h5 th:if="${Ab.fechaAbono.equalsIgnoreCase('activo')}" class="modal-title">Inactivar Abono</h5>
-                          <h5 th:if="${Ab.fechaAbono.equalsIgnoreCase('inactivo')}" class="modal-title">Activar Abono</h5>
+                          <h5 class="modal-title">Eliminar Abono</h5>
                         </div>
                         <div class="modal-body">
-                            <p th:if="${Ab.fechaAbono.equalsIgnoreCase('activo')}">Esta seguro que desea inactivar este abono?</p>
-                            <p th:if="${Ab.fechaAbono.equalsIgnoreCase('inactivo')}">Esta seguro que desea activar este abono?</p>
-                        </div>
+                          <p>Esta seguro que desea ELIMINAR el Abono?</p>
+                      </div>
+                        
                         <div class="modal-footer">
-                            <button type="button" class="btn btn-secondary" data-dismiss="modal">Cancelar</button>
-                            <a th:if="${Ab.fechaAbono.equalsIgnoreCase('activo')}" th:href="@{/usuario/cambioestado/}+${u.idUsuario}"><button type="submit" class="btn bg-cuentas">Inactivar</button></a>
-                            <a th:if="${Ab.fechaAbono.equalsIgnoreCase('inactivo')}" th:href="@{/usuario/cambioestado/}+${u.idUsuario}"><button type="submit" class="btn bg-cuentas">Activar</button></a>
-                        </div>
+                          <button type="button" class="btn btn-secondary" data-dismiss="modal">Cancelar</button>
+                          <a role="button" class="btn bg-cuentas" th:href="@{/prestamoabono/delete/}+${Ab.idPrestamoAbono}"> Eliminar Abono</a>
+                            </div>
                       </div>
                     </div>
                 </div>
@@ -119,18 +127,27 @@
                 <form th:action="@{/prestamoabono/add}" method="post" th:object="${abono}">
                   <script th:inline="javascript" th:if="${#fields.hasErrors('*')}">$("#modal-add").modal("show");</script>
                   <script th:inline="javascript" th:if="${errorMessage}">$("#modal-add").modal("show");</script>
+                  <div>
                     <label for="">Valor del Préstamo</label>
-                    <select th:field="*{prestamo}" min="1000000">
+                    <select th:field="*{prestamo}" min="1000000" required>
                         <option value="">Seleccionar</option>
                         <option th:each="Pr:${prestamo}" th:text="${Pr.valorPrestamo}" th:value="${Pr.idPrestamo}"></option>
                     </select>
+                    <span class="validity"></span>
+                  </div>
+                  <div>
                     <label for="">Fecha Abono</label>
-                    <input type="date" th:field="*{fechaAbono}" min="2021-01-01" max="2022-12-31">
+                    <input type="date" th:field="*{fechaAbono}" min="2021-01-01" max="2022-12-31" required>
                     <div class="form-text text-danger" th:if="${#fields.hasErrors('fechaAbono')}" th:errors="*{fechaAbono}"></div>
+                    <span class="validity"></span>
+                    </div>
+                    <div>
                     <label for="">Total Abono</label>
-                    <input type="number" th:field="*{totalAbono}" placeholder="Ejemplo: 250.000" min="50000">
+                    <input type="number" th:field="*{totalAbono}" placeholder="Ejemplo: 250.000" min="50000" required>
                     <div class="form-text text-danger" th:if="${#fields.hasErrors('totalAbono')}" th:errors="*{totalAbono}"></div>
-                    <div class="form-text text-danger" th:if="${errorMessage}" th:text="${errorMessage}"></div>            
+                    <div class="form-text text-danger" th:if="${errorMessage}" th:text="${errorMessage}"></div>
+                    <span class="validity"></span>
+                    </div>
             </div>
             <div class="modal-footer">
                 <button type="button" class="btn btn-secondary" data-dismiss="modal">Cancelar</button>

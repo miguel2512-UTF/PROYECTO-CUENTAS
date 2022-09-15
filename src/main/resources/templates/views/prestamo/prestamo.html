@@ -6,6 +6,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@4.6.2/dist/css/bootstrap.min.css" integrity="sha384-xOolHFLEh07PJGoPkLv1IbcEPTNtaed2xpHsD9ESMhqIYd0nLMwNLD69Npy4HI+N" crossorigin="anonymous">
     <title>Préstamo</title>
+    <link rel="stylesheet" type="text/css" th:href="@{/assets/css/estiloC.css}">
     <link rel="stylesheet" href="../assets/css/estilos2.css">
     <link rel="icon" href="../assets/img/Icon-cuentascasa.png">
     <script src="https://cdn.jsdelivr.net/npm/jquery@3.5.1/dist/jquery.slim.min.js" integrity="sha384-DfXdz2htPH0lsSSs5nCTpuj/zy4C+OGpamoFVy38MVBnE+IbbVYUew+OrCXaRkfj" crossorigin="anonymous"></script>
@@ -78,16 +79,33 @@
                         <form th:action="@{/prestamo/add}" method="post" th:object="${prestamo}">
                           <div class="modal-body">
                                   <input type="hidden" name="idPrestamo" id="idPrestamo" th:value="${Pr.idPrestamo}">
+
+                                  <div>
                                   <label for="">Documento Prestamista</label>
                                   <input type="number" name="documentoPrestamista" id="documentoPrestamista" step="1" min="10000000" max="9999999999" placeholder="Ej: 1079032167" autocomplete="off" th:value="${Pr.documentoPrestamista}" required>
+                                  <span class="validity"></span>
+                                  </div>
+                                  <div>
                                   <label for="">Nombre Prestamista</label>
                                   <input type="text" name="nombrePrestamista" id="nombrePrestamista" minlength="5" maxlength="50" placeholder="Ejemplo: Cristhian López" autocomplete="off" th:value="${Pr.nombrePrestamista}" required>
+                                  <span class="validity"></span>
+                                  </div>
+                                  <div>
                                   <label for="">Fecha pago oportuno</label>
                                   <input type="date" name="fechaPagoOportuno" id="fechaPagoOportuno" th:value="${Pr.fechaPagoOportuno}" min="2021-01-01" max="2022-12-31" required>
+                                  <span class="validity"></span>
+                                  </div>
+                                  <div>
                                   <label for="valorPrestamo">Valor Prestamo</label>
                                   <input  type="number" name="valorPrestamo" id="valorPrestamo" th:value="${Pr.valorPrestamo}" step="1" min="1000000" placeholder="Ejemplo: 1500000" required>
+                                  <span class="validity"></span>
+                                  </div>
+                                  <div>
                                   <label for="tasaPrestamo">Tasa Prestamo</label>
                                   <input  type="text" name="tasaPrestamo" id="tasaPrestamo" th:value="${Pr.tasaPrestamo}" minlength="2" maxlength="4" placeholder="Ejemplo: 5%" required>
+                                  <span class="validity"></span>
+                                  </div>
+                                  <div>
                                   <label for="">Periodo Cuotas</label>
                                   <select name="periodoCuota" id="periodoCuota" required>
                                       <option th:value="${Pr.periodoCuota}" th:text="${Pr.periodoCuota}" selected>Seleccionar</option>
@@ -97,8 +115,14 @@
                                       <option value="Quinquemestral">Quinquemestral</option>
                                       <option value="Semestral">Semestral</option>
                                   </select>
+                                  <span class="validity"></span>
+                                  </div>
+                                  <div>
                                   <label for="numeroCuotas">Número Cuotas</label>
                                   <input  type="number" name="numeroCuotas" id="numeroCuotas" th:value="${Pr.numeroCuotas}" min="1" max="96" required placeholder="Ejemplo: 12">
+                                  <span class="validity"></span>
+                                  </div>
+                                  <div>
                                   <label for="">Estado Préstamo</label>
                                   <select name="estadoPrestamo" id="estadoPrestamo" required>
                                       <option th:value="${Pr.estadoPrestamo}" th:text="${Pr.estadoPrestamo}" selected>Seleccionar</option>
@@ -106,6 +130,8 @@
                                       <option value="Inactivo">Inactivo</option>
                                       <option value="Congelado">Congelado</option>
                                   </select>
+                                  <span class="validity"></span>
+                                  </div>
                           </div>
                           <div class="modal-footer">
                               <button type="button" class="btn btn-secondary" data-dismiss="modal">Cancelar</button>
@@ -122,24 +148,22 @@
 
                 <!-- MODAL ELIMINAR -->
                 <div class="modal fade" tabindex="-1" th:id="modal-delete+${Pr.idPrestamo}">
-                    <div class="modal-dialog">
-                      <div class="modal-content">
-                        <div class="modal-header">
-                          <h5 th:if="${Pr.estadoPrestamo.equalsIgnoreCase('activo')}" class="modal-title">Inactivar Préstamo</h5>
-                          <h5 th:if="${Pr.estadoPrestamo.equalsIgnoreCase('inactivo')}" class="modal-title">Activar Préstamo</h5>
-                        </div>
-                        <div class="modal-body">
-                            <p th:if="${Pr.estadoPrestamo.equalsIgnoreCase('activo')}">Esta seguro que desea inactivar este préstamo?</p>
-                            <p th:if="${Pr.estadoPrestamo.equalsIgnoreCase('inactivo')}">Esta seguro que desea activar este préstamo?</p>
-                        </div>
-                        <div class="modal-footer">
-                            <button type="button" class="btn btn-secondary" data-dismiss="modal">Cancelar</button>
-                            <a th:if="${Pr.estadoPrestamo.equalsIgnoreCase('activo')}" th:href="@{/usuario/cambioestado/}+${Pr.idPrestamo}"><button type="submit" class="btn bg-cuentas">Inactivar</button></a>
-                            <a th:if="${Pr.estadoPrestamo.equalsIgnoreCase('inactivo')}" th:href="@{/usuario/cambioestado/}+${Pr.idPrestamo}"><button type="submit" class="btn bg-cuentas">Activar</button></a>
-                        </div>
+                  <div class="modal-dialog">
+                    <div class="modal-content">
+                      <div class="modal-header">
+                        <h5 class="modal-title">Eliminar Prestamo</h5>
                       </div>
+                      <div class="modal-body">
+                        <p>Esta seguro que desea ELIMINAR el Prestamo?</p>
                     </div>
-                </div>
+                      
+                      <div class="modal-footer">
+                        <button type="button" class="btn btn-secondary" data-dismiss="modal">Cancelar</button>
+                        <a role="button" class="btn bg-cuentas" th:href="@{/prestamo/delete/}+${Pr.idPrestamo}"> Eliminar Prestamo</a>
+                          </div>
+                    </div>
+                  </div>
+              </div>
             </td>
         </tr>
     </table>
@@ -150,26 +174,43 @@
           <div class="modal-content">
             <div class="modal-header">
               <h5 class="modal-title">Registrar Préstamo</h5>
-            </div>
+            </div> 
             <div class="modal-body">
                 <form th:action="@{/prestamo/add}" method="post" th:object="${prestamo}">
                   <script th:inline="javascript" th:if="${#fields.hasErrors('*')}">$("#modal-add").modal("show");</script>
                   <script th:inline="javascript" th:if="${errorMessage}">$("#modal-add").modal("show");</script>
+
+                    <div>                 
                     <label for="">Documento Prestamista</label>
                     <input type="number" th:field="*{documentoPrestamista}" step="1" min="10000000" max="9999999999" placeholder="Ej: 1079032167" autocomplete="off">
                     <div class="form-text text-danger" th:if="${#fields.hasErrors('documentoPrestamista')}" th:errors="*{documentoPrestamista}"></div>
+                    <span class="validity"></span>
+                    </div>
+                    <div>
                     <label for="">Nombre Prestamista</label>
                     <input type="text" minlength="5" maxlength="50" th:field="*{nombrePrestamista}" placeholder="Ejemplo: Cristhian López" autocomplete="off">
                     <div class="form-text text-danger" th:if="${#fields.hasErrors('nombrePrestamista')}" th:errors="*{nombrePrestamista}"></div>
+                    <span class="validity"></span>
+                    </div>
+                    <div>
                     <label for="">Fecha pago oportuno </label>
                     <input type="date" th:field="*{fechaPagoOportuno}" min="2021-01-01" max="2022-12-31" autocomplete="off">
                     <div class="form-text text-danger" th:if="${#fields.hasErrors('fechaPagoOportuno')}" th:errors="*{fechaPagoOportuno}"></div>
+                    <span class="validity"></span>
+                    </div>
+                    <div>
                     <label for="">Valor Préstamo</label>
                     <input type="number" step="1" min="1000000" th:field="*{valorPrestamo}" placeholder="Ejemplo: 1500000" autocomplete="off">
                     <div class="form-text text-danger" th:if="${#fields.hasErrors('valorPrestamo')}" th:errors="*{valorPrestamo}"></div>
+                    <span class="validity"></span>
+                    </div>
+                    <div>
                     <label for="tasaPrestamo">Tasa Prestamo</label>
                     <input type="text" minlength="2" maxlength="4" th:field="*{tasaPrestamo}" placeholder="Ejemplo: 5%" autocomplete="off">
                     <div class="form-text text-danger" th:if="${#fields.hasErrors('tasaPrestamo')}" th:errors="*{tasaPrestamo}"></div>
+                    <span class="validity"></span>
+                    </div>
+                    <div>
                     <label for="">Periodo Cuotas</label>
                     <select th:field="*{periodoCuota}" minlength="7" maxlength="14">
                         <option value="">Selecciona una opción</option>
@@ -180,9 +221,15 @@
                         <option value="Semestral">Semestral</option>
                     </select>
                     <div class="form-text text-danger" th:if="${#fields.hasErrors('periodoCuota')}" th:errors="*{periodoCuota}"></div>
+                    <span class="validity"></span>
+                    </div>
+                    <div>
                     <label for="">Número Cuotas</label>
                     <input type="number" min="1" max="96" th:field="*{numeroCuotas}" placeholder="Ejemplo: 12" autocomplete="off">
                     <div class="form-text text-danger" th:if="${#fields.hasErrors('numeroCuotas')}" th:errors="*{numeroCuotas}"></div>
+                    <span class="validity"></span>
+                    </div>
+                    <div>
                     <label for="">Estado Préstamo</label>
                     <select th:field="*{estadoPrestamo}">
                         <option value="" selected>Selecciona una opción</option>
@@ -192,6 +239,8 @@
                     </select>
                     <div class="form-text text-danger" th:if="${#fields.hasErrors('estadoPrestamo')}" th:errors="*{estadoPrestamo}"></div>
                     <div class="form-text text-danger" th:if="${errorMessage}" th:text="${errorMessage}"></div>            
+                    <span class="validity"></span>
+                    </div>
             </div>
             <div class="modal-footer">
                 <button type="button" class="btn btn-secondary" data-dismiss="modal">Cancelar</button>
