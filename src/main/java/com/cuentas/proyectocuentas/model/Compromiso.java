@@ -45,6 +45,8 @@ public class Compromiso {
 	@NotEmpty
 	private String metodo;
 
+
+    @Size(min=3, max=10,message="No se cumple el tamaño determinado")
     @Column(name="total")
 	@NotEmpty
 	private String total;

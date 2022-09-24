@@ -20,7 +20,7 @@
       <h1>Compromiso</h1>
       <a href="" data-toggle="modal" data-target="#modal-add"><svg xmlns="http://www.w3.org/2000/svg" width="32" height="32" fill="currentColor" class="bi bi-plus-circle-fill" viewBox="0 0 16 16">
         <path d="M16 8A8 8 0 1 1 0 8a8 8 0 0 1 16 0zM8.5 4.5a.5.5 0 0 0-1 0v3h-3a.5.5 0 0 0 0 1h3v3a.5.5 0 0 0 1 0v-3h3a.5.5 0 0 0 0-1h-3v-3z"/>
-      </svg></a>
+      </svg>Registrar</a>
     </div>
     
     <div class="alerta">
@@ -34,7 +34,7 @@
 
     <a class="nav-item" th:href="@{/tipocompromiso/listar}"><i class="bi bi-card-list">tipo compromiso</i></a>
     
-    <input type="checkbox" id="mostrar">Mostrar compromisos inactivos
+    <input type="checkbox" id="mostrar">Mostrar compromisos pagos
 
     <table border="1" id="datat">
         <thead>
@@ -77,11 +77,6 @@
                           <div class="modal-body">
                                   <input type="hidden" name="idCom" id="idCom" th:value="${g.idCom}">
                                   <div>
-                                  <label for="">Número Factura</label>
-                                  <input type="text" name="numeroFac" id="numeroFac" autocomplete="off" th:value="${g.numeroFac}" required>
-                                  <span class="validity"></span>
-                                  </div>
-                                  <div>
                                   <label for="">Nombre Empresa</label>
                                   <input type="text" name="nombreEm" id="nombreEm" autocomplete="off" th:value="${g.nombreEm}" required>
                                   <span class="validity"></span>
@@ -108,41 +103,7 @@
                                       <option value="Aplicacion">Aplicacion</option>
                                   </select>
                                   <span class="validity"></span>
-                                  </div>
-                                  <div>
-                                  <label for="">Total Pago</label>
-                                  <input type="text" name="total" id="total" autocomplete="off" th:value="${g.total}" required>
-                                  <span class="validity"></span>
-                                  </div>
-                                  <div>
-                                  <select name="usuario" required>
-                                    <option value="">SELECCIONAR USUARIO</option>
-                                    <th:block th:each="Usuario : ${usuario}">
-                                    <option th:text="${Usuario.nombreUsuario}" th:value="${Usuario.idUsuario}"></option>
-                                    </th:block>
-                                  </select>
-                                  <span class="validity"></span>
-                                  </div>
-                                  <div>
-                                  <select name="tipocompromiso" required>
-                                    <option value="">SELECCIONAR Tipo Compromiso</option>
-                                    <th:block th:each="TipoCompromiso : ${tipocompromiso}">
-                                    <option th:text="${TipoCompromiso.nombre}" th:value="${TipoCompromiso.id}"></option>
-                                    </th:block>
-                                  </select>
-                                  <span class="validity"></span>
-                                  </div>
-                                  <div>
-                                  <label for="">Estado</label>
-                                  <select th:field="*{estadoCom}" id="estado">
-                                      <option value="" selected>Seleccionar</option>
-                                      <option value="pago">pago</option>
-                                      <option value="por pagar">por pagar</option>
-                                  </select>
-                                  <span class="validity"></span>
-                                  </div>
-                                  <div class="form-text text-danger" th:if="${#fields.hasErrors('estadoCom')}" th:errors="*{estadoCom}"></div>
-                          </div>
+                                  </div>                               
                           <div class="modal-footer">
                               <button type="button" class="btn btn-secondary" data-dismiss="modal">Cancelar</button>
                               <button type="submit" class="btn bg-cuentas" onclick="return confirm('Estás seguro que quieres editar');">Editar</button>
@@ -203,7 +164,7 @@
                     <div>
                       <div class="col-md-6">
                     <label for="">Fecha Pago Oportuno</label>
-                    <input type="date" value="2022-08-30" min="2022-09-20"   name="fecha" id="fecha" class="form-control" th:field="*{fecha}" required>
+                    <input type="date" value="2022-08-30" min="2022-09-30" max="2022-12-31"   name="fecha" id="fecha" class="form-control" th:field="*{fecha}" required>
                     <div class="form-text text-danger" th:if="${#fields.hasErrors('fecha')}" th:errors="*{fecha}"></div>
                     <span class="validity"></span>
                     </div>
@@ -211,7 +172,7 @@
                     <div>
                       <div class="col-md-6">
                     <label for="">Fecha Suspensión</label>
-                    <input type="date" value="2022-08-30" min="2022-09-20"   name="fechaS" id="fechaS" class="form-control" th:field="*{fechaS}" required>
+                    <input type="date" value="2022-08-30" min="2022-09-30" min="2022-12-31"   name="fechaS" id="fechaS" class="form-control" th:field="*{fechaS}" required>
                     <div class="form-text text-danger" th:if="${#fields.hasErrors('fechaS')}" th:errors="*{fechaS}"></div>
                     <span class="validity"></span>
                     </div>
@@ -295,9 +256,9 @@
       
       if (checkbox.checked==false) {
         for (let index = 0; index < estado.length; index++) {
-          if (estado[index].textContent=="Por pagar") {
+          if (estado[index].textContent=="Pago") {
             for (let index = 0; index < row.length; index++) {
-              if (estado[index].textContent=="Por pagar") {
+              if (estado[index].textContent=="Pago") {
                 row[index].setAttribute('style','display:none');
               }
             }
@@ -309,9 +270,9 @@
       function mostrar(){
         if (checkbox.checked==true) {
           for (let index = 0; index < estado.length; index++) {
-            if (estado[index].textContent=="Por pagar") {
+            if (estado[index].textContent=="Pago") {
               for (let index = 0; index < row.length; index++) {
-                if (estado[index].textContent=="Por pagar") {
+                if (estado[index].textContent=="Pago") {
                   row[index].setAttribute('style','display:');
                 }
               }
@@ -319,9 +280,9 @@
           }
         }else if (checkbox.checked==false){
           for (let index = 0; index < estado.length; index++) {
-            if (estado[index].textContent=="Por pagar") {
+            if (estado[index].textContent=="Pago") {
               for (let index = 0; index < row.length; index++) {
-                if (estado[index].textContent=="Por pagar") {
+                if (estado[index].textContent=="Pago") {
                   row[index].setAttribute('style','display:none');
                 }
               }
