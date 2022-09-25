@@ -24,10 +24,15 @@ public class Usuario {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private int idUsuario;
 
-    @Column(length = 30, nullable = false, unique = true)
+    @Column(length = 30, nullable = false)
     @NotEmpty
-    @Pattern(regexp = "[A-Za-z0-9_-]{1,}")
-    private String nombreUsuario;
+    @Pattern(regexp = "[A-Za-zñ ]{1,20}")
+    private String nombresUsuario;
+
+    @Column(length = 30, nullable = false)
+    @NotEmpty
+    @Pattern(regexp = "[A-Za-zñ ]{1,20}")
+    private String apellidosUsuario;
 
     @Column(length = 50, nullable = false)
     // @NotEmpty
@@ -46,8 +51,8 @@ public class Usuario {
     @NotEmpty
     private String estadoUsuario;
 
-   @OneToMany(mappedBy = "usuario",fetch = FetchType.LAZY, cascade =CascadeType.ALL)
-private List<Compromiso> compromiso;
+    @OneToMany(mappedBy = "usuario",fetch = FetchType.LAZY, cascade =CascadeType.ALL)
+    private List<Compromiso> compromiso;
 
 
 
@@ -75,10 +80,12 @@ private List<Compromiso> compromiso;
         compromiso=new ArrayList<Compromiso>();
         prestamo=new ArrayList<Prestamo>();
     }
-    public Usuario(int idUsuario, String nombreUsuario, String contrasenaUsuario, String correoUsuario,
+
+    public Usuario(int idUsuario, String nombresUsuario, String apellidosUsuario, String contrasenaUsuario, String correoUsuario,
             String tipoUsuario, String estadoUsuario) {
         this.idUsuario = idUsuario;
-        this.nombreUsuario = nombreUsuario;
+        this.nombresUsuario = nombresUsuario;
+        this.apellidosUsuario = apellidosUsuario;
         this.contrasenaUsuario = contrasenaUsuario;
         this.correoUsuario = correoUsuario;
         this.tipoUsuario = tipoUsuario;
@@ -93,12 +100,20 @@ private List<Compromiso> compromiso;
         this.idUsuario = idUsuario;
     }
 
-    public String getNombreUsuario() {
-        return nombreUsuario;
+    public String getNombresUsuario() {
+        return nombresUsuario;
     }
 
-    public void setNombreUsuario(String nombreUsuario) {
-        this.nombreUsuario = nombreUsuario;
+    public void setNombresUsuario(String nombresUsuario) {
+        this.nombresUsuario = nombresUsuario;
+    }
+
+    public String getApellidosUsuario() {
+        return apellidosUsuario;
+    }
+
+    public void setApellidosUsuario(String apellidosUsuario) {
+        this.apellidosUsuario = apellidosUsuario;
     }
 
     public String getContrasenaUsuario() {

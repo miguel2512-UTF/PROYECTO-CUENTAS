@@ -35,7 +35,7 @@ public class UsuarioService implements IUsuarioService{
     }
 
     private boolean checkUsernameAvailable(Usuario usuario) throws Exception{
-        Optional<Usuario> userFound=usuarioI.findByNombreUsuario(usuario.getNombreUsuario());
+        Optional<Usuario> userFound=usuarioI.findByNombresUsuario(usuario.getNombresUsuario());
         if (userFound.isPresent()) {
             throw new Exception("Username no disponible");	
         }
@@ -60,14 +60,14 @@ public class UsuarioService implements IUsuarioService{
 
     @Override
     public Usuario login(Usuario usuario) {
-        Optional<Usuario> usu=usuarioI.findByNombreUsuario(usuario.getNombreUsuario());
+        Optional<Usuario> usu=usuarioI.findByNombresUsuario(usuario.getNombresUsuario());
         Usuario usu1=new Usuario();
 
         if (usu.isPresent()) {
             usu1=usu.get();
         }
         
-        if (usuario.getNombreUsuario().equalsIgnoreCase(usu1.getNombreUsuario()) && usuario.getContrasenaUsuario().equalsIgnoreCase(usu1.getContrasenaUsuario())) {
+        if (usuario.getNombresUsuario().equalsIgnoreCase(usu1.getNombresUsuario()) && usuario.getContrasenaUsuario().equalsIgnoreCase(usu1.getContrasenaUsuario())) {
             System.out.println("Se encontro el user");
             return usu1;
         }else{

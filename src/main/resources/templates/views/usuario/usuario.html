@@ -38,7 +38,7 @@
         <thead>
             <th>ID</th>
             <th>Nombre</th>
-            <th>Contraseña</th>
+            <!-- <th>Contraseña</th> -->
             <th>Correo</th>
             <th>Tipo</th>
             <th>Estado</th>
@@ -46,8 +46,8 @@
         </thead>
         <tr th:each="u:${usuarios}" id="tablerow">
             <td th:text="${u.idUsuario}"></td>
-            <td th:text="${u.nombreUsuario}"></td>
-            <td th:text="${u.contrasenaUsuario}"></td>
+            <td th:text="${u.nombresUsuario}+' '+${u.apellidosUsuario}"></td>
+            <!-- <td th:text="${u.contrasenaUsuario}"></td> -->
             <td th:text="${u.correoUsuario}"></td>
             <td th:text="${u.tipoUsuario}"></td>
             <td th:text="${u.estadoUsuario}" id="estado"></td>
@@ -58,57 +58,67 @@
                 
                 <!-- MODAL EDITAR -->
                 <div class="modal fade" tabindex="-1" th:id="modal-editar+${u.idUsuario}">
-                    <div class="modal-dialog">
-                      <div class="modal-content">
-                        <div class="modal-header">
-                          <h5 class="modal-title">Editar Usuario</h5>
-                        </div>
-                        <form th:action="@{/usuario/add}" method="post" th:object="${usuario}">
-                          <div class="modal-body">
-                                  <input type="hidden" name="idUsuario" id="idUsuario" th:value="${u.idUsuario}">
-                                  <div>
-                                  <label for="">Nombre</label>
-                                  <input type="text" name="nombreUsuario" id="nombreUsuario" autocomplete="off" th:value="${u.nombreUsuario}" required readonly>
-                                  <span class="validity"></span>
-                                  </div>
-                                  <div>
-                                  <label for="">Contraseña</label>
-                                  <input type="text" name="contrasenaUsuario" id="contrasenaUsuario" autocomplete="off" th:value="${u.contrasenaUsuario}" pattern="(?=.*\d)(?=.*[a-z])(?=.*[A-Z]).{8,}" title="La contraseña debe tener mínimo 8 caracteres, un número, una mayúscula y una minúscula" required>
-                                  <span class="validity"></span>
-                                  </div>
-                                  <div>
-                                  <label for="">Correo</label>
-                                  <input type="email" name="correoUsuario" id="correoUsuario" autocomplete="off" th:value="${u.correoUsuario}" required>
-                                  <span class="validity"></span>
-                                  </div>
-                                  <div>
-                                  <label for="">Tipo</label>
-                                  <select name="tipoUsuario" id="tipoUsuario" required>
-                                      <option th:value="${u.tipoUsuario}" th:text="${u.tipoUsuario}" selected>Seleccionar</option>
-                                      <option value="Administrador">Administrador</option>
-                                      <option value="Admin del hogar">Admin del hogar</option>
-                                      <option value="Contador">Contador</option>
-                                  </select>
-                                  <span class="validity"></span>
-                                  </div>
-                                  <div>
-                                  <label for="">Estado</label>
-                                  <select name="estadoUsuario" id="estadoUsuario" required>
-                                      <option th:value="${u.estadoUsuario}" th:text="${u.estadoUsuario}" selected>Seleccionar</option>
-                                      <option value="Activo">Activo</option>
-                                      <option value="Inactivo">Inactivo</option>
-                                  </select>
-                                  <span class="validity"></span>
-                                  </div>
-                          </div>
-                          <div class="modal-footer">
-                              <button type="button" class="btn btn-secondary" data-dismiss="modal">Cancelar</button>
-                              <button type="submit" class="btn bg-cuentas">Editar</button>
-                          </div>
-                        </form>
+                  <div class="modal-dialog">
+                    <div class="modal-content">
+                      <div class="modal-header">
+                        <h5 class="modal-title">Editar Usuario</h5>
                       </div>
+                      <form th:action="@{/usuario/add}" method="post" th:object="${usuario}">
+                      <div class="modal-body">
+                            <script th:inline="javascript" th:if="${modalEdit}">$("#modal-editar[[${modalEdit}]]").modal("show");</script>
+                              <input type="hidden" name="idUsuario" id="idUsuario" th:value="${u.idUsuario}">
+                              <div>
+                              <label for="">Nombre</label>
+                              <input type="text" th:value="${u.nombresUsuario}+' '+${u.apellidosUsuario}" autocomplete="off" required pattern="[A-Za-zñ ]{1,20}" readonly>
+                              <div class="form-text text-danger" th:if="${#fields.hasErrors('nombresUsuario')}" th:errors="*{nombresUsuario}"></div>
+                              <span class="validity"></span>
+                              <input type="text" name="nombresUsuario" th:value="${u.nombresUsuario}" autocomplete="off" required pattern="[A-Za-zñ ]{1,20}" hidden>
+                              <input type="text" name="apellidosUsuario" th:value="${u.apellidosUsuario}" autocomplete="off" required pattern="[A-Za-zñ ]{1,20}" hidden>
+                              </div>
+                              <div>
+                              <label for="">Contraseña</label>
+                              <input type="text" name="contrasenaUsuario" th:value="${u.contrasenaUsuario}" autocomplete="off" pattern="(?=.*\d)(?=.*[a-z])(?=.*[A-Z]).{8,}" title="La contraseña debe tener mínimo 8 caracteres, un número, una mayúscula y una minúscula">
+                              <div class="form-text text-danger" th:if="${#fields.hasErrors('contrasenaUsuario')}" th:errors="*{contrasenaUsuario}"></div>
+                              <span class="validity"></span>
+                              </div>
+                              <div>
+                              <label for="">Correo</label>
+                              <input type="email" name="correoUsuario" th:value="${u.correoUsuario}" autocomplete="off" required>
+                              <div class="form-text text-danger" th:if="${#fields.hasErrors('correoUsuario')}" th:errors="*{correoUsuario}"></div>
+                              <span class="validity"></span>
+                              </div>
+                              <div>
+                              <label for="">Tipo</label>
+                              <select name="tipoUsuario" required>
+                                  <option th:value="${u.tipoUsuario}" th:text="${u.tipoUsuario}" selected>Seleccionar</option>
+                                  <option value="Administrador">Administrador</option>
+                                  <option value="Admin del hogar">Admin del hogar</option>
+                                  <option value="Contador">Contador</option>
+                              </select>
+                              <div class="form-text text-danger" th:if="${#fields.hasErrors('tipoUsuario')}" th:errors="*{tipoUsuario}"></div>
+                              <span class="validity"></span>
+                              </div>
+                              <div>
+                              <label for="">Estado</label>
+                              <select name="estadoUsuario" required>
+                                  <option th:value="${u.estadoUsuario}" th:text="${u.estadoUsuario}" selected>Seleccionar</option>
+                                  <option value="Activo" selected>Activo</option>
+                                  <option value="Inactivo">Inactivo</option>
+                              </select>
+                              <div class="form-text text-danger" th:if="${#fields.hasErrors('estadoUsuario')}" th:errors="*{estadoUsuario}"></div>
+                              <div class="form-text text-danger" th:if="${errorMessage}" th:text="${errorMessage}"></div>            
+                              <span class="validity"></span>
+                              </div>
+                      </div>
+                      <div class="modal-footer">
+                          <button type="button" class="btn btn-secondary" data-dismiss="modal">Cancelar</button>
+                          <button type="submit" class="btn bg-cuentas">Editar</button>
+                          
+                      </div>
+                    </form>
                     </div>
-                </div>
+                  </div>
+              </div>
 
                 <a href="" data-toggle="modal" th:attr="data-target='#modal-delete'+${u.idUsuario}"><button type="button" class="btn btn-dark"><svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-trash-fill" viewBox="0 0 16 16">
                 <path d="M2.5 1a1 1 0 0 0-1 1v1a1 1 0 0 0 1 1H3v9a2 2 0 0 0 2 2h6a2 2 0 0 0 2-2V4h.5a1 1 0 0 0 1-1V2a1 1 0 0 0-1-1H10a1 1 0 0 0-1-1H7a1 1 0 0 0-1 1H2.5zm3 4a.5.5 0 0 1 .5.5v7a.5.5 0 0 1-1 0v-7a.5.5 0 0 1 .5-.5zM8 5a.5.5 0 0 1 .5.5v7a.5.5 0 0 1-1 0v-7A.5.5 0 0 1 8 5zm3 .5v7a.5.5 0 0 1-1 0v-7a.5.5 0 0 1 1 0z"/>
@@ -147,12 +157,16 @@
             </div>
             <div class="modal-body">
                 <form th:action="@{/usuario/add}" method="post" th:object="${usuario}">
-                  <script th:inline="javascript" th:if="${#fields.hasErrors('*')}">$("#modal-add").modal("show");</script>
+                  <script th:inline="javascript" th:if="${modalAdd}">$("#modal-add").modal("show");</script>
                   <script th:inline="javascript" th:if="${errorMessage}">$("#modal-add").modal("show");</script>
                     <div>
-                    <label for="">Nombre</label>
-                    <input type="text" th:field="*{nombreUsuario}" autocomplete="off" required>
-                    <div class="form-text text-danger" th:if="${#fields.hasErrors('nombreUsuario')}" th:errors="*{nombreUsuario}"></div>
+                    <label for="">Nombres</label>
+                    <input type="text" th:field="*{nombresUsuario}" autocomplete="off" required pattern="[A-Za-zñ ]{1,20}">
+                    <div class="form-text text-danger" th:if="${#fields.hasErrors('nombresUsuario')}" th:errors="*{nombresUsuario}"></div>
+                    <span class="validity"></span>
+                    <label for="">Apellidos</label>
+                    <input type="text" th:field="*{apellidosUsuario}" autocomplete="off" required pattern="[A-Za-zñ ]{1,20}">
+                    <div class="form-text text-danger" th:if="${#fields.hasErrors('apellidosUsuario')}" th:errors="*{apellidosUsuario}"></div>
                     <!-- <label for="">Contraseña</label>
                     <input type="text" th:field="*{contrasenaUsuario}" autocomplete="off"> -->
                     <div class="form-text text-danger" th:if="${#fields.hasErrors('contrasenaUsuario')}" th:errors="*{contrasenaUsuario}"></div>
@@ -160,7 +174,7 @@
                     </div>
                     <div>
                     <label for="">Correo</label>
-                    <input type="text" th:field="*{correoUsuario}" autocomplete="off" required>
+                    <input type="email" th:field="*{correoUsuario}" autocomplete="off" required>
                     <div class="form-text text-danger" th:if="${#fields.hasErrors('correoUsuario')}" th:errors="*{correoUsuario}"></div>
                     <div class="form-text text-danger" th:if="${errorMessage1}" th:text="${errorMessage1}"></div>
                     <span class="validity"></span>
@@ -177,15 +191,14 @@
                     <span class="validity"></span>
                     </div>
                     <div>
-                    <label for="">Estado</label>
-                    <select th:field="*{estadoUsuario}" required>
-                        <option value="" selected>Seleccionar</option>
-                        <option value="Activo">Activo</option>
+                    <!-- <label for="">Estado</label> -->
+                    <select th:field="*{estadoUsuario}" hidden required>
+                        <option value="Activo" selected>Activo</option>
                         <option value="Inactivo">Inactivo</option>
                     </select>
                     <div class="form-text text-danger" th:if="${#fields.hasErrors('estadoUsuario')}" th:errors="*{estadoUsuario}"></div>
                     <div class="form-text text-danger" th:if="${errorMessage}" th:text="${errorMessage}"></div>            
-                    <span class="validity"></span>
+                    <!-- <span class="validity"></span> -->
                     </div>
             </div>
             <div class="modal-footer">

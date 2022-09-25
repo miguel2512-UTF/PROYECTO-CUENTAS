@@ -6,7 +6,7 @@ import org.springframework.data.repository.CrudRepository;
 
 public interface IUsuario extends CrudRepository<Usuario, Integer>{
 
-    public Optional<Usuario> findByNombreUsuario(String nombreUsuario);
+    public Optional<Usuario> findByNombresUsuario(String nombresUsuario);
 
     public Optional<Usuario> findByCorreoUsuario(String correoUsuario);
 

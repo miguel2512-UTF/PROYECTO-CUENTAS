@@ -34,18 +34,26 @@ public class UsuarioController {
         m.addAttribute("usuarios", usuarioI.findAll());
 
         if (res.hasErrors()) {
-            try {
-                usuarioI.createUser(usuario);
-            } catch (Exception e) {
-                if (e.getMessage().equalsIgnoreCase("username no disponible") || e.getMessage().equalsIgnoreCase("email no disponible")) {
-                    m.addAttribute("errorMessage",e.getMessage());
+            if (usuario.getIdUsuario()==0) {
+                m.addAttribute("modalAdd","");
+                try {
+                    usuarioI.createUser(usuario);
+                } catch (Exception e) {
+                    if (e.getMessage().equalsIgnoreCase("username no disponible") || e.getMessage().equalsIgnoreCase("email no disponible")) {
+                        m.addAttribute("errorMessage",e.getMessage());
+                    }
                 }
+            }else if (usuario.getIdUsuario()>0) {
+                m.addAttribute("modalEdit", usuario.getIdUsuario());
             }
+
             return "views/usuario/usuario";
         }
 
         if (usuario.getIdUsuario()==0) {
             usuario.setContrasenaUsuario(usuario.getCorreoUsuario());
+            usuario.setNombresUsuario(usuario.getNombresUsuario().toLowerCase());
+            usuario.setApellidosUsuario(usuario.getApellidosUsuario().toLowerCase());
             try {
                 usuarioI.createUser(usuario);
             } catch (Exception e) {
@@ -95,7 +103,7 @@ public class UsuarioController {
             usu=usuarioI.login(usuario);
         }
 
-        if (usuario.getNombreUsuario().equalsIgnoreCase(usu.getNombreUsuario()) && usuario.getNombreUsuario()!=null) {
+        if (usuario.getNombresUsuario().equalsIgnoreCase(usu.getNombresUsuario()) && usuario.getNombresUsuario()!=null) {
             if (usuario.getContrasenaUsuario().equalsIgnoreCase(usu.getContrasenaUsuario()) && usuario.getContrasenaUsuario()!=null) {
                return "redirect:/inicio"; 
             }
