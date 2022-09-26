@@ -29,8 +29,7 @@ public class PagoPrestamo {
     @NotEmpty
     private String totalPago;
  
-    @Column(name = "imagenPago")
-    private File imagenPago;
+    private String imagenPago;
 
     /*Relacion de muchos a uno (Pago a Prestamo) */
     @ManyToOne(fetch = FetchType.LAZY)
@@ -42,7 +41,7 @@ public class PagoPrestamo {
     }
 
     public PagoPrestamo(Integer idPagoPrestamo, @NotEmpty String fechaPago, @NotEmpty String totalPago,
-            @NotEmpty File imagenPago, Prestamo prestamo) {
+            @NotEmpty String imagenPago, Prestamo prestamo) {
         this.idPagoPrestamo = idPagoPrestamo;
         this.fechaPago = fechaPago;
         this.totalPago = totalPago;
@@ -74,11 +73,11 @@ public class PagoPrestamo {
         this.totalPago = totalPago;
     }
 
-    public File getImagenPago() {
+    public String getImagenPago() {
         return imagenPago;
     }
 
-    public void setImagenPago(File imagenPago) {
+    public void setImagenPago(String imagenPago) {
         this.imagenPago = imagenPago;
     }
 

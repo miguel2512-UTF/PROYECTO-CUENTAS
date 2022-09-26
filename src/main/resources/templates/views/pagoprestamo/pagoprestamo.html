@@ -48,7 +48,12 @@
             <td th:text="${Pp.prestamo.nombrePrestamista}"></td>
             <td th:text="${Pp.fechaPago}"></td>
             <td th:text="${Pp.totalPago}"></td>
-            <td th:text="${Pp.imagenPago}"></td>
+
+            <td>
+           <img 
+              th:src="@{'/assets/pimg/' + ${Pp.imagenPago}}"
+             th:alt="${Pp.imagenPago}" style="max-width: 70px; height: auto;">
+            </td>
             <td>
                 <a href="" data-toggle="modal" th:attr="data-target='#modal-editar'+${Pp.idPagoPrestamo}"><button type="button" class="btn btn-dark"><svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-pen-fill" viewBox="0 0 16 16">
                 <path d="m13.498.795.149-.149a1.207 1.207 0 1 1 1.707 1.708l-.149.148a1.5 1.5 0 0 1-.059 2.059L4.854 14.854a.5.5 0 0 1-.233.131l-4 1a.5.5 0 0 1-.606-.606l1-4a.5.5 0 0 1 .131-.232l9.642-9.642a.5.5 0 0 0-.642.056L6.854 4.854a.5.5 0 1 1-.708-.708L9.44.854A1.5 1.5 0 0 1 11.5.796a1.5 1.5 0 0 1 1.998-.001z"/>
@@ -61,7 +66,7 @@
                         <div class="modal-header">
                           <h5 class="modal-title">Editar Pago Préstamo</h5>
                         </div>
-                        <form th:action="@{/pagoprestamo/add}" method="post" th:object="${pagoprestamo}">
+                        <form th:action="@{/pagoprestamo/add}" method="post" th:object="${pagoprestamo}" enctype="multipart/form-data">
                           <div class="modal-body">
                                   <input type="hidden" name="idPagoPrestamo" id="idPagoPrestamo" th:value="${Pp.idPagoPrestamo}">
                                   <div>
@@ -83,9 +88,11 @@
                                   <span class="validity"></span>
                                   </div>
                                   <div>
-                                  <label for="">Imagen Pago</label>
-                                  <input type="file" name="imagenPago" id="imagenPago" th:field="*{imagenPago}" required accept="image/*">
-                                  <span class="validity"></span>
+                                    <div>
+                                      <label for="imagenPago">Imagen Pago</label>
+                                      <input type="file" name="file" id="imagenPago" accept="image/*" required>
+                                      <span class="validity"></span>
+                                      </div>
                                   </div>
                           </div>
                           <div class="modal-footer">
@@ -131,7 +138,7 @@
               <h5 class="modal-title">Registrar Pago Préstamo</h5>
             </div>
             <div class="modal-body">
-                <form th:action="@{/pagoprestamo/add}" method="post" th:object="${pagoprestamo}">
+                <form th:action="@{/pagoprestamo/add}" method="post" th:object="${pagoprestamo}" enctype="multipart/form-data">
                   <script th:inline="javascript" th:if="${#fields.hasErrors('*')}">$("#modal-add").modal("show");</script>
                   <script th:inline="javascript" th:if="${errorMessage}">$("#modal-add").modal("show");</script>
                     <div>
@@ -156,9 +163,8 @@
                     <span class="validity"></span>
                     </div>
                     <div>
-                    <label for="">Imagen Pago</label>
-                    <input type="file" th:field="*{imagenPago}" accept="image/*" required>
-                    <div class="form-text text-danger" th:if="${errorMessage}" th:text="${errorMessage}"></div> 
+                    <label for="imagenPago">Imagen Pago</label>
+                    <input type="file" name="file" id="imagenPago" accept="image/*" required>
                     <span class="validity"></span>
                     </div>          
             </div>
