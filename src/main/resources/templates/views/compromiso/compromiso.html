@@ -106,7 +106,7 @@
                                   </div>                               
                           <div class="modal-footer">
                               <button type="button" class="btn btn-secondary" data-dismiss="modal">Cancelar</button>
-                              <button type="submit" class="btn bg-cuentas" onclick="return confirm('Estás seguro que quieres editar');">Editar</button>
+                              <button type="submit" class="btn bg-cuentas" id="submitEdit">Editar</button>
                           </div>
                         </form>
                       </div>
@@ -291,5 +291,26 @@
         }
       }
     </script>
+        <script>
+          $('#submitEdit').on('click',function(e){
+              e.preventDefault();
+              var form = $(this).parents('form');
+              Swal.fire({
+                  title: 'seguro quieres realizar esta accion?',
+                  text: "ya no podras dar vuelta atras!",
+                  type: 'warning',
+                  showCancelButton: true,
+                  confirmButtonColor: '#3085d6',
+                  cancelButtonColor: '#d33',
+                  confirmButtonText: 'si, editar!'
+              }).then((result) => {
+                  if (result.value) {
+      
+                      form.submit();
+                  }
+              });
+          });
+      </script>
+       <script src="//cdn.jsdelivr.net/npm/sweetalert2@11"></script>
 </body>
 </html>
