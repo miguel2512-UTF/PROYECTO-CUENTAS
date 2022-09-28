@@ -244,7 +244,7 @@
             </div>
             <div class="modal-footer">
                 <button type="button" class="btn btn-secondary" data-dismiss="modal">Cancelar</button>
-                <button type="submit" class="btn bg-cuentas" id="registrar">Registrar</button>
+                <button type="submit" class="btn bg-cuentas" id="add">Registrar</button>
                 </form>
             </div>
           </div>
@@ -331,7 +331,7 @@
        <script>
         $('#registrar').on('click',function(e){
             e.preventDefault();
-            var form = $(this).parents('form');
+            var form = $(this).parents('formulario');
             Swal.fire({
                 title: 'quieres guardar este nuevo prestamo?',
                 text: "quedara guardado y no se podra borrar!",

@@ -58,7 +58,7 @@
             <td th:text="${g.fechaS}"></td>
             <td th:text="${g.metodo}"></td>
             <td th:text="${g.Total}"></td>
-            <td th:text="${g.usuario.nombreUsuario}"></td>
+            <td th:text="${g.usuario.nombresUsuario}"></td>
             <td th:text="${g.tipocompromiso.nombre}"></td> 
             <td th:text="${g.estadoCom}" id="estado"></td>
             <td>
@@ -172,7 +172,7 @@
                     <div>
                       <div class="col-md-6">
                     <label for="">Fecha Suspensión</label>
-                    <input type="date" value="2022-08-30" min="2022-09-30" min="2022-12-31"   name="fechaS" id="fechaS" class="form-control" th:field="*{fechaS}" required>
+                    <input type="date" value="2022-08-30" min="2022-09-30" max="2022-12-31"   name="fechaS" id="fechaS" class="form-control" th:field="*{fechaS}" required>
                     <div class="form-text text-danger" th:if="${#fields.hasErrors('fechaS')}" th:errors="*{fechaS}"></div>
                     <span class="validity"></span>
                     </div>
@@ -198,7 +198,7 @@
                     <select th:field="*{usuario}" required>
                       <option value="">SELECCIONAR USUARIO</option>
                       <th:block th:each="Usuario : ${usuario}">
-                      <option th:text="${Usuario.nombreUsuario}" th:value="${Usuario.idUsuario}"></option>
+                      <option th:text="${Usuario.nombresUsuario}" th:value="${Usuario.idUsuario}"></option>
                       </th:block>
                     </select>
                     <div class="form-text text-danger" th:if="${#fields.hasErrors('usuario')}" th:errors="*{usuario}"></div>
