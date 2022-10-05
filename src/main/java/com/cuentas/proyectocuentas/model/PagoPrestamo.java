@@ -1,7 +1,5 @@
 package com.cuentas.proyectocuentas.model;
 
-import java.io.File;
-
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.FetchType;
