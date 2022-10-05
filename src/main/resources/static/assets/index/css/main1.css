@@ -894,6 +894,10 @@ ol {
   .container {
     width: 450px;
   }
+
+  .container-m-t{
+    margin-top: 2rem;
+  }
 }
 
 /* Bread Crumbs */
@@ -1345,7 +1349,7 @@ ol {
 
 .button .btn:hover {
   color: #fff;
-  background-color: #081828;
+  background-color: #1F1F1F;
 }
 
 .button {
@@ -1682,7 +1686,7 @@ ol {
 }
 
 .header.sticky .button .btn:hover {
-  background-color: #081828;
+  background-color: #1F1F1F;
   color: #fff;
 }
 
@@ -2044,24 +2048,10 @@ ol {
 ========================================*/
 .hero-area {
   position: relative;
-  background-image: url("https://uvg.edu.mx/blog/wp-content/uploads/2021/04/post_thumbnail-993441cf84b42c333b6a346d8eb58ba3.jpeg");
-  background-size:100%;
+  background-image: url(https://uvg.edu.mx/blog/wp-content/uploads/2021/04/post_thumbnail-993441cf84b42c333b6a346d8eb58ba3.jpeg);
+  background-size:cover;
   background-position: center;
-background-color: #57b846;
-
   z-index: 0;
-}
-
-@media only screen and (min-width: 768px) and (max-width: 991px) {
-  .hero-area {
-    background-image: none;
-  }
-}
-
-@media (max-width: 767px) {
-  .hero-area {
-    background-image: none;
-  }
 }
 
 @media only screen and (min-width: 768px) and (max-width: 991px) {
@@ -2892,5 +2882,5 @@ background-color: #57b846;
 }
 
 .fondo{
-  filter: drop-shadow(3px 3px 6px black);
+  filter: drop-shadow(2px 2px 3px black);
 }
