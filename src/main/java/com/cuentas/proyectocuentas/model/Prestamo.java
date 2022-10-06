@@ -72,10 +72,6 @@ public class Prestamo {
     @OneToMany(mappedBy = "prestamo", fetch = FetchType.LAZY, cascade = CascadeType.ALL)
     private List<PagoPrestamo> pagoprestamo;
 
-    public String getValorPrestamo;
-
-    public String setValorPrestamo;
-
     public Prestamo() {
         prestamoabono= new ArrayList<PrestamoAbono>();
         pagoprestamo= new ArrayList<PagoPrestamo>();
