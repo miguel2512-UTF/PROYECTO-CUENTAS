@@ -35,13 +35,20 @@ select:valid + span:after{
     top: 0;
     left: 0;
     background-color: rgba(0,0,0,0.75);
-
+    overflow: scroll;
 }
 
-.modal-container.active #imagenPago {
+.modal-container.active #imagenPago{
     display: flex;
     width: 700px;
     height: auto;
+    z-index: 1;
+}
+.modal-container.active #imagenAbono {
+    display: flex;
+    width: 700px;
+    height: auto;
+    z-index: 1;
 }
 
 .modal-container.active::after{
@@ -54,7 +61,7 @@ select:valid + span:after{
     z-index: 0;
 }
 
-.modal-container #imagenPago{
+.modal-container #imagenPago, #imagenAbono {
     width: 40px; 
     height: 40px;
 }

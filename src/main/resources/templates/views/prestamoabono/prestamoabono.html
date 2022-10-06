@@ -21,7 +21,7 @@
       <a href="" data-toggle="modal" data-target="#modal-add"><svg xmlns="http://www.w3.org/2000/svg" width="32" height="32" fill="currentColor" class="bi bi-plus-circle-fill" viewBox="0 0 16 16">
         <path d="M16 8A8 8 0 1 1 0 8a8 8 0 0 1 16 0zM8.5 4.5a.5.5 0 0 0-1 0v3h-3a.5.5 0 0 0 0 1h3v3a.5.5 0 0 0 1 0v-3h3a.5.5 0 0 0 0-1h-3v-3z"/>
       </svg></a>
-    </div>
+    </div> 
     
     <div class="alerta">
         <div class="alert alert-warning alert-dismissible fade show" role="alert" th:if="${prestamoabonos.size()==0}">
@@ -49,9 +49,12 @@
             <td th:text="${Ab.fechaAbono}"></td>
             <td th:text="${Ab.totalAbono}"></td>
             <td>
-              <img 
+              <div class="modal-container">
+                <img 
               th:src="@{'/assets/aimg/' + ${Ab.imagenAbono}}" 
-              th:alt="${Ab.imagenAbono}" style="max-width: 70px; height: auto;">
+              th:alt="${Ab.imagenAbono}" id="imagenAbono">
+              </div>
+              
             </td>
             <td>
                 <a href="" data-toggle="modal" th:attr="data-target='#modal-editar'+${Ab.idPrestamoAbono}"><button type="button" class="btn btn-dark"><svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-pen-fill" viewBox="0 0 16 16">
@@ -83,7 +86,7 @@
                                   </div>
                                   <div>
                                   <label for="">Total Abono</label>
-                                  <input type="number" name="totalAbono" id="totalAbono" th:value="${Ab.totalAbono}" placeholder="Ejemplo: 250.000" required>
+                                  <input type="number" name="totalAbono" th:value="${Ab.totalAbono}" placeholder="Ejemplo: 250.000" required>
                                   <span class="validity"></span>
 
                                   <label for="imagenAbono">Imagen Abono</label>
@@ -138,7 +141,7 @@
                   <script th:inline="javascript" th:if="${errorMessage}">$("#modal-add").modal("show");</script>
                   <div>
                     <label for="">Valor del Préstamo</label>
-                    <select th:field="*{prestamo}" min="1000000" required>
+                    <select th:field="*{prestamo}" min="1000000" required id="valorPrestamo">
                         <option value="">Seleccionar</option>
                         <option th:each="Pr:${prestamo}" th:text="${Pr.valorPrestamo}" th:value="${Pr.idPrestamo}"></option>
                     </select>
@@ -152,9 +155,8 @@
                     </div>
                     <div>
                     <label for="">Total Abono</label>
-                    <input type="number" th:field="*{totalAbono}" placeholder="Ejemplo: 250.000" min="50000" required>
+                    <input type="number" th:field="*{totalAbono}" min="50000" placeholder="Ejemplo: 250.000"  required id="totalAbono">
                     <div class="form-text text-danger" th:if="${#fields.hasErrors('totalAbono')}" th:errors="*{totalAbono}"></div>
-                    <div class="form-text text-danger" th:if="${errorMessage}" th:text="${errorMessage}"></div>
                     <span class="validity"></span>
 
                     <label for="imagenAbono"></label>
@@ -267,6 +269,35 @@
             });
         });
     </script>
-       <script src="//cdn.jsdelivr.net/npm/sweetalert2@11"></script>
+      <script src="//cdn.jsdelivr.net/npm/sweetalert2@11"></script>
+      <script>
+
+            document.querySelectorAll(".modal-container img").forEach(el=>{
+              el.addEventListener("click", function(ev){
+                ev.stopPropagation();
+                this.parentNode.classList.add("active")
+              })
+            });
+
+            document.querySelectorAll(".modal-container").forEach(el=>{
+              el.addEventListener("click", function(ev){
+                this.classList.remove("active")
+              })
+            });
+
+
+        const valor=document.getElementById("valorPrestamo");
+        const total=document.getElementById("totalAbono");
+  
+
+        function cambiarMax() {
+          let valor1=parseInt(valor.options[valor.selectedIndex].textContent)
+          total.setAttribute("max" , valor1)
+        }
+        valor.addEventListener("click", cambiarMax);
+
+
+ 
+      </script>
 </body>
 </html>
