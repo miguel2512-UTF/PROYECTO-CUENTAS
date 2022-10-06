@@ -1,6 +1,5 @@
 package com.cuentas.proyectocuentas.model;
 
-import java.io.File;
 
 import javax.persistence.Column;
 import javax.persistence.Entity;
@@ -26,8 +25,8 @@ public class PagoPrestamo {
     private String fechaPago;
  
     @Column(name = "totalPago", length =10)
-    @NotEmpty
-    private String totalPago;
+    @NotNull
+    private Integer totalPago;
  
     private String imagenPago;
 
@@ -40,7 +39,7 @@ public class PagoPrestamo {
 
     }
 
-    public PagoPrestamo(Integer idPagoPrestamo, @NotEmpty String fechaPago, @NotEmpty String totalPago,
+    public PagoPrestamo(Integer idPagoPrestamo, @NotEmpty String fechaPago, @NotEmpty Integer totalPago,
             @NotEmpty String imagenPago, Prestamo prestamo) {
         this.idPagoPrestamo = idPagoPrestamo;
         this.fechaPago = fechaPago;
@@ -65,11 +64,11 @@ public class PagoPrestamo {
         this.fechaPago = fechaPago;
     }
 
-    public String getTotalPago() {
+    public Integer getTotalPago() {
         return totalPago;
     }
 
-    public void setTotalPago(String totalPago) {
+    public void setTotalPago(Integer totalPago) {
         this.totalPago = totalPago;
     }
 

@@ -20,3 +20,43 @@ select:valid + span:after{
     border: 3px solid #57b846;
     border-radius: 15px;
 }
+
+.modal-container{
+    display: inline-block;
+    position: relative;
+}
+.modal-container.active{
+    position: fixed;
+    width: 100vw;
+    height: 100vh;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    top: 0;
+    left: 0;
+    background-color: rgba(0,0,0,0.75);
+
+}
+
+.modal-container.active #imagenPago {
+    display: flex;
+    width: 700px;
+    height: auto;
+}
+
+.modal-container.active::after{
+    content: '';
+    position: fixed;
+    width: 100vw;
+    height: 100vh;
+    top: 0;
+    left: 0;
+    z-index: 0;
+}
+
+.modal-container #imagenPago{
+    width: 40px; 
+    height: 40px;
+}
+
+

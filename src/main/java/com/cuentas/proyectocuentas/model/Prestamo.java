@@ -14,6 +14,7 @@ import javax.persistence.ManyToOne;
 import javax.persistence.OneToMany;
 import javax.persistence.Table;
 import javax.validation.constraints.NotEmpty;
+import javax.validation.constraints.NotNull;
 import javax.validation.constraints.Size;
 
 @Entity
@@ -38,13 +39,13 @@ public class Prestamo {
     private String fechaPagoOportuno;
 
     @Column(name = "valorPrestamo", length = 100000000)
-    @NotEmpty
-    private String valorPrestamo;
+    @NotNull
+    private Integer valorPrestamo;
 
     
     @Column(name = "tasaPrestamo", length = 15 )
-    @NotEmpty
-    private String tasaPrestamo;
+    @NotNull
+    private Integer tasaPrestamo;
 
     @Column(name = "periodoCuota", length = 15 )
     @NotEmpty
@@ -71,6 +72,10 @@ public class Prestamo {
     @OneToMany(mappedBy = "prestamo", fetch = FetchType.LAZY, cascade = CascadeType.ALL)
     private List<PagoPrestamo> pagoprestamo;
 
+    public String getValorPrestamo;
+
+    public String setValorPrestamo;
+
     public Prestamo() {
         prestamoabono= new ArrayList<PrestamoAbono>();
         pagoprestamo= new ArrayList<PagoPrestamo>();
@@ -78,8 +83,8 @@ public class Prestamo {
     }
 
     public Prestamo(Integer idPrestamo, @Size(min = 10, max = 10) @NotEmpty String documentoPrestamista,
-            @NotEmpty String nombrePrestamista, @NotEmpty String fechaPagoOportuno, @NotEmpty String valorPrestamo,
-            @NotEmpty String tasaPrestamo, @NotEmpty String periodoCuota, @NotEmpty String numeroCuotas,
+            @NotEmpty String nombrePrestamista, @NotEmpty String fechaPagoOportuno, @NotEmpty Integer valorPrestamo,
+            @NotEmpty Integer tasaPrestamo, @NotEmpty String periodoCuota, @NotEmpty String numeroCuotas,
             String estadoPrestamo, Usuario usuario, List<PrestamoAbono> prestamoabono) {
         this.idPrestamo = idPrestamo;
         this.documentoPrestamista = documentoPrestamista;
@@ -126,19 +131,19 @@ public class Prestamo {
         this.fechaPagoOportuno = fechaPagoOportuno;
     }
 
-    public String getValorPrestamo() {
+    public Integer getValorPrestamo() {
         return valorPrestamo;
     }
 
-    public void setValorPrestamo(String valorPrestamo) {
+    public void setValorPrestamo(Integer valorPrestamo) {
         this.valorPrestamo = valorPrestamo;
     }
 
-    public String getTasaPrestamo() {
+    public Integer getTasaPrestamo() {
         return tasaPrestamo;
     }
 
-    public void setTasaPrestamo(String tasaPrestamo) {
+    public void setTasaPrestamo(Integer tasaPrestamo) {
         this.tasaPrestamo = tasaPrestamo;
     }
 

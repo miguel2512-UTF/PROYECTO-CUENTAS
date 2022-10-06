@@ -50,10 +50,14 @@
             <td th:text="${Pp.totalPago}"></td>
 
             <td>
-           <img 
+           <div class="modal-container">
+              <img 
               th:src="@{'/assets/pimg/' + ${Pp.imagenPago}}"
-             th:alt="${Pp.imagenPago}" style="max-width: 70px; height: auto;">
+             th:alt="${Pp.imagenPago}"  id="imagenPago">
             </td>
+            </div>
+            </td>
+            
             <td>
                 <a href="" data-toggle="modal" th:attr="data-target='#modal-editar'+${Pp.idPagoPrestamo}"><button type="button" class="btn btn-dark"><svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-pen-fill" viewBox="0 0 16 16">
                 <path d="m13.498.795.149-.149a1.207 1.207 0 1 1 1.707 1.708l-.149.148a1.5 1.5 0 0 1-.059 2.059L4.854 14.854a.5.5 0 0 1-.233.131l-4 1a.5.5 0 0 1-.606-.606l1-4a.5.5 0 0 1 .131-.232l9.642-9.642a.5.5 0 0 0-.642.056L6.854 4.854a.5.5 0 1 1-.708-.708L9.44.854A1.5 1.5 0 0 1 11.5.796a1.5 1.5 0 0 1 1.998-.001z"/>
@@ -84,7 +88,7 @@
                                   </div>
                                   <div>
                                   <label for="">Total Pago</label>
-                                  <input  type="number" name="totalPago" id="totalPago" th:value="${Pp.totalPago}" placeholder="Ejemplo: 250.000" min="50000" required>
+                                  <input  type="number" name="totalPago" th:value="${Pp.totalPago}" placeholder="Ejemplo: 250.000" min="50000" required>
                                   <span class="validity"></span>
                                   </div>
                                   <div>
@@ -143,7 +147,7 @@
                   <script th:inline="javascript" th:if="${errorMessage}">$("#modal-add").modal("show");</script>
                     <div>
                     <label for="">Valor del préstamo</label>
-                    <select th:field="*{prestamo}" min="1000000" required>
+                    <select th:field="*{prestamo}" min="1000000" required id="valorPrestamo">
                         <option value="">Seleccionar</option>
                         <option th:each="Pp:${prestamo}" th:text="${Pp.valorPrestamo}" th:value="${Pp.idPrestamo}"></option>
                     </select>
@@ -158,7 +162,7 @@
                     </div>
                     <div>
                     <label for="">Total Pago</label>
-                    <input type="number" th:field="*{totalPago}" placeholder="Ejemplo: 250.000" min="50000" required>
+                    <input type="number" th:field="*{totalPago}" min="5000"  placeholder="Ejemplo: 250.000" required id="totalPago">
                     <div class="form-text text-danger" th:if="${#fields.hasErrors('totalPago')}" th:errors="*{totalPago}"></div>
                     <span class="validity"></span>
                     </div>
@@ -254,7 +258,38 @@
               });
           });
       </script>
-      
        <script src="//cdn.jsdelivr.net/npm/sweetalert2@11"></script>
+       <script>
+
+        document.querySelectorAll(".modal-container img").forEach(el=>{
+          el.addEventListener("click", function(ev){
+            ev.stopPropagation();
+            this.parentNode.classList.add("active")
+          })
+        });
+
+        document.querySelectorAll(".modal-container").forEach(el=>{
+          el.addEventListener("click", function(ev){
+            this.classList.remove("active")
+            console.log("click")
+          })
+        });
+
+
+
+        const valor=document.getElementById("valorPrestamo");
+        const total=document.getElementById("totalPago");
+       
+
+        function cambiarMax() {
+          let valor1=parseInt(valor.options[valor.selectedIndex].textContent)
+          total.setAttribute("max",valor1)
+        }
+        valor.addEventListener("click", cambiarMax)
+
+      </script>
 </body>
+
 </html>
+
+
