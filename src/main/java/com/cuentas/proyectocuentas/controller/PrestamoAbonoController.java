@@ -2,7 +2,7 @@ package com.cuentas.proyectocuentas.controller;
  
 import java.nio.file.Files;
 import java.nio.file.Path;
-import java.nio.file.Paths;
+import java.nio.file.Paths; 
 
 import javax.validation.Valid;
 
@@ -73,6 +73,8 @@ public class PrestamoAbonoController {
             }
 
         }
+        Integer valorprestamo=abono.getPrestamo().getValorPrestamo()-abono.getTotalAbono();
+        abono.getPrestamo().setValorPrestamo(valorprestamo);
         prestamoabonoI.save(abono);
         status.setComplete();
         return "redirect:listar";

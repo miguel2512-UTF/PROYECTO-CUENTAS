@@ -13,7 +13,7 @@
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@4.6.2/dist/js/bootstrap.bundle.min.js" integrity="sha384-Fy6S3B9q64WdZWQUiU+q4/2Lc9npb8tCaSX9FK7E8HnRr0Jz8D6OP9dO5Vg3Q9ct" crossorigin="anonymous"></script>
     <link rel="stylesheet" type="text/css" href="https://cdn.jsdelivr.net/gh/mobius1/vanilla-Datatables@latest/vanilla-dataTables.min.css">
     <script type="text/javascript" src="https://cdn.jsdelivr.net/gh/mobius1/vanilla-Datatables@latest/vanilla-dataTables.min.js"></script>
-</head>
+</head> 
 <body>
     <div th:replace="/views/header :: nav"></div>
     <div class="title">
@@ -72,8 +72,8 @@
                           <div class="modal-body">
                                   <input type="hidden" name="idPrestamoAbono" id="idPrestamoAbono" th:value="${Ab.idPrestamoAbono}">
                                   <div>
-                                  <label for="">Nombre Prestamista</label>
-                                  <select name="prestamo" required>
+                                  <label for="">Valor del préstamo</label>
+                                  <select name="prestamo" readonly>
                                     <option th:value="${Ab.prestamo.idPrestamo}" th:text="${Ab.prestamo.nombrePrestamista}">Seleccionar</option> 
                                     <option th:each="Pr:${prestamo}" th:text="${Pr.nombrePrestamista}" th:value="${Pr.idPrestamo}"></option>
                                   </select>
@@ -86,7 +86,7 @@
                                   </div>
                                   <div>
                                   <label for="">Total Abono</label>
-                                  <input type="number" name="totalAbono" th:value="${Ab.totalAbono}" placeholder="Ejemplo: 250.000" required>
+                                  <input type="number" name="totalAbono" th:value="${Ab.totalAbono}" placeholder="Ejemplo: 250.000" th:max="${Ab.prestamo.valorPrestamo}" required>
                                   <span class="validity"></span>
 
                                   <label for="imagenAbono">Imagen Abono</label>

@@ -9,6 +9,7 @@ import javax.persistence.Id;
 import javax.persistence.ManyToOne;
 import javax.persistence.Table;
 import javax.validation.constraints.NotEmpty;
+import javax.validation.constraints.NotNull;
 
 @Entity
 @Table (name="PrestamoAbono")
@@ -23,8 +24,8 @@ public class PrestamoAbono {
     private String fechaAbono;
  
     @Column(name = "totalAbono", length =10)
-    @NotEmpty
-    private String totalAbono;
+    @NotNull
+    private Integer totalAbono;
 
     private String imagenAbono;
 
@@ -35,7 +36,7 @@ public class PrestamoAbono {
     public PrestamoAbono() {
     }
 
-    public PrestamoAbono(Integer idPrestamoAbono, @NotEmpty String fechaAbono, @NotEmpty String totalAbono,
+    public PrestamoAbono(Integer idPrestamoAbono, @NotEmpty String fechaAbono, @NotEmpty Integer totalAbono,
             String imagenAbono, Prestamo prestamo) {
         this.idPrestamoAbono = idPrestamoAbono;
         this.fechaAbono = fechaAbono;
@@ -60,11 +61,11 @@ public class PrestamoAbono {
         this.fechaAbono = fechaAbono;
     }
 
-    public String getTotalAbono() {
+    public Integer getTotalAbono() {
         return totalAbono;
     }
 
-    public void setTotalAbono(String totalAbono) {
+    public void setTotalAbono(Integer totalAbono) {
         this.totalAbono = totalAbono;
     }
 

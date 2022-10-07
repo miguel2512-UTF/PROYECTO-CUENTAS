@@ -75,9 +75,9 @@
                                   <input type="hidden" name="idPagoPrestamo" id="idPagoPrestamo" th:value="${Pp.idPagoPrestamo}">
                                   <div>
                                   <label for="">Valor del préstamo</label>
-                                  <select name="prestamo" id="prestamo" required min="1000000">
+                                  <select name="prestamo" id="prestamo"  min="1000000">
                                     <option th:value="${Pp.prestamo.idPrestamo}" th:text="${Pp.prestamo.valorPrestamo}">Seleccionar</option>
-                                    <option th:each="Pp:${prestamo}" th:text="${Pp.valorPrestamo}" th:value="${Pp.idPrestamo}"></option>
+                                    <option th:each="Pp:${prestamo}" th:text="${Pp.valorPrestamo}" th:value="${Pp.idPrestamo}" readonly></option>
                                   </select>
                                   <span class="validity"></span>
                                   </div>
