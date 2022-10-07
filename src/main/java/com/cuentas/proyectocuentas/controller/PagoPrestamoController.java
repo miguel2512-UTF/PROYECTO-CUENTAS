@@ -111,6 +111,11 @@ public class PagoPrestamoController {
     @GetMapping("/delete/{idPagoPrestamo}")
     public String delete(@PathVariable Integer idPagoPrestamo){
         if (idPagoPrestamo > 0) {
+            PagoPrestamo pago = pagoprestamoI.findOne(idPagoPrestamo);
+            Integer valorprestamo=pago.getPrestamo().getValorPrestamo()+pago.getTotalPago();
+            pago.getPrestamo().setValorPrestamo(valorprestamo);
+            pagoprestamoI.save(pago);
+
             pagoprestamoI.delete(idPagoPrestamo);
         }
         return "redirect:../listar";
