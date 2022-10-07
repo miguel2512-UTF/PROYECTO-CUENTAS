@@ -88,7 +88,7 @@
                                   </div>
                                   <div>
                                   <label for="">Total Pago</label>
-                                  <input  type="number" name="totalPago" th:value="${Pp.totalPago}" placeholder="Ejemplo: 250.000" min="50000" required>
+                                  <input  type="number" name="totalPago" th:value="${Pp.totalPago}" placeholder="Ejemplo: 250.000" min="50000" th:max="${Pp.prestamo.valorPrestamo}" required>
                                   <span class="validity"></span>
                                   </div>
                                   <div>

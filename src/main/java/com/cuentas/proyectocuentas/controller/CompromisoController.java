@@ -1,5 +1,7 @@
 package com.cuentas.proyectocuentas.controller;
 
+import java.text.SimpleDateFormat;
+import java.util.Date;
 import java.util.List;
 
 import javax.validation.Valid;
@@ -101,9 +103,26 @@ m.addAttribute("usuario",usuario);
             List<Usuario> usuario = usuarioI.findAll();
             m.addAttribute("usuario",usuario);
 
+            String date=getToday("yyyy-MM-dd");
+            m.addAttribute("fechaActual", date);
+
+            String año=getToday("yyyy");
+            String mes=getToday("MM");
+            String dia=getToday("dd");
+            System.out.println(año+" "+mes+" "+dia);
+
+            String años = String.valueOf(Integer.parseInt(año)+1);
+            String fechaMax=años+"-"+mes+"-"+dia;
+            m.addAttribute("fechaMax", fechaMax);
+
             return "views/compromiso/compromiso";    
         }
-    
+        
+        public static String getToday(String format){
+            Date date = new Date();
+            return new SimpleDateFormat(format).format(date);
+        }
+
         @GetMapping("/actualizar/{idCom}")
         public String editar(@PathVariable Integer idCom,Model m){
         Compromiso compromiso=null;

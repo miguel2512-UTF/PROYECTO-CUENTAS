@@ -72,6 +72,8 @@ public class PagoPrestamoController {
                 e.printStackTrace();
             }
         }
+        Integer valorprestamo=pagoprestamo.getPrestamo().getValorPrestamo()-pagoprestamo.getTotalPago();
+        pagoprestamo.getPrestamo().setValorPrestamo(valorprestamo);
         pagoprestamoI.save(pagoprestamo);
         return "redirect:listar";
     }

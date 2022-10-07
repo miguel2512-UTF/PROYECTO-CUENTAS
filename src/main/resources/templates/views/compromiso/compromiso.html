@@ -197,7 +197,7 @@
                     <div>
                       <div class="col-md-6">
                     <label for="">Fecha Pago Oportuno</label>
-                    <input type="date" value="2022-08-30" min="2022-10-15"   name="fecha" id="fecha" class="form-control" th:field="*{fecha}" required>
+                    <input type="date" value="2022-08-30" th:min="${fechaActual}" th:max="${fechaMax}" name="fecha" id="fecha" class="form-control" th:field="*{fecha}" required>
                     <div class="form-text text-danger" th:if="${#fields.hasErrors('fecha')}" th:errors="*{fecha}"></div>
                     <span class="validity"></span>
                     </div>
@@ -205,7 +205,7 @@
                     <div>
                       <div class="col-md-6">
                     <label for="">Fecha Suspensión</label>
-                    <input type="date" value="2022-08-30" min="2022-10-15"  name="fechaS" id="fechaS" class="form-control" th:field="*{fechaS}" required>
+                    <input type="date" value="2022-08-30" th:min="${fechaActual}" th:max="${fechaMax}" name="fechaS" id="fechaS" class="form-control" th:field="*{fechaS}" required>
                     <div class="form-text text-danger" th:if="${#fields.hasErrors('fechaS')}" th:errors="*{fechaS}"></div>
                     <span class="validity"></span>
                     </div>
