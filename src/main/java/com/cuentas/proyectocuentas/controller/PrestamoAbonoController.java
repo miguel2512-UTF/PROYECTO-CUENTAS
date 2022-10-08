@@ -105,6 +105,11 @@ public class PrestamoAbonoController {
     @GetMapping("/delete/{idPrestamoAbono}")
     public String delete(@PathVariable Integer idPrestamoAbono){
         if (idPrestamoAbono > 0) {
+            PrestamoAbono abono = prestamoabonoI.findOne(idPrestamoAbono);
+            Integer valorprestamo= abono.getPrestamo().getValorPrestamo()+abono.getTotalAbono();
+            abono.getPrestamo().setValorPrestamo(valorprestamo);
+            prestamoabonoI.save(abono);
+
             prestamoabonoI.delete(idPrestamoAbono);
         }
         return "redirect:../listar";
