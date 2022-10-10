@@ -2,8 +2,6 @@ package com.cuentas.proyectocuentas.controller;
 
 import javax.validation.Valid;
 
-import org.slf4j.Logger;
-import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -71,12 +69,9 @@ public class UsuarioController {
         return "redirect:/usuario/listar";
     }
 
-    private static final Logger logger = LoggerFactory.getLogger(UsuarioController.class);
-
     @GetMapping("/editar")
     @ResponseBody
     public Usuario editar(Integer idUsuario){
-        logger.info("el id consultado es "+idUsuario);
         return usuarioI.findOne(idUsuario);
     }
 
