@@ -10,15 +10,17 @@
     <link rel="stylesheet" href="../assets/css/estilos2.css">
     <link rel="icon" href="../assets/img/Icon-cuentascasa.png">
     <script src="https://cdn.jsdelivr.net/npm/jquery@3.5.1/dist/jquery.slim.min.js" integrity="sha384-DfXdz2htPH0lsSSs5nCTpuj/zy4C+OGpamoFVy38MVBnE+IbbVYUew+OrCXaRkfj" crossorigin="anonymous"></script>
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.1/jquery.min.js"></script>
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@4.6.2/dist/js/bootstrap.bundle.min.js" integrity="sha384-Fy6S3B9q64WdZWQUiU+q4/2Lc9npb8tCaSX9FK7E8HnRr0Jz8D6OP9dO5Vg3Q9ct" crossorigin="anonymous"></script>
     <link rel="stylesheet" type="text/css" href="https://cdn.jsdelivr.net/gh/mobius1/vanilla-Datatables@latest/vanilla-dataTables.min.css">
     <script type="text/javascript" src="https://cdn.jsdelivr.net/gh/mobius1/vanilla-Datatables@latest/vanilla-dataTables.min.js"></script>
+    <script th:src="@{/assets/js/main.js}"></script>
 </head>
 <body>
     <div th:replace="/views/header :: nav"></div>
     <div class="title">
       <h1>Usuario</h1>
-      <a href="" data-toggle="modal" data-target="#modal-add"><svg xmlns="http://www.w3.org/2000/svg" width="32" height="32" fill="currentColor" class="bi bi-plus-circle-fill" viewBox="0 0 16 16">
+      <a href="" class="nBtn"><svg xmlns="http://www.w3.org/2000/svg" width="32" height="32" fill="currentColor" class="bi bi-plus-circle-fill" viewBox="0 0 16 16">
         <path d="M16 8A8 8 0 1 1 0 8a8 8 0 0 1 16 0zM8.5 4.5a.5.5 0 0 0-1 0v3h-3a.5.5 0 0 0 0 1h3v3a.5.5 0 0 0 1 0v-3h3a.5.5 0 0 0 0-1h-3v-3z"/>
       </svg></a>
     </div>
@@ -52,77 +54,22 @@
             <td th:text="${u.tipoUsuario}"></td>
             <td th:text="${u.estadoUsuario}" id="estado"></td>
             <td>
-                <a href="" data-toggle="modal" th:attr="data-target='#modal-editar'+${u.idUsuario}"><button type="button" class="btn btn-dark"><svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-pen-fill" viewBox="0 0 16 16">
-                <path d="m13.498.795.149-.149a1.207 1.207 0 1 1 1.707 1.708l-.149.148a1.5 1.5 0 0 1-.059 2.059L4.854 14.854a.5.5 0 0 1-.233.131l-4 1a.5.5 0 0 1-.606-.606l1-4a.5.5 0 0 1 .131-.232l9.642-9.642a.5.5 0 0 0-.642.056L6.854 4.854a.5.5 0 1 1-.708-.708L9.44.854A1.5 1.5 0 0 1 11.5.796a1.5 1.5 0 0 1 1.998-.001z"/>
-                </svg></button></a>
-                
-                <!-- MODAL EDITAR -->
-                <div class="modal fade" tabindex="-1" th:id="modal-editar+${u.idUsuario}">
-                  <div class="modal-dialog">
-                    <div class="modal-content">
-                      <div class="modal-header">
-                        <h5 class="modal-title">Editar Usuario</h5>
-                      </div>
-                      <form th:action="@{/usuario/add}" method="post" th:object="${usuario}">
-                      <div class="modal-body">
-                            <script th:inline="javascript" th:if="${modalEdit}">$("#modal-editar[[${modalEdit}]]").modal("show");</script>
-                              <input type="hidden" name="idUsuario" id="idUsuario" th:value="${u.idUsuario}">
-                              <div>
-                              <label for="">Nombre</label>
-                              <input type="text" th:value="${u.nombresUsuario}+' '+${u.apellidosUsuario}" autocomplete="off" required pattern="[A-Za-zñ ]{1,20}" readonly>
-                              <div class="form-text text-danger" th:if="${#fields.hasErrors('nombresUsuario')}" th:errors="*{nombresUsuario}"></div>
-                              <span class="validity"></span>
-                              <input type="text" name="nombresUsuario" th:value="${u.nombresUsuario}" autocomplete="off" required pattern="[A-Za-zñ ]{1,20}" hidden>
-                              <input type="text" name="apellidosUsuario" th:value="${u.apellidosUsuario}" autocomplete="off" required pattern="[A-Za-zñ ]{1,20}" hidden>
-                              </div>
-                              <div>
-                              <label for="">Contraseña</label>
-                              <input type="text" name="contrasenaUsuario" th:value="${u.contrasenaUsuario}" autocomplete="off" pattern="(?=.*\d)(?=.*[a-z])(?=.*[A-Z]).{8,}" title="La contraseña debe tener mínimo 8 caracteres, un número, una mayúscula y una minúscula">
-                              <div class="form-text text-danger" th:if="${#fields.hasErrors('contrasenaUsuario')}" th:errors="*{contrasenaUsuario}"></div>
-                              <span class="validity"></span>
-                              </div>
-                              <div>
-                              <label for="">Correo</label>
-                              <input type="email" name="correoUsuario" th:value="${u.correoUsuario}" autocomplete="off" required>
-                              <div class="form-text text-danger" th:if="${#fields.hasErrors('correoUsuario')}" th:errors="*{correoUsuario}"></div>
-                              <span class="validity"></span>
-                              </div>
-                              <div>
-                              <label for="">Tipo</label>
-                              <select name="tipoUsuario" required>
-                                  <option th:value="${u.tipoUsuario}" th:text="${u.tipoUsuario}" selected>Seleccionar</option>
-                                  <option value="Administrador">Administrador</option>
-                                  <option value="Admin del hogar">Admin del hogar</option>
-                                  <option value="Contador">Contador</option>
-                              </select>
-                              <div class="form-text text-danger" th:if="${#fields.hasErrors('tipoUsuario')}" th:errors="*{tipoUsuario}"></div>
-                              <span class="validity"></span>
-                              </div>
-                              <div>
-                              <label for="">Estado</label>
-                              <select name="estadoUsuario" required>
-                                  <option th:value="${u.estadoUsuario}" th:text="${u.estadoUsuario}" selected>Seleccionar</option>
-                                  <option value="Activo" selected>Activo</option>
-                                  <option value="Inactivo">Inactivo</option>
-                              </select>
-                              <div class="form-text text-danger" th:if="${#fields.hasErrors('estadoUsuario')}" th:errors="*{estadoUsuario}"></div>
-                              <div class="form-text text-danger" th:if="${errorMessage}" th:text="${errorMessage}"></div>            
-                              <span class="validity"></span>
-                              </div>
-                      </div>
-                      <div class="modal-footer">
-                          <button type="button" class="btn btn-secondary" data-dismiss="modal">Cancelar</button>
-                          <button type="submit" class="btn bg-cuentas" id="Editar">Editar</button>
-                          
-                      </div>
-                    </form>
-                    </div>
-                  </div>
-              </div>
+                <!-- BOTÓN EDITAR -->
+                <a th:href="@{editar/(idUsuario=${u.idUsuario})}" class="eBtn" id="editar">
+                  <button type="button" class="btn btn-dark">
+                    <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-pen-fill" viewBox="0 0 16 16">
+                      <path d="m13.498.795.149-.149a1.207 1.207 0 1 1 1.707 1.708l-.149.148a1.5 1.5 0 0 1-.059 2.059L4.854 14.854a.5.5 0 0 1-.233.131l-4 1a.5.5 0 0 1-.606-.606l1-4a.5.5 0 0 1 .131-.232l9.642-9.642a.5.5 0 0 0-.642.056L6.854 4.854a.5.5 0 1 1-.708-.708L9.44.854A1.5 1.5 0 0 1 11.5.796a1.5 1.5 0 0 1 1.998-.001z"/>
+                    </svg>
+                  </button>
+                </a>
 
-                <a href="" data-toggle="modal" th:attr="data-target='#modal-delete'+${u.idUsuario}"><button type="button" class="btn btn-dark"><svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-trash-fill" viewBox="0 0 16 16">
-                <path d="M2.5 1a1 1 0 0 0-1 1v1a1 1 0 0 0 1 1H3v9a2 2 0 0 0 2 2h6a2 2 0 0 0 2-2V4h.5a1 1 0 0 0 1-1V2a1 1 0 0 0-1-1H10a1 1 0 0 0-1-1H7a1 1 0 0 0-1 1H2.5zm3 4a.5.5 0 0 1 .5.5v7a.5.5 0 0 1-1 0v-7a.5.5 0 0 1 .5-.5zM8 5a.5.5 0 0 1 .5.5v7a.5.5 0 0 1-1 0v-7A.5.5 0 0 1 8 5zm3 .5v7a.5.5 0 0 1-1 0v-7a.5.5 0 0 1 1 0z"/>
-                </svg></button></a>
+                <a href="" data-toggle="modal" th:attr="data-target='#modal-delete'+${u.idUsuario}">
+                  <button type="button" class="btn btn-dark">
+                    <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-trash-fill" viewBox="0 0 16 16">
+                      <path d="M2.5 1a1 1 0 0 0-1 1v1a1 1 0 0 0 1 1H3v9a2 2 0 0 0 2 2h6a2 2 0 0 0 2-2V4h.5a1 1 0 0 0 1-1V2a1 1 0 0 0-1-1H10a1 1 0 0 0-1-1H7a1 1 0 0 0-1 1H2.5zm3 4a.5.5 0 0 1 .5.5v7a.5.5 0 0 1-1 0v-7a.5.5 0 0 1 .5-.5zM8 5a.5.5 0 0 1 .5.5v7a.5.5 0 0 1-1 0v-7A.5.5 0 0 1 8 5zm3 .5v7a.5.5 0 0 1-1 0v-7a.5.5 0 0 1 1 0z"/>
+                    </svg>
+                  </button>
+                </a>
 
                 <!-- MODAL ELIMINAR -->
                 <div class="modal fade" tabindex="-1" th:id="modal-delete+${u.idUsuario}">
@@ -155,60 +102,122 @@
             <div class="modal-header">
               <h5 class="modal-title">Registrar Usuario</h5>
             </div>
-            <div class="modal-body">
-                <form th:action="@{/usuario/add}" method="post" th:object="${usuario}">
-                  <script th:inline="javascript" th:if="${modalAdd}">$("#modal-add").modal("show");</script>
-                  <script th:inline="javascript" th:if="${errorMessage}">$("#modal-add").modal("show");</script>
-                    <div>
-                    <label for="">Nombres</label>
-                    <input type="text" th:field="*{nombresUsuario}" autocomplete="off" required pattern="[A-Za-zñ ]{1,20}">
-                    <div class="form-text text-danger" th:if="${#fields.hasErrors('nombresUsuario')}" th:errors="*{nombresUsuario}"></div>
-                    <span class="validity"></span>
-                    <label for="">Apellidos</label>
-                    <input type="text" th:field="*{apellidosUsuario}" autocomplete="off" required pattern="[A-Za-zñ ]{1,20}">
-                    <div class="form-text text-danger" th:if="${#fields.hasErrors('apellidosUsuario')}" th:errors="*{apellidosUsuario}"></div>
-                    <!-- <label for="">Contraseña</label>
-                    <input type="text" th:field="*{contrasenaUsuario}" autocomplete="off"> -->
-                    <div class="form-text text-danger" th:if="${#fields.hasErrors('contrasenaUsuario')}" th:errors="*{contrasenaUsuario}"></div>
-                    <span class="validity"></span>
-                    </div>
-                    <div>
-                    <label for="">Correo</label>
-                    <input type="email" th:field="*{correoUsuario}" autocomplete="off" required>
-                    <div class="form-text text-danger" th:if="${#fields.hasErrors('correoUsuario')}" th:errors="*{correoUsuario}"></div>
-                    <div class="form-text text-danger" th:if="${errorMessage1}" th:text="${errorMessage1}"></div>
-                    <span class="validity"></span>
-                    </div>
-                    <div>
-                    <label for="">Tipo</label>
-                    <select th:field="*{tipoUsuario}" required>
-                        <option value="" selected>Seleccionar</option>
-                        <option value="Administrador">Administrador</option>
-                        <option value="Admin del hogar">Admin del hogar</option>
-                        <option value="Contador">Contador</option>
-                    </select>
-                    <div class="form-text text-danger" th:if="${#fields.hasErrors('tipoUsuario')}" th:errors="*{tipoUsuario}"></div>
-                    <span class="validity"></span>
-                    </div>
-                    <div>
-                    <!-- <label for="">Estado</label> -->
-                    <select th:field="*{estadoUsuario}" hidden required>
-                        <option value="Activo" selected>Activo</option>
-                        <option value="Inactivo">Inactivo</option>
-                    </select>
-                    <div class="form-text text-danger" th:if="${#fields.hasErrors('estadoUsuario')}" th:errors="*{estadoUsuario}"></div>
-                    <div class="form-text text-danger" th:if="${errorMessage}" th:text="${errorMessage}"></div>            
-                    <!-- <span class="validity"></span> -->
-                    </div>
-            </div>
-            <div class="modal-footer">
-                <button type="button" class="btn btn-secondary" data-dismiss="modal">Cancelar</button>
-                <button type="submit" class="btn bg-cuentas">Registrar</button>
-                </form>
-            </div>
+            <form th:action="@{/usuario/add}" method="post" th:object="${usuario}">
+              <div class="modal-body">
+                    <script th:inline="javascript" th:if="${modalAdd}">$("#modal-add").modal("show");</script>
+                      <div>
+                      <label for="">Nombres</label>
+                      <input type="text" th:field="*{nombresUsuario}" autocomplete="off" required pattern="[A-Za-zñ ]{1,20}">
+                      <div class="form-text text-danger" th:if="${#fields.hasErrors('nombresUsuario')} and ${modalAdd}" th:errors="*{nombresUsuario}"></div>
+                      <span class="validity"></span>
+                      <label for="">Apellidos</label>
+                      <input type="text" th:field="*{apellidosUsuario}" autocomplete="off" required pattern="[A-Za-zñ ]{1,20}">
+                      <div class="form-text text-danger" th:if="${#fields.hasErrors('apellidosUsuario')} and ${modalAdd}" th:errors="*{apellidosUsuario}"></div>
+                      <!-- <label for="">Contraseña</label>
+                      <input type="text" th:field="*{contrasenaUsuario}" autocomplete="off"> -->
+                      <div class="form-text text-danger" th:if="${#fields.hasErrors('contrasenaUsuario')} and ${modalAdd}" th:errors="*{contrasenaUsuario}"></div>
+                      <span class="validity"></span>
+                      </div>
+                      <div>
+                      <label for="">Correo</label>
+                      <input type="email" th:field="*{correoUsuario}" autocomplete="off" required>
+                      <div class="form-text text-danger" th:if="${#fields.hasErrors('correoUsuario')} and ${modalAdd}" th:errors="*{correoUsuario}"></div>
+                      <div class="form-text text-danger" th:if="${errorMessage1}" th:text="${errorMessage1}"></div>
+                      <span class="validity"></span>
+                      </div>
+                      <div>
+                      <label for="">Tipo</label>
+                      <select th:field="*{tipoUsuario}" required>
+                          <option value="" id="tipo" selected>Seleccionar</option>
+                          <option value="Administrador">Administrador</option>
+                          <option value="Admin del hogar">Admin del hogar</option>
+                          <option value="Contador">Contador</option>
+                      </select>
+                      <div class="form-text text-danger" th:if="${#fields.hasErrors('tipoUsuario')} and ${modalAdd}" th:errors="*{tipoUsuario}"></div>
+                      <span class="validity"></span>
+                      </div>
+                      <div>
+                      <!-- <label for="">Estado</label> -->
+                      <select th:field="*{estadoUsuario}" hidden required>
+                          <option value="Activo" selected>Activo</option>
+                          <option value="Inactivo">Inactivo</option>
+                      </select>
+                      <div class="form-text text-danger" th:if="${#fields.hasErrors('estadoUsuario')} and ${modalAdd}" th:errors="*{estadoUsuario}"></div>
+                      <div class="form-text text-danger" th:if="${errorMessage} and ${modalAdd}" th:text="${errorMessage}"></div>            
+                      <!-- <span class="validity"></span> -->
+                      </div>
+              </div>
+              <div class="modal-footer">
+                  <button type="button" class="btn btn-secondary" data-dismiss="modal">Cancelar</button>
+                  <button type="submit" class="btn bg-cuentas">Registrar</button>
+              </div>
+            </form>
           </div>
         </div>
     </div>
+
+    <!-- MODAL EDITAR -->
+    <div class="modal fade" tabindex="-1" id="modal-edit">
+        <div class="modal-dialog">
+          <div class="modal-content">
+            <div class="modal-header">
+              <h5 class="modal-title">Editar Usuario</h5>
+            </div>
+            <form th:action="@{/usuario/add}" method="post" th:object="${usuario}">
+              <div class="modal-body">
+                    <script th:inline="javascript" th:if="${modalEdit}">$("#modal-edit").modal("show");</script>
+                      <input type="hidden" th:field="*{idUsuario}" id="idUsuario">
+                      <div>
+                      <label for="">Nombre</label>
+                      <input type="text" id="nombrecompleto" th:value="*{nombresUsuario}+' '+*{apellidosUsuario}" autocomplete="off" required pattern="[A-Za-zñ ]{1,20}" readonly>
+                      <div class="form-text text-danger" th:if="${#fields.hasErrors('nombresUsuario')} and ${modalEdit}" th:errors="*{nombresUsuario}"></div>
+                      <span class="validity"></span>
+                      <input type="text" th:field="*{nombresUsuario}" id="nombresUsuario" autocomplete="off" required pattern="[A-Za-zñ ]{1,20}" hidden>
+                      <input type="text" th:field="*{apellidosUsuario}" id="apellidosUsuario" autocomplete="off" required pattern="[A-Za-zñ ]{1,20}" hidden>
+                      </div>
+                      <div>
+                      <label for="">Contraseña</label>
+                      <input type="text" th:field="*{contrasenaUsuario}" id="contrasenaUsuario" autocomplete="off" pattern="(?=.*\d)(?=.*[a-z])(?=.*[A-Z]).{8,}" title="La contraseña debe tener mínimo 8 caracteres, un número, una mayúscula y una minúscula">
+                      <div class="form-text text-danger" th:if="${#fields.hasErrors('contrasenaUsuario')} and ${modalEdit}" th:errors="*{contrasenaUsuario}"></div>
+                      <span class="validity"></span>
+                      </div>
+                      <div>
+                      <label for="">Correo</label>
+                      <input type="email" th:field="*{correoUsuario}" id="correoUsuario" autocomplete="off" required>
+                      <div class="form-text text-danger" th:if="${#fields.hasErrors('correoUsuario')} and ${modalEdit}" th:errors="*{correoUsuario}"></div>
+                      <span class="validity"></span>
+                      </div>
+                      <div>
+                      <label for="">Tipo</label>
+                      <select th:field="*{tipoUsuario}" required>
+                          <option value="" id="tipo" selected>Seleccionar</option>
+                          <option value="Administrador">Administrador</option>
+                          <option value="Admin del hogar">Admin del hogar</option>
+                          <option value="Contador">Contador</option>
+                      </select>
+                      <div class="form-text text-danger" th:if="${#fields.hasErrors('tipoUsuario')} and ${modalEdit}" th:errors="*{tipoUsuario}"></div>
+                      <span class="validity"></span>
+                      </div>
+                      <div>
+                      <label for="">Estado</label>
+                      <select th:field="*{estadoUsuario}" required>
+                          <option value="" id="estadoU" selected>Seleccionar</option>
+                          <option value="Activo">Activo</option>
+                          <option value="Inactivo">Inactivo</option>
+                      </select>
+                      <div class="form-text text-danger" th:if="${#fields.hasErrors('estadoUsuario')} and ${modalEdit}" th:errors="*{estadoUsuario}"></div>
+                      <div class="form-text text-danger" th:if="${errorMessage} and ${modalEdit}" th:text="${errorMessage}"></div>            
+                      <span class="validity"></span>
+                      </div>
+              </div>
+              <div class="modal-footer">
+                  <button type="button" class="btn btn-secondary" data-dismiss="modal">Cancelar</button>
+                  <button type="submit" class="btn bg-cuentas" id="Editar">Editar</button>
+              </div>
+            </form> 
+          </div>
+        </div> 
+  </div>
 
     <script>
       var datat=document.querySelector("#datatable-usu"); 
@@ -223,70 +232,28 @@
       } ) ;
     </script>
 
+    <script th:src="@{/assets/js/mostrarInactivos.js}"></script>
+    
     <script>
-      var checkbox = document.getElementById('mostrar');
-      var row = document.querySelectorAll('#tablerow');
-      var estado = document.querySelectorAll('#estado');
-
-      checkbox.addEventListener("click",mostrar)
-      
-      if (checkbox.checked==false) {
-        for (let index = 0; index < estado.length; index++) {
-          if (estado[index].textContent=="Inactivo") {
-            for (let index = 0; index < row.length; index++) {
-              if (estado[index].textContent=="Inactivo") {
-                row[index].setAttribute('style','display:none');
+      $('#Editar').on('click',function(e){
+          e.preventDefault();
+          var form = $(this).parents('form');
+          Swal.fire({
+              title: 'seguro quieres realizar esta accion?',
+              text: "ya no podras dar vuelta atras!",
+              type: 'warning',
+              showCancelButton: true,
+              confirmButtonColor: '#3085d6',
+              cancelButtonColor: '#d33',
+              confirmButtonText: 'si, editar!'
+          }).then((result) => {
+              if (result.value) {
+                  form.submit();
               }
-            }
-          }
-          console.log(estado[index].textContent)
-        }
-      }
-      
-      function mostrar(){
-        if (checkbox.checked==true) {
-          for (let index = 0; index < estado.length; index++) {
-            if (estado[index].textContent=="Inactivo") {
-              for (let index = 0; index < row.length; index++) {
-                if (estado[index].textContent=="Inactivo") {
-                  row[index].setAttribute('style','display:');
-                }
-              }
-            }
-          }
-        }else if (checkbox.checked==false){
-          for (let index = 0; index < estado.length; index++) {
-            if (estado[index].textContent=="Inactivo") {
-              for (let index = 0; index < row.length; index++) {
-                if (estado[index].textContent=="Inactivo") {
-                  row[index].setAttribute('style','display:none');
-                }
-              }
-            }
-          }
-        }
-      }
-    </script>
-        <script>
-          $('#Editar').on('click',function(e){
-              e.preventDefault();
-              var form = $(this).parents('form');
-              Swal.fire({
-                  title: 'seguro quieres realizar esta accion?',
-                  text: "ya no podras dar vuelta atras!",
-                  type: 'warning',
-                  showCancelButton: true,
-                  confirmButtonColor: '#3085d6',
-                  cancelButtonColor: '#d33',
-                  confirmButtonText: 'si, editar!'
-              }).then((result) => {
-                  if (result.value) {
-      
-                      form.submit();
-                  }
-              });
           });
-      </script>
-       <script src="//cdn.jsdelivr.net/npm/sweetalert2@11"></script>
+      });
+    </script>
+
+    <script src="//cdn.jsdelivr.net/npm/sweetalert2@11"></script>
 </body>
 </html>
