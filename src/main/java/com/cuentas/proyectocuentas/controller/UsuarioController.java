@@ -10,6 +10,7 @@ import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.ResponseBody;
 
 import com.cuentas.proyectocuentas.model.Usuario;
 import com.cuentas.proyectocuentas.service.IUsuarioService;
@@ -44,7 +45,7 @@ public class UsuarioController {
                     }
                 }
             }else if (usuario.getIdUsuario()>0) {
-                m.addAttribute("modalEdit", usuario.getIdUsuario());
+                m.addAttribute("modalEdit", "");
             }
 
             return "views/usuario/usuario";
@@ -57,6 +58,7 @@ public class UsuarioController {
             try {
                 usuarioI.createUser(usuario);
             } catch (Exception e) {
+                m.addAttribute("modalAdd","");
                 m.addAttribute("errorMessage",e.getMessage());
                 return "views/usuario/usuario";
             } 
@@ -65,6 +67,12 @@ public class UsuarioController {
         }
         
         return "redirect:/usuario/listar";
+    }
+
+    @GetMapping("/editar")
+    @ResponseBody
+    public Usuario editar(Integer idUsuario){
+        return usuarioI.findOne(idUsuario);
     }
 
     @GetMapping("/delete/{idUsuario}")
