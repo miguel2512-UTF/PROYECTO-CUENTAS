@@ -33,7 +33,8 @@
     </div>
     
     <input type="checkbox" id="mostrar">Mostrar pagos inactivos
-
+    <div class="div">
+    </div>
     <table border="1" id="table-pago">
         <thead>
             <th>ID</th>
@@ -83,7 +84,7 @@
                                   </div>
                                   <div>
                                   <label for="">Fecha Pago</label>
-                                  <input type="date" name="fechaPago" id="fechaPago" th:value="${Pp.fechaPago}" min="2021-01-01" max="2022-12-31" required>
+                                  <input type="date" name="fechaPago" id="fechaPago" th:value="${Pp.fechaPago}" th:min="${fechaPagoMin}" th:max="${fechaPagoMax}" required>
                                   <span class="validity"></span>
                                   </div>
                                   <div>
@@ -91,6 +92,7 @@
                                   <input  type="number" name="totalPago" th:value="${Pp.totalPago}" placeholder="Ejemplo: 250.000" min="50000" th:max="${Pp.prestamo.valorPrestamo}" required>
                                   <span class="validity"></span>
                                   </div>
+                        
                                   <div>
                                     <div>
                                       <label for="imagenPago">Imagen Pago</label>
@@ -156,7 +158,7 @@
                     </div>
                     <div>
                     <label for="">Fecha Pago</label>
-                    <input  type="date" th:field="*{fechaPago}" min="2021-01-01" max="2022-12-31" required>
+                    <input  type="date" th:field="*{fechaPago}" th:min="${fechaPagoMin}" th:max="${fechaPagoMax}" required>
                     <div class="form-text text-danger" th:if="${#fields.hasErrors('fechaPago')}" th:errors="*{fechaPago}"></div>
                     <span class="validity"></span>
                     </div>
@@ -179,6 +181,7 @@
             </div>
           </div>
         </div>
+       
     </div>
 
     <script>

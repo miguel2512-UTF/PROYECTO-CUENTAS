@@ -4,6 +4,7 @@ import java.io.IOException;
 import java.nio.file.Files; 
 import java.nio.file.Path;
 import java.nio.file.Paths;
+import java.time.LocalDate;
 
 import javax.validation.Valid;
 
@@ -25,6 +26,7 @@ import com.cuentas.proyectocuentas.model.PagoPrestamo;
 import com.cuentas.proyectocuentas.service.IPagoPrestamoService;
 import com.cuentas.proyectocuentas.service.IPrestamoService;
 
+
 @Controller
 @SessionAttributes("pagoprestamo")
 @RequestMapping("/pagoprestamo")
@@ -43,6 +45,14 @@ public class PagoPrestamoController {
         PagoPrestamo pagoprestamo=new PagoPrestamo();
         m.addAttribute("pagoprestamo", pagoprestamo);
         m.addAttribute("prestamo", prestamoI.findAll());
+
+        LocalDate date = LocalDate.now();
+        LocalDate fechaPagoMin = date.minusWeeks(2);
+        LocalDate fechaPagoMax = date.plusYears(1);
+
+        m.addAttribute("fechaPagoMin", fechaPagoMin);
+        m.addAttribute("fechaPagoMax", fechaPagoMax);
+
         return "views/pagoprestamo/pagoprestamo";
     }
 

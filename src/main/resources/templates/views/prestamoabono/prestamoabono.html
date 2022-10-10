@@ -81,16 +81,18 @@
                                   </div>
                                   <div>
                                   <label for="">Fecha Abono</label>
-                                  <input type="date" name="fechaAbono" id="fechaAbono" th:value="${Ab.fechaAbono}" required>
+                                  <input type="date" name="fechaAbono" th:min="${fechaAbonoMin}" th:max="${fechaAbonoMax}" id="fechaAbono" th:value="${Ab.fechaAbono}" required>
                                   <span class="validity"></span>
                                   </div>
                                   <div>
                                   <label for="">Total Abono</label>
                                   <input type="number" name="totalAbono" th:value="${Ab.totalAbono}" placeholder="Ejemplo: 250.000" th:max="${Ab.prestamo.valorPrestamo}" required>
                                   <span class="validity"></span>
-
+                                  </div>
+                                  <div>
                                   <label for="imagenAbono">Imagen Abono</label>
                                   <input type="file" name="file" accept="image/*" required>
+                                  <span class="validity"></span>
                                   </div>
                           </div>
                           <div class="modal-footer">
@@ -149,7 +151,7 @@
                   </div>
                   <div>
                     <label for="">Fecha Abono</label>
-                    <input type="date" th:field="*{fechaAbono}" min="2021-01-01" max="2022-12-31" required>
+                    <input type="date" value="2022-08-30" th:field="*{fechaAbono}" th:min="${fechaAbonoMin}" th:max="${fechaAbonoMax}" required>
                     <div class="form-text text-danger" th:if="${#fields.hasErrors('fechaAbono')}" th:errors="*{fechaAbono}"></div>
                     <span class="validity"></span>
                     </div>
@@ -159,7 +161,9 @@
                     <div class="form-text text-danger" th:if="${#fields.hasErrors('totalAbono')}" th:errors="*{totalAbono}"></div>
                     <span class="validity"></span>
 
-                    <label for="imagenAbono"></label>
+                    </div>
+                    <div>
+                    <label for="imagenAbono">Imagen Abono</label>
                     <input type="file" name="file" accept="image/*" required>
                     </div>
             </div>
