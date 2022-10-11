@@ -164,7 +164,7 @@
                     </div>
                     <div>
                     <label for="">Total Pago</label>
-                    <input type="number" th:field="*{totalPago}" min="5"  placeholder="Ejemplo: 250.000" required id="totalPago">
+                    <input type="number" th:field="*{totalPago}" min="5000"  placeholder="Ejemplo: 250.000" required id="totalPago">
                     <div class="form-text text-danger" th:if="${#fields.hasErrors('totalPago')}" th:errors="*{totalPago}"></div>
                     <span class="validity"></span>
                     </div>

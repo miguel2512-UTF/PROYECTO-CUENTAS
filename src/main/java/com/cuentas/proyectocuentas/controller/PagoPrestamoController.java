@@ -86,7 +86,6 @@ public class PagoPrestamoController {
         pagoprestamo.getPrestamo().setValorPrestamo(valorprestamo);
         pagoprestamoI.save(pagoprestamo);
 
-    
         return "redirect:listar";
     }
     
