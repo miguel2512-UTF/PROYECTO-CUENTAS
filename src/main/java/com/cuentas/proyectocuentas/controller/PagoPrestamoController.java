@@ -85,16 +85,11 @@ public class PagoPrestamoController {
         Integer valorprestamo=pagoprestamo.getPrestamo().getValorPrestamo()-pagoprestamo.getTotalPago();
         pagoprestamo.getPrestamo().setValorPrestamo(valorprestamo);
         pagoprestamoI.save(pagoprestamo);
+
+    
         return "redirect:listar";
     }
     
-
-
-
-
-
-
-
 
     @GetMapping("/formulario")
     public String formulario(Model m){

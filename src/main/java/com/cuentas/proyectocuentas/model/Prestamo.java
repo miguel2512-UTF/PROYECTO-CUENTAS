@@ -52,8 +52,8 @@ public class Prestamo {
     private String periodoCuota;
 
     @Column(name = "numeroCuotas", length = 50 )
-    @NotEmpty
-    private String numeroCuotas;
+    @NotNull
+    private Integer numeroCuotas;
 
     @Column(name = "estadoPrestamo", length =10)
     @NotEmpty
@@ -80,7 +80,7 @@ public class Prestamo {
 
     public Prestamo(Integer idPrestamo, @Size(min = 10, max = 10) @NotEmpty String documentoPrestamista,
             @NotEmpty String nombrePrestamista, @NotEmpty String fechaPagoOportuno, @NotEmpty Integer valorPrestamo,
-            @NotEmpty Integer tasaPrestamo, @NotEmpty String periodoCuota, @NotEmpty String numeroCuotas,
+            @NotEmpty Integer tasaPrestamo, @NotEmpty String periodoCuota, @NotEmpty Integer numeroCuotas,
             String estadoPrestamo, Usuario usuario, List<PrestamoAbono> prestamoabono) {
         this.idPrestamo = idPrestamo;
         this.documentoPrestamista = documentoPrestamista;
@@ -151,11 +151,11 @@ public class Prestamo {
         this.periodoCuota = periodoCuota;
     }
 
-    public String getNumeroCuotas() {
+    public Integer getNumeroCuotas() {
         return numeroCuotas;
     }
 
-    public void setNumeroCuotas(String numeroCuotas) {
+    public void setNumeroCuotas(Integer numeroCuotas) {
         this.numeroCuotas = numeroCuotas;
     }
 

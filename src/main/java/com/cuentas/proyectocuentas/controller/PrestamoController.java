@@ -51,7 +51,8 @@ public class PrestamoController {
         }
 
         if (prestamo.getIdPrestamo()==null){
-            Integer tasa=(prestamo.getValorPrestamo()*prestamo.getTasaPrestamo())/100;
+
+            Integer tasa=(prestamo.getValorPrestamo() * prestamo.getTasaPrestamo())/100;
             Integer valorprestamo=prestamo.getValorPrestamo()+tasa;
 
             prestamo.setValorPrestamo(valorprestamo);

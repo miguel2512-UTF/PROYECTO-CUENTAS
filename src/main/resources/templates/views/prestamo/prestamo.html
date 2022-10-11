@@ -66,11 +66,14 @@
             <td th:text="${Pr.tasaPrestamo}+'%'"></td>
             <td th:text="${Pr.periodoCuota}"></td>
             <td th:text="${Pr.numeroCuotas}"></td>
-            <td>
+            <td th:if="${Pr.valorPrestamo>0}">
                 <button>
                     <a role="button" th:href="@{/pagoprestamo/listar}">Pago</a>
                     <a role="button" th:href="@{/prestamoabono/listar}">Abono</a>
                 </button>
+            </td>
+            <td th:if="${Pr.valorPrestamo==0}">
+              Este prestamo ya esta pagó
             </td>
             <td th:text="${Pr.estadoPrestamo}" id="estado"></td>
             <td>
