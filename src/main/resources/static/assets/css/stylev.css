@@ -169,3 +169,9 @@
 		width: 100%;
 	}
 }
+.error{
+	border: 2% solid black;
+	background-color: #f88585;
+	border-radius: 2px;
+	padding: 0 2%;
+}

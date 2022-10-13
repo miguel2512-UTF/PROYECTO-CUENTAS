@@ -27,7 +27,7 @@ public class TipoCompromiso {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Integer id;
 
-    @Size(min=2,max=50)
+    @Size(min=2,max=20)
     @Column(length = 20,nullable=false, unique = true)
     @NotEmpty
     private String nombre;

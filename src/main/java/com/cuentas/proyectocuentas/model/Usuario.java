@@ -26,7 +26,7 @@ public class Usuario {
 
     @Column(length = 30, nullable = false)
     @NotEmpty
-    @Pattern(regexp = "[A-Za-zñ ]{1,20}")
+    @Pattern(regexp = "[À-ÿA-Za-zñ ]{1,20}")
     private String nombresUsuario;
 
     @Column(length = 30, nullable = false)

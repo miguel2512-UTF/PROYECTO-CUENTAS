@@ -30,7 +30,7 @@ public class Compromiso {
    
 	@Column(name="nombreEm", length=30)
 	@NotEmpty
-    @Pattern(regexp = "[A-Za-z0-9]{1,}")
+    @Pattern(regexp = "[À-ÿA-Za-zñ ]{1,}")
 	private String nombreEm; 
     
 	@Column(name="fecha")
