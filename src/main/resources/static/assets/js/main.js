@@ -15,8 +15,10 @@ $(document).ready(function(){
                 $('#modal-edit #correoUsuario').val(user.correoUsuario);
                 $('#modal-edit #tipo').text(user.tipoUsuario);
                 $('#modal-edit #tipo').val(user.tipoUsuario);
+                $('#modal-edit #tipo').attr('selected','');
                 $('#modal-edit #estadoU').text(user.estadoUsuario);
                 $('#modal-edit #estadoU').val(user.estadoUsuario);
+                $('#modal-edit #estadoU').attr('selected','');
             });
             $("#modal-edit").modal();
         } else {

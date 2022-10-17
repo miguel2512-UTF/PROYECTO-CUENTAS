@@ -23,6 +23,16 @@ public class IndexController {
         return "redirect:/prestamo/listar";
     }
 
+    @GetMapping("/prestamoabono")
+    public String prestamoabono(){
+        return "redirect:/prestamoabono/listar";
+    }
+
+    @GetMapping("/pagoprestamo")
+    public String pagoprestamo(){
+        return "redirect:/pagoprestamo/listar";
+    }
+
     @GetMapping("/compromiso")
     public String compromiso(){
         return "redirect:/compromiso/listar";

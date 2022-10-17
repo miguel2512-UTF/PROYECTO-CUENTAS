@@ -760,79 +760,7 @@
         <!--**********************************
             Sidebar start
         ***********************************-->
-        <div class="deznav">
-            <div class="deznav-scroll">
-				<ul class="metismenu" id="menu">
-                    <li><a class="" href="/" aria-expanded="false">
-                            <i class='bx bxs-dashboard'></i>
-							<span class="nav-text">Inicio</span>
-						</a>
-                    </li>
-                    <li><a class="has-arrow ai-icon" href="javascript:void()" aria-expanded="false">
-                            <i class="fas fa-handshake" id="icono"></i>
-							<span class="nav-text">Compromisos</span>
-						</a>
-                        <ul aria-expanded="false">
-							<li><a class="has-arrow" href="javascript:void()" aria-expanded="false">Tipo Compromisos</a>
-                                <ul aria-expanded="false">
-                                    <li><a href="/">Agregar</a></li>
-                                    <li><a href="/">Mostrar</a></li>
-                                </ul>
-                            </li>
-							<li><a href="/">Agregar Compromiso</a></li>
-							<li><a href="/">Mostrar Compromisos</a></li>
-						</ul>
-                    </li>
-                    <li><a class="has-arrow ai-icon" href="javascript:void()" aria-expanded="false">
-                            <i class='bx bx-money'></i>
-							<span class="nav-text">Préstamos</span>
-						</a>
-                        <ul aria-expanded="false">
-                            <li><a href="/">Agregar Préstamo</a></li>
-                            <li><a href="/">Mostrar Préstamos</a></li>
-                            <li><a class="has-arrow" href="javascript:void()" aria-expanded="false">Abonos</a>
-                                <ul aria-expanded="false">
-                                    <li><a href="/">Agregar</a></li>
-                                    <li><a href="/">Mostrar</a></li>
-                                </ul>
-                            </li>
-                            <li><a class="has-arrow" href="javascript:void()" aria-expanded="false">Pagos</a>
-                                <ul aria-expanded="false">
-                                    <li><a href="/">Agregar</a></li>
-                                    <li><a href="/">Mostrar</a></li>
-                                </ul>
-                            </li>
-                        </ul>
-                    </li>
-                    <li><a class="has-arrow ai-icon" href="javascript:void()" aria-expanded="false">
-                            <i class='bx bx-user'></i>
-							<span class="nav-text">Usuarios</span>
-						</a>
-                        <ul aria-expanded="false">
-                            <li><a href="/">Agregar Usuario</a></li>
-                            <li><a href="usuario">Mostrar Usuarios</a></li>
-                        </ul>
-                    </li>
-                    <li><a class="has-arrow ai-icon" href="javascript:void()" aria-expanded="false">
-                            <i class='bx bx-cog'></i>
-							<span class="nav-text">Configuración</span>
-						</a>
-                        <ul aria-expanded="false">
-                            <li><a href="/">1</a></li>
-                            <li><a href="/">2</a></li>
-                            <li><a href="/">3</a></li>
-                        </ul>
-                    </li>
-                </ul>
-				<div class="add-menu-sidebar">
-					<img th:src="@{/assets/dashboard/images/calendar.png}" alt="" class="mr-3">
-					<p class="	font-w500 mb-0">Crear plan de calendario</p>
-				</div>
-				<div class="copyright">
-					<p><strong>Cuentas en Casa</strong> © 2022 Todos los derechos reservados</p>
-				</div>
-			</div>
-        </div>
+        <div th:replace="/views/layouts/sidebar :: sidebar"></div>
         <!--**********************************
             Sidebar end
         ***********************************-->
@@ -1713,7 +1641,7 @@
 	<script th:src="@{/assets/dashboard/vendor/chart.js/Chart.bundle.min.js}"></script>
 	<script th:src="@{/assets/dashboard/vendor/bootstrap-datetimepicker/js/moment.js}"></script>
 	<script th:src="@{/assets/dashboard/vendor/bootstrap-datetimepicker/js/bootstrap-datetimepicker.min.js}"></script>
-    <script th:src="@{/assets/dashboard/js/custom.min.js}"></script>
+    <script th:src="@{/assets/dashboard/js/custom.js}"></script>
 	<script th:src="@{/assets/dashboard/js/deznav-init.js}"></script>
 	<script>
 		$(function () {
