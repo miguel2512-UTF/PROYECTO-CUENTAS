@@ -7,22 +7,17 @@
     <meta name="viewport" content="width=device-width,initial-scale=1">
     <title>Cuentas en Casa | Usuario</title>
     <!-- Favicon icon -->
-    <link rel="icon" type="image/png" sizes="16x16" th:href="@{/assets/img/Icon-cuentascasa.png}">
+    <link rel="icon" type="image/png" sizes="16x16" href="./images/Icon-cuentascasa.png">
     <!-- Datatable -->
-    <link th:href="@{/assets/dashboard/vendor/datatables/css/jquery.dataTables.min.css}" rel="stylesheet">
-    <!-- JS para CRUD -->
-	<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.1/jquery.min.js"></script>
-	<script th:src="@{/assets/js/main.js}"></script>
-	<!-- Estilos -->
+    <link href="./vendor/datatables/css/jquery.dataTables.min.css" rel="stylesheet">
+    <!-- Estilos -->
     <link href='https://unpkg.com/boxicons@2.1.2/css/boxicons.min.css' rel='stylesheet'>
-	<link rel="stylesheet" th:href="@{/assets/dashboard/vendor/chartist/css/chartist.min.css}">
-    <link th:href="@{/assets/dashboard/vendor/bootstrap-select/dist/css/bootstrap-select.min.css}" rel="stylesheet">
-	<link th:href="@{/assets/dashboard/vendor/bootstrap-datetimepicker/css/bootstrap-datetimepicker.min.css}" rel="stylesheet">
-    <link th:href="@{/assets/dashboard/css/style.css}" rel="stylesheet">
+	<link rel="stylesheet" href="./vendor/chartist/css/chartist.min.css">
+    <link href="./vendor/bootstrap-select/dist/css/bootstrap-select.min.css" rel="stylesheet">
+	<link href="./vendor/bootstrap-datetimepicker/css/bootstrap-datetimepicker.min.css" rel="stylesheet">
+    <link href="./css/style.css" rel="stylesheet">
     <script src="https://kit.fontawesome.com/6131ecdde6.js"></script>
 	<link href="https://fonts.googleapis.com/css2?family=Poppins:wght@100;200;300;400;500;600;700;800;900&family=Roboto:wght@100;300;400;500;700;900&display=swap" rel="stylesheet">
-	<!-- Estilos Validación -->
-	<link rel="stylesheet" href="../assets/css/validacion.css">
 </head>
 <body>
 
@@ -49,10 +44,10 @@
             Nav header start
         ***********************************-->
         <div class="nav-header">
-            <a th:href="@{/inicio}" class="brand-logo">
-                <img class="logo-abbr" th:src="@{/assets/img/Icon-cuentascasa.png}" alt="">
-                <img class="logo-compact" th:src="@{/assets/img/Logo-cuentascasa.png}" alt="">
-                <img class="brand-title" th:src="@{/assets/img/Logo-cuentascasa.png}" alt="">
+            <a href="index.html" class="brand-logo">
+                <img class="logo-abbr" src="./images/Icon-cuentascasa.png" alt="">
+                <img class="logo-compact" src="./images/Logo-cuentascasa.png" alt="">
+                <img class="brand-title" src="./images/Logo-cuentascasa.png" alt="">
             </a>
 
             <div class="nav-control">
@@ -735,7 +730,7 @@
 							</li>
                             <li class="nav-item dropdown header-profile">
                                 <a class="nav-link" href="javascript:void(0)" role="button" data-toggle="dropdown">
-                                    <!-- <img src="images/profile/17.jpg" width="20" alt=""/> -->
+                                    <img src="images/profile/17.jpg" width="20" alt=""/>
 									<div class="header-info">
 										<span class="text-black"><strong>Nombre Apellido</strong></span>
 										<p class="fs-12 mb-0">Rol</p>
@@ -768,7 +763,79 @@
         <!--**********************************
             Sidebar start
         ***********************************-->
-        <div th:replace="/views/layouts/sidebar :: sidebar"></div>
+        <div class="deznav">
+            <div class="deznav-scroll">
+				<ul class="metismenu" id="menu">
+                    <li><a class="" href="/" aria-expanded="false">
+                            <i class='bx bxs-dashboard'></i>
+							<span class="nav-text">Inicio</span>
+						</a>
+                    </li>
+                    <li><a class="has-arrow ai-icon" href="javascript:void()" aria-expanded="false">
+                            <i class="fas fa-handshake" id="icono"></i>
+							<span class="nav-text">Compromisos</span>
+						</a>
+                        <ul aria-expanded="false">
+							<li><a class="has-arrow" href="javascript:void()" aria-expanded="false">Tipo Compromisos</a>
+                                <ul aria-expanded="false">
+                                    <li><a href="/">Agregar</a></li>
+                                    <li><a href="/">Mostrar</a></li>
+                                </ul>
+                            </li>
+							<li><a href="/">Agregar Compromiso</a></li>
+							<li><a href="/">Mostrar Compromisos</a></li>
+						</ul>
+                    </li>
+                    <li><a class="has-arrow ai-icon" href="javascript:void()" aria-expanded="false">
+                            <i class='bx bx-money'></i>
+							<span class="nav-text">Préstamos</span>
+						</a>
+                        <ul aria-expanded="false">
+                            <li><a href="/">Agregar Préstamo</a></li>
+                            <li><a href="/">Mostrar Préstamos</a></li>
+                            <li><a class="has-arrow" href="javascript:void()" aria-expanded="false">Abonos</a>
+                                <ul aria-expanded="false">
+                                    <li><a href="/">Agregar</a></li>
+                                    <li><a href="/">Mostrar</a></li>
+                                </ul>
+                            </li>
+                            <li><a class="has-arrow" href="javascript:void()" aria-expanded="false">Pagos</a>
+                                <ul aria-expanded="false">
+                                    <li><a href="/">Agregar</a></li>
+                                    <li><a href="/">Mostrar</a></li>
+                                </ul>
+                            </li>
+                        </ul>
+                    </li>
+                    <li><a class="has-arrow ai-icon" href="javascript:void()" aria-expanded="false">
+                            <i class='bx bx-user'></i>
+							<span class="nav-text">Usuarios</span>
+						</a>
+                        <ul aria-expanded="false">
+                            <li><a href="/">Agregar Usuario</a></li>
+                            <li><a href="/">Mostrar Usuarios</a></li>
+                        </ul>
+                    </li>
+                    <li><a class="has-arrow ai-icon" href="javascript:void()" aria-expanded="false">
+                            <i class='bx bx-cog'></i>
+							<span class="nav-text">Configuración</span>
+						</a>
+                        <ul aria-expanded="false">
+                            <li><a href="/">1</a></li>
+                            <li><a href="/">2</a></li>
+                            <li><a href="/">3</a></li>
+                        </ul>
+                    </li>
+                </ul>
+				<div class="add-menu-sidebar">
+					<img src="images/calendar.png" alt="" class="mr-3">
+					<p class="	font-w500 mb-0">Crear plan de calendario</p>
+				</div>
+				<div class="copyright">
+					<p><strong>Cuentas en Casa</strong> © 2022 Todos los derechos reservados</p>
+				</div>
+			</div>
+        </div>
         <!--**********************************
             Sidebar end
         ***********************************-->
@@ -780,7 +847,7 @@
             <div class="container-fluid">
                 <div class="page-titles">
 					<ol class="breadcrumb">
-						<li class="breadcrumb-item"><a th:href="@{/inicio}">Inicio</a></li>
+						<li class="breadcrumb-item"><a href="javascript:void(0)">Inicio</a></li>
 						<li class="breadcrumb-item active"><a href="javascript:void(0)">Usuario</a></li>
 					</ol>
                 </div>
@@ -792,7 +859,7 @@
                         <div class="card">
                             <div class="card-header">
                                 <h4 class="card-title">Lista de Usuarios</h4>
-                                <button type="button" class="nBtn btn btn-rounded btn-primary"><span
+                                <button type="button" class="btn btn-rounded btn-primary" data-toggle="modal" data-target="#modal-add"><span
                                     class="btn-icon-left text-primary"><i class="fa fa-plus color-info"></i>
                                 </span>Agregar</button>
                             </div>
@@ -804,7 +871,7 @@
                                         </span>Agregar</button>
                                     </div> -->
                                     
-                                    <div class="alert alert-warning alert-dismissible fade show" th:if="${usuarios.size()==0}">
+                                    <div class="alert alert-warning alert-dismissible fade show">
                                         <svg viewBox="0 0 24 24" width="24" height="24" stroke="currentColor" stroke-width="2" fill="none" stroke-linecap="round" stroke-linejoin="round" class="mr-2"><path d="M10.29 3.86L1.82 18a2 2 0 0 0 1.71 3h16.94a2 2 0 0 0 1.71-3L13.71 3.86a2 2 0 0 0-3.42 0z"></path><line x1="12" y1="9" x2="12" y2="13"></line><line x1="12" y1="17" x2="12.01" y2="17"></line></svg>
                                         <strong>Precaución!</strong> No hay usuarios para mostrar
                                         <button type="button" class="close h-100" data-dismiss="alert" aria-label="Close"><span><i class="mdi mdi-close"></i></span>
@@ -833,50 +900,48 @@
                                             </tr>
                                         </thead>
                                         <tbody>
-                                            <tr th:each="u:${usuarios}" id="tablerow">
+                                            <tr id="tablerow">
 												<td>
 													<div class="custom-control custom-checkbox">
 														<input type="checkbox" class="custom-control-input" id="customCheckBox3" required="">
 														<label class="custom-control-label" for="customCheckBox3"></label>
 													</div>
 												</td>
-												<td th:text="${u.idUsuario}"></td>
-												<td th:text="${u.nombresUsuario}+' '+${u.apellidosUsuario}"></td>
-												<td th:text="${u.correoUsuario}"></td>
-												<td th:text="${u.tipoUsuario}"></td>
+                                                <td>1</td>
+												<td>Carlos Martinez</td>
+                                                <td>cmartinez@gmail.com</td>
+												<td>Administrador</td>
                                                 <td>
-													<span th:if="${u.estadoUsuario.equalsIgnoreCase('inactivo')}" class="badge light badge-warning" id="estado"><i class="fa fa-circle text-warning mr-1"></i>Inactivo</span>
-													<span th:if="${u.estadoUsuario.equalsIgnoreCase('activo')}" class="badge light badge-success" id="estado"><i class="fa fa-circle text-success mr-1"></i>Activo</span>
+													<span class="badge light badge-warning" id="estado"><i class="fa fa-circle text-warning mr-1"></i>Inactivo</span>
 												</td>
                                                 <td>
 													<div class="d-flex">
-														<a th:href="@{editar/(idUsuario=${u.idUsuario})}" class="eBtn btn btn-primary shadow btn-xs sharp mr-1" id="editar"><i class="fa fa-pencil"></i></a>
-														<a href="" th:if="${u.estadoUsuario.equalsIgnoreCase('inactivo')}" data-toggle="modal" th:attr="data-target='#modal-delete'+${u.idUsuario}" class="btn btn-secondary shadow btn-xs sharp btn-toggle"><i class='bx bx-toggle-left'></i></i></a>
-														<a href="" th:if="${u.estadoUsuario.equalsIgnoreCase('activo')}" data-toggle="modal" th:attr="data-target='#modal-delete'+${u.idUsuario}" class="btn btn-secondary shadow btn-xs sharp btn-toggle"><i class='bx bxs-toggle-right'></i></i></a>
+														<a href="#" data-toggle="modal" data-target="#modal-editar" class="btn btn-primary shadow btn-xs sharp mr-1"><i class="fa fa-pencil"></i></a>
+														<a href="#" data-toggle="modal" data-target="#modal-delete" class="btn btn-secondary shadow btn-xs sharp btn-toggle"><i class='bx bx-toggle-left'></i></i></a>
 													</div>
-
-													<div class="modal fade" th:id="modal-delete+${u.idUsuario}">
-														<div class="modal-dialog modal-dialog-centered" role="document">
-															<div class="modal-content">
-																<div class="modal-header">
-																	<h4 th:if="${u.estadoUsuario.equalsIgnoreCase('activo')}" class="modal-title">Inactivar Usuario</h4>
-																	<h4 th:if="${u.estadoUsuario.equalsIgnoreCase('inactivo')}" class="modal-title">Activar Usuario</h4>
-																	<button type="button" class="close" data-dismiss="modal"><span>&times;</span>
-																	</button>
-																</div>
-																<!-- <form action="/"> -->
-																	<div class="modal-body">
-																		<p th:if="${u.estadoUsuario.equalsIgnoreCase('activo')}">Está seguro que desea inactivar este usuario?</p>
-																		<p th:if="${u.estadoUsuario.equalsIgnoreCase('inactivo')}">Está seguro que desea activar este usuario?</p>                      
-																	</div>
-																	<div class="modal-footer">
-																		<button type="button" class="btn btn-secondary" data-dismiss="modal">Cancelar</button>
-																		<a th:if="${u.estadoUsuario.equalsIgnoreCase('activo')}" th:href="@{/usuario/cambioestado/}+${u.idUsuario}"><button type="submit" class="btn btn-primary">Inactivar</button></a>
-																		<a th:if="${u.estadoUsuario.equalsIgnoreCase('inactivo')}" th:href="@{/usuario/cambioestado/}+${u.idUsuario}"><button type="submit" class="btn btn-primary">Activar</button></a>
-																	</div>
-																<!-- </form> -->
-															</div>
-														</div>
+												</td>
+                                            </tr>
+                                            <tr id="tablerow">
+												<td>
+													<div class="custom-control custom-checkbox">
+														<input type="checkbox" class="custom-control-input" id="customCheckBox4" required="">
+														<label class="custom-control-label" for="customCheckBox4"></label>
+													</div>
+												</td>
+                                                <td>2</td>
+												<td>Roberto Alonso Suarez</td>
+                                                <td>robertosuarez@hotmail.com</td>
+                                                <td>Admin del hogar</td>
+                                                <td>
+													<span class="badge light badge-success" id="estado">
+														<i class="fa fa-circle text-success mr-1"></i>
+														Activo
+													</span>
+												</td>
+												<td>
+													<div class="d-flex">
+														<a href="#" class="btn btn-primary shadow btn-xs sharp mr-1"><i class="fa fa-pencil"></i></a>
+														<a href="#" class="btn btn-secondary shadow btn-xs sharp"><i class="fa fa-trash"></i></a>
 													</div>
 												</td>
                                             </tr>
@@ -896,64 +961,44 @@
                 <div class="modal-content">
                     <div class="modal-header">
                         <h4 class="modal-title">Registrar Usuario</h4>
-                        <button type="button" class="close cancel" data-dismiss="modal"><span>&times;</span>
+                        <button type="button" class="close" data-dismiss="modal"><span>&times;</span>
                         </button>
                     </div>
-                    <form th:action="@{/usuario/add}" method="post" th:object="${usuario}" id="formulario">
+                    <form action="/">
                         <div class="modal-body">
-                            <div class="form-group" id="grupo__nombresUsuario">
-                                <label for="">Nombres</label>
-								<div class="formulario__grupo-input">
-									<input th:field="*{nombresUsuario}" type="text" class="form-control input-default" placeholder="" autocomplete="off">
-									<i class="formulario__validacion-estado fas fa-times-circle"></i>
-								</div>
-								<p class="formulario__input-error"> Tiene que ser mínimo 1 caracter y máximo 20 de longitud. Solo puede haber un espacio y el nombre(s) no puede contener caracteres especiales.</p>
-								<div class="form-text text-danger" th:if="${#fields.hasErrors('nombresUsuario')} and ${modalAdd}" th:errors="*{nombresUsuario}"></div>
-                            </div>
-                            <div class="form-group" id="grupo__apellidosUsuario">
-                                <label for="">Apellidos</label>
-								<div class="formulario__grupo-input">
-									<input th:field="*{apellidosUsuario}" type="text" class="form-control input-default" placeholder="" autocomplete="off">
-									<i class="formulario__validacion-estado fas fa-times-circle"></i>
-								</div>
-								<p class="formulario__input-error"> Tiene que ser mínimo 1 caracter y máximo 20 de longitud. Solo puede haber un espacio y el apellido(s) no puede contener caracteres especiales.</p>
-								<div class="form-text text-danger" th:if="${#fields.hasErrors('apellidosUsuario')} and ${modalAdd}" th:errors="*{apellidosUsuario}"></div>
-							</div>                        
-                            <div class="form-group" id="grupo__correoUsuario">
-                                <label for="">Correo</label>
-								<div class="formulario__grupo-input">
-									<input th:field="*{correoUsuario}" type="text" class="form-control input-default" placeholder="" autocomplete="off">
-									<i class="formulario__validacion-estado fas fa-times-circle"></i>
-								</div>
-								<p class="formulario__input-error"> Correo no válido, la estructura que debe tener es la siguiente: example@domain.com</p>
-								<div class="form-text text-danger" th:if="${#fields.hasErrors('correoUsuario')} and ${modalAdd}" th:errors="*{correoUsuario}"></div>
-							</div>                        
-                            <div class="form-group" id="grupo__tipoUsuario">
-                                <label for="">Tipo</label>
-								<div class="formulario__grupo-input">
-									<select th:field="*{tipoUsuario}" class="form-control input-default">
-										<option value="" id="tipo" selected>Seleccionar</option>
-										<option value="Administrador">Administrador</option>
-										<option value="Admin del hogar">Admin del hogar</option>
-										<option value="Contador">Contador</option>
-									</select>
-									<i class="formulario__validacion-estado fas fa-times-circle"></i>
-								</div>
-								<p class="formulario__input-error"> Elige una opción</p>
-								<div class="form-text text-danger" th:if="${#fields.hasErrors('tipoUsuario')} and ${modalAdd}" th:errors="*{tipoUsuario}"></div>
-							</div>                        
                             <div class="form-group">
-                                <!-- <label for="">Estado</label> -->
-                                <select th:field="*{estadoUsuario}" hidden>
-                                    <option value="Activo" selected>Activo</option>
+                                <label for="">Nombres</label>
+                                <input type="text" class="form-control input-default " placeholder="">
+                            </div>
+                            <div class="form-group">
+                                <label for="">Apellidos</label>
+                                <input type="text" class="form-control input-default " placeholder="">
+                            </div>                        
+                            <div class="form-group">
+                                <label for="">Correo</label>
+                                <input type="text" class="form-control input-default " placeholder="">
+                            </div>                        
+                            <div class="form-group">
+                                <label for="">Tipo</label>
+                                <select class="form-control default-select" required>
+                                    <option value="" id="tipo" selected>Seleccionar</option>
+                                    <option value="Administrador">Administrador</option>
+                                    <option value="Admin del hogar">Admin del hogar</option>
+                                    <option value="Contador">Contador</option>
+                                </select>
+                            </div>                        
+                            <div class="form-group">
+                                <label for="">Estado</label>
+                                <select class="form-control default-select">
+                                    <option selected>Seleccionar</option>
+                                    <option value="Activo">Activo</option>
                                     <option value="Inactivo">Inactivo</option>
                                 </select>
-                            </div>    
-							<div class="form-text text-danger" th:if="${errorMessage} and ${modalAdd}" th:text="${errorMessage}"></div>                                
+                            </div>                        
                         </div>
                         <div class="modal-footer">
-                            <button type="button" class="btn btn-secondary cancel" data-dismiss="modal" id="cancel">Cancelar</button>
-                            <button type="submit" class="btn btn-primary" id="Registrar">Registrar</button>
+                            <button type="button" class="btn btn-secondary" data-dismiss="modal">Cancelar</button>
+                            <button type="submit" class="btn btn-primary">Registrar</button>
                         </div>
                     </form>
                 </div>
@@ -961,7 +1006,7 @@
         </div>
 
         <!-- MODAL-EDITAR -->
-        <div class="modal fade" id="modal-edit">
+        <div class="modal fade" id="modal-editar">
             <div class="modal-dialog modal-dialog-centered" role="document">
                 <div class="modal-content">
                     <div class="modal-header">
@@ -969,53 +1014,41 @@
                         <button type="button" class="close" data-dismiss="modal"><span>&times;</span>
                         </button>
                     </div>
-                    <form th:action="@{/usuario/add}" method="post" th:object="${usuario}" id="">
+                    <form action="/">
                         <div class="modal-body">
-                            <input type="hidden" th:field="*{idUsuario}">
-							<div class="form-group">
+                            <div class="form-group">
                                 <label for="">Nombre</label>
-                                <input type="text" id="nombrecompleto" th:value="*{nombresUsuario}+' '+*{apellidosUsuario}" class="form-control input-default " placeholder="" readonly>
-								<div class="form-text text-danger" th:if="${#fields.hasErrors('nombresUsuario')} and ${modalEdit}" th:errors="*{nombresUsuario}"></div>
-								<input type="text" th:field="*{nombresUsuario}" autocomplete="off" required pattern="[A-Za-zñ ]{1,20}" hidden>
-                      			<input type="text" th:field="*{apellidosUsuario}" autocomplete="off" required pattern="[A-Za-zñ ]{1,20}" hidden>
-							</div>
+                                <input type="text" class="form-control input-default " placeholder="">
+                            </div>
                             <div class="form-group">
                                 <label for="">Contraseña</label>
-                                <input type="text" th:field="*{contrasenaUsuario}" class="form-control input-default" placeholder="" autocomplete="off">
-								<div class="form-text text-danger" th:if="${#fields.hasErrors('contrasenaUsuario')} and ${modalEdit}" th:errors="*{contrasenaUsuario}"></div>
-							</div>                        
-                            <div class="form-group" id="grupo__correoUsuario">
+                                <input type="text" class="form-control input-default " placeholder="">
+                            </div>                        
+                            <div class="form-group">
                                 <label for="">Correo</label>
-								<div class="formulario__grupo-input">
-									<input type="text" th:field="*{correoUsuario}" class="form-control input-default " placeholder="" autocomplete="off">
-									<i class="formulario__validacion-estado fas fa-times-circle"></i>
-								</div>
-								<p class="formulario__input-error"> correo no valido, debe contener la sintaxis de email</p>
-								<div class="form-text text-danger" th:if="${#fields.hasErrors('correoUsuario')} and ${modalEdit}" th:errors="*{correoUsuario}"></div>
-							</div>                        
+                                <input type="text" class="form-control input-default " placeholder="">
+                            </div>                        
                             <div class="form-group">
                                 <label for="">Tipo</label>
-                                <select th:field="*{tipoUsuario}" class="form-control input-default" required>
+                                <select class="form-control default-select" required>
                                     <option value="" id="tipo" selected>Seleccionar</option>
                                     <option value="Administrador">Administrador</option>
                                     <option value="Admin del hogar">Admin del hogar</option>
                                     <option value="Contador">Contador</option>
                                 </select>
-								<div class="form-text text-danger" th:if="${#fields.hasErrors('tipoUsuario')} and ${modalEdit}" th:errors="*{tipoUsuario}"></div>
-							</div>                        
+                            </div>                        
                             <div class="form-group">
                                 <label for="">Estado</label>
-                                <select th:field="*{estadoUsuario}" class="form-control input-default">
-                                    <option value="" id="estadoU" selected>Seleccionar</option>
+                                <select class="form-control default-select">
+                                    <option selected>Seleccionar</option>
                                     <option value="Activo">Activo</option>
                                     <option value="Inactivo">Inactivo</option>
                                 </select>
-								<div class="form-text text-danger" th:if="${#fields.hasErrors('estadoUsuario')} and ${modalEdit}" th:errors="*{estadoUsuario}"></div>
-							</div>                        
+                            </div>                        
                         </div>
                         <div class="modal-footer">
                             <button type="button" class="btn btn-secondary" data-dismiss="modal">Cancelar</button>
-                            <button type="submit" class="btn btn-primary" id="Editar">Editar</button>
+                            <button type="submit" class="btn btn-primary">Editar</button>
                         </div>
                     </form>
                 </div>
@@ -1080,13 +1113,13 @@
         Scripts
     ***********************************-->
     <!-- Required vendors -->
-	<script th:src="@{/assets/dashboard/vendor/global/global.min.js}"></script>
-	<script th:src="@{/assets/dashboard/vendor/bootstrap-select/dist/js/bootstrap-select.min.js}"></script>
-	<script th:src="@{/assets/dashboard/vendor/chart.js/Chart.bundle.min.js}"></script>
-	<script th:src="@{/assets/dashboard/vendor/bootstrap-datetimepicker/js/moment.js}"></script>
-	<script th:src="@{/assets/dashboard/vendor/bootstrap-datetimepicker/js/bootstrap-datetimepicker.min.js}"></script>
-    <script th:src="@{/assets/dashboard/js/custom.js}"></script>
-	<script th:src="@{/assets/dashboard/js/deznav-init.js}"></script>
+    <script src="./vendor/global/global.min.js"></script>
+	<script src="./vendor/bootstrap-select/dist/js/bootstrap-select.min.js"></script>
+	<script src="./vendor/chart.js/Chart.bundle.min.js"></script>
+	<script src="vendor/bootstrap-datetimepicker/js/moment.js"></script>
+	<script src="vendor/bootstrap-datetimepicker/js/bootstrap-datetimepicker.min.js"></script>
+    <script src="./js/custom.min.js"></script>
+	<script src="./js/deznav-init.js"></script>
 	<script>
 		$(function () {
 			$('#datetimepicker1').datetimepicker({
@@ -1095,66 +1128,53 @@
 		});
 	</script>
 
-	<script th:src="@{/assets/js/mostrarInactivos.js}"></script>
-
-    <script th:inline="javascript" th:if="${errorMessage}">$("#modal-add").modal("show");</script>
-	<script th:inline="javascript" th:if="${modalEdit}">$("#modal-edit").modal("show");</script>
-
-    <!-- Datatable -->
-    <script th:src="@{/assets/dashboard/vendor/datatables/js/jquery.dataTables.min.js}"></script>
-    <script th:src="@{/assets/dashboard/js/plugins-init/datatables.init.js}"></script>
-
-	<!-- Validación JS -->
-	<script th:src="@{/assets/js/validacionUsuario.js}"></script>
-
-	<script th:inline="javascript" th:if="${modalAdd}">
-		$("#modal-add").modal("show");
-		inputs.forEach((input) => {
-			input.addEventListener('click', validarFormulario);
-			input.click()
-			input.removeEventListener('click', validarFormulario)
-		});
-
-		selects.forEach((select) => {
-			select.addEventListener('click', validarFormulario)
-			select.click()
-			select.removeEventListener('click', validarFormulario)
-		});
-	</script>
-
 	<script>
-		$('#Editar').on('click',function(e){
-			e.preventDefault();
-			var form = $(this).parents('form');
-			Swal.fire({
-				title: 'seguro quieres realizar esta accion?',
-				text: "ya no podras dar vuelta atras!",
-				showCancelButton: true,
-				confirmButtonColor: '#3085d6',
-				cancelButtonColor: '#d33',
-				confirmButtonText: 'si, editar!'
-			}).then((result) => {
-				if (result.value) {
-					if(campos.nombresUsuario && campos.apellidosUsuario && campos.correoUsuario && campos.tipoUsuario){
-						form.submit()
-					}else{
-						inputs.forEach((input) => {
-							input.addEventListener('click', validarFormulario);
-							input.click()
-							input.removeEventListener('click', validarFormulario)
-						});
+		var checkbox = document.getElementById('mostrar');
+		var row = document.querySelectorAll('#tablerow');
+		var estado = document.querySelectorAll('#estado');
 
-						selects.forEach((select) => {
-							select.addEventListener('click', validarFormulario)
-							select.click()
-							select.removeEventListener('click', validarFormulario)
-						});
+		checkbox.addEventListener("click",mostrar)
+		
+		if (checkbox.checked==false) {
+			for (let index = 0; index < estado.length; index++) {
+				if (estado[index].textContent=="Inactivo") {
+				for (let index = 0; index < row.length; index++) {
+					if (estado[index].textContent=="Inactivo") {
+					row[index].setAttribute('style','display:none');
 					}
 				}
-			});
-		});
+				}
+				console.log(estado[index].textContent)
+			}
+		}
+		
+		function mostrar(){
+			if (checkbox.checked==true) {
+				for (let index = 0; index < estado.length; index++) {
+				if (estado[index].textContent=="Inactivo") {
+					for (let index = 0; index < row.length; index++) {
+					if (estado[index].textContent=="Inactivo") {
+						row[index].setAttribute('style','display:');
+					}
+					}
+				}
+				}
+			}else if (checkbox.checked==false){
+				for (let index = 0; index < estado.length; index++) {
+				if (estado[index].textContent=="Inactivo") {
+					for (let index = 0; index < row.length; index++) {
+					if (estado[index].textContent=="Inactivo") {
+						row[index].setAttribute('style','display:none');
+					}
+					}
+				}
+				}
+			}
+		}
   	</script>
 
-	<script src="//cdn.jsdelivr.net/npm/sweetalert2@11"></script>
+    <!-- Datatable -->
+    <script src="./vendor/datatables/js/jquery.dataTables.min.js"></script>
+    <script src="./js/plugins-init/datatables.init.js"></script>
 </body>
 </html>
