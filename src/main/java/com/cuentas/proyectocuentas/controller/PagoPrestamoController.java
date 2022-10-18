@@ -4,7 +4,7 @@ import java.io.IOException;
 import java.nio.file.Files; 
 import java.nio.file.Path;
 import java.nio.file.Paths;
-import java.time.LocalDate;
+    import java.time.LocalDate;
 
 import javax.validation.Valid;
 
@@ -39,7 +39,7 @@ public class PagoPrestamoController {
     private IPrestamoService prestamoI;
 
     //LISTAR
-    @GetMapping("/listar")
+    @GetMapping("/listar") 
     public String listar(Model m){
         m.addAttribute("pagoprestamos", pagoprestamoI.findAll());
         PagoPrestamo pagoprestamo=new PagoPrestamo();

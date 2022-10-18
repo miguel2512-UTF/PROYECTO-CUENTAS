@@ -1,5 +1,6 @@
 package com.cuentas.proyectocuentas.controller;
 
+import java.time.LocalDate;
 import javax.validation.Valid;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -36,6 +37,14 @@ public class PrestamoController {
         Prestamo prestamo=new Prestamo();
         m.addAttribute("prestamo", prestamo);
         m.addAttribute("usuario", usuarioI.findAll());
+
+        LocalDate date = LocalDate.now();
+        LocalDate fechaPagoMin = date.minusWeeks(2);
+        LocalDate fechaPagoMax = date.plusYears(1);
+
+        m.addAttribute("fechaPagoMin", fechaPagoMin);
+        m.addAttribute("fechaPagoMax", fechaPagoMax);
+
         return "views/prestamo/prestamo";
         
     }
@@ -45,7 +54,7 @@ public class PrestamoController {
     @PostMapping("/add")
     public String add(@Valid Prestamo prestamo, BindingResult res, Model m, SessionStatus status){
         m.addAttribute("prestamos", prestamoI.findAll());
-        
+         
         if (res.hasErrors()) {
             return "views/prestamo/prestamo";
         }
