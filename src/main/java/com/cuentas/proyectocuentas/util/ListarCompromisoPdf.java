@@ -34,6 +34,7 @@ public class ListarCompromisoPdf extends AbstractPdfView {
                 @SuppressWarnings("unchecked")
                 List<Compromiso> compromiso = (List<Compromiso>)model.get("compromisos");
 
+
                //FUENTES
                Font fuenteTitulo = FontFactory.getFont(FontFactory.HELVETICA_BOLD, 20, Color.WHITE);
                Font fuenteTituloColumnas = FontFactory.getFont(FontFactory.HELVETICA_BOLD, 12, Color.black);
@@ -149,8 +150,6 @@ public class ListarCompromisoPdf extends AbstractPdfView {
             TablaCompromisos.addCell(compr.getTipocompromiso().getNombre());
             TablaCompromisos.addCell(compr.getEstadoCom());
         }); 
-
-
 
         //LLAMAR TITULO
         document.add(TablaTitulo); 

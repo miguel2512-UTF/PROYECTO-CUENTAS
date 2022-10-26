@@ -1,0 +1,443 @@
+<!DOCTYPE html>
+<html xmlns:th="https://wwww.thymeleaf.org" lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@4.6.2/dist/css/bootstrap.min.css" integrity="sha384-xOolHFLEh07PJGoPkLv1IbcEPTNtaed2xpHsD9ESMhqIYd0nLMwNLD69Npy4HI+N" crossorigin="anonymous">
+    <title>Compromiso</title>
+    <link rel="stylesheet" type="text/css" th:href="@{/assets/css/estiloC.css}">
+    <link rel="stylesheet" href="../assets/css/estilos2.css">
+    <link rel="stylesheet" href="../assets/css/stylev.css">
+    <link rel="icon" href="../assets/img/Icon-cuentascasa.png">
+    <script src="https://cdn.jsdelivr.net/npm/jquery@3.5.1/dist/jquery.slim.min.js" integrity="sha384-DfXdz2htPH0lsSSs5nCTpuj/zy4C+OGpamoFVy38MVBnE+IbbVYUew+OrCXaRkfj" crossorigin="anonymous"></script>
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@4.6.2/dist/js/bootstrap.bundle.min.js" integrity="sha384-Fy6S3B9q64WdZWQUiU+q4/2Lc9npb8tCaSX9FK7E8HnRr0Jz8D6OP9dO5Vg3Q9ct" crossorigin="anonymous"></script>
+    <script src="https://kit.fontawesome.com/6131ecdde6.js" crossorigin="anonymous"></script>
+    <link rel="stylesheet" type="text/css" href="https://cdn.jsdelivr.net/gh/mobius1/vanilla-Datatables@latest/vanilla-dataTables.min.css">
+    <script type="text/javascript" src="https://cdn.jsdelivr.net/gh/mobius1/vanilla-Datatables@latest/vanilla-dataTables.min.js"></script>
+</head>
+<body>
+    <div th:replace="/views/header :: nav"></div>
+    <div class="title">
+      <h1>Compromiso</h1>
+      <a href="" data-toggle="modal" data-target="#modal-add"><svg xmlns="http://www.w3.org/2000/svg" width="32" height="32" fill="currentColor" class="bi bi-plus-circle-fill" viewBox="0 0 16 16">
+        <path d="M16 8A8 8 0 1 1 0 8a8 8 0 0 1 16 0zM8.5 4.5a.5.5 0 0 0-1 0v3h-3a.5.5 0 0 0 0 1h3v3a.5.5 0 0 0 1 0v-3h3a.5.5 0 0 0 0-1h-3v-3z"/>
+      </svg></a>
+    </div>
+
+    
+  
+    <a class="nav-item" th:href="@{/tipocompromiso/listar}"><i class="bi bi-card-list">tipo compromiso</i></a>
+
+    <input type="checkbox" id="mostrar">Mostrar compromisos pagos
+    
+    <!--boton pdf-->
+    <a class="nav-link" th:href="@{/compromiso/listar/?format=pdf}" title="ver reporte" target="_blank">
+      <i class="fa-regular fa-file-pdf"> Mostrar reporte </i>
+    </a>
+
+    <table border="1" id="datat">
+        <thead>
+  
+            <th>#</th>
+            <th>Numero Factura</th>
+            <th>Nombre Empresa</th>
+            <th>Fecha Pago</th>
+            <th>Fecha Suspension</th>
+            <th>Metodo Pago</th>
+            <th>Total</th>
+            <th>Usuario</th>
+            <th>Tipo Compromiso</th>
+            <th>Estado</th>            
+            <th>Acciones</th>
+        </thead>
+        <tr th:each="g:${compromisos}" id="tablerow">
+            <td th:text="${g.idCom}"></td>
+            <td th:text="${g.numeroFac}"></td>
+            <td th:text="${g.nombreEm}"></td>
+            <td th:text="${g.fecha}"></td>
+            <td th:text="${g.fechaS}"></td>
+            <td th:text="${g.metodo}"></td>
+            <td th:text="${g.Total}"></td>
+            <td th:text="${g.usuario.nombresUsuario}"></td>
+            <td th:text="${g.tipocompromiso.nombre}"></td> 
+            <td th:text="${g.estadoCom}" id="estado"></td>
+            <td>
+                <a href="" data-toggle="modal" th:attr="data-target='#modal-editar'+${g.idCom}"><button type="button" class="btn btn-dark"><svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-pen-fill" viewBox="0 0 16 16">
+                <path d="m13.498.795.149-.149a1.207 1.207 0 1 1 1.707 1.708l-.149.148a1.5 1.5 0 0 1-.059 2.059L4.854 14.854a.5.5 0 0 1-.233.131l-4 1a.5.5 0 0 1-.606-.606l1-4a.5.5 0 0 1 .131-.232l9.642-9.642a.5.5 0 0 0-.642.056L6.854 4.854a.5.5 0 1 1-.708-.708L9.44.854A1.5 1.5 0 0 1 11.5.796a1.5 1.5 0 0 1 1.998-.001z"/>
+                </svg></button></a>
+                
+                <!-- MODAL EDITAR -->
+                <div class="modal fade" tabindex="-1" th:id="modal-editar+${g.idCom}">
+                    <div class="modal-dialog">
+                      <div class="modal-content">
+                        <div class="modal-header">
+                          <h5 class="modal-title">Editar Compromiso</h5>
+                        </div>
+                        <form th:action="@{/compromiso/reg1}" method="post" th:object="${compromiso}">
+                          <div class="modal-body">
+                                  <input type="hidden" name="idCom" id="idCom" th:value="${g.idCom}">
+                                  <div>
+                                  <label for="">Número Factura</label>
+                                  <input type="text" name="numeroFac" id="numeroFac" autocomplete="off" th:value="${g.numeroFac}" required readonly>
+                                  <span class="validity"></span>
+                                  </div>
+                                  <div>
+                                  <label for="">Nombre Empresa</label>
+                                  <input type="text" name="nombreEm" id="nombreEm" autocomplete="off" th:value="${g.nombreEm}" required>
+                                  <span class="validity"></span>
+  
+                                  </div>
+                                  <div>
+                                    <div class="col-md-6">
+                                  <label for="">Fecha Pago Oportuno</label>
+                                  <input type="date" name="fecha" id="fecha" value="2022-08-30" min="2022-10-15" autocomplete="off" th:value="${g.fecha}" required>
+                                  <span class="validity"></span>
+                                  </div>
+                                  </div>
+                                  <div>
+                                    <div class="col-md-6">
+                                  <label for="">Fecha Suspensión</label>
+                                  <input type="date" name="fechaS" id="fechaS" value="2022-08-30" min="2022-10-15" autocomplete="off" th:value="${g.fechaS}" required>
+                                  <span class="validity"></span>
+                                  </div>
+                                  </div>
+                                  <div>
+                                  <label for="">Método de Pago</label>
+                                  <select name="metodo" id="metodo" required>
+                                      <option th:value="${g.metodo}" th:text="${g.metodo}" selected>Seleccionar</option>
+                                      <option value="Efectivo">Efectivo</option>
+                                      <option value="Aplicacion">Aplicacion</option>
+                                  </select>
+                                  <span class="validity"></span>
+                                  </div>
+                                  <div>
+                                  <label for="">Total Pago</label>
+                                  <input type="text" name="total" id="total" autocomplete="off" th:value="${g.total}" required readonly>
+                                  <span class="validity"></span>
+                                  </div>
+                                  <div>
+                                    <select th:field="*{usuario}" required>
+                                      <th:block th:each="Usuario : ${usuario}">
+                                      <option th:text="${Usuario.nombresUsuario}" th:value="${Usuario.idUsuario}"></option>
+                                      </th:block>
+                                    </select>
+                                    <div class="form-text text-danger" th:if="${#fields.hasErrors('usuario')}" th:errors="*{usuario}"></div>
+                                    <span class="validity"></span>
+                                    </div>
+                                    <div>
+                                    <select th:field="*{tipocompromiso}" required>
+                                      <th:block th:each="TipoCompromiso : ${tipocompromiso}">
+                                      <option th:text="${TipoCompromiso.nombre}" th:value="${TipoCompromiso.id}"></option>
+                                      </th:block>
+                                    </select>
+                                  <span class="validity"></span>
+                                  </div>
+                                  <div>
+                                  <label for="">Estado</label>
+                                  <select th:field="*{estadoCom}" id="estado">
+                                      <option th:value="${g.estadoCom}" th:text="${g.estadoCom}" >Seleccionar</option>
+                                      <option value="pago">pago</option>
+                                      <option value="por pagar">por pagar</option>
+                                  </select>
+                                  <span class="validity"></span>
+                                  </div>
+                                  
+                                  <div class="form-text text-danger" th:if="${#fields.hasErrors('estadoCom')}" th:errors="*{estadoCom}"></div>
+                          </div>
+                          <div class="modal-footer">
+                              <button type="button" class="btn btn-secondary" data-dismiss="modal">Cancelar</button>
+                              <button type="submit" class="btn bg-cuentas" onclick="return confirm('Estás seguro que quieres editar');">Editar</button>
+  
+                          </div>
+                        </form>
+                      </div>
+                    </div>
+                </div>
+                <a href="" data-toggle="modal" th:attr="data-target='#modal-delete'+${g.idCom}"><button type="button" class="btn btn-dark"><svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-trash-fill" viewBox="0 0 16 16">
+                <path d="M2.5 1a1 1 0 0 0-1 1v1a1 1 0 0 0 1 1H3v9a2 2 0 0 0 2 2h6a2 2 0 0 0 2-2V4h.5a1 1 0 0 0 1-1V2a1 1 0 0 0-1-1H10a1 1 0 0 0-1-1H7a1 1 0 0 0-1 1H2.5zm3 4a.5.5 0 0 1 .5.5v7a.5.5 0 0 1-1 0v-7a.5.5 0 0 1 .5-.5zM8 5a.5.5 0 0 1 .5.5v7a.5.5 0 0 1-1 0v-7A.5.5 0 0 1 8 5zm3 .5v7a.5.5 0 0 1-1 0v-7a.5.5 0 0 1 1 0z"/>
+                </svg></button></a>
+                <!-- MODAL ELIMINAR -->
+                <div class="modal fade" tabindex="-1" th:id="modal-delete+${g.idCom}">
+                  <div class="modal-dialog">
+                    <div class="modal-content">
+                      <div class="modal-header">
+                        <h5 th:if="${g.estadoCom.equalsIgnoreCase('por pagar')}" class="modal-title">Realizado el pago de Compromiso</h5>
+                      </div>
+                      <div class="modal-body">
+                          <p th:if="${g.estadoCom.equalsIgnoreCase('por pagar')}">Esta seguro que ya pago este  compromiso?</p>
+                      </div>
+                      <div class="modal-footer">
+                          <button type="button" class="btn btn-secondary" data-dismiss="modal">Cancelar</button>
+                          <a th:if="${g.estadoCom.equalsIgnoreCase('por pagar')}" th:href="@{/compromiso/estado/}+${g.idCom}"><button type="submit" class="btn bg-cuentas">Pago</button></a>
+                      </div>
+                    </div>
+                  </div>
+              </div>
+          </td>
+      </tr>
+  </table>
+      <!-- MODAL REGISTRAR -->
+      <div class="modal fade" tabindex="-1" id="modal-add">
+        <div class="modal-dialog">
+          <div class="modal-content">
+            <div class="modal-header">
+              <h5 class="modal-title">Registrar Compromiso</h5>
+            </div>
+            <div class="modal-body">
+                <form th:action="@{/compromiso/reg}" method="post" th:object="${compromiso}"  id="formulario" class="formulario">
+                  <script th:inline="javascript" th:if="${#fields.hasErrors('*')}">$("#modal-add").modal("show");</script>
+                  <script th:inline="javascript" th:if="${errorMessage}">$("#modal-add").modal("show");</script>
+                  
+                   <!-- Grupo: Numero de factura -->
+    <div class="formulario__grupo" id="grupo__numeroFac">
+      <label for="nombre" class="formulario__label">Número Factura</label>
+      <div class="formulario__grupo-input">
+        <input type="number" class="formulario__input" name="numeroFac" id="numeroFac" placeholder="111111">
+        <i class="formulario__validacion-estado fas fa-times-circle"></i>
+      </div>
+      <p class="formulario__input-error"> tiene que ser de 5 a 10 digitos.</p>
+    </div>
+    <div class="error">
+      <div class="form-text text-danger" th:if="${#fields.hasErrors('numeroFac')}" th:errors="*{numeroFac}"></div>
+                    <div class="form-text text-danger" th:if="${errorMessage}" th:text="${errorMessage}"></div>
+    </div>
+                  
+ <!-- Grupo: Nombre Empresa-->
+ <div class="formulario__grupo" id="grupo__nombreEm">
+  <label for="nombre" class="formulario__label">Nombre Empresa</label>
+  <div class="formulario__grupo-input">
+    <input type="text" class="formulario__input" name="nombreEm" id="nombreEm" placeholder="Exito">
+    <i class="formulario__validacion-estado fas fa-times-circle"></i>
+  </div>
+  <p class="formulario__input-error"> tiene que ser de 1 a 30 digitos puede contener numeros, letras, espacios y acentos </p>
+</div>
+<div class="error">
+  <div class="form-text text-danger" th:if="${#fields.hasErrors('nombreEm')}" th:errors="*{nombreEm}"></div>
+</div>
+
+ <!-- Grupo: Fecha Pago Oportuno-->
+ <div class="formulario__grupo" id="grupo__fecha">
+  <label for="nombre" class="formulario__label">Fecha Pago Oportuno</label>
+  <div class="formulario__grupo-input">
+    <input type="date" class="formulario__input"  value="2022-08-30" th:min="${fechaActual}" th:max="${fechaMax}" name="fecha" id="fecha"  >
+    <i class="formulario__validacion-estado fas fa-times-circle"></i>
+  </div>
+  <p class="formulario__input-error"> tiene que ser de 4 a 16 dígitos y solo puede contener numeros, letras y guion bajo.</p>
+</div>
+<div class="error">
+  <div class="form-text text-danger" th:if="${#fields.hasErrors('fecha')}" th:errors="*{fecha}"></div>
+</div>
+
+ <!-- Grupo: Fecha Suspensión-->
+ <div class="formulario__grupo" id="grupo__fechaS">
+  <label for="nombre" class="formulario__label">Fecha Suspensión</label>
+  <div class="formulario__grupo-input">
+    <input type="date"  class="formulario__input" value="2022-08-30" th:min="${fechaActual}" th:max="${fechaMax}" name="fechaS" id="fechaS"  th:field="*{fechaS}" >
+    <i class="formulario__validacion-estado fas fa-times-circle"></i>
+  </div>
+  <p class="formulario__input-error"> tiene que ser de 4 a 16 dígitos y solo puede contener numeros, letras y guion bajo.</p>
+</div>
+<div class="error">
+  <div class="form-text text-danger" th:if="${#fields.hasErrors('fechaS')}" th:errors="*{fechaS}"></div>
+</div>
+ <!-- Grupo: metodo pago-->
+<div class="formulario__grupo" id="grupo__metodo">
+  <label for="estado" class="formulario__label">Método de Pago</label>
+          <select  class="opciones" th:field="*{metodo}" >
+            <option value="" selected>Seleccionar</option>
+                        <option value="Efectivo">Efectivo</option>
+                        <option value="Aplicacion">Aplicación</option>
+          </select>
+        </div>
+        <div class="error">
+          <div class="form-text text-danger" th:if="${#fields.hasErrors('metodo')}" th:errors="*{metodo}"></div>
+        </div>
+                
+ <!-- Grupo: Total Pago-->
+ <div class="formulario__grupo" id="grupo__total">
+  <label for="nombre" class="formulario__label">Total Pago</label>
+  <div class="formulario__grupo-input">
+    <input type="number" class="formulario__input"name="total" id="total" placeholder="100000">
+    <i class="formulario__validacion-estado fas fa-times-circle"></i>
+  </div>
+  <p class="formulario__input-error"> tiene que ser de 3 a 10 dígitos y solo puede contener numeros</p>
+</div>
+<div class="error">
+  <div class="form-text text-danger" th:if="${#fields.hasErrors('total')}" th:errors="*{total}"></div>
+</div>
+
+ <!-- Grupo:USUARIO-->
+ <div class="formulario__grupo" id="grupo__usuario">
+  <label for="estado" class="formulario__label">Usuario</label>
+          <select  class="opciones" th:field="*{usuario}" >
+            <option value="">SELECCIONAR USUARIO</option>
+            <th:block th:each="Usuario : ${usuario}">
+            <option th:text="${Usuario.nombresUsuario}" th:value="${Usuario.idUsuario}"></option>
+            </th:block>
+          </select>
+        </div>
+        <div class="error">
+          <div class="form-text text-danger" th:if="${#fields.hasErrors('usuario')}" th:errors="*{usuario}"></div>
+        </div>
+
+ <!-- Grupo:Tipo Compromiso-->
+ <div class="formulario__grupo" id="grupo__tipocompromiso">
+  <label for="estado" class="formulario__label">Tipo Compromiso</label>
+          <select  class="opciones" th:field="*{tipocompromiso}" >
+            <option value="">Seleccionar</option>
+            <th:block th:each="TipoCompromiso : ${tipocompromiso}">
+              <option th:text="${TipoCompromiso.nombre}" th:value="${TipoCompromiso.id}"></option>
+              </th:block>
+          </select>
+        </div>
+        <div class="error">
+          <div class="form-text text-danger" th:if="${#fields.hasErrors('tipocompromiso')}" th:errors="*{tipocompromiso}"></div>
+        </div>
+                 
+      
+ <!-- Grupo:Estado-->
+ <div class="formulario__grupo" id="grupo__estado">
+  <label for="estado" class="formulario__label">Estado</label>
+          <select  class="opciones" th:field="*{estadoCom}" >
+            <option value="" selected>Seleccionar</option>
+            <option value="Pago">Pago</option>
+            <option value="Por pagar">Por pagar</option>
+          </select>
+        </div>
+        <div class="error">
+          <div class="form-text text-danger" th:if="${#fields.hasErrors('estadoCom')}" th:errors="*{estadoCom}"></div>
+        </div>
+<br>
+        <div class="formulario__grupo formulario__grupo-btn-enviar">
+          <button type="submit" class="formulario__btn">Enviar</button>
+          <p class="formulario__mensaje-exito" id="formulario__mensaje-exito">Formulario enviado exitosamente!</p>
+      </div>  
+      
+    </form>   
+            </div>
+            <div class="modal-footer">
+                
+                
+            </div>
+          </div>
+        </div>
+    </div>
+    <script>
+      var datat=document.querySelector("#datat"); 
+      var dataTable=new DataTable("#datat",{ 
+        perPage:10,
+        labels: {
+            placeholder: "Buscar...",
+            perPage: "{select} registros por página",
+            noRows: "No se encontraron registros",
+            info: "Mostrando {start} a {end} de {rows} compromisos (Página {page} de {pages} páginas)",
+        }
+      } ) ;
+    </script>
+    <script>
+      var checkbox = document.getElementById('mostrar');
+      var row = document.querySelectorAll('#tablerow');
+      var estado = document.querySelectorAll('#estado');
+      checkbox.addEventListener("click",mostrar)
+
+      if (checkbox.checked==false) {
+        for (let index = 0; index < estado.length; index++) {
+          if (estado[index].textContent=="Pago") {
+            for (let index = 0; index < row.length; index++) {
+              if (estado[index].textContent=="Pago") {
+                row[index].setAttribute('style','display:none');
+              }
+            }
+  
+          }
+          console.log(estado[index].textContent)
+        }
+      }
+      
+      function mostrar(){
+        if (checkbox.checked==true) {
+          for (let index = 0; index < estado.length; index++) {
+            if (estado[index].textContent=="Pago") {
+              for (let index = 0; index < row.length; index++) {
+                if (estado[index].textContent=="Pago") {
+                  row[index].setAttribute('style','display:');
+                }
+              }
+            }
+          }
+        }else if (checkbox.checked==false){
+          for (let index = 0; index < estado.length; index++) {
+            if (estado[index].textContent=="Pago") {
+              for (let index = 0; index < row.length; index++) {
+                if (estado[index].textContent=="Pago") {
+                  row[index].setAttribute('style','display:none');
+                }
+              }
+
+    
+            }
+          }
+        }
+      }
+    </script>
+    <script>
+      const formulario = document.getElementById('formulario');
+    const inputs = document.querySelectorAll('#formulario input');
+    
+    const expresiones = {
+     numeroFac: /^[0-9]{5,10}$/, // Letras, numeros, guion y guion_bajo
+     nombreEm: /^[a-zA-ZÀ-ÿ\s]{1,30}$/, // Letras y espacios, pueden llevar acentos.
+     total: /^[0-9]{3,10}$/, // Letras y espacios, pueden llevar acentos.
+    }
+    
+    const campos = {
+     numeroFac: false,
+     nombreEm: false,
+     total: false,
+    }
+    
+    const validarFormulario = (e) => {
+     switch (e.target.name) {
+       case "numeroFac":
+         validarCampo(expresiones.numeroFac, e.target, 'numeroFac');
+       break;
+       case "nombreEm":
+         validarCampo(expresiones.nombreEm, e.target, 'nombreEm');
+       break;
+       case "total":
+         validarCampo(expresiones.total, e.target, 'total');
+       break;
+       
+     }
+    }
+    
+    const validarCampo = (expresion, input, campo) => {
+     if(expresion.test(input.value)){
+       document.getElementById(`grupo__${campo}`).classList.remove('formulario__grupo-incorrecto');
+       document.getElementById(`grupo__${campo}`).classList.add('formulario__grupo-correcto');
+       document.querySelector(`#grupo__${campo} i`).classList.add('fa-check-circle');
+       document.querySelector(`#grupo__${campo} i`).classList.remove('fa-times-circle');
+       document.querySelector(`#grupo__${campo} .formulario__input-error`).classList.remove('formulario__input-error-activo');
+       campos[campo] = true;
+     } else {
+       document.getElementById(`grupo__${campo}`).classList.add('formulario__grupo-incorrecto');
+       document.getElementById(`grupo__${campo}`).classList.remove('formulario__grupo-correcto');
+       document.querySelector(`#grupo__${campo} i`).classList.add('fa-times-circle');
+       document.querySelector(`#grupo__${campo} i`).classList.remove('fa-check-circle');
+       document.querySelector(`#grupo__${campo} .formulario__input-error`).classList.add('formulario__input-error-activo');
+       campos[campo] = false;
+     }
+    }
+    
+    inputs.forEach((input) => {
+     input.addEventListener('keyup', validarFormulario);
+     input.addEventListener('blur', validarFormulario);
+    });
+    
+    
+    
+       </script>
+    
+</body>
+</html>
