@@ -10,12 +10,8 @@ const expresiones = {
 	nombresUsuario: /^[A-Za-zÀ-ÿ]{1,10}[\s]{0,1}[A-Za-zÀ-ÿ]{1,10}$/, 
     apellidosUsuario: /^[A-Za-zÀ-ÿ]{1,10}[\s]{0,1}[A-Za-zÀ-ÿ]{1,10}$/,
 	correoUsuario:  /^\w+([.-_+]?\w+)*@\w+([.-]?\w+)*(\.\w{2,10})+$/ ,
-<<<<<<< HEAD
-} 
-=======
 	contrasenaUsuario: /^(?=.*\d)(?=.*[a-z])(?=.*[A-Z]).{8,}/,
 }
->>>>>>> 5d8ea986cba6a5bc48dd8ae8aed0c293ea8d7099
 		
 const campos = {
 	nombresUsuario: false,
