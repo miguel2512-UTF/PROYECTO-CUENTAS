@@ -135,7 +135,6 @@ m.addAttribute("usuario",usuario);
     public String delete(@PathVariable Integer idCom) {
     if(idCom > 0) {
     compromisod.delete(idCom);
-    
     }
     
     return "redirect:../listar"; 

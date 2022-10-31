@@ -26,6 +26,7 @@
     </div>
 
     
+
   
     <a class="nav-item" th:href="@{/tipocompromiso/listar}"><i class="bi bi-card-list">tipo compromiso</i></a>
 
@@ -63,9 +64,11 @@
             <td th:text="${g.tipocompromiso.nombre}"></td> 
             <td th:text="${g.estadoCom}" id="estado"></td>
             <td>
+            
                 <a href="" data-toggle="modal" th:attr="data-target='#modal-editar'+${g.idCom}"><button type="button" class="btn btn-dark"><svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-pen-fill" viewBox="0 0 16 16">
                 <path d="m13.498.795.149-.149a1.207 1.207 0 1 1 1.707 1.708l-.149.148a1.5 1.5 0 0 1-.059 2.059L4.854 14.854a.5.5 0 0 1-.233.131l-4 1a.5.5 0 0 1-.606-.606l1-4a.5.5 0 0 1 .131-.232l9.642-9.642a.5.5 0 0 0-.642.056L6.854 4.854a.5.5 0 1 1-.708-.708L9.44.854A1.5 1.5 0 0 1 11.5.796a1.5 1.5 0 0 1 1.998-.001z"/>
                 </svg></button></a>
+                <a href="" th:attr="data-target='#modal-editar'+${g.idCom}" class="eBtn btn btn-primary shadow btn-xs sharp mr-1"><i class="fa fa-pencil"></i></a>
                 
                 <!-- MODAL EDITAR -->
                 <div class="modal fade" tabindex="-1" th:id="modal-editar+${g.idCom}">
@@ -190,7 +193,7 @@
                   <script th:inline="javascript" th:if="${errorMessage}">$("#modal-add").modal("show");</script>
                   
                    <!-- Grupo: Numero de factura -->
-    <div class="formulario__grupo" id="grupo__numeroFac">
+      <div class="formulario__grupo" id="grupo__numeroFac">
       <label for="nombre" class="formulario__label">Número Factura</label>
       <div class="formulario__grupo-input">
         <input type="number" class="formulario__input" name="numeroFac" id="numeroFac" placeholder="111111">
