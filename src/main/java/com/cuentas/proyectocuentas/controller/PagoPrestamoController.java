@@ -45,7 +45,7 @@ public class PagoPrestamoController {
         PagoPrestamo pagoprestamo=new PagoPrestamo();
         m.addAttribute("pagoprestamo", pagoprestamo);
         m.addAttribute("prestamo", prestamoI.findAll());
-
+ 
         LocalDate date = LocalDate.now();
         LocalDate fechaPagoMin = date.minusWeeks(2);
         LocalDate fechaPagoMax = date.plusYears(1);

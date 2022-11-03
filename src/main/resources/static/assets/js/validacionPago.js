@@ -2,53 +2,32 @@ const formulario = document.getElementById('formulario');
 const inputs = document.querySelectorAll('#formulario input');
 const selects = document.querySelectorAll('#formulario select');
 const cancelButton = document.querySelectorAll('.cancel')
-
+  
 const expresiones = {
-	documentoPrestamista: /^\d{8,10}$/, 
-	nombrePrestamista: /^[a-zA-ZÀ-ÿ\s]{4,25}$/, 
-	fechaPagoOportuno: /^(\d{4})(\/|-)(0[1-9]|1[0-2])\2([0-2][0-9]|3[0-1])$/, 
-	valorPrestamo: /^\d{5,20}$/,
-	tasaPrestamo: /([0-9\s]{1,4})$/, //tasaPrestamo de prestamo
-	numeroCuotas: /^\d{1,2}$/, //Cantidad de Numero Cuotas
+	fechaPago: /^(\d{4})(\/|-)(0[1-9]|1[0-2])\2([0-2][0-9]|3[0-1])$/,
+	totalPago: /^\d{1,20}$/,
+	
+	
 } 
 
 const campos = {
-	documentoPrestamista: false,
-	nombrePrestamista: false,
-	fechaPagoOportuno: false,
-	valorPrestamo: false, 
-	tasaPrestamo: false,
-	numeroCuotas: false,
-	estadoPrestamo: false,
-	periodoCuota: false,
+	prestamo: false,
+	fechaPago: false,
+	totalPago: false,
 }
 
 const validarFormulario = (e) => {
 	switch (e.target.name) {
-		case "documentoPrestamista":
-			validarCampo(expresiones.documentoPrestamista, e.target, 'documentoPrestamista');
+		case "prestamo":
+			validarSelect(e.target, 'prestamo');
 		break;
-		case "nombrePrestamista":
-			validarCampo(expresiones.nombrePrestamista, e.target, 'nombrePrestamista');
+		case "fechaPago":
+			validarCampo(expresiones.fechaPago, e.target, 'fechaPago');
 		break;
-		case "fechaPagoOportuno":
-			validarCampo(expresiones.fechaPagoOportuno, e.target, 'fechaPagoOportuno');
+		case "totalPago": 
+			validarCampo(expresiones.totalPago, e.target, 'totalPago')
 		break;
-		case "valorPrestamo":
-			validarCampo(expresiones.valorPrestamo, e.target, 'valorPrestamo')
-		break;
-		case "tasaPrestamo":
-			validarCampo(expresiones.tasaPrestamo , e.target, 'tasaPrestamo')
-		break;
-		case "numeroCuotas":
-			validarCampo(expresiones.numeroCuotas, e.target, 'numeroCuotas')
-		break;
-		case "estadoPrestamo":
-			validarSelect(e.target, 'estadoPrestamo')
-		break;
-		case "periodoCuota":
-			validarSelect(e.target, 'periodoCuota')
-		break;
+		
 	}
 }
 
@@ -69,6 +48,8 @@ const validarCampo = (expresion, input, campo) => {
 		campos[campo] = false;
 	}
 }
+
+
 const validarSelect = (select, campo) => {
 	if (select.options[select.selectedIndex].textContent=='Seleccionar') {
 		document.getElementById(`grupo__${campo}`).classList.add('formulario__grupo-incorrecto');
@@ -87,6 +68,7 @@ const validarSelect = (select, campo) => {
 	}
 }
 
+ 
 		
 inputs.forEach((input) => {
 	input.addEventListener('keyup', validarFormulario);
@@ -101,14 +83,14 @@ selects.forEach((select) => {
 formulario.addEventListener('submit',(e)=>{
 	e.preventDefault()
 
-	if(campos.documentoPrestamista && campos.nombrePrestamista && campos.fechaPagoOportuno && campos.valorPrestamo && campos.tasaPrestamo && campos.periodoCuota && campos.numeroCuotas ){
+	if(campos.fechaPago && campos.totalPago && campos.prestamo ){
 		formulario.submit()
 	}else{
 		inputs.forEach((input) => {
 			input.addEventListener('click', validarFormulario);
 			input.click()
 			input.removeEventListener('click', validarFormulario)
-		}); 
+		});
 
 		selects.forEach((select) => {
 			select.addEventListener('click', validarFormulario)

@@ -1,0 +1,383 @@
+<!DOCTYPE html>
+<html xmlns:th="https://wwww.thymeleaf.org" lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@4.6.2/dist/css/bootstrap.min.css" integrity="sha384-xOolHFLEh07PJGoPkLv1IbcEPTNtaed2xpHsD9ESMhqIYd0nLMwNLD69Npy4HI+N" crossorigin="anonymous">
+    <title>Abonos</title>
+    <link rel="stylesheet" type="text/css" th:href="@{/assets/css/estiloC.css}">
+    <link rel="stylesheet" href="../assets/css/estilos2.css">
+    <link rel="stylesheet" href="../assets/css/stylev.css">
+    <link rel="icon" href="../assets/img/Icon-cuentascasa.png">
+    <script src="https://cdn.jsdelivr.net/npm/jquery@3.5.1/dist/jquery.slim.min.js" integrity="sha384-DfXdz2htPH0lsSSs5nCTpuj/zy4C+OGpamoFVy38MVBnE+IbbVYUew+OrCXaRkfj" crossorigin="anonymous"></script>
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@4.6.2/dist/js/bootstrap.bundle.min.js" integrity="sha384-Fy6S3B9q64WdZWQUiU+q4/2Lc9npb8tCaSX9FK7E8HnRr0Jz8D6OP9dO5Vg3Q9ct" crossorigin="anonymous"></script>
+    <link rel="stylesheet" type="text/css" href="https://cdn.jsdelivr.net/gh/mobius1/vanilla-Datatables@latest/vanilla-dataTables.min.css">
+    <script type="text/javascript" src="https://cdn.jsdelivr.net/gh/mobius1/vanilla-Datatables@latest/vanilla-dataTables.min.js"></script>
+</head> 
+<body>
+    <div th:replace="/views/header :: nav"></div>
+    <div class="title">
+      <h1>Abonos</h1>
+      <a href="" data-toggle="modal" data-target="#modal-add"><svg xmlns="http://www.w3.org/2000/svg" width="32" height="32" fill="currentColor" class="bi bi-plus-circle-fill" viewBox="0 0 16 16">
+        <path d="M16 8A8 8 0 1 1 0 8a8 8 0 0 1 16 0zM8.5 4.5a.5.5 0 0 0-1 0v3h-3a.5.5 0 0 0 0 1h3v3a.5.5 0 0 0 1 0v-3h3a.5.5 0 0 0 0-1h-3v-3z"/>
+      </svg></a>
+    </div> 
+    
+    <div class="alerta">
+        <div class="alert alert-warning alert-dismissible fade show" role="alert" th:if="${prestamoabonos.size()==0}">
+        <strong>Precaución!</strong> No hay abonos para mostrar
+        <button type="button" class="close" data-dismiss="alert" aria-label="Close">
+          <span aria-hidden="true">&times;</span>
+        </button>
+        </div>
+    </div>
+    
+    <input type="checkbox" id="mostrar">Mostrar abonos inactivos
+
+    <table border="1" id="table-abono">
+        <thead>
+            <th>ID</th>
+            <th>Nombre prestamista</th>
+            <th>fecha Abono</th>
+            <th>Total Abono</th>
+            <th>Imagen Abono</th>
+            <th>Acciones</th>
+        </thead>
+        <tr th:each="Ab:${prestamoabonos}" id="tablerow">
+            <td th:text="${Ab.idPrestamoAbono}"></td>
+            <td th:text="${Ab.prestamo.nombrePrestamista}"></td>
+            <td th:text="${Ab.fechaAbono}"></td>
+            <td th:text="${Ab.totalAbono}"></td>
+            <td>
+              <div class="modal-container">
+                <img 
+              th:src="@{'/assets/aimg/' + ${Ab.imagenAbono}}" 
+              th:alt="${Ab.imagenAbono}" id="imagenAbono">
+              </div>
+              
+            </td>
+            <td>
+                <a href="" data-toggle="modal" th:attr="data-target='#modal-editar'+${Ab.idPrestamoAbono}"><button type="button" class="btn btn-dark"><svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-pen-fill" viewBox="0 0 16 16">
+                <path d="m13.498.795.149-.149a1.207 1.207 0 1 1 1.707 1.708l-.149.148a1.5 1.5 0 0 1-.059 2.059L4.854 14.854a.5.5 0 0 1-.233.131l-4 1a.5.5 0 0 1-.606-.606l1-4a.5.5 0 0 1 .131-.232l9.642-9.642a.5.5 0 0 0-.642.056L6.854 4.854a.5.5 0 1 1-.708-.708L9.44.854A1.5 1.5 0 0 1 11.5.796a1.5 1.5 0 0 1 1.998-.001z"/>
+                </svg></button></a>
+                
+                <!-- MODAL EDITAR -->
+                <div class="modal fade" tabindex="-1" th:id="modal-editar+${Ab.idPrestamoAbono}">
+                    <div class="modal-dialog">
+                      <div class="modal-content">
+                        <div class="modal-header">
+                          <h5 class="modal-title">Editar Abono</h5>
+                        </div>
+                        <form th:action="@{/prestamoabono/add}" method="post" th:object="${abono}" enctype="multipart/form-data">
+                          <div class="modal-body">
+                                  <input type="hidden" name="idPrestamoAbono" id="idPrestamoAbono" th:value="${Ab.idPrestamoAbono}">
+                                  <div>
+                                  <label for="">Valor del préstamo</label>
+                                  <select name="prestamo" readonly>
+                                    <option th:value="${Ab.prestamo.idPrestamo}" th:text="${Ab.prestamo.nombrePrestamista}">Seleccionar</option> 
+                                    <option th:each="Pr:${prestamo}" th:text="${Pr.nombrePrestamista}" th:value="${Pr.idPrestamo}"></option>
+                                  </select>
+                                  <span class="validity"></span>
+                                  </div>
+                                  <div>
+                                  <label for="">Fecha Abono</label>
+                                  <input type="date" name="fechaAbono" th:min="${fechaAbonoMin}" th:max="${fechaAbonoMax}" id="fechaAbono" th:value="${Ab.fechaAbono}" required>
+                                  <span class="validity"></span>
+                                  </div>
+                                  <div>
+                                  <label for="">Total Abono</label>
+                                  <input type="number" name="totalAbono" th:value="${Ab.totalAbono}" placeholder="Ejemplo: 250.000" th:max="${Ab.prestamo.valorPrestamo}" required>
+                                  <span class="validity"></span>
+                                  </div>
+                                  <div>
+                                  <label for="imagenAbono">Imagen Abono</label>
+                                  <input type="file" name="file" accept="image/*" required>
+                                  <span class="validity"></span>
+                                  </div>
+                          </div>
+                          <div class="modal-footer">
+                              <button type="button" class="btn btn-secondary" data-dismiss="modal">Cancelar</button>
+                              <button type="submit" class="btn bg-cuentas" id="submitEdit">Editar</button>
+                          </div>
+                        </form>
+                      </div>
+                    </div>
+                </div>
+
+                <a href="" data-toggle="modal" th:attr="data-target='#modal-delete'+${Ab.idPrestamoAbono}"><button type="button" class="btn btn-dark"><svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-trash-fill" viewBox="0 0 16 16">
+                <path d="M2.5 1a1 1 0 0 0-1 1v1a1 1 0 0 0 1 1H3v9a2 2 0 0 0 2 2h6a2 2 0 0 0 2-2V4h.5a1 1 0 0 0 1-1V2a1 1 0 0 0-1-1H10a1 1 0 0 0-1-1H7a1 1 0 0 0-1 1H2.5zm3 4a.5.5 0 0 1 .5.5v7a.5.5 0 0 1-1 0v-7a.5.5 0 0 1 .5-.5zM8 5a.5.5 0 0 1 .5.5v7a.5.5 0 0 1-1 0v-7A.5.5 0 0 1 8 5zm3 .5v7a.5.5 0 0 1-1 0v-7a.5.5 0 0 1 1 0z"/>
+                </svg></button></a>
+
+                <!-- MODAL ELIMINAR -->
+                <div class="modal fade" tabindex="-1" th:id="modal-delete+${Ab.idPrestamoAbono}">
+                    <div class="modal-dialog">
+                      <div class="modal-content">
+                        <div class="modal-header">
+                          <h5 class="modal-title">Eliminar Abono</h5>
+                        </div>
+                        <div class="modal-body">
+                          <p>Esta seguro que desea ELIMINAR el Abono?</p>
+                      </div>
+                        
+                        <div class="modal-footer">
+                          <button type="button" class="btn btn-secondary" data-dismiss="modal">Cancelar</button>
+                          <a role="button" class="btn bg-cuentas" th:href="@{/prestamoabono/delete/}+${Ab.idPrestamoAbono}"> Eliminar Abono</a>
+                            </div>
+                      </div>
+                    </div>
+                </div>
+            </td>
+        </tr>
+    </table>
+    
+    <!-- MODAL REGISTRAR -->
+    <div class="modal fade" tabindex="-1" id="modal-add">
+        <div class="modal-dialog">
+          <div class="modal-content">
+            <div class="modal-header">
+              <h5 class="modal-title">Registrar Abono</h5>
+            </div>
+            <form th:action="@{/prestamoabono/add}" method="post" th:object="${abono}" enctype="multipart/form-data" id="formulario" class="formulario">
+            <div class="modal-body">
+                  <script th:inline="javascript" th:if="${#fields.hasErrors('*')}">$("#modal-add").modal("show");</script>
+                  <script th:inline="javascript" th:if="${errorMessage}">$("#modal-add").modal("show");</script>
+                   <!-- Grupo: valor Abono-->
+                  <div class="formulario__grupo" id="grupo__valorPrestamo">
+                    <label for="valorPrestamo" class="formulario__label">Valor del Préstamo</label>
+                    <select th:field="*{prestamo}" min="1000000" required id="valorPrestamo" class="opciones">
+                      <option value="">Seleccionar</option>
+                      <option th:each="Pr:${prestamo}" th:text="${Pr.valorPrestamo}" th:value="${Pr.idPrestamo}"></option>
+                  </select>
+                    </div>
+                       
+                              
+          
+    <!-- Grupo: Fecha Abono-->
+    <div class="formulario__grupo" id="grupo__fechaAbono">
+      <label for="fechaAbono" class="formulario__label">Fecha Abono</label>
+      <div class="formulario__grupo-input">
+        <input type="date" class="formulario__input" name="fechaAbono" id="fechaAbono" value="2022-08-30"  th:min="${fechaAbonoMin}" th:max="${fechaAbonoMax}">
+        <i class="formulario__validacion-estado fas fa-times-circle"></i>
+      </div>
+      <p class="formulario__input-error"> no puede ir vacio</p>
+    </div>
+    <div class="error">
+      <div class="form-text text-danger" th:if="${#fields.hasErrors('fechaAbono')}" th:errors="*{fechaAbono}"></div>
+    </div>
+     <!-- Grupo: total Abono-->
+    <div class="formulario__grupo" id="grupo__totalAbono">
+      <label for="totalAbono" class="formulario__label">Total Abono</label>
+      <div class="formulario__grupo-input">
+        <input type="number" class="formulario__input" name="totalAbono" id="totalAbono"  min="50000" placeholder="Ejemplo: 250.000">
+        <i class="formulario__validacion-estado fas fa-times-circle"></i>
+      </div>
+      <p class="formulario__input-error"> tiene que ser de 1 a 10 dígitos y solo puede contener numeros.</p>
+    </div>
+    <div class="error">
+      <div class="form-text text-danger" th:if="${#fields.hasErrors('totalAbono')}" th:errors="*{totalAbono}"></div>
+    </div>
+
+         <!-- Grupo: Imagen Abono-->
+         <div class="formulario__grupo" id="grupo__totalAbono">
+          <label for="totalAbono" class="formulario__label">Imagen Abono</label>
+          <div class="formulario__grupo-input">
+            <input type="file" name="file" accept="image/*" class="formulario__input" required>
+            <i class="formulario__validacion-estado fas fa-times-circle"></i>
+          </div>
+         
+        </div>
+       
+
+                    
+              
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-secondary" data-dismiss="modal">Cancelar</button>
+                <button type="submit" class="btn bg-cuentas" id="registrar">Registrar</button>
+            </div>
+          </form>
+          </div>
+        </div>
+    </div>
+
+    <script>
+      var datat=document.querySelector("#table-abono"); 
+      var dataTable=new DataTable("#table-abono",{ 
+        perPage:10,
+        labels: {
+            placeholder: "Buscar...",
+            perPage: "{select} registros por página",
+            noRows: "No se encontraron registros",
+            info: "Mostrando {start} a {end} de {rows} abonos (Página {page} de {pages} páginas)",
+        }
+      } ) ;
+    </script>
+
+    <script>
+      var checkbox = document.getElementById('mostrar');
+      var row = document.querySelectorAll('#tablerow');
+      var estado = document.querySelectorAll('#estado');
+
+      checkbox.addEventListener("click",mostrar)
+      
+      if (checkbox.checked==false) {
+        for (let index = 0; index < estado.length; index++) {
+          if (estado[index].textContent=="Inactivo") {
+            for (let index = 0; index < row.length; index++) {
+              if (estado[index].textContent=="Inactivo") {
+                row[index].setAttribute('style','display:none');
+              }
+            }
+          }
+          console.log(estado[index].textContent)
+        }
+      }
+      
+      function mostrar(){
+        if (checkbox.checked==true) {
+          for (let index = 0; index < estado.length; index++) {
+            if (estado[index].textContent=="Inactivo") {
+              for (let index = 0; index < row.length; index++) {
+                if (estado[index].textContent=="Inactivo") {
+                  row[index].setAttribute('style','display:');
+                }
+              }
+            }
+          }
+        }else if (checkbox.checked==false){
+          for (let index = 0; index < estado.length; index++) {
+            if (estado[index].textContent=="Inactivo") {
+              for (let index = 0; index < row.length; index++) {
+                if (estado[index].textContent=="Inactivo") {
+                  row[index].setAttribute('style','display:none');
+                }
+              }
+            }
+          }
+        }
+      }
+    </script>
+        <script>
+          $('#submitEdit').on('click',function(e){
+              e.preventDefault();
+              var form = $(this).parents('form');
+              Swal.fire({
+                  title: 'seguro quieres realizar esta accion?',
+                  text: "ya no podras dar vuelta atras!",
+                  type: 'warning',
+                  showCancelButton: true,
+                  confirmButtonColor: '#3085d6',
+                  cancelButtonColor: '#d33',
+                  confirmButtonText: 'si, editar!'
+              }).then((result) => {
+                  if (result.value) {
+      
+                      form.submit();
+                  }
+              });
+          });
+      </script>
+       <script>
+        $('#registrar').on('click',function(e){
+            e.preventDefault();
+            var form = $(this).parents('form');
+            Swal.fire({
+                title: 'quieres guardar este abono?',
+                text: "quedara guardado y no se podra borrar!",
+                type: 'warning',
+                showCancelButton: true,
+                confirmButtonColor: '#3085d6',
+                cancelButtonColor: '#d33',
+                confirmButtonText: 'si, guardar!'
+            }).then((result) => {
+                if (result.value) {
+    
+                    form.submit();
+                }
+            });
+        });
+    </script>
+      <script src="//cdn.jsdelivr.net/npm/sweetalert2@11"></script>
+      <script>
+
+            document.querySelectorAll(".modal-container img").forEach(el=>{
+              el.addEventListener("click", function(ev){
+                ev.stopPropagation();
+                this.parentNode.classList.add("active")
+              })
+            });
+
+            document.querySelectorAll(".modal-container").forEach(el=>{
+              el.addEventListener("click", function(ev){
+                this.classList.remove("active")
+              })
+            });
+
+
+        const valor=document.getElementById("valorPrestamo");
+        const total=document.getElementById("totalAbono");
+  
+
+        function cambiarMax() {
+          let valor1=parseInt(valor.options[valor.selectedIndex].textContent)
+          total.setAttribute("max" , valor1)
+        }
+        valor.addEventListener("click", cambiarMax);
+
+ 
+      </script>
+              <script>
+                const formulario = document.getElementById('formulario');
+             const inputs = document.querySelectorAll('#formulario input');
+             
+             const expresiones = {
+               fechaAbono: /^[0-9\_\-]{2,30}$/, // Letras, numeros, guion y guion_bajo
+               totalAbono: /^[0-9]{1,10}$/, // Letras y espacios, pueden llevar acentos.
+             
+             }
+             
+             const campos = {
+              fechaAbono: false,
+               totalAbono: false,
+             }
+             
+             const validarFormulario = (e) => {
+               switch (e.target.name) {
+                 case "fechaAbono":
+                   validarCampo(expresiones.fechaAbono, e.target, 'fechaAbono');
+                 break;
+                 case "totalAbono":
+                   validarCampo(expresiones.totalAbono, e.target, 'totalAbono');
+                 break;
+                 
+               }
+             }
+             
+             const validarCampo = (expresion, input, campo) => {
+               if(expresion.test(input.value)){
+                 document.getElementById(`grupo__${campo}`).classList.remove('formulario__grupo-incorrecto');
+                 document.getElementById(`grupo__${campo}`).classList.add('formulario__grupo-correcto');
+                 document.querySelector(`#grupo__${campo} i`).classList.add('fa-check-circle');
+                 document.querySelector(`#grupo__${campo} i`).classList.remove('fa-times-circle');
+                 document.querySelector(`#grupo__${campo} .formulario__input-error`).classList.remove('formulario__input-error-activo');
+                 campos[campo] = true;
+               } else {
+                 document.getElementById(`grupo__${campo}`).classList.add('formulario__grupo-incorrecto');
+                 document.getElementById(`grupo__${campo}`).classList.remove('formulario__grupo-correcto');
+                 document.querySelector(`#grupo__${campo} i`).classList.add('fa-times-circle');
+                 document.querySelector(`#grupo__${campo} i`).classList.remove('fa-check-circle');
+                 document.querySelector(`#grupo__${campo} .formulario__input-error`).classList.add('formulario__input-error-activo');
+                 campos[campo] = false;
+               }
+             }
+             
+             inputs.forEach((input) => {
+               input.addEventListener('keyup', validarFormulario);
+               input.addEventListener('blur', validarFormulario);
+             });
+             
+             
+                 </script>
+</body>
+</html>

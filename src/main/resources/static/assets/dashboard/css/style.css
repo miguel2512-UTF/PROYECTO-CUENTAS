@@ -677,6 +677,13 @@ pre {
   margin-right: -15px;
   margin-left: -15px; }
 
+  .row3{
+    display: flex;
+    justify-content: space-around;
+     margin-right: -15px;
+     margin-left: -15px;
+   }
+
 .no-gutters {
   margin-right: 0;
   margin-left: 0; }

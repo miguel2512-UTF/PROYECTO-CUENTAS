@@ -48,7 +48,7 @@ public class PrestamoAbonoController {
         LocalDate date=LocalDate.now();
         LocalDate fechaAbonoMin=date.minusWeeks(2);
         LocalDate fechaAbonoMax = date.plusYears(1);
-
+ 
         m.addAttribute("fechaAbonoMin", fechaAbonoMin);
         m.addAttribute("fechaAbonoMax", fechaAbonoMax);
         return "views/prestamoabono/prestamoabono";
