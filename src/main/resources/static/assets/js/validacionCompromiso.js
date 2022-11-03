@@ -7,46 +7,51 @@ const cancelButton = document.querySelectorAll('#modal-add .cancel')
 	 
 
 const expresiones = {
-	nombresUsuario: /^[A-Za-zÀ-ÿ]{1,10}[\s]{0,1}[A-Za-zÀ-ÿ]{1,10}$/, 
-    apellidosUsuario: /^[A-Za-zÀ-ÿ]{1,10}[\s]{0,1}[A-Za-zÀ-ÿ]{1,10}$/,
-	correoUsuario:  /^\w+([.-_+]?\w+)*@\w+([.-]?\w+)*(\.\w{2,10})+$/ ,
-<<<<<<< HEAD
-
-} 
-	
-=======
-	contrasenaUsuario: /^(?=.*\d)(?=.*[a-z])(?=.*[A-Z]).{8,}/,
+	numeroFac:  /^[0-9]{5,10}$/, 
+    nombreEm: /^[A-Za-zÀ-ÿ]{1,10}[\s]{0,1}[A-Za-zÀ-ÿ]{1,10}$/,
+    total: /^[0-9]{3,10}$/,
 }
 		
->>>>>>> a4ba5d6d4dc1a245b498bd1a47c761ded5c7ed47
 const campos = {
-	nombresUsuario: false,
-	apellidosUsuario: false,
-	contrasenaUsuario: false,
-	correoUsuario: false,
-	tipoUsuario: false,
-	estadoUsuario: false,
+	numeroFac: false,
+	nombreEm: false,
+	fecha: false,
+    fechaS: false,
+    metodo:false,
+    total: false,
+    usuario: false,
+	tipocompromiso: false,
+	estadoCom: false,
 }
 		
 const validarFormulario = (e) => {
 	switch (e.target.name) {
-		case "nombresUsuario":
-			validarCampo(expresiones.nombresUsuario, e.target, 'nombresUsuario');
+		case "numeroFac":
+			validarCampo(expresiones.numeroFac, e.target, 'numeroFac');
 		break;
-		case "apellidosUsuario":
-			validarCampo(expresiones.apellidosUsuario, e.target, 'apellidosUsuario');
+		case "nombreEm":
+			validarCampo(expresiones.nombreEm, e.target, 'nombreEm');
 		break;
-		case "contrasenaUsuario":
-			validarCampo(expresiones.contrasenaUsuario, e.target, 'contrasenaUsuario')
+		case "fecha":
+			validarCampo(expresiones.fecha, e.target, 'fecha');
 		break;
-		case "correoUsuario":
-			validarCampo(expresiones.correoUsuario, e.target, 'correoUsuario');
+		case "fechaS":
+			validarCampo(expresiones.fecha, e.target, 'fechaS');
 		break;
-		case "tipoUsuario":
-			validarSelect(e.target, 'tipoUsuario');
+        case "metodo":
+			validarSelect(e.target, 'metodo');
 		break;
-		case "estadoUsuario":
-			validarSelect(e.target, 'estadoUsuario');
+        case "total":
+			validarCampo(expresiones.total, e.target, 'total');
+		break;
+        case "usuario":
+			validarSelect(e.target, 'usuario');
+		break;
+        case "tipocompromiso":
+			validarSelect(e.target, 'tipocompromiso');
+		break;
+        case "estadoCom":
+			validarSelect(e.target, 'estadoCom');
 		break;
 	}
 }
@@ -138,7 +143,7 @@ selects.forEach((select) => {
 formulario.addEventListener('submit',(e)=>{
 	e.preventDefault()
 
-	if(campos.nombresUsuario && campos.apellidosUsuario && campos.correoUsuario && campos.tipoUsuario){
+	if(campos.numeroFac && campos.nombreEm && campos.metodo && campos.total && campos.usuario && campos.tipocompromiso && campos.estadoCom){
 		formulario.submit()
 	}else{
 		inputs.forEach((input) => {
@@ -169,70 +174,3 @@ cancelButton.forEach((button) => {
         });
     })
 });
-
-// VALIDACIÓN EDITAR
-
-const formularioEditar = document.getElementById('formularioEdit');
-const inputsEdit = document.querySelectorAll('#formularioEdit input');
-const selectsEdit = document.querySelectorAll('#formularioEdit select');
-const cancelButtonEdit = document.querySelectorAll('#modal-edit .cancel')
-const editButton = document.getElementById('Editar')
-
-inputsEdit.forEach((input) => {
-	input.addEventListener('keyup', validarFormulario);
-	input.addEventListener('blur', validarFormulario);
-});
-
-selectsEdit.forEach((select) => {
-	select.addEventListener('blur',validarFormulario)
-	select.addEventListener('change',validarFormulario)
-})
-
-formularioEditar.addEventListener('submit',(e)=>{
-	e.preventDefault()
-
-	if(campos.contrasenaUsuario && campos.correoUsuario && campos.tipoUsuario && campos.estadoUsuario){
-		formularioEditar.submit()
-	}else{
-		inputsEdit.forEach((input) => {
-			input.addEventListener('click', validarFormulario);
-			input.click()
-			input.removeEventListener('click', validarFormulario)
-		});
-
-		selectsEdit.forEach((select) => {
-			select.addEventListener('click', validarFormulario)
-			select.click()
-			select.removeEventListener('click', validarFormulario)
-		});
-	}
-})
-
-cancelButtonEdit.forEach((button) => {
-    button.addEventListener('click',()=>{
-        formularioEditar.reset()
-        document.querySelectorAll('#formularioEdit .formulario__grupo-correcto').forEach((icono) => {
-            icono.classList.remove('formulario__grupo-correcto');
-        });
-        document.querySelectorAll('#formularioEdit .formulario__grupo-incorrecto').forEach((icono) => {
-            icono.classList.remove('formulario__grupo-incorrecto');
-        });
-        document.querySelectorAll('#formularioEdit .formulario__input-error').forEach((icono) => {
-            icono.classList.remove('formulario__input-error-activo');
-        });
-    })
-});
-
-editButton.addEventListener('click',()=>{
-	inputsEdit.forEach((input) => {
-		input.addEventListener('click', validarFormulario);
-		input.click()
-		input.removeEventListener('click', validarFormulario)
-	});
-
-	selectsEdit.forEach((select) => {
-		select.addEventListener('click', validarFormulario)
-		select.click()
-		select.removeEventListener('click', validarFormulario)
-	});
-})
