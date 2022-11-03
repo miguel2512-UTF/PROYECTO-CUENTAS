@@ -1,5 +1,6 @@
 package com.cuentas.proyectocuentas.model;
 
+import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -18,7 +19,7 @@ import javax.validation.constraints.Pattern;
 
 @Entity
 @Table(name="Usuario")
-public class Usuario {
+public class Usuario implements Serializable{
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
@@ -34,7 +35,7 @@ public class Usuario {
     @Pattern(regexp = "[A-Za-zñ ]{1,20}")
     private String apellidosUsuario;
 
-    @Column(length = 50, nullable = false)
+    @Column(length = 300, nullable = false)
     // @NotEmpty
     private String contrasenaUsuario;
 

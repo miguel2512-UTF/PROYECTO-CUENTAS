@@ -5,24 +5,24 @@
 	<meta charset="UTF-8">
 	<meta name="viewport" content="width=device-width, initial-scale=1">
 <!--===============================================================================================-->	
-	<link rel="icon" type="image/png" href="../assets/login/images/Icon-cuentascasa.png"/>
+	<link rel="icon" type="image/png" th:href="@{/assets/login/images/Icon-cuentascasa.png}"/>
 <!--===============================================================================================-->
-	<link rel="stylesheet" type="text/css" href="../assets/login/vendor/bootstrap/css/bootstrap.min.css">
+	<link rel="stylesheet" type="text/css" th:href="@{/assets/login/vendor/bootstrap/css/bootstrap.min.css}">
 <!--===============================================================================================-->
-	<link rel="stylesheet" type="text/css" href="../assets/login/fonts/font-awesome-4.7.0/css/font-awesome.min.css">
+	<link rel="stylesheet" type="text/css" th:href="@{/assets/login/fonts/font-awesome-4.7.0/css/font-awesome.min.css}">
 <!--===============================================================================================-->
-	<link rel="stylesheet" type="text/css" href="../assets/login/vendor/animate/animate.css">
+	<link rel="stylesheet" type="text/css" th:href="@{/assets/login/vendor/animate/animate.css}">
 <!--===============================================================================================-->	
-	<link rel="stylesheet" type="text/css" href="../assets/login/vendor/css-hamburgers/hamburgers.min.css">
+	<link rel="stylesheet" type="text/css" th:href="@{/assets/login/vendor/css-hamburgers/hamburgers.min.css}">
 <!--===============================================================================================-->
-	<link rel="stylesheet" type="text/css" href="../assets/login/vendor/animsition/css/animsition.min.css">
+	<link rel="stylesheet" type="text/css" th:href="@{/assets/login/vendor/animsition/css/animsition.min.css}">
 <!--===============================================================================================-->
-	<link rel="stylesheet" type="text/css" href="../assets/login/vendor/select2/select2.min.css">
+	<link rel="stylesheet" type="text/css" th:href="@{/assets/login/vendor/select2/select2.min.css}">
 <!--===============================================================================================-->	
-	<link rel="stylesheet" type="text/css" href="../assets/login/vendor/daterangepicker/daterangepicker.css">
+	<link rel="stylesheet" type="text/css" th:href="@{./assets/login/vendor/daterangepicker/daterangepicker.css}">
 <!--===============================================================================================-->
-	<link rel="stylesheet" type="text/css" href="../assets/login/css/util.css">
-	<link rel="stylesheet" type="text/css" href="../assets/login/css/main.css">
+	<link rel="stylesheet" type="text/css" th:href="@{/assets/login/css/util.css}">
+	<link rel="stylesheet" type="text/css" th:href="@{/assets/login/css/main.css}">
 <!--===============================================================================================-->
 </head>
 <body>
@@ -30,20 +30,20 @@
 	<div class="limiter">
 		<div class="container-login100">
 			<div class="wrap-login100">
-				<form class="login100-form validate-form p-l-55 p-r-55 p-t-250" method="post" th:action="@{/usuario/iniciars}" th:object="${usuario}">
+				<form class="login100-form validate-form p-l-55 p-r-55 p-t-250" method="post" th:action="@{/loginpost}">
 					<span class="login100-form-title">
-						<img src="../assets/login/images/logo-cuentas-blanco.png" alt="">
+						<img th:src="@{/assets/login/images/logo-cuentas-blanco.png}" alt="">
 					</span>
 
 					<h2 class="text-center" id="iniciarSesion">Iniciar Sesión</h2>
 
 					<div class="wrap-input100 validate-input m-b-16" data-validate="Por favor ingrese su correo">
-						<input class="input100" type="text" th:field="*{nombreUsuario}" placeholder="Usuario">
+						<input class="input100" type="text" name="correoUsuario" placeholder="Correo" autocomplete="off">
 						<span class="focus-input100"></span>
 					</div>
 
 					<div class="wrap-input100 validate-input" data-validate = "Por favor ingrese su contraseña">
-						<input class="input100" type="password" th:field="*{contrasenaUsuario}" placeholder="Contraseña">
+						<input class="input100" type="password" name="contrasenaUsuario" placeholder="Contraseña">
 						<span class="focus-input100"></span>
 					</div>
 
@@ -58,10 +58,10 @@
 					</div>
 
 					<div class="container-login100-form-btn">
-						<button class="login100-form-btn">
+						<button class="login100-form-btn" type="submit">
 							Ingresar
 						</button>
-                        <div class="form-text text-danger" th:if="${Error}" th:text="${Error}"></div>
+                        <div class="form-text text-danger" th:if="${param.error}">Correo o contraseña incorrectos</div>
 					</div>            
 
 					<div class="flex-col-c p-t-120 p-b-40">
@@ -80,21 +80,21 @@
 	
 	
 <!--===============================================================================================-->
-	<script src="../assets/login/vendor/jquery/jquery-3.2.1.min.js"></script>
+	<script th:src="@{/assets/login/vendor/jquery/jquery-3.2.1.min.js}"></script>
 <!--===============================================================================================-->
-	<script src="../assets/login/vendor/animsition/js/animsition.min.js"></script>
+	<script th:src="@{/assets/login/vendor/animsition/js/animsition.min.js}"></script>
 <!--===============================================================================================-->
-	<script src="../assets/login/vendor/bootstrap/js/popper.js"></script>
-	<script src="../assets/login/vendor/bootstrap/js/bootstrap.min.js"></script>
+	<script th:src="@{/assets/login/vendor/bootstrap/js/popper.js}"></script>
+	<script th:src="@{/assets/login/vendor/bootstrap/js/bootstrap.min.js}"></script>
 <!--===============================================================================================-->
-	<script src="../assets/login/vendor/select2/select2.min.js"></script>
+	<script th:src="@{/assets/login/vendor/select2/select2.min.js}"></script>
 <!--===============================================================================================-->
-	<script src="../assets/login/vendor/daterangepicker/moment.min.js"></script>
-	<script src="../assets/login/vendor/daterangepicker/daterangepicker.js"></script>
+	<script th:src="@{/assets/login/vendor/daterangepicker/moment.min.js}"></script>
+	<script th:src="@{/assets/login/vendor/daterangepicker/daterangepicker.js}"></script>
 <!--===============================================================================================-->
-	<script src="../assets/login/vendor/countdowntime/countdowntime.js"></script>
+	<script th:src="@{/assets/login/vendor/countdowntime/countdowntime.js}"></script>
 <!--===============================================================================================-->
-	<script src="../assets/login/js/main.js"></script>
+	<script th:src="@{/assets/login/js/main.js}"></script>
 
 </body>
 </html>

@@ -13,6 +13,8 @@
     <!-- JS para CRUD -->
 	<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.1/jquery.min.js"></script>
 	<script th:src="@{/assets/js/main.js}"></script>
+	<!-- Toastr -->
+    <link rel="stylesheet" th:href="@{/assets/dashboard/vendor/toastr/css/toastr.min.css}">
 	<!-- Estilos -->
     <link href='https://unpkg.com/boxicons@2.1.2/css/boxicons.min.css' rel='stylesheet'>
 	<link rel="stylesheet" th:href="@{/assets/dashboard/vendor/chartist/css/chartist.min.css}">
@@ -888,6 +890,8 @@
                     </div>
 				</div>
             </div>
+			<button type="button" class="btn btn-dark mb-2  mr-2" id="toastr-success-bottom-right" hidden>Bottom Right</button>
+
         </div>
 
         <!-- MODAL REGISTRAR -->
@@ -979,7 +983,7 @@
 								<input type="text" th:field="*{nombresUsuario}" autocomplete="off" required pattern="[A-Za-zñ ]{1,20}" hidden>
                       			<input type="text" th:field="*{apellidosUsuario}" autocomplete="off" required pattern="[A-Za-zñ ]{1,20}" hidden>
 							</div>
-                            <div class="form-group" id="grupo__contrasenaUsuario">
+                            <div class="form-group" id="grupo__contrasenaUsuario" hidden>
                                 <label for="">Contraseña</label>
 								<div class="formulario__grupo-input">
 									<input type="text" th:field="*{contrasenaUsuario}" class="form-control input-default" placeholder="" autocomplete="off">
@@ -1058,6 +1062,7 @@
                 </div>
             </div>
         </div>
+
         <!--**********************************
             Content body end
         ***********************************-->
@@ -1139,8 +1144,8 @@
 			e.preventDefault();
 			var form = $(this).parents('form');
 			Swal.fire({
-				title: 'seguro quieres realizar esta accion?',
-				text: "ya no podras dar vuelta atras!",
+				title: 'seguro quieres realizar esta acción?',
+				text: "ya no podrás dar vuelta atrás!",
 				showCancelButton: true,
 				confirmButtonColor: '#3085d6',
 				cancelButtonColor: '#d33',
@@ -1166,6 +1171,37 @@
 			});
 		});
   	</script>
+
+	<!-- Toastr -->
+	<script th:src="@{/assets/dashboard/vendor/toastr/js/toastr.min.js}"></script>
+
+	<!-- All init script -->
+	<script th:inline="javascript" th:if="${param.success}">
+		$("#toastr-success-bottom-right").on("click", function () {
+                toastr.success("Acción realizada exitosamente", "Cambios Guardados", {
+                    positionClass: "toast-bottom-right",
+                    timeOut: 5e3,
+                    closeButton: !0,
+                    debug: !1,
+                    newestOnTop: !0,
+                    progressBar: !0,
+                    preventDuplicates: !0,
+                    onclick: null,
+                    showDuration: "300",
+                    hideDuration: "1000",
+                    extendedTimeOut: "1000",
+                    showEasing: "swing",
+                    hideEasing: "linear",
+                    showMethod: "fadeIn",
+                    hideMethod: "fadeOut",
+                    tapToDismiss: !1
+                })
+            }
+
+		)
+
+		$("#toastr-success-bottom-right").click()
+	</script>
 
 	<script src="//cdn.jsdelivr.net/npm/sweetalert2@11"></script>
 </body>

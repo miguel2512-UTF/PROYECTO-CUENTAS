@@ -26,14 +26,14 @@ public class UsuarioController {
         m.addAttribute("usuarios", usuarioI.findAll());
         Usuario usuario=new Usuario();
         m.addAttribute("usuario",usuario);
-
+        
         return "views/usuario/usuario";
     }
 
     @PostMapping("/add")
     public String add(@Valid Usuario usuario, BindingResult res, Model m){
         m.addAttribute("usuarios", usuarioI.findAll());
-
+        int idSuccess=0;
         if (res.hasErrors()) {
             if (usuario.getIdUsuario()==0) {
                 m.addAttribute("modalAdd","");
@@ -57,6 +57,7 @@ public class UsuarioController {
             usuario.setApellidosUsuario(usuario.getApellidosUsuario().toLowerCase());
             try {
                 usuarioI.createUser(usuario);
+                idSuccess=0;
             } catch (Exception e) {
                 m.addAttribute("modalAdd","");
                 m.addAttribute("errorMessage",e.getMessage());
@@ -64,9 +65,10 @@ public class UsuarioController {
             } 
         }else if (usuario.getIdUsuario()>0) {
             usuarioI.save(usuario);
+            idSuccess=usuario.getIdUsuario();
         }
         
-        return "redirect:/usuario/listar";
+        return "redirect:/usuario/listar?success="+idSuccess;
     }
 
     @GetMapping("/editar")
@@ -94,7 +96,8 @@ public class UsuarioController {
             usuario.setEstadoUsuario("Activo");
             usuarioI.save(usuario);
         }
-        return "redirect:/usuario/listar";
+
+        return "redirect:/usuario/listar?success=true";
     }
 
     @GetMapping("/login")
@@ -103,22 +106,22 @@ public class UsuarioController {
         return "login";
     }
     
-    @PostMapping("/iniciars")
-    public String iniciars(Usuario usuario, Model m){
-        Usuario usu=new Usuario();
+    // @PostMapping("/iniciars")
+    // public String iniciars(Usuario usuario, Model m){
+    //     Usuario usu=new Usuario();
 
-        if (usuarioI.login(usuario)!=null) {
-            usu=usuarioI.login(usuario);
-        }
+    //     if (usuarioI.login(usuario)!=null) {
+    //         usu=usuarioI.login(usuario);
+    //     }
 
-        if (usuario.getNombresUsuario().equalsIgnoreCase(usu.getNombresUsuario()) && usuario.getNombresUsuario()!=null) {
-            if (usuario.getContrasenaUsuario().equalsIgnoreCase(usu.getContrasenaUsuario()) && usuario.getContrasenaUsuario()!=null) {
-               return "redirect:/inicio"; 
-            }
-        }else{
-            m.addAttribute("Error","Contraseña o usuario incorrecto");
-            return "login";
-        }
-        return null;
-    }
+    //     if (usuario.getNombresUsuario().equalsIgnoreCase(usu.getNombresUsuario()) && usuario.getNombresUsuario()!=null) {
+    //         if (usuario.getContrasenaUsuario().equalsIgnoreCase(usu.getContrasenaUsuario()) && usuario.getContrasenaUsuario()!=null) {
+    //            return "redirect:/inicio"; 
+    //         }
+    //     }else{
+    //         m.addAttribute("Error","Contraseña o usuario incorrecto");
+    //         return "login";
+    //     }
+    //     return null;
+    // }
 }
