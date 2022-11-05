@@ -10197,7 +10197,7 @@ svg.pulse-svg {
   .header-right .header-profile .dropdown-menu {
     padding: 15px 0;
     min-width: 12.5rem; }
-    .header-right .header-profile .dropdown-menu a:hover, .header-right .header-profile .dropdown-menu a:focus, .header-right .header-profile .dropdown-menu a.active {
+    .header-right .header-profile .dropdown-menu a:hover,.header-right .header-profile .dropdown-menu button:hover a, .header-right .header-profile .dropdown-menu a:focus, .header-right .header-profile .dropdown-menu a.active {
       color: #57b846; }
   .header-right .header-profile img {
     width: 57px;
