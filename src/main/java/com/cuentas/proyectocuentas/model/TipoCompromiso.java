@@ -1,9 +1,5 @@
 package com.cuentas.proyectocuentas.model;
 
- 
-
-
-import java.util.ArrayList;
 import java.util.List;
 
 import javax.persistence.CascadeType;
@@ -43,22 +39,8 @@ public class TipoCompromiso {
     @OneToMany(mappedBy = "tipocompromiso",fetch = FetchType.LAZY, cascade =CascadeType.ALL)
     private List<Compromiso> compromiso;
 
-
-
-	public List<Compromiso> getCompromiso() {
-		return compromiso;
-	}
-
-	public void setCompromiso(List<Compromiso> compromiso) {
-		this.compromiso = compromiso;
-	}
-
-	public TipoCompromiso(List<Compromiso> compromiso) {
-		this.compromiso = compromiso;
-	}
    
     public TipoCompromiso(){
-        compromiso=new ArrayList<Compromiso>();
         
     }
 

@@ -100,11 +100,18 @@ public class UsuarioController {
         return "redirect:/usuario/listar?success=true";
     }
 
-    @GetMapping("/login")
-    public String login(Model m){
+    @GetMapping("/registrar")
+    public String registrar(Model m){
         m.addAttribute("usuario", new Usuario());
-        return "login";
+
+        return "views/usuario/usuario-register";
     }
+    
+    // @GetMapping("/login")
+    // public String login(Model m){
+    //     m.addAttribute("usuario", new Usuario());
+    //     return "login";
+    // }
     
     // @PostMapping("/iniciars")
     // public String iniciars(Usuario usuario, Model m){

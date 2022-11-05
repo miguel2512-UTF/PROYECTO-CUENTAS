@@ -56,20 +56,6 @@ public class Usuario implements Serializable{
     private List<Compromiso> compromiso;
 
 
-
-	public List<Compromiso> getCompromiso() {
-		return compromiso;
-	}
-
-	public void setCompromiso(List<Compromiso> compromiso) {
-		this.compromiso = compromiso;
-	}
-
-	public Usuario(List<Compromiso> compromiso) {
-		this.compromiso = compromiso;
-	}
-
-
     /*Relacion de uno a mucho(Usuario a Prestamo) */
 
     @OneToMany(mappedBy = "usuario", fetch = FetchType.LAZY, cascade = CascadeType.ALL)
@@ -77,8 +63,6 @@ public class Usuario implements Serializable{
 
 
     public Usuario() {
-        
-        compromiso=new ArrayList<Compromiso>();
         prestamo=new ArrayList<Prestamo>();
     }
 

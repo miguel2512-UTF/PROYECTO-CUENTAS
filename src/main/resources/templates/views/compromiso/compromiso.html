@@ -967,7 +967,7 @@
 	<label for="">Usuario</label>
 	<div class="formulario__grupo-input">
 	<select th:field="*{usuario}" class="form-control input-default">
-	<option value="" id="metodo" selected>Seleccionar</option>
+	<option th:value="${session.usuario.idUsuario}" th:text="${session.usuario.nombresUsuario}" id="metodo" selected>Seleccionar</option>
 	<th:block th:each="Usuario : ${usuario}">
 	<option th:text="${Usuario.nombresUsuario}" th:value="${Usuario.idUsuario}"></option>
 	</th:block>
