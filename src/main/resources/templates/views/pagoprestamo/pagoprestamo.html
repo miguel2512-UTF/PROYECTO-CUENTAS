@@ -787,7 +787,6 @@
                 <!-- row -->
                 <div class="row">
 					<div class="col-12">
-
                         <div class="card">
                             <div class="card-header">
                                 <h4 class="card-title">Lista de Pagos de Préstamos</h4>
@@ -797,15 +796,12 @@
                             </div>
                             <div class="card-body">
                                 <div class="table-responsive">
-        
-                                    
                                     <div class="alert alert-warning alert-dismissible fade show" th:if="${pagoprestamos.size()==0}">
                                         <svg viewBox="0 0 24 24" width="24" height="24" stroke="currentColor" stroke-width="2" fill="none" stroke-linecap="round" stroke-linejoin="round" class="mr-2"><path d="M10.29 3.86L1.82 18a2 2 0 0 0 1.71 3h16.94a2 2 0 0 0 1.71-3L13.71 3.86a2 2 0 0 0-3.42 0z"></path><line x1="12" y1="9" x2="12" y2="13"></line><line x1="12" y1="17" x2="12.01" y2="17"></line></svg>
                                         <strong>Precaución!</strong> No existen Pagos de Préstamos para mostrar
                                         <button type="button" class="close h-100" data-dismiss="alert" aria-label="Close"><span><i class="mdi mdi-close"></i></span>
                                         </button>
                                     </div>
-
                                     <div class="custom-control custom-checkbox mb-3 check-xs mt-3">
                                         <input type="checkbox" class="custom-control-input" id="mostrar" required>
                                         <label class="custom-control-label" for="">Mostrar Pagos inactivos</label>
@@ -819,206 +815,127 @@
 														<label class="custom-control-label" for="checkAll"></label>
 													</div>
 												</th>
-                        <th>Id Pagó</th>
-                        <th>Nombre Prestamista</th>
-                        <th>Fecha Pagó</th>
-                        <th>Total Pagó</th>
-                        <th>Imagen</th>
-                        <th>Acciones</th>
-                        </tr>
-                        <tbody>
-                          <tr th:each="Pp:${pagoprestamos}" id="tablerow">
-                          <td>
-                        </thead>
-						<div class="custom-control custom-checkbox">
-							<input type="checkbox" class="custom-control-input" id="customCheckBox3" required="">
-							<label class="custom-control-label" for="customCheckBox3"></label>
-						</div>
-						</td>
-						<td th:text="${Pp.idPagoPrestamo}"></td>
-                        <td th:text="${Pp.prestamo.nombrePrestamista}"></td>
-						<td th:text="${Pp.fechaPago}"></td>
-                        <td th:text="${Pp.totalPago}"></td>
-                        <td>
-                          <div class="modal-container">
-                             <img 
-                             th:src="@{'/assets/pimg/' + ${Pp.imagenPago}}"
-                            th:alt="${Pp.imagenPago}"  id="imagenPago">
-						  </div>
-                        </td>
-                           
-                           </td>
-                        
-						   <td>
-							<a href="" data-toggle="modal" th:attr="data-target='#modal-editar'+${Pp.idPagoPrestamo}"
-							class="eBtn btn btn-primary shadow btn-xs sharp mr-1" id="editar"><i class="fa fa-pencil"></i>
-							</a>
-		  
-							  <!-- MODAL EDITAR -->
-							  <div class="modal fade" tabindex="-1" th:id="modal-editar+${Pp.idPagoPrestamo}">
-								  <div class="modal-dialog">
-									<div class="modal-content">
-									  <div class="modal-header">
-										<h5 class="modal-title">Editar Pagó</h5>
-									  </div>
-									  <div class="modal-body">
-										<form th:action="@{/pagoprestamo/add}" method="post" th:object="${pagoprestamo}" id="formulario" class="formulario" enctype="multipart/form-data">
-										<script th:inline="javascript" th:if="${#fields.hasErrors('*')}">$("#modal-add").modal("show");</script>
-										<script th:inline="javascript" th:if="${errorMessage}">$("#modal-add").modal("show");</script>
-						
-								<!-- Grupo: Valor Prestamo --> 
-								<div class="formulario__grupo" id="grupo__prestamo">
-									<label for="prestamo" class="formulario__label">Valor Prestamo</label>
-									<div class="formulario__grupo-input">
-										<select th:field="*{prestamo}" class="form-control input-default" id="prestamo">
-											<option value="" selected >Seleccionar</option>
-											<option th:each="Pr:${prestamo}" th:text="${Pr.valorPrestamo}" th:value="${Pr.idPrestamo}"></option>
-										</select>
-										<i class="formulario__validacion-estado fas fa-times-circle"></i>
-									</div>
-									<p class="formulario__input-error">Valor Prestamo</p>
-								</div>
-						
-						 
-									<!-- Grupo: Fecha Pago -->
-									<div class="formulario__grupo" id="grupo__fechaPago">
-										<label for="fechaPago" class="formulario__label">Fecha Pagó</label>
-										<div class="formulario__grupo-input">
-											<input type="date" class="form-control input-default" name="fechaPago" id="fechaPago" th:min="${fechaPagoMin}" th:max="${fechaPagoMax}">
-											<i class="formulario__validacion-estado fas fa-times-circle"></i>
-										</div>
-										<p class="formulario__input-error">Fecha Pagó</p>
-									</div>
-						
-									<!-- Grupo: Total Pago-->
-									<div class="formulario__grupo" id="grupo__totalPago">
-										<label for="totalPago" class="formulario__label">Total Pago</label>
-										<div class="formulario__grupo-input">
-											<input type="number" class="form-control input-default"  name="totalPago" id="totalPago" >
-											<i class="formulario__validacion-estado fas fa-times-circle"></i>
-										</div>
-										<p class="formulario__input-error">Total Pago</p>
-									</div>
-						
-									<!-- Grupo: Imagen Pago -->
-									<div class="formulario__grupo" id="grupo__imagenPago">
-										<label for="imagenPago" class="formulario__label">Imagen Pagó</label>
-										<div class="formulario__grupo-input">
-											<input type="file" class="form-control input-default" name="file" >
-											<i class="formulario__validacion-estado fas fa-times-circle"></i>
-										</div>
-										<p class="formulario__input-error">Imagen Pagó</p>
-									</div>
-						
-										<div class="form-text text-danger" th:if="${errorMessage} and ${modalAdd}" th:text="${errorMessage}"></div>                                
-									  </div>
-									  <div class="modal-footer">
-										<button type="button" class="btn btn-secondary cancel" data-dismiss="modal" id="cancel">Cancelar</button>
-										<button type="submit" class="btn btn-primary" id="Registrar">Editar</button>
-									</div>
-									  </form>
-									</div>
-								  </div>
-							  </div>
+                        						<th>Id Pagó</th>
+                        						<th>Nombre Prestamista</th>
+                        						<th>Fecha Pagó</th>
+                        						<th>Total Pagó</th>
+                        						<th>Imagen</th>
+                        						<th>Acciones</th> 
+                        					</tr>
+										</thead>
+                        				<tbody>
+                          					<tr th:each="Pp:${pagoprestamos}" id="tablerow">
+                          						<td>
+													<div class="custom-control custom-checkbox">
+														<input type="checkbox" class="custom-control-input" id="customCheckBox3" required="">
+														<label class="custom-control-label" for="customCheckBox3"></label>
+													</div>
+												</td>
+												<td th:text="${Pp.idPagoPrestamo}"></td>
+                        						<td th:text="${Pp.prestamo.nombrePrestamista}"></td>
+												<td th:text="${Pp.fechaPago}"></td>
+                        						<td th:text="${Pp.totalPago}"></td>
+                        						<td>
+                          							<div class="modal-container"><img th:src="@{'/assets/pimg/' + ${Pp.imagenPago}}" th:alt="${Pp.imagenPago}" id="imagenPago"></div>
+                        						</td>
+						   						<td>
+													<!-- <a th:href="@{editar/(idPagoPrestamo=${Pp.idPagoPrestamo})}" class="eBtn btn btn-primary shadow btn-xs sharp mr-1" id="editar"><i class="fa fa-pencil"></i></a> --> 
 			
-							  <a href="" data-toggle="modal" th:attr="data-target='#modal-delete'+${Pp.idPagoPrestamo}">
-								<svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="eBtn btn shadow btn-xs sharp mr-1"  viewBox="0 0 16 16">
-								<path d="M2.5 1a1 1 0 0 0-1 1v1a1 1 0 0 0 1 1H3v9a2 2 0 0 0 2 2h6a2 2 0 0 0 2-2V4h.5a1 1 0 0 0 1-1V2a1 1 0 0 0-1-1H10a1 1 0 0 0-1-1H7a1 1 0 0 0-1 1H2.5zm3 4a.5.5 0 0 1 .5.5v7a.5.5 0 0 1-1 0v-7a.5.5 0 0 1 .5-.5zM8 5a.5.5 0 0 1 .5.5v7a.5.5 0 0 1-1 0v-7A.5.5 0 0 1 8 5zm3 .5v7a.5.5 0 0 1-1 0v-7a.5.5 0 0 1 1 0z"/></svg>
-								</a>
-			  
-							  <!-- MODAL ELIMINAR -->
-							  <div class="modal fade" tabindex="-1" th:id="modal-delete+${Pp.idPagoPrestamo}">
-								<div class="modal-dialog">
-								  <div class="modal-content">
-									<div class="modal-header">
-									  <h5 class="modal-title">Eliminar Pagó</h5>
-									</div>
-									<div class="modal-body">
-									  <p>Esta seguro que desea ELIMINAR el Pagó?</p>
-								  </div>
-									  <div class="modal-footer">
-										<button type="button" class="btn btn-secondary cancel" data-dismiss="modal" id="cancel">Cancelar</button>
-										<a role="button" class="btn btn-primary" th:href="@{/pagoprestamo/delete/}+${Pp.idPagoPrestamo}"> Eliminar Abono</a>
-									  </div>									
-								  </div>
-								</div>
-							  </div>
-					</td>
-					  </tr>
-				  </table>
+													<div class="d-flex">
+														<a href="" data-toggle="modal" th:attr="data-target='#modal-delete'+${Pp.idPagoPrestamo}"><svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor"class="btn shadow btn-xs sharp mr-1"  viewBox="0 0 16 16"><path d="M2.5 1a1 1 0 0 0-1 1v1a1 1 0 0 0 1 1H3v9a2 2 0 0 0 2 2h6a2 2 0 0 0 2-2V4h.5a1 1 0 0 0 1-1V2a1 1 0 0 0-1-1H10a1 1 0 0 0-1-1H7a1 1 0 0 0-1 1H2.5zm3 4a.5.5 0 0 1 .5.5v7a.5.5 0 0 1-1 0v-7a.5.5 0 0 1 .5-.5zM8 5a.5.5 0 0 1 .5.5v7a.5.5 0 0 1-1 0v-7A.5.5 0 0 1 8 5zm3 .5v7a.5.5 0 0 1-1 0v-7a.5.5 0 0 1 1 0z"/></svg></a>
+													</div>
+			   
+							  						<!-- MODAL ELIMINAR -->
+							  						<div class="modal fade" tabindex="-1" th:id="modal-delete+${Pp.idPagoPrestamo}">
+														<div class="modal-dialog">
+								  							<div class="modal-content">
+																<div class="modal-header">
+									  								<h4 class="modal-title">Eliminar Pagó</h4>
+																</div>
+																<div class="modal-body">
+									  								<p>Esta seguro que desea ELIMINAR el Pagó?</p>
+								  								</div> 
+									  							<div class="modal-footer">
+																	<button type="button" class="btn btn-secondary cancel" data-dismiss="modal" id="cancel">Cancelar</button>
+																	<a role="button" class="btn btn-primary" th:href="@{/pagoprestamo/delete/}+${Pp.idPagoPrestamo}"> Eliminar Págo</a>
+									  							</div>									
+								  							</div>
+														</div>
+							  						</div>
+												</td>
+					  						</tr>
+										</tbody>
+				  					</table>
 				  
-	<!-- MODAL REGISTRAR -->
-	<div class="modal fade" tabindex="-1" id="modal-add">
-		<div class="modal-dialog">
-		<div class="modal-content">
-			<div class="modal-header">
-			<h5 class="modal-title">Registrar Pagó</h5>
-			</div> 
-			<div class="modal-body">
-				<form th:action="@{/pagoprestamo/add}" method="post" th:object="${pagoprestamo}" id="formulario" class="formulario" enctype="multipart/form-data">
-				<script th:inline="javascript" th:if="${#fields.hasErrors('*')}">$("#modal-add").modal("show");</script>
-				<script th:inline="javascript" th:if="${errorMessage}">$("#modal-add").modal("show");</script>
+									<!-- MODAL REGISTRAR -->
+									<div class="modal fade" id="modal-add">
+										<div class="modal-dialog modal-dialog-centered" role="document">
+											<div class="modal-content">
+												<div class="modal-header">
+													<h4 class="modal-title">Registrar Pagó</h4>
+												</div> 
+												<form th:action="@{/pagoprestamo/add}" method="post" th:object="${pagoprestamo}" id="formulario" enctype="multipart/form-data">
+													<div class="modal-body">
 
-        <!-- Grupo: Valor Prestamo --> 
-		<div class="formulario__grupo" id="grupo__prestamo">
-			<label for="prestamo" class="formulario__label">Valor Prestamo</label>
-			<div class="formulario__grupo-input">
-				<select th:field="*{prestamo}" class="form-control input-default" id="prestamo">
-					<option value="" selected >Seleccionar</option>
-					<option th:each="Pr:${prestamo}" th:text="${Pr.valorPrestamo}" th:value="${Pr.idPrestamo}"></option>
-				</select>
-				<i class="formulario__validacion-estado fas fa-times-circle"></i>
-			</div>
-			<p class="formulario__input-error">Valor Prestamo</p>
-		</div>
+														<!-- Grupo: Valor Prestamo --> 
+														<div class="formulario__grupo" id="grupo__prestamo">
+															<label for="prestamo" class="formulario__label">Valor Prestamo</label>
+															<div class="formulario__grupo-input">
+																<select th:field="*{prestamo}" class="form-control input-default" id="prestamo">
+																	<option value="" selected >Seleccionar</option>
+																	<option th:each="Pr:${prestamo}" th:text="${Pr.valorPrestamo}" th:value="${Pr.idPrestamo}"></option>
+																</select>
+																<i class="formulario__validacion-estado fas fa-times-circle"></i>
+															</div>
+															<p class="formulario__input-error">Valor Prestamo</p>
+														</div>
 
- 
-			<!-- Grupo: Fecha Pago -->
-			<div class="formulario__grupo" id="grupo__fechaPago">
-				<label for="fechaPago" class="formulario__label">Fecha Pagó</label>
-				<div class="formulario__grupo-input">
-					<input type="date" class="form-control input-default" name="fechaPago" id="fechaPago" th:min="${fechaPagoMin}" th:max="${fechaPagoMax}">
-					<i class="formulario__validacion-estado fas fa-times-circle"></i>
+														<!-- Grupo: Fecha Pago -->
+														<div class="formulario__grupo" id="grupo__fechaPago">
+															<label for="fechaPago" class="formulario__label">Fecha Pagó</label>
+															<div class="formulario__grupo-input">
+																<input type="date" class="form-control input-default" name="fechaPago" id="fechaPago" th:min="${fechaPagoMin}" th:max="${fechaPagoMax}">
+																<i class="formulario__validacion-estado fas fa-times-circle"></i>
+															</div>
+															<p class="formulario__input-error">Fecha Pagó</p>
+														</div>
+
+														<!-- Grupo: Total Pago-->
+														<div class="formulario__grupo" id="grupo__totalPago">
+															<label for="totalPago" class="formulario__label">Total Pago</label>
+															<div class="formulario__grupo-input">
+																<input type="number" class="form-control input-default"  name="totalPago" id="totalPago" >
+																<i class="formulario__validacion-estado fas fa-times-circle"></i>
+															</div>
+															<p class="formulario__input-error">Total Pago</p>
+														</div>
+
+														<!-- Grupo: Imagen Pago -->
+														<div class="formulario__grupo" id="grupo__imagenPago">
+															<label for="imagenPago" class="formulario__label">Imagen Pagó</label>
+															<div class="formulario__grupo-input">
+																<input type="file" class="form-control input-default" name="file" >
+																<i class="formulario__validacion-estado fas fa-times-circle"></i>
+															</div>
+															<p class="formulario__input-error">Imagen Pagó</p>
+														</div>
+
+														<div class="form-text text-danger" th:if="${errorMessage} and ${modalAdd}" th:text="${errorMessage}"></div>                                
+      												</div>
+      												<div class="modal-footer">
+          												<button type="button" class="btn btn-secondary cancel" data-dismiss="modal" id="cancel">Cancelar</button>
+          												<button type="submit" class="btn btn-primary" id="Registrar">Registrar</button>
+      												</div>
+												</form>
+											</div>
+										</div>
+									</div>
+				  				</div>
+							</div>
+						</div>
+					</div>
 				</div>
-				<p class="formulario__input-error">Fecha Pagó</p>
 			</div>
-
-			<!-- Grupo: Total Pago-->
-			<div class="formulario__grupo" id="grupo__totalPago">
-				<label for="totalPago" class="formulario__label">Total Pago</label>
-				<div class="formulario__grupo-input">
-					<input type="number" class="form-control input-default"  name="totalPago" id="totalPago" >
-					<i class="formulario__validacion-estado fas fa-times-circle"></i>
-				</div>
-				<p class="formulario__input-error">Total Pago</p>
-			</div>
-
-			<!-- Grupo: Imagen Pago -->
-			<div class="formulario__grupo" id="grupo__imagenPago">
-				<label for="imagenPago" class="formulario__label">Imagen Pagó</label>
-				<div class="formulario__grupo-input">
-					<input type="file" class="form-control input-default" name="file" >
-					<i class="formulario__validacion-estado fas fa-times-circle"></i>
-				</div>
-				<p class="formulario__input-error">Imagen Pagó</p>
-			</div>
-
-				<div class="form-text text-danger" th:if="${errorMessage} and ${modalAdd}" th:text="${errorMessage}"></div>                                
-      		</div>
-      <div class="modal-footer">
-          <button type="button" class="btn btn-secondary cancel" data-dismiss="modal" id="cancel">Cancelar</button>
-          <button type="submit" class="btn btn-primary" id="Registrar">Registrar</button>
-      </div>
-		</form>
-	</div>
-</div>
-	</div>
-				  </div>
-				</div>
-			</div>
-		</div>
-	</div>
-
 		
         <!--**********************************
             Content body end
@@ -1047,9 +964,10 @@
 
     
 	
-					</div>
-			</div>
+			
 		</div>
+	</div>
+
     <!--**********************************
         Main wrapper end
     ***********************************-->

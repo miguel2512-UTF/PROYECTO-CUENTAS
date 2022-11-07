@@ -82,7 +82,7 @@
                                     <option th:each="Pp:${prestamo}" th:text="${Pp.valorPrestamo}" th:value="${Pp.idPrestamo}" readonly></option>
                                   </select>
                                   <span class="validity"></span>
-                                  </div>
+                                  </div> 
                                   <div>
                                   <label for="">Fecha Pago</label>
                                   <input type="date" name="fechaPago" id="fechaPago" th:value="${Pp.fechaPago}" th:min="${fechaPagoMin}" th:max="${fechaPagoMax}" required>
@@ -124,7 +124,7 @@
                       </div>
                       <div class="modal-body">
                         <p>Esta seguro que desea ELIMINAR el Pago?</p>
-                    </div>
+                    </div> 
                       
                       <div class="modal-footer">
                         <button type="button" class="btn btn-secondary" data-dismiss="modal">Cancelar</button>

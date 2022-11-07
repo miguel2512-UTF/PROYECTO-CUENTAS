@@ -1,6 +1,6 @@
 <!DOCTYPE html>
 <html lang="en">
-
+ 
 <head>
     <meta charset="utf-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
@@ -12,7 +12,7 @@
     <link th:href="@{/assets/dashboard/vendor/datatables/css/jquery.dataTables.min.css}" rel="stylesheet">
     <!-- JS para CRUD -->
 	<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.1/jquery.min.js"></script>
-	<script th:src="@{/assets/js/main.js}"></script>
+	<script th:src="@{/assets/js/mainPrestamo.js}"></script>
 	<!-- Estilos -->
     <link href='https://unpkg.com/boxicons@2.1.2/css/boxicons.min.css' rel='stylesheet'>
 	<link rel="stylesheet" th:href="@{/assets/dashboard/vendor/chartist/css/chartist.min.css}">
@@ -786,7 +786,6 @@
                 <!-- row -->
                 <div class="row">
 					<div class="col-12">
-
                         <div class="card">
                             <div class="card-header">
                                 <h4 class="card-title">Lista de Préstamos</h4>
@@ -822,198 +821,92 @@
 														<label class="custom-control-label" for="checkAll"></label>
 													</div>
 												</th>
-                        <th>Id</th>
-                        <th>Documento Prestamista</th>
-                        <th>Nombre Prestamista</th>
-                        <th>Fecha de Pago Oportuno</th>
-                        <th>Valor del Préstamos</th>
-                        <th>Tasa de Préstamos</th>
-                        <th>Periodo de Coutas</th>
-                        <th>Número de Cuotas</th>
-                        <th>Pagos y Abonos</th>
-                        <th>Estado</th>
-                        <th>Acciones</th>
-                        </tr>
-                        <tbody>
-                          <tr th:each="Pr:${prestamos}" id="tablerow">
-                            <td>
-                        </thead>
-						<div class="custom-control custom-checkbox">
-							<input type="checkbox" class="custom-control-input" id="customCheckBox3" required="">
-							<label class="custom-control-label" for="customCheckBox3"></label>
-						</div>
-					</td>
-					<td th:text="${Pr.idPrestamo}"></td>
-                        <td th:text="${Pr.documentoPrestamista}"></td>
-						<td th:text="${Pr.nombrePrestamista}"></td>
-                        <td th:text="${Pr.fechaPagoOportuno}"></td>
-                        <td th:text="${Pr.valorPrestamo}"></td>
-                        <td th:text="${Pr.tasaPrestamo}"></td>
-                        <td th:text="${Pr.periodoCuota}"></td>
-                        <td th:text="${Pr.numeroCuotas}"></td>
-                        <td th:if="${Pr.valorPrestamo>0}">
-                            <button>
-                              <a role="button" th:href="@{/pagoprestamo/listar}">Pago</a>
-                              <a role="button" th:href="@{/prestamoabono/listar}">Abono</a>
-                            </button>                          
-                      </td>
-                      <td th:if="${Pr.valorPrestamo==0}">
-                        Este préstamo ya esta pagó
-					</td>
-					<td>
-						<span th:if="${Pr.estadoPrestamo.equalsIgnoreCase('inactivo')}" class="badge light badge-warning" id="estado"><i class="fa fa-circle text-warning mr-1"></i>Inactivo</span>
-						<span th:if="${Pr.estadoPrestamo.equalsIgnoreCase('activo')}" class="badge light badge-success" id="estado"><i class="fa fa-circle text-success mr-1"></i>Activo</span>
-					</td>
-					<td>
-							<a href="" data-toggle="modal" th:attr="data-target='#modal-editar'+${Pr.idPrestamo}"
-							class="eBtn btn btn-primary shadow btn-xs sharp mr-1" id="editar"><i class="fa fa-pencil"></i>
-							</a>
-		  
-							  <!-- MODAL EDITAR -->
-							  <div class="modal fade" tabindex="-1" th:id="modal-editar+${Pr.idPrestamo}">
-								  <div class="modal-dialog">
-									<div class="modal-content">
-									  <div class="modal-header">
-										<h5 class="modal-title">Editar Préstamo</h5>
-									  </div>
-									  <fo	rm th:action="@{/prestamo/add}" method="post" th:object="${prestamo}">
-										<div class="modal-body">
-											<form th:action="@{/prestamo/add}" method="post" th:object="${prestamo}" id="formulario" class="formulario">
-											<script th:inline="javascript" th:if="${#fields.hasErrors('*')}">$("#modal-add").modal("show");</script>
-											<script th:inline="javascript" th:if="${errorMessage}">$("#modal-add").modal("show");</script>
-										  
-											<!-- Grupo: Documento Prestamista -->
-										<div class="formulario__grupo" id="grupo__documentoPrestamista">
-											<label for="documentoPrestamista" class="formulario__label">Documento Prestamista</label>
-											<div class="formulario__grupo-input">
-												<input type="number" class="form-control input-default" name="documentoPrestamista" id="documentoPrestamista" placeholder="1079032167">
-												<i class="formulario__validacion-estado fas fa-times-circle"></i>
-											</div>
-											<p class="formulario__input-error">Documento Prestamista.</p>
-										</div>
-							 
-										<!-- Grupo: Nombre Prestamista-->
-										<div class="formulario__grupo" id="grupo__nombrePrestamista">
-											<label for="nombrePrestamista" class="formulario__label">Nombre Prestamista</label>
-											<div class="formulario__grupo-input">
-												<input type="text" class="form-control input-default" name="nombrePrestamista" id="nombrePrestamista" placeholder="Cristhian López">
-												<i class="formulario__validacion-estado fas fa-times-circle"></i>
-											</div>
-											<p class="formulario__input-error">Nombre Prestamista</p>
-										</div>
-							
-										<!-- Grupo: Fecha Pago Oportuno -->
-										<div class="formulario__grupo" id="grupo__fechaPagoOportuno">
-											<label for="fechaPagoOportuno" class="formulario__label">Fecha Pago Oportuno</label>
-											<div class="formulario__grupo-input">
-												<input type="date" class="form-control input-default" name="fechaPagoOportuno" id="fechaPagoOportuno">
-												<i class="formulario__validacion-estado fas fa-times-circle"></i>
-											</div>
-											<p class="formulario__input-error">Fecha Pago Oportuno</p>
-										</div>
-							
-										<!-- Grupo: Valor Prestamo -->
-										<div class="formulario__grupo" id="grupo__valorPrestamo">
-											<label for="valorPrestamo" class="formulario__label">Valor Préstamo</label>
-											<div class="formulario__grupo-input">
-												<input type="text" class="form-control input-default" name="valorPrestamo" id="valorPrestamo" placeholder="1000000">
-												<i class="formulario__validacion-estado fas fa-times-circle"></i>
-											</div>
-											<p class="formulario__input-error">Valor préstamo.</p>
-										</div>
-							
-										<!-- Grupo: Tasa Prestamo -->
-										<div class="formulario__grupo" id="grupo__tasaPrestamo">
-											<label for="tasaPrestamo" class="formulario__label">Tasa Préstamo</label>
-											<div class="formulario__grupo-input">
-												<input type="text" class="form-control input-default" name="tasaPrestamo" id="tasaPrestamo" placeholder="1.5">
-												<i class="formulario__validacion-estado fas fa-times-circle"></i>
-											</div>
-											<p class="formulario__input-error">Tasa Préstamo</p>
-										</div>
-							
-										<!-- Grupo: Periodo Cuentas -->
-										<div class="formulario__grupo" id="grupo__periodoCuota">
-											<label for="periodoCuota" class="formulario__label">Periodo Cuentas</label>
-											<div class="formulario__grupo-input">
-												<select th:field="*{periodoCuota}"  class="form-control input-default" id="periodoCuota">
-													<option value=""  selected>Seleccionar</option>
-													<option value="Mensual">Mensual</option>
-													<option value="Cuatrimensual">Cuatrimensual</option>
-													<option value="Trimestral">Trimestral</option>
-													<option value="Semestral">Semestral</option>
-													<option value="Quinquemestral">Quinquemestral</option>
-												</select>
-												<i class="formulario__validacion-estado fas fa-times-circle"></i>
-											</div>
-											<p class="formulario__input-error">Periodo Cuentas</p>
-										</div>
-							
-										<!-- Grupo: Número Cuotas -->
-										<div class="formulario__grupo" id="grupo__numeroCuotas">
-											<label for="numeroCuotas" class="formulario__label">Número Cuotas</label>
-											<div class="formulario__grupo-input">
-												<input type="number" class="form-control input-default" name="numeroCuotas" id="numeroCuotas" placeholder="12">
-												<i class="formulario__validacion-estado fas fa-times-circle"></i>
-											</div>
-											<p class="formulario__input-error">Número Cuotas.</p>
-										</div>
-							
-										<!-- Grupo: Estado Prestamo -->
-												<select th:field="*{estadoPrestamo}" hidden>
-													<option value="Activo" selected>Activo</option>
-													<option value="Inactivo">Inactivo</option>
-												</select>
-											<div class="form-text text-danger" th:if="${errorMessage} and ${modalAdd}" th:text="${errorMessage}"></div>                                
-										</div>
-										<div class="modal-footer">
-											<button type="button" class="btn btn-secondary cancel" data-dismiss="modal" id="cancel">Cancelar</button>
-											<button type="submit" class="btn btn-primary" id="Editar">Editar</button>
-										</div>
-									  </form>
-									</div>
-								  </div>
-							  </div>
-			  
-							  <a href="" data-toggle="modal" th:attr="data-target='#modal-delete'+${Pr.idPrestamo}">
-							  <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="eBtn btn shadow btn-xs sharp mr-1"  viewBox="0 0 16 16">
-							  <path d="M2.5 1a1 1 0 0 0-1 1v1a1 1 0 0 0 1 1H3v9a2 2 0 0 0 2 2h6a2 2 0 0 0 2-2V4h.5a1 1 0 0 0 1-1V2a1 1 0 0 0-1-1H10a1 1 0 0 0-1-1H7a1 1 0 0 0-1 1H2.5zm3 4a.5.5 0 0 1 .5.5v7a.5.5 0 0 1-1 0v-7a.5.5 0 0 1 .5-.5zM8 5a.5.5 0 0 1 .5.5v7a.5.5 0 0 1-1 0v-7A.5.5 0 0 1 8 5zm3 .5v7a.5.5 0 0 1-1 0v-7a.5.5 0 0 1 1 0z"/></svg>
-							  </a>
-			  
-							  <!-- MODAL ELIMINAR -->
-							  <div class="modal fade" tabindex="-1" th:id="modal-delete+${Pr.idPrestamo}">
-								<div class="modal-dialog">
-								  <div class="modal-content">
-									<div class="modal-header">
-									  <h5 class="modal-title">Eliminar Préstamo</h5>
-									</div>
-									<div class="modal-body">
-									  <p>Esta seguro que desea ELIMINAR el Préstamo?</p>
-								  </div>
-									
-									<div class="modal-footer">
-									  <button type="button" class="btn btn-secondary" data-dismiss="modal">Cancelar</button>
-									  <a role="button" class="btn btn-primary" th:href="@{/prestamo/delete/}+${Pr.idPrestamo}"> Eliminar Préstamo</a>
-									</div>
-								  </div>
-								</div>
-							  </div>
-						  </td>
-					  </tr>
-				  </table>
+                        						<th>Id</th>
+                        						<th>Documento Prestamista</th>
+                        						<th>Nombre Prestamista</th>
+                        						<th>Fecha de Pago Oportuno</th>
+                        						<th>Valor del Préstamos</th>
+                        						<th>Tasa de Préstamos</th>
+                        						<th>Periodo de Coutas</th>
+                        						<th>Número de Cuotas</th>
+                        						<th>Pagos y Abonos</th>
+                        						<th>Estado</th>
+                        						<th>Acciones</th>
+                       						</tr>
+										</thead>
+                        				<tbody>
+                          					<tr th:each="Pr:${prestamos}" id="tablerow">
+                            					<td>
+													<div class="custom-control custom-checkbox">
+														<input type="checkbox" class="custom-control-input" id="customCheckBox3" required="">
+														<label class="custom-control-label" for="customCheckBox3"></label>
+													</div>
+												</td>
+												<td th:text="${Pr.idPrestamo}"></td>
+                        						<td th:text="${Pr.documentoPrestamista}"></td>
+												<td th:text="${Pr.nombrePrestamista}"></td>
+                        						<td th:text="${Pr.fechaPagoOportuno}"></td>
+                        						<td th:text="${Pr.valorPrestamo}"></td>
+                        						<td th:text="${Pr.tasaPrestamo} +'%' "></td>
+                        						<td th:text="${Pr.periodoCuota}"></td>
+                        						<td th:text="${Pr.numeroCuotas}"></td> 
+                        						<td th:if="${Pr.valorPrestamo>0}">
+                            					<button>
+                              					<a role="button" th:href="@{/pagoprestamo/listar}">Pago</a>
+                              					<a role="button" th:href="@{/prestamoabono/listar}">Abono</a>
+                            					</button>                          
+                      							</td>
+                      							<td th:if="${Pr.valorPrestamo==0}">
+                        						Este préstamo ya esta pagó
+												</td>
+												<td>
+													<span th:if="${Pr.estadoPrestamo.equalsIgnoreCase('inactivo')}" class="badge light badge-warning" id="estado"><i class="fa fa-circle text-warning mr-1"></i>Inactivo</span>
+													<span th:if="${Pr.estadoPrestamo.equalsIgnoreCase('activo')}" class="badge light badge-success" id="estado"><i class="fa fa-circle text-success mr-1"></i>Activo</span>
+												</td>
+												<td>
+													<div class="d-flex">
+														<a th:href="@{editar/(idPrestamo=${Pr.idPrestamo})}" class="eBtn btn btn-primary shadow btn-xs sharp mr-1" id="editar"><i class="fa fa-pencil"></i></a>													
+														
+														<a href="" data-toggle="modal" th:attr="data-target='#modal-delete'+${Pr.idPrestamo}">
+															<svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" 
+															class="btn shadow btn-xs sharp mr-1"  viewBox="0 0 16 16">
+															<path d="M2.5 1a1 1 0 0 0-1 1v1a1 1 0 0 0 1 1H3v9a2 2 0 0 0 2 2h6a2 2 0 0 0 2-2V4h.5a1 1 0 0 0 1-1V2a1 1 0 0 0-1-1H10a1 1 0 0 0-1-1H7a1 1 0 0 0-1 1H2.5zm3 4a.5.5 0 0 1 .5.5v7a.5.5 0 0 1-1 0v-7a.5.5 0 0 1 .5-.5zM8 5a.5.5 0 0 1 .5.5v7a.5.5 0 0 1-1 0v-7A.5.5 0 0 1 8 5zm3 .5v7a.5.5 0 0 1-1 0v-7a.5.5 0 0 1 1 0z"/></svg>
+														</a>
+													</div>
+
+													<!-- MODAL ELIMINAR -->
+													<div class="modal fade" tabindex="-1" th:id="modal-delete+${Pr.idPrestamo}">
+														<div class="modal-dialog">
+			  												<div class="modal-content">
+																<div class="modal-header">
+					  												<h5 class="modal-title">Eliminar Préstamo</h5>
+																</div>
+																<div class="modal-body">
+					  												<p>Esta seguro que desea ELIMINAR el Préstamo?</p>
+				  												</div>
+																<div class="modal-footer">
+					  												<button type="button" class="btn btn-secondary" data-dismiss="modal">Cancelar</button>
+					  												<a role="button" class="btn btn-primary" th:href="@{/prestamo/delete/}+${Pr.idPrestamo}"> Eliminar Préstamo</a>
+																</div>
+			  												</div>
+														</div>
+													</div>
+						  						</td>
+					  						</tr>
+										</tbody>
+				  					</table>
 				  
 	<!-- MODAL REGISTRAR -->
-	<div class="modal fade" tabindex="-1" id="modal-add">
-		<div class="modal-dialog">
+	<div class="modal fade" id="modal-add">
+		<div class="modal-dialog modal-dialog-centered" role="document">
 		<div class="modal-content">
 			<div class="modal-header">
-			<h5 class="modal-title">Registrar Préstamo</h5>
-			</div> 
+				<h4 class="modal-title">Registrar Préstamo</h4>
+				<button type="button" class="close cancel" data-dismiss="modal"><span>&times;</span></button>
+			</div>
+			<form th:action="@{/prestamo/add}" method="post" th:object="${prestamo}" id="formulario">
 			<div class="modal-body">
-				<form th:action="@{/prestamo/add}" method="post" th:object="${prestamo}" id="formulario" class="formulario">
-				<script th:inline="javascript" th:if="${#fields.hasErrors('*')}">$("#modal-add").modal("show");</script>
-				<script th:inline="javascript" th:if="${errorMessage}">$("#modal-add").modal("show");</script>
-			  
+				
 				<!-- Grupo: Documento Prestamista -->
 			<div class="formulario__grupo" id="grupo__documentoPrestamista">
 				<label for="documentoPrestamista" class="formulario__label">Documento Prestamista</label>
@@ -1058,7 +951,7 @@
 			<div class="formulario__grupo" id="grupo__tasaPrestamo">
 				<label for="tasaPrestamo" class="formulario__label">Tasa Préstamo</label>
 				<div class="formulario__grupo-input">
-					<input type="text" class="form-control input-default" name="tasaPrestamo" id="tasaPrestamo" placeholder="1.5">
+					<input type="number" class="form-control input-default" name="tasaPrestamo" id="tasaPrestamo" step="0.01" placeholder="1.5">
 					<i class="formulario__validacion-estado fas fa-times-circle"></i>
 				</div>
 				<p class="formulario__input-error">Tasa Préstamo</p>
@@ -1068,8 +961,8 @@
 			<div class="formulario__grupo" id="grupo__periodoCuota">
 				<label for="periodoCuota" class="formulario__label">Periodo Cuentas</label>
 				<div class="formulario__grupo-input">
-					<select th:field="*{periodoCuota}"  class="form-control input-default" id="periodoCuota">
-						<option value=""  selected>Seleccionar</option>
+					<select th:field="*{periodoCuota}" class="form-control input-default" required>
+						<option value="" id="periodo" selected>Seleccionar</option>
 						<option value="Mensual">Mensual</option>
 						<option value="Cuatrimensual">Cuatrimensual</option>
 						<option value="Trimestral">Trimestral</option>
@@ -1092,26 +985,143 @@
 			</div>
 
 			<!-- Grupo: Estado Prestamo -->
-					<select th:field="*{estadoPrestamo}" hidden>
-						<option value="Activo" selected>Activo</option>
-						<option value="Inactivo">Inactivo</option>
-					</select>
+			<div class="formulario__grupo">
+				<select th:field="*{estadoPrestamo}" hidden>
+					<option value="Activo" selected>Activo</option>
+					<option value="Inactivo">Inactivo</option>
+				</select>
+			</div>
+					
 				<div class="form-text text-danger" th:if="${errorMessage} and ${modalAdd}" th:text="${errorMessage}"></div>                                
             </div>
             <div class="modal-footer">
                 <button type="button" class="btn btn-secondary cancel" data-dismiss="modal" id="cancel">Cancelar</button>
                 <button type="submit" class="btn btn-primary" id="Registrar">Registrar</button>
             </div>
-		</form>
-	</div>
+			</form>
+	    </div>
 </div>
 	</div>
-					  </div>
-				  </div>
+
+	<!-- MODAL EDITAR -->
+	<div class="modal fade" id="modal-edit">
+		<div class="modal-dialog modal-dialog-centered" role="document">
+		  <div class="modal-content"> 
+				<div class="modal-header">
+				  <h4 class="modal-title">Editar Préstamo</h4>
+				  <button type="button" class="close cancel" data-dismiss="modal"><span>&times;</span>
 				</div>
-			</div>
+					<form th:action="@{/prestamo/add}" method="post" th:object="${prestamo}" id="formularioEdit">
+					  <div class="modal-body">
+
+						  <!-- Id del préstamo -->
+						  <input type="hidden" id="idPrestamo" th:field="*{idPrestamo}">
+
+						  <!-- Grupo: Documento Prestamista -->
+						  <div class="formulario__grupo" id="grupo__documentoPrestamista">
+							  <label for="documentoPrestamista" class="formulario__label" >Documento Prestamista</label>
+							  <div class="formulario__grupo-input">
+								  <input type="number" class="form-control input-default"  id="documentoPrestamista" placeholder="1079032167" th:field="*{documentoPrestamista}">
+								  <i class="formulario__validacion-estado fas fa-times-circle"></i>
+							  </div>
+							  <p class="formulario__input-error">Documento Prestamista.</p>
+						  </div>
+
+						  <!-- Grupo: Nombre Prestamista-->
+						  <div class="formulario__grupo" id="grupo__nombrePrestamista">
+							  <label for="nombrePrestamista" class="formulario__label">Nombre Prestamista</label>
+							  <div class="formulario__grupo-input">
+								  <input type="text" class="form-control input-default"  id="nombrePrestamista" placeholder="Cristhian López" th:field="*{nombrePrestamista}">
+								  <i class="formulario__validacion-estado fas fa-times-circle"></i>
+							  </div>
+							  <p class="formulario__input-error">Nombre Prestamista</p>
+						  </div>
+
+						  <!-- Grupo: Fecha Pago Oportuno -->
+						  <div class="formulario__grupo" id="grupo__fechaPagoOportuno">
+							  <label for="fechaPagoOportuno" class="formulario__label">Fecha Pago Oportuno</label>
+							  <div class="formulario__grupo-input">
+								  <input type="date" class="form-control input-default"  id="fechaPagoOportuno" th:field="*{fechaPagoOportuno}">
+								  <i class="formulario__validacion-estado fas fa-times-circle"></i>
+							  </div>
+							  <p class="formulario__input-error">Fecha Pago Oportuno</p>
+						  </div>
+
+						  <!-- Grupo: Valor Prestamo -->
+						  <div class="formulario__grupo" id="grupo__valorPrestamo">
+							  <label for="valorPrestamo" class="formulario__label">Valor Préstamo</label>
+							  <div class="formulario__grupo-input">
+								  <input type="text" class="form-control input-default"  id="valorPrestamo" placeholder="1000000" th:field="*{valorPrestamo}">
+								  <i class="formulario__validacion-estado fas fa-times-circle"></i>
+							  </div>
+							  <p class="formulario__input-error">Valor préstamo.</p>
+						  </div>
+
+						  <!-- Grupo: Tasa Prestamo -->
+						  <div class="formulario__grupo" id="grupo__tasaPrestamo">
+							  <label for="tasaPrestamo" class="formulario__label">Tasa Préstamo</label>
+							  <div class="formulario__grupo-input">
+								  <input type="text" class="form-control input-default"  id="tasaPrestamo" placeholder="1.5" th:field="*{tasaPrestamo}">
+								  <i class="formulario__validacion-estado fas fa-times-circle"></i>
+							  </div>
+							  <p class="formulario__input-error">Tasa Préstamo</p>
+						  </div>
+
+						  <!-- Grupo: Periodo Cuentas -->
+						  <div class="formulario-grupo" id="grupo__periodoCuota">
+							  <label for="" class="formulario__label">Periodo Cuentas</label>
+							  <div class="formulario__grupo-input">
+								  <select class="form-control input-default" th:field="*{periodoCuota}">
+									  <option value="" id="periodo" selected >Seleccionar</option>
+									  <option value="Mensual">Mensual</option>
+									  <option value="Cuatrimensual">Cuatrimensual</option>
+									  <option value="Trimestral">Trimestral</option>
+									  <option value="Semestral">Semestral</option>
+									  <option value="Quinquemestral">Quinquemestral</option>
+								  </select>
+								  <i class="formulario__validacion-estado fas fa-times-circle"></i>
+							  </div>
+							  <p class="formulario__input-error">Periodo Cuentas</p>
+						  </div>
+
+						  <!-- Grupo: Número Cuotas -->
+						  <div class="formulario__grupo" id="grupo__numeroCuotas">
+							  <label for="numeroCuotas" class="formulario__label">Número Cuotas</label>
+							  <div class="formulario__grupo-input">
+								  <input type="number" class="form-control input-default" placeholder="12" id="numeroCuotas" th:field="*{numeroCuotas}">
+								  <i class="formulario__validacion-estado fas fa-times-circle"></i>
+							  </div>
+							  <p class="formulario__input-error">Número Cuotas.</p>
+						  </div>
+
+						  <!-- Grupo: Estado Prestamo -->
+						  <div class="formulario__grupo" id="grupo__estadoPrestamo">
+							<label for="" class="formulario__label">Estado Préstamo</label>
+						  	<select class="form-control input-default" th:field="*{estadoPrestamo}">
+								<option value="" id="estadoP" selected>Seleccionar</option>
+								<option value="Activo">Activo</option>
+								<option value="Inactivo">Inactivo</option>
+						  	</select>
+						  </div>
+						  
+						  <div class="form-text text-danger" th:if="${errorMessage} and ${modalAdd}" th:text="${errorMessage}"></div>                                
+					  </div>
+					  <div class="modal-footer">
+						  <button type="button" class="btn btn-secondary cancel" data-dismiss="modal">Cancelar</button>
+						  <button type="submit" class="btn btn-primary" id="Editar">Editar</button>
+					  </div>
+					</form>
+		  </div>
 		</div>
 	</div>
+
+	
+					  			</div>
+				  			</div>
+						</div>
+					</div>
+				</div>
+			</div>
 
 		
         <!--**********************************
@@ -1141,7 +1151,7 @@
 
     
 	
-					</div>
+		</div>
 			</div>
 		</div>
     <!--**********************************
@@ -1172,6 +1182,10 @@
     <script th:src="@{/assets/dashboard/js/plugins-init/datatables.init.js}"></script>
 
 	<script th:src="@{/assets/js/validacionPrestamo.js}"></script>
+
+	<script th:inline="javascript" th:if="${errorMessage}">$("#modal-add").modal("show");</script>
+	<script th:inline="javascript" th:if="${modalEdit}">$("#modal-edit").modal("show");</script>
+
 
 </body>
 </html>

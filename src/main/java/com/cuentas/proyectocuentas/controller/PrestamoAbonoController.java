@@ -17,6 +17,7 @@ import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.bind.annotation.SessionAttributes;
 import org.springframework.web.bind.support.SessionStatus;
 import org.springframework.web.multipart.MultipartFile;
@@ -89,25 +90,34 @@ public class PrestamoAbonoController {
         return "redirect:listar";
     }
 
-    @GetMapping("/formulario")
-    public String formulario(Model m){
-        PrestamoAbono prestamoabono = new PrestamoAbono();
-        m.addAttribute("prestamoabono", prestamoabono);
-        m.addAttribute("prestamo", prestamoI.findAll());
-        return "views/prestamoabono/registrar";
-    }
+    // @GetMapping("/formulario")
+    // public String formulario(Model m){
+    //     PrestamoAbono prestamoabono = new PrestamoAbono();
+    //     m.addAttribute("prestamoabono", prestamoabono);
+    //     m.addAttribute("prestamo", prestamoI.findAll());
+    //     return "views/prestamoabono/registrar";
+    // }
 
     //EDITAR
-    @GetMapping(path = {"/editar/{idPrestamoAbono}", "/Editar/{idPrestamoAbono}"})
-    public String editar (@PathVariable Integer idPrestamoAbono, Model m){
-        PrestamoAbono prestamoabono=null;
-        if(idPrestamoAbono > 0){
-            prestamoabono=prestamoabonoI.findOne(idPrestamoAbono);
-        }
-        m.addAttribute("prestamoabono", prestamoabono);
-        m.addAttribute("prestamo", prestamoI.findAll());
-        return "views/prestamoabono/editar"; 
+    // @GetMapping(path = {"/editar/{idPrestamoAbono}", "/Editar/{idPrestamoAbono}"})
+    // public String editar (@PathVariable Integer idPrestamoAbono, Model m){
+    //     PrestamoAbono prestamoabono=null;
+    //     if(idPrestamoAbono > 0){
+    //         prestamoabono=prestamoabonoI.findOne(idPrestamoAbono);
+    //     }
+    //     m.addAttribute("prestamoabono", prestamoabono);
+    //     m.addAttribute("prestamo", prestamoI.findAll());
+    //     return "views/prestamoabono/editar"; 
+    // }
+
+    //EDITAR
+
+    @GetMapping("/editar")
+    @ResponseBody
+    public PrestamoAbono editar(Integer idPrestamoAbono){
+        return prestamoabonoI.findOne(idPrestamoAbono);
     }
+
  
 
     //ELIMINAR

@@ -2,7 +2,7 @@ package com.cuentas.proyectocuentas.model;
 
 import java.util.ArrayList;
 import java.util.List;
-
+ 
 import javax.persistence.CascadeType;
 import javax.persistence.Column;
 import javax.persistence.Entity;
@@ -45,7 +45,7 @@ public class Prestamo {
     
     @Column(name = "tasaPrestamo", length = 15 )
     @NotNull
-    private Integer tasaPrestamo;
+    private Double tasaPrestamo;
 
     @Column(name = "periodoCuota", length = 15 )
     @NotEmpty
@@ -80,7 +80,7 @@ public class Prestamo {
 
     public Prestamo(Integer idPrestamo, @Size(min = 10, max = 10) @NotEmpty String documentoPrestamista,
             @NotEmpty String nombrePrestamista, @NotEmpty String fechaPagoOportuno, @NotEmpty Integer valorPrestamo,
-            @NotEmpty Integer tasaPrestamo, @NotEmpty String periodoCuota, @NotEmpty Integer numeroCuotas,
+            @NotEmpty Double tasaPrestamo, @NotEmpty String periodoCuota, @NotEmpty Integer numeroCuotas,
             String estadoPrestamo, Usuario usuario, List<PrestamoAbono> prestamoabono) {
         this.idPrestamo = idPrestamo;
         this.documentoPrestamista = documentoPrestamista;
@@ -135,11 +135,11 @@ public class Prestamo {
         this.valorPrestamo = valorPrestamo;
     }
 
-    public Integer getTasaPrestamo() {
+    public Double getTasaPrestamo() {
         return tasaPrestamo;
     }
 
-    public void setTasaPrestamo(Integer tasaPrestamo) {
+    public void setTasaPrestamo(Double tasaPrestamo) {
         this.tasaPrestamo = tasaPrestamo;
     }
 

@@ -72,7 +72,7 @@
                         <form th:action="@{/prestamoabono/add}" method="post" th:object="${abono}" enctype="multipart/form-data">
                           <div class="modal-body">
                                   <input type="hidden" name="idPrestamoAbono" id="idPrestamoAbono" th:value="${Ab.idPrestamoAbono}">
-                                  <div>
+                                  <div> 
                                   <label for="">Valor del préstamo</label>
                                   <select name="prestamo" readonly>
                                     <option th:value="${Ab.prestamo.idPrestamo}" th:text="${Ab.prestamo.nombrePrestamista}">Seleccionar</option> 
@@ -80,7 +80,7 @@
                                   </select>
                                   <span class="validity"></span>
                                   </div>
-                                  <div>
+                                  <div> 
                                   <label for="">Fecha Abono</label>
                                   <input type="date" name="fechaAbono" th:min="${fechaAbonoMin}" th:max="${fechaAbonoMax}" id="fechaAbono" th:value="${Ab.fechaAbono}" required>
                                   <span class="validity"></span>
@@ -150,7 +150,7 @@
                       <option th:each="Pr:${prestamo}" th:text="${Pr.valorPrestamo}" th:value="${Pr.idPrestamo}"></option>
                   </select>
                     </div>
-                       
+                        
                               
           
     <!-- Grupo: Fecha Abono-->

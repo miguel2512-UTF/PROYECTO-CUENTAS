@@ -5,14 +5,14 @@
     <meta charset="utf-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width,initial-scale=1">
-    <title>Cuentas en Casa | Abono Prestamo</title>
+    <title>Cuentas en Casa | Abono Préstamo</title>
     <!-- Favicon icon -->
     <link rel="icon" type="image/png" sizes="16x16" th:href="@{/assets/img/Icon-cuentascasa.png}">
     <!-- Datatable -->
     <link th:href="@{/assets/dashboard/vendor/datatables/css/jquery.dataTables.min.css}" rel="stylesheet">
     <!-- JS para CRUD -->
 	<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.1/jquery.min.js"></script>
-	<script th:src="@{/assets/js/main.js}"></script>
+	<!-- <script th:src="@{/assets/js/main.js}"></script> -->
 	<!-- Estilos -->
   <link rel="stylesheet" type="text/css" th:href="@{/assets/css/estiloC.css}">
   <link href='https://unpkg.com/boxicons@2.1.2/css/boxicons.min.css' rel='stylesheet'>
@@ -576,7 +576,7 @@
                     <div class="collapse navbar-collapse justify-content-between">
                         <div class="header-left">
                             <div class="dashboard_bar">
-							Abono Prestamo
+							Abono Préstamo
                             </div>
                         </div>
                         <ul class="navbar-nav header-right">
@@ -666,7 +666,7 @@
 									</div>
                   <a class="all-notification" href="javascript:void(0)">See all notifications <i class="ti-arrow-right"></i></a>
               </div>
-          </li>
+          					</li>
 							<li class="nav-item dropdown notification_dropdown">
                                 <a class="nav-link bell bell-link" href="javascript:void(0)">
                                     <i class='bx bx-message-dots'></i>
@@ -733,9 +733,9 @@
 									</div>
 								</div>
 							</li>
-              <li class="nav-item dropdown header-profile">
-                  <a class="nav-link" href="javascript:void(0)" role="button" data-toggle="dropdown">
-                      <!-- <img src="images/profile/17.jpg" width="20" alt=""/> -->
+              				<li class="nav-item dropdown header-profile">
+                  				<a class="nav-link" href="javascript:void(0)" role="button" data-toggle="dropdown">
+                      				<!-- <img src="images/profile/17.jpg" width="20" alt=""/> -->
 									<div class="header-info">
 										<span class="text-black"><strong>Nombre Apellido</strong></span>
 										<p class="fs-12 mb-0">Rol</p>
@@ -781,18 +781,17 @@
                 <div class="page-titles">
 					<ol class="breadcrumb">
 						<li class="breadcrumb-item"><a th:href="@{/inicio}">Inicio</a></li>
-						<li class="breadcrumb-item active"><a href="javascript:void(0)">Abono Prestamo</a></li>
+						<li class="breadcrumb-item active"><a href="javascript:void(0)">Abono Préstamo</a></li>
 					</ol>
                 </div>
                 <!-- row -->
                 <div class="row">
 					<div class="col-12">
-
                         <div class="card">
                             <div class="card-header">
                                 <h4 class="card-title">Lista de Abonos</h4>
-                                <button type="button" class="nBtn btn btn-rounded btn-primary"><span
-                                    class="btn-icon-left text-primary"><i class="fa fa-plus color-info"></i>
+                                <button type="button" class="nBtn btn btn-rounded btn-primary"><span class="btn-icon-left text-primary">
+								<i class="fa fa-plus color-info"></i>
                                 </span>Agregar</button>
                             </div>
                             <div class="card-body">
@@ -802,7 +801,7 @@
                                             class="btn-icon-left text-primary"><i class="fa fa-plus color-info"></i>
                                         </span>Agregar</button>
                                     </div> -->
-                                    
+                                     
                                     <div class="alert alert-warning alert-dismissible fade show" th:if="${prestamoabonos.size()==0}">
                                         <svg viewBox="0 0 24 24" width="24" height="24" stroke="currentColor" stroke-width="2" fill="none" stroke-linecap="round" stroke-linejoin="round" class="mr-2"><path d="M10.29 3.86L1.82 18a2 2 0 0 0 1.71 3h16.94a2 2 0 0 0 1.71-3L13.71 3.86a2 2 0 0 0-3.42 0z"></path><line x1="12" y1="9" x2="12" y2="13"></line><line x1="12" y1="17" x2="12.01" y2="17"></line></svg>
                                         <strong>Precaución!</strong> No existen Abonos para mostrar
@@ -818,163 +817,139 @@
                                         <thead>
                                             <tr>
                                                 <th>
-													<div class="custom-control custom-checkbox">
+								 					<div class="custom-control custom-checkbox">
 														<input type="checkbox" class="custom-control-input" id="checkAll" required="">
 														<label class="custom-control-label" for="checkAll"></label>
 													</div>
 												</th>
-                        <th>Id</th>
-                        <th>Nombre Prestamista</th>
-                        <th>Fecha Abono</th>
-                        <th>Total Abono</th>
-                        <th>Imagen Abono</th>
-                        <th>Acciones</th>
-                        </tr>
-                        <tbody>
-                          <tr th:each="Ab:${prestamoabonos}" id="tablerow">
-                            <td>
-                        </thead>
-						<div class="custom-control custom-checkbox">
-							<input type="checkbox" class="custom-control-input" id="customCheckBox3" required="">
-							<label class="custom-control-label" for="customCheckBox3"></label>
-						</div>
-					</td>
-					<td th:text="${Ab.idPrestamoAbono}"></td>
-          <td th:text="${Ab.prestamo.nombrePrestamista}"></td>
-					<td th:text="${Ab.fechaAbono}"></td>
-          <td th:text="${Ab.totalAbono}"></td>
-          <td>
-            <div class="modal-container">
-              <img 
-                th:src="@{'/assets/aimg/' + ${Ab.imagenAbono}}" 
-                th:alt="${Ab.imagenAbono}" id="imagenAbono">
-            </div>
-          </td>
-					<td>
-							<a href="" data-toggle="modal" th:attr="data-target='#modal-editar'+${Ab.idPrestamoAbono}"
-							class="eBtn btn btn-primary shadow btn-xs sharp mr-1" id="editar"><i class="fa fa-pencil"></i>
-							</a>
+                        						<th>Id</th>
+                        						<th>Nombre Prestamista</th>
+                        						<th>Fecha Abono</th>
+                        						<th>Total Abono</th>
+                        						<th>Imagen Abono</th>
+                        						<th>Acciones</th>
+                        					</tr>
+										</thead>
+                        				<tbody>
+                        					<tr th:each="Ab:${prestamoabonos}" id="tablerow">
+                         						<td>
+                        				
+													<div class="custom-control custom-checkbox">
+														<input type="checkbox" class="custom-control-input" id="customCheckBox3" required="">
+														<label class="custom-control-label" for="customCheckBox3"></label>
+													</div> 
+												</td>
+												<td th:text="${Ab.idPrestamoAbono}"></td>
+                    							<td th:text="${Ab.prestamo.nombrePrestamista}"></td>
+												<td th:text="${Ab.fechaAbono}"></td>
+                    							<td th:text="${Ab.totalAbono}"></td>
+                    							<td>
+            										<div class="modal-container">
+              											<img th:src="@{'/assets/aimg/' + ${Ab.imagenAbono}}" th:alt="${Ab.imagenAbono}" id="imagenAbono">
+            										</div>
+                    							</td>
+												<td>
+													<div class="d-flex"> 
+														<!-- <a th:href="@{editar/(idPrestamoAbono=${Ab.idPrestamoAbono})}" class="eBtn btn btn-primary shadow btn-xs sharp mr-1" id="editar"><i class="fa fa-pencil"></i> </a> -->
+														<a href="" data-toggle="modal" th:attr="data-target='#modal-delete'+${Ab.idPrestamoAbono}"> <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="btn shadow btn-xs sharp mr-1" viewBox="0 0 16 16">
+															<path d="M2.5 1a1 1 0 0 0-1 1v1a1 1 0 0 0 1 1H3v9a2 2 0 0 0 2 2h6a2 2 0 0 0 2-2V4h.5a1 1 0 0 0 1-1V2a1 1 0 0 0-1-1H10a1 1 0 0 0-1-1H7a1 1 0 0 0-1 1H2.5zm3 4a.5.5 0 0 1 .5.5v7a.5.5 0 0 1-1 0v-7a.5.5 0 0 1 .5-.5zM8 5a.5.5 0 0 1 .5.5v7a.5.5 0 0 1-1 0v-7A.5.5 0 0 1 8 5zm3 .5v7a.5.5 0 0 1-1 0v-7a.5.5 0 0 1 1 0z"/></svg>
+														</a>
+													</div>
 		  
-							  <!-- MODAL EDITAR -->
-							  <div class="modal fade" tabindex="-1" th:id="modal-editar+${Ab.idPrestamoAbono}">
-								  <div class="modal-dialog">
-									<div class="modal-content">
-									  <div class="modal-header">
-										<h5 class="modal-title">Editar Abono</h5>
-									  </div>
-									  <form th:action="@{/prestamoabonos/add}" method="post" th:object="${prestamoabonos}">
-										<div class="modal-body">
-                      <h1>Campos del formulario</h1>
-										</div>
-										<div class="modal-footer">
-											<button type="button" class="btn btn-secondary" data-dismiss="modal">Cancelar</button>
-											<button type="submit" class="btn bg-cuentas" id="submitEdit">Editar</button>
-										</div>
-									  </form>
-									</div>
-								  </div>
-							  </div>
-			  
-							  <a href="" data-toggle="modal" th:attr="data-target='#modal-delete'+${Ab.idPrestamoAbono}">
-							  <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="eBtn btn shadow btn-xs sharp mr-1" viewBox="0 0 16 16">
-							  <path d="M2.5 1a1 1 0 0 0-1 1v1a1 1 0 0 0 1 1H3v9a2 2 0 0 0 2 2h6a2 2 0 0 0 2-2V4h.5a1 1 0 0 0 1-1V2a1 1 0 0 0-1-1H10a1 1 0 0 0-1-1H7a1 1 0 0 0-1 1H2.5zm3 4a.5.5 0 0 1 .5.5v7a.5.5 0 0 1-1 0v-7a.5.5 0 0 1 .5-.5zM8 5a.5.5 0 0 1 .5.5v7a.5.5 0 0 1-1 0v-7A.5.5 0 0 1 8 5zm3 .5v7a.5.5 0 0 1-1 0v-7a.5.5 0 0 1 1 0z"/>
-							  </svg></a>
-							  
-			  
-							  <!-- MODAL ELIMINAR -->
-							  <div class="modal fade" tabindex="-1" th:id="modal-delete+${Ab.idPrestamoAbono}">
-								<div class="modal-dialog">
-								  <div class="modal-content">
-									<div class="modal-header">
-									  <h5 class="modal-title">Eliminar Pago</h5>
-									</div>
-									<div class="modal-body">
-									  <p>Esta seguro que desea ELIMINAR el Pago?</p>
-								  </div>
-									
-									<div class="modal-footer">
-									  <button type="button" class="btn btn-secondary" data-dismiss="modal">Cancelar</button>
-									  <a role="button" class="btn bg-cuentas" th:href="@{/prestamoabono/delete/}+${Ab.idPrestamoAbono}"> Eliminar Prestamo</a>
-									</div>
-								  </div>
-								</div>
-							</div>
-					</td>
-					  </tr>
-				  </table>
+							  						<!-- MODAL ELIMINAR -->
+							  						<div class="modal fade" tabindex="-1" th:id="modal-delete+${Ab.idPrestamoAbono}">
+														<div class="modal-dialog">
+								  							<div class="modal-content">
+																<div class="modal-header">
+									  								<h5 class="modal-title">Eliminar Abono</h5>
+																</div>
+																<div class="modal-body">
+									  								<p>Esta seguro que desea ELIMINAR el Abono?</p>
+								  								</div>
+								  								<div class="modal-footer">
+																	<button type="button" class="btn btn-secondary cancel" data-dismiss="modal" id="cancel">Cancelar</button>
+																	<a role="button" class="btn btn-primary" th:href="@{/prestamoabono/delete/}+${Ab.idPrestamoAbono}"> Eliminar Abono</a>
+								  								</div>
+															</div>
+														</div>
+													</div>
+												</td>
+					  						</tr>
+										</tbody>				
+									</table>
 				  
-	<!-- MODAL REGISTRAR -->
-	<div class="modal fade" tabindex="-1" id="modal-add">
-		<div class="modal-dialog">
-		<div class="modal-content">
-			<div class="modal-header">
-			<h5 class="modal-title">Registrar Abono</h5>
-			</div> 
-			<div class="modal-body">
-				<form th:action="@{/prestamoabono/add}" method="post" th:object="${abono}" id="formulario" class="formulario" enctype="multipart/form-data">
-				<script th:inline="javascript" th:if="${#fields.hasErrors('*')}">$("#modal-add").modal("show");</script>
-				<script th:inline="javascript" th:if="${errorMessage}">$("#modal-add").modal("show");</script>
+									<!-- MODAL REGISTRAR -->
+									<div class="modal fade" id="modal-add">
+										<div class="modal-dialog modal-dialog-centered" role="document">
+											<div class="modal-content">
+												<div class="modal-header">
+													<h4 class="modal-title">Registrar Abono</h4>
+												</div> 
+												<form th:action="@{/prestamoabono/add}" method="post" th:object="${abono}" id="formulario" enctype="multipart/form-data">
+													<div class="modal-body">
+														<script th:inline="javascript" th:if="${#fields.hasErrors('*')}">$("#modal-add").modal("show");</script>
+														<script th:inline="javascript" th:if="${errorMessage}">$("#modal-add").modal("show");</script>
 
-        <!-- Grupo: Valor Prestamo --> 
-		<div class="formulario__grupo" id="grupo__prestamo">
-			<label for="prestamo" class="formulario__label">Valor Prestamo</label>
-			<div class="formulario__grupo-input">
-				<select th:field="*{prestamo}" class="form-control input-default" id="prestamo">
-					<option value="" selected >Seleccionar</option>
-					<option th:each="Pr:${prestamo}" th:text="${Pr.valorPrestamo}" th:value="${Pr.idPrestamo}"></option>
-				</select>
-				<i class="formulario__validacion-estado fas fa-times-circle"></i>
-			</div>
-			<p class="formulario__input-error">Valor Prestamo</p>
-		</div>
+        												<!-- Grupo: Valor Prestamo --> 
+														<div class="formulario__grupo" id="grupo__prestamo">
+															<label for="prestamo" class="formulario__label">Valor Préstamo</label>
+															<div class="formulario__grupo-input">
+																<select th:field="*{prestamo}" class="form-control input-default" id="prestamo">
+																	<option value="" selected >Seleccionar</option>
+																	<option th:each="Pr:${prestamo}" th:text="${Pr.valorPrestamo}" th:value="${Pr.idPrestamo}"></option>
+																</select>
+																<i class="formulario__validacion-estado fas fa-times-circle"></i>
+															</div>
+															<p class="formulario__input-error">Valor Préstamo</p>
+														</div>
 
- 
-			<!-- Grupo: Fecha Abono -->
-			<div class="formulario__grupo" id="grupo__fechaAbono">
-				<label for="fechaAbono" class="formulario__label">Fecha Abono</label>
-				<div class="formulario__grupo-input">
-					<input type="date" class="form-control input-default" name="fechaAbono" id="fechaAbono" th:min="${fechaAbonoMin}" th:max="${fechaAbonoMax}">
-					<i class="formulario__validacion-estado fas fa-times-circle"></i>
-				</div>
-				<p class="formulario__input-error">Fecha Abono</p>
-			</div>
+														<!-- Grupo: Fecha Abono -->
+														<div class="formulario__grupo" id="grupo__fechaAbono">
+															<label for="fechaAbono" class="formulario__label">Fecha Abono</label>
+															<div class="formulario__grupo-input">
+																<input type="date" class="form-control input-default" name="fechaAbono" id="fechaAbono" th:min="${fechaAbonoMin}" th:max="${fechaAbonoMax}">
+																<i class="formulario__validacion-estado fas fa-times-circle"></i>
+															</div>
+															<p class="formulario__input-error">Fecha Abono</p>
+														</div>
 
-			<!-- Grupo: Total Abono-->
-			<div class="formulario__grupo" id="grupo__totalAbono">
-				<label for="totalAbono" class="formulario__label">Total Abono</label>
-				<div class="formulario__grupo-input">
-					<input type="number" class="form-control input-default"  name="totalAbono" id="totalAbono" >
-					<i class="formulario__validacion-estado fas fa-times-circle"></i>
-				</div>
-				<p class="formulario__input-error">Total Abono</p>
-			</div>
+														<!-- Grupo: Total Abono-->
+														<div class="formulario__grupo" id="grupo__totalAbono">
+														<label for="totalAbono" class="formulario__label">Total Abono</label>
+														<div class="formulario__grupo-input">
+															<input type="number" class="form-control input-default"  name="totalAbono" id="totalAbono" >
+															<i class="formulario__validacion-estado fas fa-times-circle"></i>
+														</div>
+														<p class="formulario__input-error">Total Abono</p>
+														</div>
 
-			<!-- Grupo: Imagen Abono -->
-			<div class="formulario__grupo" id="grupo__imagenAbono">
-				<label for="imagenAbono" class="formulario__label">Imagen Abono</label>
-				<div class="formulario__grupo-input">
-					<input type="file" class="form-control input-default" name="file" >
-					<i class="formulario__validacion-estado fas fa-times-circle"></i>
-				</div>
-				<p class="formulario__input-error">Imagen Abono</p>
-			</div>
+														<!-- Grupo: Imagen Abono -->
+														<div class="formulario__grupo" id="grupo__imagenAbono">
+															<label for="imagenAbono" class="formulario__label">Imagen Abono</label>
+															<div class="formulario__grupo-input">
+																<input type="file" class="form-control input-default" name="file" >
+																<i class="formulario__validacion-estado fas fa-times-circle"></i>
+															</div>
+															<p class="formulario__input-error">Imagen Abono</p>
+														</div>
 
-				<div class="form-text text-danger" th:if="${errorMessage} and ${modalAdd}" th:text="${errorMessage}"></div>                                
-      </div>
-      <div class="modal-footer">
-          <button type="button" class="btn btn-secondary cancel" data-dismiss="modal" id="cancel">Cancelar</button>
-          <button type="submit" class="btn btn-primary" id="Registrar">Registrar</button>
-      </div>
-		</form>
-	</div>
-</div>
-	</div>
-					  </div>
-				  </div>
-				</div>
-			</div>
-		</div>
-	</div>
+														<div class="form-text text-danger" th:if="${errorMessage} and ${modalAdd}" th:text="${errorMessage}"></div>                                
+      												</div>
+      												<div class="modal-footer">
+          												<button type="button" class="btn btn-secondary cancel" data-dismiss="modal" id="cancel">Cancelar</button>
+          												<button type="submit" class="btn btn-primary" id="Registrar">Registrar</button>
+      												</div>
+												</form>
+											</div>
+										</div>
+									</div>
+
+					  			</div>
+				  			</div>
+						</div>
+					</div>
+		        </div>
+	        </div>
 
 		
         <!--**********************************
@@ -1004,9 +979,8 @@
 
     
 	
-					</div>
-			</div>
-		</div>
+		</div>		
+	</div>
     <!--**********************************
         Main wrapper end
     ***********************************-->
@@ -1031,6 +1005,10 @@
 	</script>
 
 <!-- Datatable -->
+
+<script th:inline="javascript" th:if="${errorMessage}">$("#modal-add").modal("show");</script>
+<script th:inline="javascript" th:if="${modalEdit}">$("#modal-edit").modal("show");</script>
+
     <script th:src="@{/assets/dashboard/vendor/datatables/js/jquery.dataTables.min.js}"></script>
     <script th:src="@{/assets/dashboard/js/plugins-init/datatables.init.js}"></script>
 

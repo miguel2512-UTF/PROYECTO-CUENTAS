@@ -1,5 +1,5 @@
-package com.cuentas.proyectocuentas.controller;
-
+package com.cuentas.proyectocuentas.controller; 
+ 
 import java.time.LocalDate;
 import javax.validation.Valid;
 
@@ -11,6 +11,7 @@ import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.bind.annotation.SessionAttributes;
 import org.springframework.web.bind.support.SessionStatus;
 
@@ -59,12 +60,17 @@ public class PrestamoController {
             return "views/prestamo/prestamo";
         }
 
-        if (prestamo.getIdPrestamo()==null){
+        if (prestamo.getIdPrestamo()==null){ 
 
-            Integer tasa=(prestamo.getValorPrestamo() * prestamo.getTasaPrestamo())/100;
-            Integer valorprestamo=prestamo.getValorPrestamo()+tasa;
+            //Convertimos de entero a DOUBLE
+            Double a = Double.valueOf(prestamo.getValorPrestamo()); 
 
-            prestamo.setValorPrestamo(valorprestamo);
+            Double tasa=(prestamo.getTasaPrestamo() * a )/100;
+            Double valorprestamo=a+tasa;
+            //Convertimos de double a ENTERO
+            Integer valor = valorprestamo.intValue();
+
+            prestamo.setValorPrestamo(valor);
         }
 
         prestamoI.save(prestamo);
@@ -73,24 +79,31 @@ public class PrestamoController {
         return "redirect:listar";
     }
 
-    @GetMapping("/formulario")
-    public String formulario(Model m){
-        Prestamo prestamo = new Prestamo();
-        m.addAttribute("prestamo", prestamo);
-        return "views/prestamo/registrar";
+    // @GetMapping("/formulario")
+    // public String formulario(Model m){
+    //     Prestamo prestamo = new Prestamo();
+    //     m.addAttribute("prestamo", prestamo);
+    //     return "views/prestamo/registrar";
         
-    } 
+    // } 
 
 
     //EDITAR
-    @GetMapping(path = {"/editar/{idPrestamo}", "/Editar/{idPrestamo}"})
-    public String editar (@PathVariable Integer idPrestamo, Model m){
-        Prestamo prestamo=null;
-        if(idPrestamo > 0){
-            prestamo=prestamoI.findOne(idPrestamo);
-        }
-        m.addAttribute("prestamo", prestamo);
-        return "views/prestamo/editar";
+    // @GetMapping(path = {"/editar/{idPrestamo}", "/Editar/{idPrestamo}"})
+    // public String editar (@PathVariable Integer idPrestamo, Model m){
+    //     Prestamo prestamo=null;
+    //     if(idPrestamo > 0){
+    //         prestamo=prestamoI.findOne(idPrestamo);
+    //     }
+    //     m.addAttribute("prestamo", prestamo);
+    //     return "views/prestamo/editar";
+    // }
+
+    //EDITAR 
+    @GetMapping("/editar")
+    @ResponseBody
+    public Prestamo editar(Integer idPrestamo){
+        return prestamoI.findOne(idPrestamo);
     }
  
 
