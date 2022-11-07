@@ -1,9 +1,9 @@
 package com.cuentas.proyectocuentas.service;
 
 import java.util.List;
-import java.util.Optional;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.stereotype.Service;
 
 import com.cuentas.proyectocuentas.model.IUsuario;
@@ -11,6 +11,9 @@ import com.cuentas.proyectocuentas.model.Usuario;
 
 @Service
 public class UsuarioService implements IUsuarioService{
+    @Autowired
+    private BCryptPasswordEncoder passwordEncoder;
+
     @Autowired
     private IUsuario usuarioI;
 
@@ -34,17 +37,9 @@ public class UsuarioService implements IUsuarioService{
         usuarioI.deleteById(idUsuario);
     }
 
-    private boolean checkUsernameAvailable(Usuario usuario) throws Exception{
-        Optional<Usuario> userFound=usuarioI.findByNombresUsuario(usuario.getNombresUsuario());
-        if (userFound.isPresent()) {
-            throw new Exception("Username no disponible");	
-        }
-        return true;
-    }
-
     private boolean checkEmailAvailable(Usuario usuario) throws Exception{
-        Optional<Usuario> emailFound=usuarioI.findByCorreoUsuario(usuario.getCorreoUsuario());
-        if (emailFound.isPresent()) {
+        Usuario emailFound=usuarioI.findByCorreoUsuario(usuario.getCorreoUsuario());
+        if (emailFound!=null) {
             throw new Exception("Email no disponible");
         }
         return true;
@@ -52,26 +47,28 @@ public class UsuarioService implements IUsuarioService{
     
     @Override
     public Usuario createUser(Usuario usuario) throws Exception {
-        if (checkUsernameAvailable(usuario) && checkEmailAvailable(usuario)) {
+        if (checkEmailAvailable(usuario)) {
+            usuario.setContrasenaUsuario(passwordEncoder.encode(usuario.getContrasenaUsuario()));
             usuario = usuarioI.save(usuario);
         }
         return usuario;
     }
 
-    @Override
-    public Usuario login(Usuario usuario) {
-        Optional<Usuario> usu=usuarioI.findByNombresUsuario(usuario.getNombresUsuario());
-        Usuario usu1=new Usuario();
+    // @Override
+    // public Usuario login(Usuario usuario) {
+    //     Optional<Usuario> usu=usuarioI.findByNombresUsuario(usuario.getNombresUsuario());
+    //     Usuario usu1=new Usuario();
 
-        if (usu.isPresent()) {
-            usu1=usu.get();
-        }
+    //     if (usu.isPresent()) {
+    //         usu1=usu.get();
+    //     }
         
-        if (usuario.getNombresUsuario().equalsIgnoreCase(usu1.getNombresUsuario()) && usuario.getContrasenaUsuario().equalsIgnoreCase(usu1.getContrasenaUsuario())) {
-            System.out.println("Se encontro el user");
-            return usu1;
-        }else{
-            return null; 
-        }
-    }
+    //     if (usuario.getNombresUsuario().equalsIgnoreCase(usu1.getNombresUsuario()) && usuario.getContrasenaUsuario().equalsIgnoreCase(usu1.getContrasenaUsuario())) {
+    //         System.out.println("Se encontro el user");
+    //         return usu1;
+    //     }else{
+    //         return null; 
+    //     }
+    // }
+    
 }

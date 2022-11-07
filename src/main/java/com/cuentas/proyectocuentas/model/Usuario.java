@@ -1,5 +1,6 @@
 package com.cuentas.proyectocuentas.model;
 
+import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -18,7 +19,7 @@ import javax.validation.constraints.Pattern;
 
 @Entity
 @Table(name="Usuario")
-public class Usuario {
+public class Usuario implements Serializable{
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
@@ -34,7 +35,7 @@ public class Usuario {
     @Pattern(regexp = "[A-Za-zñ ]{1,20}")
     private String apellidosUsuario;
 
-    @Column(length = 50, nullable = false)
+    @Column(length = 300, nullable = false)
     // @NotEmpty
     private String contrasenaUsuario;
 
@@ -55,20 +56,6 @@ public class Usuario {
     private List<Compromiso> compromiso;
 
 
-
-	public List<Compromiso> getCompromiso() {
-		return compromiso;
-	}
-
-	public void setCompromiso(List<Compromiso> compromiso) {
-		this.compromiso = compromiso;
-	}
-
-	public Usuario(List<Compromiso> compromiso) {
-		this.compromiso = compromiso;
-	}
-
-
     /*Relacion de uno a mucho(Usuario a Prestamo) */
 
     @OneToMany(mappedBy = "usuario", fetch = FetchType.LAZY, cascade = CascadeType.ALL)
@@ -76,8 +63,6 @@ public class Usuario {
 
 
     public Usuario() {
-        
-        compromiso=new ArrayList<Compromiso>();
         prestamo=new ArrayList<Prestamo>();
     }
 

@@ -52,9 +52,7 @@ public class Compromiso {
 	private String total;
 
     
-
     @Column()
-
 	@NotEmpty
 	private String estadoCom;
 
@@ -62,8 +60,6 @@ public class Compromiso {
     @NotNull
 	private Usuario usuario;
 	
-
-
 	
 	public Usuario getUsuario() {
 		return usuario;
@@ -73,20 +69,11 @@ public class Compromiso {
 		this.usuario = usuario;
 	}
 
-	public Compromiso(Usuario usuario) {
-		this.usuario = usuario;
-	}
+
     @ManyToOne(fetch = FetchType.LAZY)
     @NotNull
 	private TipoCompromiso tipocompromiso;
 
-	public Compromiso(TipoCompromiso tipocompromiso) {
-		this.tipocompromiso = tipocompromiso;
-	}
-    public Compromiso(Usuario usuario, TipoCompromiso tipocompromiso) {
-        this.usuario = usuario;
-        this.tipocompromiso = tipocompromiso;
-    }
 
     public Compromiso() {
 		

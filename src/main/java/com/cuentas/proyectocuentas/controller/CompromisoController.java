@@ -13,6 +13,7 @@ import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.bind.annotation.SessionAttributes;
 import org.springframework.web.bind.support.SessionStatus;
 
@@ -110,6 +111,12 @@ m.addAttribute("usuario",usuario);
             m.addAttribute("fechaMax", fechaMax);
 
             return "views/compromiso/compromiso";    
+        }
+
+        @GetMapping("/editar")
+        @ResponseBody
+        public Compromiso editar(Integer idCom){
+            return compromisod.findOne(idCom);
         }
 
         @GetMapping("/actualizar/{idCom}")

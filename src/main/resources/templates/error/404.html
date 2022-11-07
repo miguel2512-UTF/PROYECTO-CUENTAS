@@ -20,10 +20,10 @@
                 <div class="col-md-8">
                     <div class="form-input-content text-center error-page">
                         <h1 class="error-text font-weight-bold" th:text="${status}"></h1>
-                        <h4><i class="fa fa-exclamation-triangle text-warning"></i> Pagina no encontrada!</h4>
+                        <h4><i class="fa fa-exclamation-triangle text-warning"></i> Página no encontrada!</h4>
                         <p th:text="${message}"></p>
 						<div>
-                            <a class="btn btn-primary" th:href="@{/index}">Volver</a>
+                            <a class="btn btn-primary" onclick="history.back()">Volver</a>
                         </div>
                     </div>
                 </div>
