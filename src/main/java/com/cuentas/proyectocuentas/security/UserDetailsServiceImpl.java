@@ -1,6 +1,7 @@
 package com.cuentas.proyectocuentas.security;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.security.core.GrantedAuthority;
 import org.springframework.security.core.authority.SimpleGrantedAuthority;
 import org.springframework.security.core.userdetails.User;
 import org.springframework.security.core.userdetails.UserDetails;
@@ -27,12 +28,18 @@ public class UserDetailsServiceImpl implements UserDetailsService{
             builder = User.withUsername(correo);
             builder.disabled(false);
             builder.password(usuario.getContrasenaUsuario());
-            builder.authorities(new SimpleGrantedAuthority("ROLE_USER"));
+            builder.authorities(getAuthorities(usuario));
         } else {
             throw new UsernameNotFoundException("usuario no encontrado");
         }
 
         return builder.build();
+    }
+
+    private GrantedAuthority getAuthorities(Usuario usuario){
+        GrantedAuthority authorities = new SimpleGrantedAuthority(usuario.getTipoUsuario().toUpperCase());
+
+        return authorities;
     }
     
 }
