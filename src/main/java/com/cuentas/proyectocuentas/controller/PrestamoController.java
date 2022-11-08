@@ -45,7 +45,7 @@ public class PrestamoController {
 
         m.addAttribute("fechaPagoMin", fechaPagoMin);
         m.addAttribute("fechaPagoMax", fechaPagoMax);
-
+        
         return "views/prestamo/prestamo";
         
     }
@@ -64,13 +64,14 @@ public class PrestamoController {
 
             //Convertimos de entero a DOUBLE
             Double a = Double.valueOf(prestamo.getValorPrestamo()); 
-
             Double tasa=(prestamo.getTasaPrestamo() * a )/100;
             Double valorprestamo=a+tasa;
             //Convertimos de double a ENTERO
             Integer valor = valorprestamo.intValue();
-
             prestamo.setValorPrestamo(valor);
+
+            prestamo.setValorPrestamoInicial(prestamo.getValorPrestamo());
+
         }
 
         prestamoI.save(prestamo);

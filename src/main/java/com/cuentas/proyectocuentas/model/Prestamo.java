@@ -42,6 +42,8 @@ public class Prestamo {
     @NotNull
     private Integer valorPrestamo;
 
+    @Column(name = "valorPrestamoInicial", length = 15)
+    private Integer valorPrestamoInicial;
     
     @Column(name = "tasaPrestamo", length = 15 )
     @NotNull
@@ -60,7 +62,6 @@ public class Prestamo {
     private String estadoPrestamo;
 
     /*Relacion de muchos a uno (Prestamo a Usuario) */
-
     @ManyToOne(fetch = FetchType.LAZY)
     private Usuario usuario;
 
@@ -78,22 +79,29 @@ public class Prestamo {
 
     }
 
-    public Prestamo(Integer idPrestamo, @Size(min = 10, max = 10) @NotEmpty String documentoPrestamista,
-            @NotEmpty String nombrePrestamista, @NotEmpty String fechaPagoOportuno, @NotEmpty Integer valorPrestamo,
-            @NotEmpty Double tasaPrestamo, @NotEmpty String periodoCuota, @NotEmpty Integer numeroCuotas,
-            String estadoPrestamo, Usuario usuario, List<PrestamoAbono> prestamoabono) {
+    
+
+    public Prestamo(Integer idPrestamo, @Size(min = 8, max = 10) @NotEmpty String documentoPrestamista,
+            @NotEmpty String nombrePrestamista, @NotEmpty String fechaPagoOportuno, @NotNull Integer valorPrestamo,
+            Integer valorPrestamoInicial, @NotNull Double tasaPrestamo, @NotEmpty String periodoCuota,
+            @NotNull Integer numeroCuotas, @NotEmpty String estadoPrestamo, Usuario usuario,
+            List<PrestamoAbono> prestamoabono, List<PagoPrestamo> pagoprestamo) {
         this.idPrestamo = idPrestamo;
         this.documentoPrestamista = documentoPrestamista;
         this.nombrePrestamista = nombrePrestamista;
         this.fechaPagoOportuno = fechaPagoOportuno;
         this.valorPrestamo = valorPrestamo;
+        this.valorPrestamoInicial = valorPrestamoInicial;
         this.tasaPrestamo = tasaPrestamo;
         this.periodoCuota = periodoCuota;
         this.numeroCuotas = numeroCuotas;
         this.estadoPrestamo = estadoPrestamo;
         this.usuario = usuario;
         this.prestamoabono = prestamoabono;
+        this.pagoprestamo = pagoprestamo;
     }
+
+
 
     public Integer getIdPrestamo() {
         return idPrestamo;
@@ -175,14 +183,33 @@ public class Prestamo {
         this.usuario = usuario;
     }
 
-    public List<PrestamoAbono> getPrestamoabono() {
-        return prestamoabono;
+    public Integer getValorPrestamoInicial() {
+        return valorPrestamoInicial;
     }
 
-    public void setPrestamoabono(List<PrestamoAbono> prestamoabono) {
-        this.prestamoabono = prestamoabono;
+    public void setValorPrestamoInicial(Integer valorPrestamoInicial) {
+        this.valorPrestamoInicial = valorPrestamoInicial;
     }
 
+    // public List<PrestamoAbono> getPrestamoabono() {
+    //     return prestamoabono; 
+    // }
+
+    // public void setPrestamoabono(List<PrestamoAbono> prestamoabono) {
+    //     this.prestamoabono = prestamoabono;
+    // }
+
+    // public List<PagoPrestamo> getPagoprestamo() {
+    //     return pagoprestamo;
+    // }
+
+    // public void setPagoprestamo(List<PagoPrestamo> pagoprestamo) {
+    //     this.pagoprestamo = pagoprestamo;
+    // }
+
+    
+
+    
     
     
 
