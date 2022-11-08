@@ -42,7 +42,7 @@
                     </li>
                 </ul>
             </li>
-            <li><a class="has-arrow ai-icon" href="javascript:void()" aria-expanded="false">
+            <li sec:authorize="hasAnyAuthority('ADMINISTRADOR')"><a class="has-arrow ai-icon" href="javascript:void()" aria-expanded="false">
                     <i class='bx bx-user'></i>
                     <span class="nav-text">Usuarios</span>
                 </a>

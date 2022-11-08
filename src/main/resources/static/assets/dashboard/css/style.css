@@ -8604,7 +8604,7 @@ a.text-warning:hover, a.text-warning:focus {
   color: #c48c00 !important; }
 
 .text-danger {
-  color: #F94687 !important; }
+  color: #DC3545 !important; }
 
 a.text-danger:hover, a.text-danger:focus {
   color: #eb085a !important; }
@@ -27597,14 +27597,14 @@ table.dataTable thead .sorting {
 .error-page .error-text {
   font-size: 150px;
   line-height: 1;
-  color: #A02CFA; }
+  color: #57b846; }
   @media only screen and (max-width: 575px) {
     .error-page .error-text {
       font-size: 80px; } }
 .error-page h4 {
   font-size: 40px;
   margin-bottom: 5px;
-  color: #A02CFA; }
+  color: #57b846; }
   @media only screen and (max-width: 575px) {
     .error-page h4 {
       font-size: 20px; } }

@@ -33,8 +33,8 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter{
 
     @Override
     protected void configure(HttpSecurity http) throws Exception {
-        http.authorizeRequests().antMatchers("/","/assets/**","/usuario/**").permitAll().anyRequest().authenticated()
-        //.antMatchers("/inicio","/private/**","/usuario/**","/prestamo/**","/prestamoabono/**","/pagoprestamo/**","/compromiso/**","/tipocompromiso/**").denyAll()
+        http.authorizeRequests().antMatchers("/","/assets/**","/usuario/**").permitAll().antMatchers("/inicio","/compromiso/**","/tipocompromiso/**","/prestamo/**","/pagoprestamo/**","/prestamoabono/**").hasAnyAuthority("ADMINISTRADOR","CONTADOR","ADMIN DEL HOGAR").anyRequest().authenticated()
+
         .and()
             .formLogin().loginPage("/login")
             .loginProcessingUrl("/loginpost").defaultSuccessUrl("/inicio", true).usernameParameter("correoUsuario").passwordParameter("contrasenaUsuario").permitAll()
