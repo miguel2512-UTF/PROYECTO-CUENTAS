@@ -117,16 +117,21 @@ public class PrestamoController {
         return "redirect:../listar";
     }
 
-    //PRESTAMO ABONO
-    @GetMapping("/prestamoabono/listar")
-    public String prestamoabono(@PathVariable Integer idPrestamo, Model m){
-        Prestamo prestamo=null;
-        if(idPrestamo > 0){
-            prestamo=prestamoI.findOne(idPrestamo);
-        }
-        m.addAttribute("prestamo", prestamo);
-        return "redirect:../prestamoabono/listar";
-    }
+   //INACTIVAR O ACTIVAR
+   @GetMapping("/cambioestado/{idPrestamo}")
+   public String cambioestado(@PathVariable Integer idPrestamo){
+       Prestamo prestamo = new Prestamo();
+       prestamo=prestamoI.findOne(idPrestamo);
+       if (prestamo.getEstadoPrestamo().equalsIgnoreCase("activo")) {
+           prestamo.setEstadoPrestamo("Inactivo");
+           prestamoI.save(prestamo);
+       }else if (prestamo.getEstadoPrestamo().equalsIgnoreCase("inactivo")) {
+           prestamo.setEstadoPrestamo("Activo");
+           prestamoI.save(prestamo);
+       }
+
+       return "redirect:/prestamo/listar?success=true";
+   }
  
     
 }

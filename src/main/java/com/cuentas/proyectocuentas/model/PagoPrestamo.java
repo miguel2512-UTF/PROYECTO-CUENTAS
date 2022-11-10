@@ -71,7 +71,7 @@ public class PagoPrestamo {
     }
 
     public String getImagenPago() {
-        return imagenPago;
+        return imagenPago; 
     }
 
     public void setImagenPago(String imagenPago) {
