@@ -1154,6 +1154,7 @@
 	<script th:src="@{/assets/dashboard/vendor/toastr/js/toastr.min.js}"></script>
 
 	<!-- All init script -->
+	<!-- th:if="${param.success and param.success!=0}" -->
 	<script th:inline="javascript" th:if="${param.success}">
 		$("#toastr-success-bottom-right").on("click", function () {
                 toastr.success("Acción realizada exitosamente", "Cambios Guardados", {
