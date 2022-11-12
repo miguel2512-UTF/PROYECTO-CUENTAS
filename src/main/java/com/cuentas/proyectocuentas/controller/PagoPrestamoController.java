@@ -26,7 +26,7 @@ import com.cuentas.proyectocuentas.model.PagoPrestamo;
 import com.cuentas.proyectocuentas.service.IPagoPrestamoService;
 import com.cuentas.proyectocuentas.service.IPrestamoService;
 
-
+ 
 @Controller
 @SessionAttributes("pagoprestamo")
 @RequestMapping("/pagoprestamo")
@@ -97,7 +97,7 @@ public class PagoPrestamoController {
         m.addAttribute("prestamo", prestamoI.findAll());
         return "views/pagoprestamo/registrar";
     }
-
+ 
     //EDITAR
     @GetMapping(path = {"/editar/{idPagoPrestamo}", "/Editar/{idPagoPrestamo}"})
     public String editar (@PathVariable Integer idPagoPrestamo, Model m){

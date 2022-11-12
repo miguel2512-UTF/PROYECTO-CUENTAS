@@ -25,7 +25,7 @@ import org.springframework.web.multipart.MultipartFile;
 import com.cuentas.proyectocuentas.model.PrestamoAbono;
 import com.cuentas.proyectocuentas.service.IPrestamoAbonoService;
 import com.cuentas.proyectocuentas.service.IPrestamoService;
-
+ 
 @Controller
 @SessionAttributes("prestamoabono")
 @RequestMapping("/prestamoabono")

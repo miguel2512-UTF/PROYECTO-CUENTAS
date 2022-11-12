@@ -1,4 +1,4 @@
-//Validación de REGISTRAR
+//Validación de TABLA REGISTRAR
 const formulario = document.getElementById('formulario');
 const inputs = document.querySelectorAll('#formulario input');
 const selects = document.querySelectorAll('#formulario select');
@@ -148,14 +148,14 @@ cancelButton.forEach((button) => {
     })
 });
 
-//Validación para EDITAR
+//Validación para MODAL REGISTRAR
 
 const formularioEditar = document.getElementById('formularioEdit');
 const inputsEdit = document.querySelectorAll('#formularioEdit input');
 const selectsEdit = document.querySelectorAll('#formularioEdit select');
 const cancelButtonEdit = document.querySelectorAll('#modal-edit .cancel')
 const editButton = document.getElementById('Editar')
-
+ 
 inputsEdit.forEach((input) => {
 	input.addEventListener('keyup', validarFormulario);
 	input.addEventListener('blur', validarFormulario);

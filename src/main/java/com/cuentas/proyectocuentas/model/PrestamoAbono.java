@@ -30,7 +30,7 @@ public class PrestamoAbono {
     private String imagenAbono;
 
     /*Relacion de muchos a uno (Abono a Prestamo) */
-    @ManyToOne(fetch = FetchType.LAZY)
+    @ManyToOne(fetch = FetchType.LAZY) 
     private Prestamo prestamo;
 
     public PrestamoAbono() {

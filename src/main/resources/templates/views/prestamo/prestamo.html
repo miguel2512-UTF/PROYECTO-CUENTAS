@@ -18,7 +18,7 @@
     <link href='https://unpkg.com/boxicons@2.1.2/css/boxicons.min.css' rel='stylesheet'>
 	<link rel="stylesheet" th:href="@{/assets/dashboard/vendor/chartist/css/chartist.min.css}">
     <link th:href="@{/assets/dashboard/vendor/bootstrap-select/dist/css/bootstrap-select.min.css}" rel="stylesheet">
-	<link rel="stylesheet" th:href="@{/assets/css/validacion.css}">
+	<link rel="stylesheet" th:href="@{/assets/css/validacionC.css}">
 	<link th:href="@{/assets/dashboard/vendor/bootstrap-datetimepicker/css/bootstrap-datetimepicker.min.css}" rel="stylesheet">
     <link th:href="@{/assets/dashboard/css/style.css}" rel="stylesheet">
     <script src="https://kit.fontawesome.com/6131ecdde6.js"></script>
@@ -810,9 +810,9 @@
 														<a class="dropdown-item"><input class="MBtn" type="checkbox" name="col" value="bar1" id="tasa"> Tasa</a>
 														<a class="dropdown-item"><input class="MBtn" type="checkbox" name="col" value="bar1" id="periodo"> Periodo</a>
 														<a class="dropdown-item"><input class="MBtn" type="checkbox" name="col" value="bar1" id="cuotas"> Cuotas</a>
-														<a class="dropdown-item"><input class="MBtn" type="checkbox" name="col" value="bar1" id="pagos-abonos"> Pagos y Abonos</a>
-														<!-- <a class="dropdown-item"><input class="MBtn" type="checkbox" name="col" value="bar1" id="estadoP"> Estado</a>
-														<a class="dropdown-item"><input class="MBtn" type="checkbox" name="col" value="bar1" id="acciones"> Acciones</a> -->
+														<!-- <a class="dropdown-item"><input class="MBtn" type="checkbox" name="col" value="bar1" id="pagos-abonos"> Pagos y Abonos</a> -->
+														<a class="dropdown-item"><input class="MBtn" type="checkbox" name="col" value="bar1" id="estadoP"> Estado</a>
+														<!--<a class="dropdown-item"><input class="MBtn" type="checkbox" name="col" value="bar1" id="acciones"> Acciones</a> -->
 													</div>
 												</div>
 											</div>
@@ -860,14 +860,17 @@
 												<td class="valorI" th:text="${Pr.valorPrestamoInicial}"></td>
                         						<td class="tasa" th:text="${Pr.tasaPrestamo} +'%' "></td> 
                         						<td class="periodo" th:text="${Pr.periodoCuota}"></td>
-                        						<td class="cuotas" th:text="${Pr.numeroCuotas}"></td> 
+                        						<td class="cuotas" th:text="${Pr.numeroCuotas}"></td>
                         						<td class="pagos-abonos" th:if="${Pr.valorPrestamo>0}">
-                            					<button>
-												<a href="" data-toggle="modal" th:attr="data-target='#modal-addPago'+${Pr.idPrestamo}">MPagó</a>
-												<a href="" data-toggle="modal" th:attr="data-target='#modal-addAbono'+${Pr.idPrestamo}" >MAbono</a>
-                              					<a role="button" th:href="@{/pagoprestamo/listar}">Pago</a>
-                              					<a role="button" th:href="@{/prestamoabono/listar}">Abono</a>
-                            					</button>                          
+												
+                            					
+												<div class="d-flex">
+												<a href="" data-toggle="modal" th:attr="data-target='#modal-addPago'+${Pr.idPrestamo}" title="Registrar Pagó" class="btn shadow btn-xs sharp mr-1"><i class="fa-solid fa-money-check-dollar"></i></a>
+												<a href="" data-toggle="modal" th:attr="data-target='#modal-addAbono'+${Pr.idPrestamo}" title="Registrar Abono" class="btn btn-secondary shadow btn-xs sharp mr-1"><i class="fa-solid fa-money-check-dollar"></i></a>
+                              					<a role="button" th:href="@{/pagoprestamo/listar}" title="Tabla de Pagó" class="btn shadow btn-xs sharp mr-1"><i class="fa-solid fa-table"></i></a>
+                              					<a role="button" th:href="@{/prestamoabono/listar}" title="Tabla de Abono" class="btn btn-secondary shadow btn-xs sharp mr-1"><i class="fa-solid fa-table"></i></a>
+												</div> 
+												                        
                       							</td>
                       							<td th:if="${Pr.valorPrestamo==0}">
                         						Este préstamo ya esta pagó
@@ -892,6 +895,8 @@
 														<a href="" th:if="${Pr.estadoPrestamo.equalsIgnoreCase('inactivo')}" data-toggle="modal" th:attr="data-target='#modal-cestado'+${Pr.idPrestamo}" class="btn btn-secondary shadow btn-xs sharp btn-toggle"><i class='bx bx-toggle-left'></i></i></a>
 														<a href="" th:if="${Pr.estadoPrestamo.equalsIgnoreCase('activo')}" data-toggle="modal" th:attr="data-target='#modal-cestado'+${Pr.idPrestamo}" class="btn btn-secondary shadow btn-xs sharp btn-toggle"><i class='bx bxs-toggle-right'></i></i></a>
 										
+														<!-- VER ABONOS Y PAGÓS -->
+														<a href="" class="btn shadow btn-xs sharp mr-1" title="Ver Pagós y Abonos"><i class="fa-solid fa-eye"></i></a>
 													</div>
 
 													<!-- MODAL ELIMINAR -->
@@ -920,14 +925,14 @@
 																	<h4 class="modal-title">Registrar Pagó</h4>
 																	<button type="button" class="close cancel" data-dismiss="modal"><span>&times;</span></button>
 																</div> 
-																<form th:action="@{/pagoprestamo/add}" method="post" th:object="${pagoprestamo}" id="formularioPago" enctype="multipart/form-data">
+																<form th:action="@{/prestamo/addPago}" method="post" th:object="${pago}" id="formularioPago" enctype="multipart/form-data">
 																	<div class="modal-body">
 
 																		<!-- Grupo: Valor Prestamo --> 
 																		<div class="formulario__grupo" id="grupo__prestamo">
-																			<label for="prestamo" class="formulario__label">Valor Prestamo</label>
+																			<label for="" class="formulario__label">Valor Prestamo</label>
 																			<div class="formulario__grupo-input">
-																				<select class="form-control input-default" id="prestamo">
+																				<select name="prestamo" class="form-control input-default" id="prestamo">
 																					<option th:text="${Pr.valorPrestamo}" th:value="${Pr.idPrestamo}" selected></option>
 																				</select>
 																				<i class="formulario__validacion-estado fas fa-times-circle"></i>
@@ -940,7 +945,6 @@
 																			<label for="fechaPago" class="formulario__label">Fecha Pagó</label>
 																			<div class="formulario__grupo-input">
 																				<input type="date" class="form-control input-default" name="fechaPago" id="fechaPago" th:min="${fechaPagoMin}" th:max="${fechaPagoMax}">
-																				<i class="formulario__validacion-estado fas fa-times-circle"></i>
 																			</div>
 																			<p class="formulario__input-error">Fecha Pagó</p>
 																		</div>
@@ -983,13 +987,14 @@
 																<div class="modal-header">
 																	<h4 class="modal-title">Registrar Abono</h4>
 																</div> 
-																<form th:action="@{/prestamoabono/add}" method="post" th:object="${abono}" id="formularioAbono" enctype="multipart/form-data">
+																<form th:action="@{/prestamo/addAbono}" method="post" th:object="${abono}" id="formularioAbono" enctype="multipart/form-data">
 																	<div class="modal-body">
+
 																		<!-- Grupo: Valor Prestamo --> 
 																		<div class="formulario__grupo" id="grupo__prestamo">
 																			<label for="" class="formulario__label">Valor Préstamo</label>
 																			<div class="formulario__grupo-input">
-																				<select  class="form-control input-default" id="prestamo">
+																				<select name="prestamo" class="form-control input-default" id="prestamo">
 																					<option th:value="${Pr.idPrestamo}" th:text="${Pr.valorPrestamo}" selected >Seleccionar</option>
 																				</select>
 																				<i class="formulario__validacion-estado fas fa-times-circle"></i>
@@ -1004,7 +1009,6 @@
 																				<input type="date" class="form-control input-default" name="fechaAbono" id="fechaAbono" th:min="${fechaAbonoMin}" th:max="${fechaAbonoMax}">
 																				<i class="formulario__validacion-estado fas fa-times-circle"></i>
 																			</div>
-																			<p class="formulario__input-error">Fecha Abono</p>
 																		</div>
 
 																		<!-- Grupo: Total Abono-->
@@ -1083,11 +1087,11 @@
 						<button type="button" class="close cancel" data-dismiss="modal"><span>&times;</span></button>
 					</div>
 					<form th:action="@{/prestamo/add}" method="post" th:object="${prestamo}" id="formulario">
-					<div class="modal-body">
+					<div class="modal-body formP">
 						
 						<!-- Grupo: Documento Prestamista -->
 					<div class="formulario__grupo" id="grupo__documentoPrestamista">
-						<label for="documentoPrestamista" class="formulario__label">Documento Prestamista</label>
+						<label for="documentoPrestamista" class="formulario__label">Documento </label>
 						<div class="formulario__grupo-input">
 							<input type="number" class="form-control input-default" name="documentoPrestamista" id="documentoPrestamista" placeholder="1079032167">
 							<i class="formulario__validacion-estado fas fa-times-circle"></i>
@@ -1106,7 +1110,7 @@
 					</div>
 
 					<!-- Grupo: Nombre Usuario-->
-					<div class="formulario__grupo" id="grupo__nombreUsuario">
+					<div class="formulario__grupo" id="grupo__nombreUsuario" hidden>
 						<label for="" class="formulario__label" >Nombre Usuario</label>
 						<div class="formulario__grupo-input">
 							<!-- <input type="text" th:value="${session.usuario.idUsuario}" th:text="${session.usuario.nombresUsuario}"> -->
@@ -1123,7 +1127,6 @@
 						<label for="fechaPagoOportuno" class="formulario__label">Fecha Pago Oportuno</label>
 						<div class="formulario__grupo-input">
 							<input type="date" class="form-control input-default" name="fechaPagoOportuno" id="fechaPagoOportuno">
-							<i class="formulario__validacion-estado fas fa-times-circle"></i>
 						</div>
 						<p class="formulario__input-error">Fecha Pago Oportuno</p>
 					</div>
@@ -1356,6 +1359,9 @@
 			});
 		});
 	</script>
+
+	<!-- Ocultar y Mostrar Inactivos  -->
+	<script th:src="@{/assets/js/mostrarInactivos.js}"></script>
 
 	<!-- Datatable -->
     <script th:src="@{/assets/dashboard/vendor/datatables/js/jquery.dataTables.min.js}"></script>
