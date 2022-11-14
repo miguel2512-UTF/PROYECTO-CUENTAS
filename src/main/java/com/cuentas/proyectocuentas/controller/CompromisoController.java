@@ -34,127 +34,123 @@ public class CompromisoController {
     private IUsuarioService usuarioI;
     @Autowired
     private ITipoCompromisoService tipocompromisod;
-    
-    
-   
-    
-        @GetMapping("/registrar")     
-        public String registrar(Model m){
-            Compromiso compromiso=new Compromiso();
-            List<TipoCompromiso> tipocompromiso = tipocompromisod.findAll();
-m.addAttribute("tipocompromiso", tipocompromiso);
-List<Usuario> usuario = usuarioI.findAll();
-m.addAttribute("usuario",usuario);
-            m.addAttribute("compromiso",compromiso);
-            m.addAttribute("accion","Registrar Compromiso");
-            return "views/compromiso/registrar"; 
-        }
-    
-        @PostMapping("/reg")
-        public String reg(@Valid Compromiso compromiso, BindingResult res, Model m, SessionStatus status) throws Exception{
-            m.addAttribute("compromisos", compromisod.findAll());
-            List<TipoCompromiso> tipocompromiso = tipocompromisod.findAll();
-            m.addAttribute("tipocompromiso", tipocompromiso);
-            List<Usuario> usuario = usuarioI.findAll();
-            m.addAttribute("usuario",usuario);
 
-            if(res.hasErrors()){
-                try {
+    @GetMapping("/registrar")
+    public String registrar(Model m) {
+        Compromiso compromiso = new Compromiso();
+        List<TipoCompromiso> tipocompromiso = tipocompromisod.findAll();
+        m.addAttribute("tipocompromiso", tipocompromiso);
+        List<Usuario> usuario = usuarioI.findAll();
+        m.addAttribute("usuario", usuario);
+        m.addAttribute("compromiso", compromiso);
+        m.addAttribute("accion", "Registrar Compromiso");
+        return "views/compromiso/registrar";
+    }
+
+    @PostMapping("/reg")
+    public String reg(@Valid Compromiso compromiso, BindingResult res, Model m, SessionStatus status) throws Exception {
+        m.addAttribute("compromisos", compromisod.findAll());
+        List<TipoCompromiso> tipocompromiso = tipocompromisod.findAll();
+        m.addAttribute("tipocompromiso", tipocompromiso);
+        List<Usuario> usuario = usuarioI.findAll();
+        m.addAttribute("usuario", usuario);
+
+        if (res.hasErrors()) {
+            try {
                 compromisod.createCompromiso(compromiso);
             } catch (Exception e) {
                 if (e.getMessage().equalsIgnoreCase("numero de factura no disponible")) {
-                    m.addAttribute("errorMessage",e.getMessage());
+                    m.addAttribute("errorMessage", e.getMessage());
                 }
             }
-                return "views/compromiso/compromiso";
-                }
-                try {
-                   compromisod.createCompromiso(compromiso);
-                } catch (Exception e) {
-                    m.addAttribute("errorMessage",e.getMessage());
-                    return "views/compromiso/compromiso";
-                } 
-             //compromisod.save(compromiso);
-             status.setComplete();
-             return "redirect:listar";
+            return "views/compromiso/compromiso";
         }
-
-        @PostMapping("/reg1")
-        public String reg1(@Valid Compromiso compromiso, BindingResult res, Model m, SessionStatus status) throws Exception{
-            
-
-            if(res.hasErrors()){
-              
-                return "views/compromiso/compromiso";
-                }
-                compromisod.save(compromiso);
-                status.setComplete();
-               
-             return "redirect:listar";
+        try {
+            compromisod.createCompromiso(compromiso);
+        } catch (Exception e) {
+            m.addAttribute("errorMessage", e.getMessage());
+            return "views/compromiso/compromiso";
         }
-    
-        @GetMapping(path={"/listar"})
-        public String listar(Model m){
-            m.addAttribute("compromisos", compromisod.findAll());
-            Compromiso compromiso=new Compromiso();
-            m.addAttribute("compromiso",compromiso);
-            List<TipoCompromiso> tipocompromiso = tipocompromisod.findAll();
-            m.addAttribute("tipocompromiso", tipocompromiso);
-            List<Usuario> usuario = usuarioI.findAll();
-            m.addAttribute("usuario",usuario);
-
-            LocalDate date=LocalDate.now();
-            LocalDate fechaMin=date.minusWeeks(1);
-            LocalDate fechaMax=date.plusYears(1);
-
-            m.addAttribute("fechaActual", fechaMin);
-            m.addAttribute("fechaMax", fechaMax);
-
-            return "views/compromiso/compromiso";    
-        }
-
-        @GetMapping("/editar")
-        @ResponseBody
-        public Compromiso editar(Integer idCom){
-            return compromisod.findOne(idCom);
-        }
-
-        @GetMapping("/actualizar/{idCom}")
-        public String editar(@PathVariable Integer idCom,Model m){
-        Compromiso compromiso=null;
-        if(idCom>0){
-        compromiso=compromisod.findOne(idCom);
-        }else{
+        // compromisod.save(compromiso);
+        status.setComplete();
         return "redirect:listar";
+    }
+
+    @PostMapping("/reg1")
+    public String reg1(@Valid Compromiso compromiso, BindingResult res, Model m, SessionStatus status)
+            throws Exception {
+
+        if (res.hasErrors()) {
+
+            return "views/compromiso/compromiso";
+        }
+        compromisod.save(compromiso);
+        status.setComplete();
+
+        return "redirect:listar";
+    }
+
+    @GetMapping(path = { "/listar" })
+    public String listar(Model m) {
+        m.addAttribute("compromisos", compromisod.findAll());
+        Compromiso compromiso = new Compromiso();
+        m.addAttribute("compromiso", compromiso);
+        List<TipoCompromiso> tipocompromiso = tipocompromisod.findAll();
+        m.addAttribute("tipocompromiso", tipocompromiso);
+        List<Usuario> usuario = usuarioI.findAll();
+        m.addAttribute("usuario", usuario);
+
+        LocalDate date = LocalDate.now();
+        LocalDate fechaMin = date.minusWeeks(1);
+        LocalDate fechaMax = date.plusYears(1);
+
+        m.addAttribute("fechaActual", fechaMin);
+        m.addAttribute("fechaMax", fechaMax);
+
+        return "views/compromiso/compromiso";
+    }
+
+    @GetMapping("/editar")
+    @ResponseBody
+    public Compromiso editar(Integer idCom) {
+        return compromisod.findOne(idCom);
+    }
+
+    @GetMapping("/actualizar/{idCom}")
+    public String editar(@PathVariable Integer idCom, Model m) {
+        Compromiso compromiso = null;
+        if (idCom > 0) {
+            compromiso = compromisod.findOne(idCom);
+        } else {
+            return "redirect:listar";
         }
         List<TipoCompromiso> tipocompromiso = tipocompromisod.findAll();
-m.addAttribute("tipocompromiso", tipocompromiso);
-List<Usuario> usuario = usuarioI.findAll();
-m.addAttribute("usuario",usuario);
-            m.addAttribute("compromiso",compromiso);
-           
-            return "views/compromiso/listar"; 
+        m.addAttribute("tipocompromiso", tipocompromiso);
+        List<Usuario> usuario = usuarioI.findAll();
+        m.addAttribute("usuario", usuario);
+        m.addAttribute("compromiso", compromiso);
+
+        return "views/compromiso/listar";
     }
-   
-    
-    
+
     @GetMapping("/delete/{idCom}")
     public String delete(@PathVariable Integer idCom) {
-    if(idCom > 0) {
-    compromisod.delete(idCom);
+        if (idCom > 0) {
+            compromisod.delete(idCom);
+        }
+
+        return "redirect:../listar";
     }
-    
-    return "redirect:../listar"; 
-    }
+
     @GetMapping("/estado/{idCom}")
-    public String estado(@PathVariable Integer idCom){
-       Compromiso compromiso = new Compromiso();
-        compromiso=compromisod.findOne(idCom);
-         if (compromiso.getEstadoCom().equalsIgnoreCase("por pagar")) {
+    public String estado(@PathVariable Integer idCom) {
+        Compromiso compromiso = new Compromiso();
+        compromiso = compromisod.findOne(idCom);
+        if (compromiso.getEstadoCom().equalsIgnoreCase("por pagar")) {
             compromiso.setEstadoCom("Pago");
             compromisod.save(compromiso);
         }
         return "redirect:/compromiso/listar";
     }
-   
+
 }

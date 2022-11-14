@@ -941,8 +941,57 @@
 										<div class="basic-dropdown">
 											<div class="dropdown">
 												<div class="btn-group mb-2 btn-group-sm">
-													<a class="btn btn-square btn-sm btn-primary" th:href="@{/compromiso/listar/?format=pdf}" title="ver reporte"
-														target="_white">Reporte PDF</a>
+													<button class="btn btn-square btn-sm btn-primary"
+                                                     data-toggle="modal" data-target=".generarReporte"
+                                                     title="ver reporte" target="_white">Reporte PDF</button>
+													 <!--modal pdf-->
+													 <div class="modal fade generarReporte" tabindex="-1" role="dialog"
+aria-labelledby="mySmallModalLabel" aria-hidden="true">
+<div role="document"
+    class="modal-dialog modal-sm modal-dialog-centered">
+    <div class="modal-content">
+        <div class="modal-header">
+            <h4 class="modal-title">Generar Reporte</h4>
+            <button type="button" class="close cancel"
+                data-dismiss="modal"><span>&times;</span></button>
+        </div>
+		<form th:action="@{/compromiso/listar/}" method="get">
+            <div class="modal-body">
+                <input hidden type="text" name="format"
+                    id="format" value="pdf" />
+                <div>
+                    <select class="form-control" name="id" id="id">
+                        <option selected value="0">Todos los Usuarios</option>
+                        <th:block th:each=" u : ${usuario}">
+                            <option th:value="${u.idUsuario}" th:text="${u.nombresUsuario}+' '+${u.apellidosUsuario}"> </option>
+                        </th:block>
+                    </select>
+                </div>
+                <br>
+                <div>
+                    <select class="form-control " name="estado">
+                        <option selected value="0">Todos</option>
+                        <option  value="2"><span
+                            class="badge light badge-warning"><i
+                                class="fa fa-circle text-warning mr-1"></i>Por pagar</span></option>
+                        <option value="1"><span 
+                            class="badge light badge-success"><i
+                                class="fa fa-circle text-success mr-1"></i>Pago</span></option>
+                    </select>
+                </div>
+                <br><br>
+                <div>
+                    <button type="button"
+                        class="btn btn-secondary cancel"
+                        data-dismiss="modal">Cancelar</button>
+                    <button type="submit"
+                        class="btn btn-primary">Generar</button>
+                </div>
+            </div>
+        </form>
+    </div>
+</div>
+</div>
 													<button onClick="toggle(this)" class="btn btn-square btn-sm btn-primary">Mostrar todas</button>
 													<button type="button" class="btn btn-square btn-sm btn-primary dropdown-toggle" data-toggle="dropdown">
 														Mostrar Columnas
@@ -1028,6 +1077,9 @@
 															th:attr="data-target='#modal-delete'+${g.idCom}"
 															class="btn btn-secondary shadow btn-xs sharp btn-toggle"><i
 																class='bx bx-toggle-left'></i></i></a>
+																<a href="" th:if="${g.estadoCom.equalsIgnoreCase('pago')}"
+															class="btn btn-secondary shadow btn-xs sharp btn-toggle"><i
+																class='bx bxs-toggle-right'></i></i></a>
 													</div>
 													<!--MODAL ESTADO-->
 													<div class="modal fade" th:id="modal-delete+${g.idCom}">
@@ -1062,7 +1114,7 @@
 									</table>
 								</div>
 							</div>
-						</div>
+						</div>left
 					</div>
 				</div>
 			</div>
@@ -1111,8 +1163,8 @@
 							<div class="form-group" id="grupo__fecha">
 								<label for="">Fecha Pago Oportuno</label>
 								<div class="formulario__grupo-input">
-									<input class="form-control" th:field="*{fecha}" type="date" th:min="${fechaActual}" th:max="${fechaMax}"
-										autocomplete="off">
+									<input class="formulario__input" th:field="*{fecha}" type="date"
+										th:min="${fechaActual}" th:max="${fechaMax}" autocomplete="off">
 									<i class="formulario__validacion-estado fas fa-times-circle"></i>
 								</div>
 								<p class="formulario__input-error">Elige una opción</p>
@@ -1123,8 +1175,8 @@
 							<div class="form-group" id="grupo__fechaS">
 								<label for="">Fecha Suspensión</label>
 								<div class="formulario__grupo-input">
-									<input class="form-control" th:field="*{fechaS}" type="date" th:min="${fechaActual}" th:max="${fechaMax}"
-										autocomplete="off">
+									<input class="formulario__input" th:field="*{fechaS}" type="date"
+										th:min="${fechaActual}" th:max="${fechaMax}" autocomplete="off">
 									<i class="formulario__validacion-estado fas fa-times-circle"></i>
 								</div>
 								<p class="formulario__input-error">Tienes que elegir una opcion</p>
@@ -1166,10 +1218,7 @@
 										<option th:value="${session.usuario.idUsuario}"
 											th:text="${session.usuario.nombresUsuario}" id="metodo" selected>Seleccionar
 										</option>
-										<th:block th:each="Usuario : ${usuario}">
-											<option th:text="${Usuario.nombresUsuario}" th:value="${Usuario.idUsuario}">
-											</option>
-										</th:block>
+
 									</select>
 									<i class="formulario__validacion-estado fas fa-times-circle"></i>
 								</div>
@@ -1215,7 +1264,7 @@
 						</div>
 						<div class="modal-footer">
 							<button type="button" class="btn btn-secondary cancel" data-dismiss="modal"
-									id="cancel">Cancelar</button>
+								id="cancel">Cancelar</button>
 							<button type="submit" class="btn btn-primary" id="Registrar">Registrar</button>
 						</div>
 					</form>
@@ -1250,11 +1299,13 @@
 										placeholder="" autocomplete="off">
 									<i class="formulario__validacion-estado fas fa-times-circle"></i>
 								</div>
-								<p class="formulario__input-error"> Tiene que ser mínimo 1 caracter de longitud y máximo 10
+								<p class="formulario__input-error"> Tiene que ser mínimo 1 caracter de longitud y máximo
+									10
 									de longitud. Solo puede haber un espacio y el nombre de la empresa no puede contener
 									caracteres especiales.</p>
-								<div class="form-text text-danger" th:if="${#fields.hasErrors('nombreEm')} and ${modalEdit}"
-									th:errors="*{nombreEm}"></div>
+								<div class="form-text text-danger"
+									th:if="${#fields.hasErrors('nombreEm')} and ${modalEdit}" th:errors="*{nombreEm}">
+								</div>
 							</div>
 							<div class="form-group" id="grupo__fecha">
 								<label for="">Fecha Pago Oportuno</label>
@@ -1264,8 +1315,8 @@
 									<i class="formulario__validacion-estado fas fa-times-circle"></i>
 								</div>
 								<p class="formulario__input-error">Elige una opción</p>
-								<div class="form-text text-danger" th:if="${#fields.hasErrors('fecha')} and ${modalEdit}"
-									th:errors="*{fecha}"></div>
+								<div class="form-text text-danger"
+									th:if="${#fields.hasErrors('fecha')} and ${modalEdit}" th:errors="*{fecha}"></div>
 							</div>
 							<!-- Grupo: Fecha Suspensión-->
 							<div class="form-group" id="grupo__fechaS">
@@ -1276,8 +1327,8 @@
 									<i class="formulario__validacion-estado fas fa-times-circle"></i>
 								</div>
 								<p class="formulario__input-error"> Elige una opción</p>
-								<div class="form-text text-danger" th:if="${#fields.hasErrors('fechaS')} and ${modalEdit}"
-									th:errors="*{fechaS}"></div>
+								<div class="form-text text-danger"
+									th:if="${#fields.hasErrors('fechaS')} and ${modalEdit}" th:errors="*{fechaS}"></div>
 							</div>
 							<!-- Grupo: metodo pago-->
 							<div class="form-group" id="grupo__metodo">
@@ -1291,8 +1342,8 @@
 									<i class="formulario__validacion-estado fas fa-times-circle"></i>
 								</div>
 								<p class="formulario__input-error"> Elige una opción</p>
-								<div class="form-text text-danger" th:if="${#fields.hasErrors('metodo')} and ${modalEdit}"
-									th:errors="*{metodo}"></div>
+								<div class="form-text text-danger"
+									th:if="${#fields.hasErrors('metodo')} and ${modalEdit}" th:errors="*{metodo}"></div>
 							</div>
 							<!-- Grupo: Total Pago-->
 							<div class="form-group" id="grupo__total">
@@ -1303,8 +1354,8 @@
 									<i class="formulario__validacion-estado fas fa-times-circle"></i>
 								</div>
 								<p class="formulario__input-error">Tiene que ingresar un valor minimo de 100 pesos</p>
-								<div class="form-text text-danger" th:if="${#fields.hasErrors('total')} and ${modalEdit}"
-									th:errors="*{total}"></div>
+								<div class="form-text text-danger"
+									th:if="${#fields.hasErrors('total')} and ${modalEdit}" th:errors="*{total}"></div>
 							</div>
 							<!-- Grupo: Seleccionar Usuario-->
 							<div class="form-group" id="grupo__usuario">
@@ -1350,7 +1401,8 @@
 							</div>
 						</div>
 						<div class="modal-footer">
-							<button type="button" class="btn btn-secondary cancel" data-dismiss="modal">Cancelar</button>
+							<button type="button" class="btn btn-secondary cancel"
+								data-dismiss="modal">Cancelar</button>
 							<button type="submit" class="btn btn-primary" id="Editar">Editar</button>
 						</div>
 
