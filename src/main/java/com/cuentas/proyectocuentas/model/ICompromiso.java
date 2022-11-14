@@ -6,4 +6,5 @@ import org.springframework.data.repository.CrudRepository;
 
 public interface ICompromiso extends CrudRepository<Compromiso,Integer> {
     public Optional<Compromiso> findBynumeroFac(String numeroFac);
+    public Usuario findByFecha(String fecha);
 }
