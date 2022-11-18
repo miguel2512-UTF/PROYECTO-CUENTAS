@@ -79,9 +79,10 @@ public class CompromisoController {
     @PostMapping("/reg1")
     public String reg1(@Valid Compromiso compromiso, BindingResult res, Model m, SessionStatus status)
             throws Exception {
+        m.addAttribute("compromisos", compromisod.findAll());
 
         if (res.hasErrors()) {
-
+            m.addAttribute("modalEdit","");
             return "views/compromiso/compromiso";
         }
         compromisod.save(compromiso);

@@ -844,7 +844,7 @@
                        						</tr>
 										</thead>
                         				<tbody>
-                          					<tr th:each="Pr:${prestamos}" id="tablerow">
+                          					<tr th:each="Pr:${prestamos}" id="tablerow" th:if="${Pr.usuario.nombresUsuario == session.usuario.nombresUsuario}">
                             					<td>
 													<div class="custom-control custom-checkbox">
 														<input type="checkbox" class="custom-control-input" id="customCheckBox3" required="">
