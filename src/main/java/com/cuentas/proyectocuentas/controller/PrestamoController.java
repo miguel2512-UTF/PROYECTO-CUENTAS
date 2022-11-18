@@ -56,6 +56,8 @@ public class PrestamoController {
         Prestamo prestamo=new Prestamo();
         m.addAttribute("prestamo", prestamo);
         m.addAttribute("usuario", usuarioI.findAll());
+        m.addAttribute("abonos", prestamoabonoI.findAll());
+        m.addAttribute("pagos", pagoprestamoI.findAll());
 
         //Pagos y Abonos
         // PagoPrestamo pagoprestamo = new PagoPrestamo();
@@ -69,9 +71,10 @@ public class PrestamoController {
         LocalDate fechaPagoMax = date.plusYears(1);
 
         m.addAttribute("fechaPagoMin", fechaPagoMin);
-        m.addAttribute("fechaPagoMax", fechaPagoMax);
-        
+        m.addAttribute("fechaPagoMax", fechaPagoMax);       
+
         return "views/prestamo/prestamo";
+
         
     }
  
@@ -101,7 +104,7 @@ public class PrestamoController {
 
         prestamoI.save(prestamo);
         status.setComplete();
-        
+ 
         return "redirect:listar";
     }
 
@@ -135,7 +138,7 @@ public class PrestamoController {
 
         if (res.hasErrors()) {
             return "views/prestamo/prestamo";
-        }
+        } 
         if(!imagenPago.isEmpty()){
             Path directorioImagenes = Paths.get("src//main//resources//static//assets/pimg/");
             String rutaAbsoluta = directorioImagenes.toFile().getAbsolutePath();

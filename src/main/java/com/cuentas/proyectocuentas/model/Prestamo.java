@@ -40,7 +40,7 @@ public class Prestamo {
 
     @Column(name = "valorPrestamo", length = 100000000)
     @NotNull
-    private Integer valorPrestamo;
+    private Integer valorPrestamo; 
 
     @Column(name = "valorPrestamoInicial", length = 15)
     private Integer valorPrestamoInicial;

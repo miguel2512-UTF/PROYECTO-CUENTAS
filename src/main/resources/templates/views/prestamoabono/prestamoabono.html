@@ -863,12 +863,11 @@
 											<div class="modal-content">
 												<div class="modal-header">
 													<h4 class="modal-title">Registrar Abono</h4>
+													<button type="button" class="close cancel" data-dismiss="modal"><span>&times;</span></button>
 												</div> 
 												<form th:action="@{/prestamoabono/add}" method="post" th:object="${abono}" id="formulario" enctype="multipart/form-data">
 													<div class="modal-body">
-														<script th:inline="javascript" th:if="${#fields.hasErrors('*')}">$("#modal-add").modal("show");</script>
-														<script th:inline="javascript" th:if="${errorMessage}">$("#modal-add").modal("show");</script>
-
+					
         												<!-- Grupo: Valor Prestamo --> 
 														<div class="formulario__grupo" id="grupo__prestamo">
 															<label for="prestamo" class="formulario__label">Valor Préstamo</label>
@@ -881,6 +880,9 @@
 															</div>
 															<p class="formulario__input-error">Valor Préstamo</p>
 														</div>
+														<div class="error">
+															<div class="form-text text-danger" th:if="${#fields.hasErrors('prestamo')}" th:errors="*{prestamo}"></div>
+														</div>
 
 														<!-- Grupo: Fecha Abono -->
 														<div class="formulario__grupo" id="grupo__fechaAbono">
@@ -890,6 +892,9 @@
 																<i class="formulario__validacion-estado fas fa-times-circle"></i>
 															</div>
 															<p class="formulario__input-error">Fecha Abono</p>
+														</div>
+														<div class="error">
+															<div class="form-text text-danger" th:if="${#fields.hasErrors('fechaAbono')}" th:errors="*{fechaAbono}"></div>
 														</div>
 
 														<!-- Grupo: Total Abono-->
@@ -901,6 +906,9 @@
 														</div>
 														<p class="formulario__input-error">Total Abono</p>
 														</div>
+														<div class="error">
+															<div class="form-text text-danger" th:if="${#fields.hasErrors('totalAbono')}" th:errors="*{totalAbono}"></div>
+														</div>
 
 														<!-- Grupo: Imagen Abono -->
 														<div class="formulario__grupo" id="grupo__imagenAbono">
@@ -910,6 +918,9 @@
 																<i class="formulario__validacion-estado fas fa-times-circle"></i>
 															</div>
 															<p class="formulario__input-error">Imagen Abono</p>
+														</div>
+														<div class="error">
+															<!-- <div class="form-text text-danger" th:if="${#fields.hasErrors('file')}" th:errors="*{file}"></div> -->
 														</div>
 
 														<div class="form-text text-danger" th:if="${errorMessage} and ${modalAdd}" th:text="${errorMessage}"></div>                                

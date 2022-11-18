@@ -31,6 +31,7 @@ public class PrestamoAbono {
 
     /*Relacion de muchos a uno (Abono a Prestamo) */
     @ManyToOne(fetch = FetchType.LAZY) 
+    @NotNull
     private Prestamo prestamo;
 
     public PrestamoAbono() {
@@ -67,7 +68,7 @@ public class PrestamoAbono {
 
     public void setTotalAbono(Integer totalAbono) {
         this.totalAbono = totalAbono;
-    }
+    } 
 
     public String getImagenAbono() {
         return imagenAbono;

@@ -20,7 +20,7 @@ public class PagoPrestamo {
 
     @Column(name ="fechaPago", length =10)
     @NotEmpty
-    private String fechaPago;
+    private String fechaPago; 
  
     @Column(name = "totalPago", length =10)
     @NotNull
