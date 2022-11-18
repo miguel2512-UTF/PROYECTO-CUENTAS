@@ -12,11 +12,16 @@ $(document).ready(function(){
                 $('#modal-edit #nombreEm').val(compromiso.nombreEm);
                 $('#modal-edit #fecha').val(compromiso.fecha);
                 $('#modal-edit #fechaS').val(compromiso.fechaS);
-                $('#modal-edit #metodo').val(compromiso.metodo);
-                $('#modal-edit #metodo').attr('selected','');
+                $('#modal-edit #metodoP').val(compromiso.metodo);
+                $('#modal-edit #metodoP').text(compromiso.metodo);
+                $('#modal-edit #metodoP').attr('selected','');
                 $('#modal-edit #total').val(compromiso.total);
-               
-                
+                $('#modal-edit #tipo').val(compromiso.tipocompromiso.id);
+                $('#modal-edit #tipo').text(compromiso.tipocompromiso.nombre);
+                $('#modal-edit #tipo').attr('selected','');
+                $('#modal-edit #estadoC').val(compromiso.estadoCom);
+                $('#modal-edit #estadoC').text(compromiso.estadoCom);
+                $('#modal-edit #estadoC').attr('selected','');
             });
             $("#modal-edit").modal();
         } /*else {
