@@ -587,7 +587,7 @@
                                 </a>
                                 <div class="dropdown-menu rounded dropdown-menu-right">
                                     <div id="DZ_W_Notification1" class="widget-media dz-scroll p-3 height380">
-										<ul class="timeline" th:if="(${g.estadoCom} == 'Por pagar')" th:each="g:${compromisos}">
+										<ul class="timeline" th:if="(${g.estadoCom} == 'Por pagar') and ${g.usuario.nombresUsuario == session.usuario.nombresUsuario}" th:each="g:${compromisos}">
 											<li>
 												<div class="timeline-panel">
 													<div class="media mr-2 media-info" id="letra"  >
@@ -727,14 +727,14 @@
 									</div>
 									<div class="card-body tab-content pt-2">
 										<div class="tab-pane active show fade" id="Unifinshed">
-											<div class="d-flex border-bottom flex-wrap pt-3 list-row align-items-center mb-2" th:each="g:${compromisos}">
+											<div class="d-flex border-bottom flex-wrap pt-3 list-row align-items-center mb-2" th:each="g:${compromisos}" th:if="${g.usuario.nombresUsuario == session.usuario.nombresUsuario}">
 												<div class="col-xl-5 col-xxl-8 col-lg-6 col-sm-8 d-flex align-items-center">
 													<div class="list-icon bgl-primary mr-3 mb-3">
 														<p class="fs-24 text-primary mb-0 mt-2">4</p>
 														<span class="fs-14 text-primary">Mon</span>
 													</div>
 													<div class="info mb-3">
-														<h4 class="fs-20 "><a href="workout-statistic.html" class="text-black" id="id" th:text="'compromiso '+${g.idCom} "></a></h4>
+														<h4 class="fs-20 "><a class="text-black" id="id" th:text="${g.total}"></a></h4>
 														<span class="text-danger font-w600" id="estado" th:text="${g.estadoCom}"></span>
 													</div>
 												</div>
