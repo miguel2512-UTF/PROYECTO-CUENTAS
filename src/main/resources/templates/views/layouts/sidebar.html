@@ -26,17 +26,17 @@
                     <span class="nav-text">Préstamos</span>
                 </a>
                 <ul aria-expanded="false">
-                    <li><a href="/">Agregar Préstamo</a></li>
+                    <li><a th:href="@{/prestamo/listar}">Agregar Préstamo</a></li>
                     <li><a th:href="@{/prestamo}">Mostrar Préstamos</a></li>
                     <li><a class="has-arrow" href="javascript:void()" aria-expanded="false">Abonos</a>
                         <ul aria-expanded="false">
-                            <li><a href="/">Agregar</a></li>
+                            <li><a th:href="@{/prestamoabono}">Agregar</a></li>
                             <li><a th:href="@{/prestamoabono}">Mostrar</a></li>
                         </ul>
                     </li>
                     <li><a class="has-arrow" href="javascript:void()" aria-expanded="false">Pagos</a>
                         <ul aria-expanded="false">
-                            <li><a href="/">Agregar</a></li>
+                            <li><a th:href="@{/pagoprestamo}">Agregar</a></li>
                             <li><a th:href="@{/pagoprestamo}">Mostrar</a></li>
                         </ul>
                     </li>

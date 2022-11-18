@@ -28,7 +28,7 @@
 		href="https://fonts.googleapis.com/css2?family=Poppins:wght@100;200;300;400;500;600;700;800;900&family=Roboto:wght@100;300;400;500;700;900&display=swap"
 		rel="stylesheet">
 	<!-- Estilos Validación -->
-	<link rel="stylesheet" href="../assets/css/validacion.css">
+	<link rel="stylesheet" href="../assets/css/validacionC.css">
 </head>
 
 <body>
@@ -946,6 +946,7 @@
                                                      data-toggle="modal" data-target=".generarReporte"
                                                      title="ver reporte" target="_white">Reporte PDF</button>
 													 <!--modal pdf-->
+<<<<<<< HEAD
 													 <div class="modal fade generarReporte" tabindex="-1" role="dialog"
 aria-labelledby="mySmallModalLabel" aria-hidden="true">
 <div role="document"
@@ -991,9 +992,49 @@ aria-labelledby="mySmallModalLabel" aria-hidden="true">
                 
             </div>
         </form>
+=======
+													<div class="modal fade generarReporte" tabindex="-1" role="dialog" aria-labelledby="mySmallModalLabel" aria-hidden="true">
+													<div role="document"
+    													class="modal-dialog modal-sm modal-dialog-centered">
+    													<div class="modal-content">
+        													<div class="modal-header">
+            													<h4 class="modal-title">Generar Reporte</h4>
+            													<button type="button" class="close cancel" data-dismiss="modal"><span>&times;</span></button>
+        													</div>
+															<form th:action="@{/compromiso/listar/}" method="get">
+            													<div class="modal-body">
+                													<input hidden type="text" name="format" id="format" value="pdf" />
+                													<div>
+                    													<select class="form-control" name="id" id="id">
+                        													<option selected value="0">Todos los Usuarios</option>
+                        													<th:block th:each=" u : ${usuario}">
+                            													<option th:value="${u.idUsuario}" th:text="${u.nombresUsuario}+' '+${u.apellidosUsuario}"> </option>
+                        													</th:block>
+                    													</select>
+                													</div>
+                													<br>
+                													<div>
+                    													<select class="form-control " name="estado">
+                        													<option selected value="0">Todos</option>
+                        													<option  value="2"><span
+                            													class="badge light badge-warning"><i
+                                													class="fa fa-circle text-warning mr-1"></i>Por pagar</span></option>
+                        													<option value="1"><span 
+                            													class="badge light badge-success"><i
+                                													class="fa fa-circle text-success mr-1"></i>Pago</span></option>
+                    													</select>
+                													</div>
+                													<br><br>
+            													</div>
+																<div class="modal-footer">
+																	<button type="button" class="btn btn-secondary cancel btn-sm" data-dismiss="modal">Cancelar</button>
+																	<button type="submit" class="btn btn-primary btn-sm">Generar</button>
+																</div>
+        													</form>
+>>>>>>> 68e5e75dc70854df4d59b6ca1575a19b360728a3
     </div>
 </div>
-</div>
+													</div>
 													<button onClick="toggle(this)" class="btn btn-square btn-sm btn-primary">Mostrar todas</button>
 													<button type="button" class="btn btn-square btn-sm btn-primary dropdown-toggle" data-toggle="dropdown">
 														Mostrar Columnas
@@ -1042,7 +1083,7 @@ aria-labelledby="mySmallModalLabel" aria-hidden="true">
 											</tr>
 										</thead>
 										<tbody>
-											<tr th:each="g:${compromisos}" id="tablerow">
+											<tr th:each="g:${compromisos}" id="tablerow" th:if="${g.usuario.nombresUsuario == session.usuario.nombresUsuario}">
 												<td>
 													<div class="custom-control custom-checkbox">
 														<input type="checkbox" class="custom-control-input"
@@ -1079,7 +1120,7 @@ aria-labelledby="mySmallModalLabel" aria-hidden="true">
 															th:attr="data-target='#modal-delete'+${g.idCom}"
 															class="btn btn-secondary shadow btn-xs sharp btn-toggle"><i
 																class='bx bx-toggle-left'></i></i></a>
-																<a href="" th:if="${g.estadoCom.equalsIgnoreCase('pago')}"
+																<a th:if="${g.estadoCom.equalsIgnoreCase('pago')}"
 															class="btn btn-secondary shadow btn-xs sharp btn-toggle"><i
 																class='bx bxs-toggle-right'></i></i></a>
 													</div>
@@ -1131,7 +1172,7 @@ aria-labelledby="mySmallModalLabel" aria-hidden="true">
 						<button type="button" class="close cancel" data-dismiss="modal"><span>&times;</span></button>
 					</div>
 					<form th:action="@{/compromiso/reg}" method="post" th:object="${compromiso}" id="formulario">
-						<div class="modal-body">
+						<div class="modal-body formP">
 							<!-- Grupo: Numero de factura -->
 							<div class="form-group" id="grupo__numeroFac">
 								<label for="">Número Factura</label>
@@ -1285,87 +1326,93 @@ aria-labelledby="mySmallModalLabel" aria-hidden="true">
 							<input type="hidden" th:field="*{idCom}">
 							<div class="form-group">
 								<label for="">Número Factura</label>
-								<input type="number" id="numeroFac" th:value="*{numeroFac}" class="form-control input-default " placeholder="" readonly>
+								<input type="number" th:field="*{numeroFac}" class="form-control input-default " placeholder="" readonly>
 								<div class="form-text text-danger" th:if="${#fields.hasErrors('numeroFac')} and ${modalEdit}" th:errors="*{numeroFac}"></div>
-								<input type="text" th:field="*{numeroFac}" autocomplete="off" required pattern="{1,20}" hidden>
-                      			
 							</div>
 							<div class="form-group" id="grupo__nombreEm">
 								<label for="">Nombre Empresa</label>
 								<div class="formulario__grupo-input">
 									<input type="text" th:field="*{nombreEm}" class="form-control input-default" placeholder="" autocomplete="off">
 									<i class="formulario__validacion-estado fas fa-times-circle"></i>
+									<div class="form-text text-danger" th:if="${#fields.hasErrors('nombreEm')} and ${modalEdit}" th:errors="*{nombreEm}"></div>
 								</div>
 							</div>
 							<div class="form-group" id="grupo__fecha">
 								<label for="">Fecha Pago Oportuno</label>
 								<div class="formulario__grupo-input">
 									<input type="date" th:field="*{fecha}" th:min="${fechaActual}" th:max="${fechaMax}" class="form-control input-default " placeholder="" autocomplete="off">
+									<div class="form-text text-danger" th:if="${#fields.hasErrors('fecha')} and ${modalEdit}" th:errors="*{fecha}"></div>
 								</div>
 							</div>
 							<div class="form-group" id="grupo__fechaS">
 								<label for="">Fecha Suspensión</label>
 								<div class="formulario__grupo-input">
 									<input type="date" th:field="*{fechaS}" th:min="${fechaActual}" th:max="${fechaMax}" class="form-control input-default " placeholder="" autocomplete="off">
+									<div class="form-text text-danger" th:if="${#fields.hasErrors('fechaS')} and ${modalEdit}" th:errors="*{fechaS}"></div>
 								</div>
 							</div>
 							<div class="form-group" id="grupo__metodo">
 								<label for="">Método de Pago</label>
 								<div class="formulario__grupo-input">
-								<select th:field="*{metodo}" class="form-control input-default" required>
-									<option value="" id="metodo" selected>Seleccionar</option>
-									<option value="Efectivo">Efectivo</option>
-									<option value="Aplicacion">Aplicación</option>
+									<select th:field="*{metodo}" class="form-control input-default" required>
+										<option value="" id="metodoP" selected>Seleccionar</option>
+										<option value="Efectivo">Efectivo</option>
+										<option value="Aplicacion">Aplicación</option>
 									</select>
 									<i class="formulario__validacion-estado fas fa-times-circle"></i>
+									<div class="form-text text-danger" th:if="${#fields.hasErrors('metodo')} and ${modalEdit}" th:errors="*{metodo}"></div>
+								</div>
 							</div>
-						</div>
-						<div class="form-group" id="grupo__total">
-							<label for="">Total de Pago</label>
-							<div class="formulario__grupo-input">
-								<input  type="number" th:field="*{total}" class="form-control input-default" placeholder="" autocomplete="off" readonly> 
-								<i class="formulario__validacion-estado fas fa-times-circle"></i>
+							<div class="form-group" id="grupo__total">
+								<label for="">Total de Pago</label>
+								<div class="formulario__grupo-input">
+									<input  type="number" th:field="*{total}" class="form-control input-default" placeholder="" autocomplete="off" readonly>
+									<i class="formulario__validacion-estado fas fa-times-circle"></i>
+								</div>
+								<div class="form-text text-danger" th:if="${#fields.hasErrors('total')} and ${modalEdit}" th:errors="*{total}"></div>
 							</div>
-						</div>
-						<div class="form-group" id="grupo__usuario" hidden>
-							<label for="">Usuario</label>
-							<div class="formulario__grupo-input">
-								<select th:field="*{usuario}" class="form-control input-default">
-									<option th:value="${session.usuario.idUsuario}"
-										th:text="${session.usuario.nombresUsuario}" id="metodo" selected>Seleccionar
-									</option>
-								</select>
-								<i class="formulario__validacion-estado fas fa-times-circle"></i>
-						</div>
-						</div>
-						<div class="form-group" id="grupo__tipocompromiso" hidden>
-							<label for="">Tipo Compromiso</label>
-							<div class="formulario__grupo-input">
-								<select th:field="*{tipocompromiso}" class="form-control input-default">
-									<option value="" id="metodo" selected>Seleccionar</option>
-									<th:block th:each="TipoCompromiso : ${tipocompromiso}">
-										<option th:text="${TipoCompromiso.nombre}" th:value="${TipoCompromiso.id}">
+							<div class="form-group" id="grupo__usuario" hidden>
+								<label for="">Usuario</label>
+								<div class="formulario__grupo-input">
+									<select th:field="*{usuario}" class="form-control input-default">
+										<option th:value="${session.usuario.idUsuario}"
+												th:text="${session.usuario.nombresUsuario}" id="metodo" selected>Seleccionar
 										</option>
-									</th:block>
-								</select>
-								<i class="formulario__validacion-estado fas fa-times-circle"></i>
+									</select>
+									<i class="formulario__validacion-estado fas fa-times-circle"></i>
+									<div class="form-text text-danger" th:if="${#fields.hasErrors('usuario')} and ${modalEdit}" th:errors="*{usuario}"></div>
+								</div>
+							</div>
+							<div class="form-group" id="grupo__tipocompromiso" hidden>
+								<label for="">Tipo Compromiso</label>
+								<div class="formulario__grupo-input">
+									<select th:field="*{tipocompromiso}" class="form-control input-default">
+										<option value="" id="tipo" selected>Seleccionar</option>
+										<th:block th:each="TipoCompromiso : ${tipocompromiso}">
+											<option th:text="${TipoCompromiso.nombre}" th:value="${TipoCompromiso.id}">
+											</option>
+										</th:block>
+									</select>
+									<i class="formulario__validacion-estado fas fa-times-circle"></i>
+									<div class="form-text text-danger" th:if="${#fields.hasErrors('tipocompromiso')} and ${modalEdit}" th:errors="*{tipocompromiso}"></div>
+								</div>
+							</div>
+							<div class="form-group" id="grupo__estadoCom" hidden>
+								<label for="">Estado</label>
+								<div class="formulario__grupo-input">
+									<select th:field="*{estadoCom}" class="form-control input-default">
+										<option value="" id="estadoC" selected>Seleccionar</option>
+										<option value="Pago">Pago</option>
+										<option value="Por pagar">Por pagar</option>
+									</select>
+									<i class="formulario__validacion-estado fas fa-times-circle"></i>
+									<div class="form-text text-danger" th:if="${#fields.hasErrors('estadoCom')} and ${modalEdit}" th:errors="*{estadoCom}"></div>
+								</div>
 							</div>
 						</div>
-						<div class="form-group" id="grupo__estadoCom" hidden>
-							<label for="">Estado</label>
-							<div class="formulario__grupo-input">
-								<select th:field="*{estadoCom}" class="form-control input-default">
-									<option value="" id="estadoC" selected>Seleccionar</option>
-									<option value="Pago">Pago</option>
-									<option value="Por pagar">Por pagar</option>
-								</select>
-								<i class="formulario__validacion-estado fas fa-times-circle"></i>
-							</div>
-					</div>
-					<div class="modal-footer">
-						<button type="button" class="btn btn-secondary cancel" data-dismiss="modal">Cancelar</button>
-						<button type="submit" class="btn btn-primary" id="Editar">Editar</button>
-					</div>
+						<div class="modal-footer">
+							<button type="button" class="btn btn-secondary cancel" data-dismiss="modal">Cancelar</button>
+							<button type="submit" class="btn btn-primary" id="Editar">Editar</button>
 						</div>
 					</form>
 				</div>

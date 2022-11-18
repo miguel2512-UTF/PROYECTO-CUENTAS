@@ -5,7 +5,7 @@
     <meta charset="utf-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width,initial-scale=1">
-    <title>Cuentas en Casa | Pagó Prestamo</title>
+    <title>Cuentas en Casa | Pago Préstamo</title>
     <!-- Favicon icon -->
     <link rel="icon" type="image/png" sizes="16x16" th:href="@{/assets/img/Icon-cuentascasa.png}">
     <!-- Datatable -->
@@ -576,7 +576,7 @@
                     <div class="collapse navbar-collapse justify-content-between">
                         <div class="header-left">
                             <div class="dashboard_bar">
-								Pagó Préstamo
+								Pago Préstamo
                             </div>
                         </div>
                         <ul class="navbar-nav header-right">
@@ -760,7 +760,7 @@
                 <div class="page-titles">
 					<ol class="breadcrumb">
 						<li class="breadcrumb-item"><a th:href="@{/inicio}">Inicio</a></li>
-						<li class="breadcrumb-item active"><a href="javascript:void(0)">Pagó Préstamo</a></li>
+						<li class="breadcrumb-item active"><a href="javascript:void(0)">Pago Préstamo</a></li>
 					</ol>
                 </div>
                 <!-- row -->
@@ -794,10 +794,10 @@
 														<label class="custom-control-label" for="checkAll"></label>
 													</div>
 												</th>
-                        						<th>Id Pagó</th>
+                        						<th>Id Pago</th>
                         						<th>Nombre Prestamista</th>
-                        						<th>Fecha Pagó</th>
-                        						<th>Total Pagó</th>
+                        						<th>Fecha Pago</th>
+                        						<th>Total Pago</th>
                         						<th>Imagen</th>
                         						<th>Acciones</th> 
                         					</tr>
@@ -829,10 +829,10 @@
 														<div class="modal-dialog">
 								  							<div class="modal-content">
 																<div class="modal-header">
-									  								<h4 class="modal-title">Eliminar Pagó</h4>
+									  								<h4 class="modal-title">Eliminar Pago</h4>
 																</div>
 																<div class="modal-body">
-									  								<p>Esta seguro que desea ELIMINAR el Pagó?</p>
+									  								<p>Esta seguro que desea ELIMINAR el Pago?</p>
 								  								</div> 
 									  							<div class="modal-footer">
 																	<button type="button" class="btn btn-secondary cancel" data-dismiss="modal" id="cancel">Cancelar</button>
@@ -851,7 +851,7 @@
 										<div class="modal-dialog modal-dialog-centered" role="document">
 											<div class="modal-content">
 												<div class="modal-header">
-													<h4 class="modal-title">Registrar Pagó</h4>
+													<h4 class="modal-title">Registrar Pago</h4>
 													<button type="button" class="close cancel" data-dismiss="modal"><span>&times;</span></button>
  
 												</div> 
@@ -876,12 +876,12 @@
 
 														<!-- Grupo: Fecha Pago -->
 														<div class="formulario__grupo" id="grupo__fechaPago">
-															<label for="fechaPago" class="formulario__label">Fecha Pagó</label>
+															<label for="fechaPago" class="formulario__label">Fecha Pago</label>
 															<div class="formulario__grupo-input">
 																<input type="date" class="form-control input-default" name="fechaPago" id="fechaPago" th:min="${fechaPagoMin}" th:max="${fechaPagoMax}">
 																<i class="formulario__validacion-estado fas fa-times-circle"></i>
 															</div>
-															<p class="formulario__input-error">Fecha Pagó</p>
+															<p class="formulario__input-error">Fecha Pago</p>
 														</div>
 														<div class="error">
 															<div class="form-text text-danger" th:if="${#fields.hasErrors('fechaPago')}" th:errors="*{fechaPago}"></div>
@@ -902,12 +902,12 @@
 
 														<!-- Grupo: Imagen Pago -->
 														<div class="formulario__grupo" id="grupo__imagenPago">
-															<label for="imagenPago" class="formulario__label">Imagen Pagó</label>
+															<label for="imagenPago" class="formulario__label">Imagen Pago</label>
 															<div class="formulario__grupo-input">
 																<input type="file" class="form-control input-default" name="file" id="file">
 																<i class="formulario__validacion-estado fas fa-times-circle"></i>
 															</div>
-															<p class="formulario__input-error">Imagen Pagó</p>
+															<p class="formulario__input-error">Imagen Pago</p>
 														</div>
 														<div class="error">
 															<!-- <div class="form-text text-danger" th:if="${#fields.hasErrors('file')}" th:errors="*{file}"></div> -->
