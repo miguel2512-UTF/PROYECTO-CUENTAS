@@ -961,6 +961,7 @@ aria-labelledby="mySmallModalLabel" aria-hidden="true">
                 <input hidden type="text" name="format"
                     id="format" value="pdf" />
                 <div>
+					<label>Seleccione un Usuario</label>
                     <select class="form-control" name="id" id="id">
                         <option selected value="0">Todos los Usuarios</option>
                         <th:block th:each=" u : ${usuario}">
@@ -970,6 +971,7 @@ aria-labelledby="mySmallModalLabel" aria-hidden="true">
                 </div>
                 <br>
                 <div>
+					<label>Seleccione un Estado</label>
                     <select class="form-control " name="estado">
                         <option selected value="0">Todos</option>
                         <option  value="2"><span
@@ -980,14 +982,13 @@ aria-labelledby="mySmallModalLabel" aria-hidden="true">
                                 class="fa fa-circle text-success mr-1"></i>Pago</span></option>
                     </select>
                 </div>
-                <br><br>
-                <div>
+				<br>
                     <button type="button"
-                        class="btn btn-secondary cancel"
+                        class="btn btn-secondary cancel btn-sm"
                         data-dismiss="modal">Cancelar</button>
                     <button type="submit"
-                        class="btn btn-primary">Generar</button>
-                </div>
+                        class="btn btn-primary btn-sm">Generar</button>
+                
             </div>
         </form>
     </div>
