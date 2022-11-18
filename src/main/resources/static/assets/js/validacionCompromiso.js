@@ -9,7 +9,7 @@ const cancelButton = document.querySelectorAll('#modal-add .cancel')
 const expresiones = {
 	numeroFac:  /^[0-9]{5,10}$/, 
     nombreEm: /^[A-Za-zÀ-ÿ]{1,10}[\s]{0,1}[A-Za-zÀ-ÿ]{1,10}$/,
-    total: /^[0-9]{3,10}$/,
+    total: /^[0-9]{5,10}$/,
 }
 		
 const campos = {
@@ -174,3 +174,69 @@ cancelButton.forEach((button) => {
         });
     })
 });
+
+/*validacion editar
+const formularioEditar = document.getElementById('formularioEdit');
+const inputsEdit = document.querySelectorAll('#formularioEdit input');
+const selectsEdit = document.querySelectorAll('#formularioEdit select');
+const cancelButtonEdit = document.querySelectorAll('#modal-edit .cancel')
+const editButton = document.getElementById('Editar')
+
+inputsEdit.forEach((input) => {
+	input.addEventListener('keyup', validarFormulario);
+	input.addEventListener('blur', validarFormulario);
+});
+
+selectsEdit.forEach((select) => {
+	select.addEventListener('blur',validarFormulario)
+	select.addEventListener('change',validarFormulario)
+})
+
+formularioEditar.addEventListener('submit',(e)=>{
+	e.preventDefault()
+
+	if(campos.nombreEm && campos.metodo){
+		formularioEditar.submit()
+	}else{
+		inputsEdit.forEach((input) => {
+			input.addEventListener('click', validarFormulario);
+			input.click()
+			input.removeEventListener('click', validarFormulario)
+		});
+
+		selectsEdit.forEach((select) => {
+			select.addEventListener('click', validarFormulario)
+			select.click()
+			select.removeEventListener('click', validarFormulario)
+		});
+	}
+})
+
+cancelButtonEdit.forEach((button) => {
+    button.addEventListener('click',()=>{
+        formularioEditar.reset()
+        document.querySelectorAll('#formularioEdit .formulario__grupo-correcto').forEach((icono) => {
+            icono.classList.remove('formulario__grupo-correcto');
+        });
+        document.querySelectorAll('#formularioEdit .formulario__grupo-incorrecto').forEach((icono) => {
+            icono.classList.remove('formulario__grupo-incorrecto');
+        });
+        document.querySelectorAll('#formularioEdit .formulario__input-error').forEach((icono) => {
+            icono.classList.remove('formulario__input-error-activo');
+        });
+    })
+});
+
+editButton.addEventListener('click',()=>{
+	inputsEdit.forEach((input) => {
+		input.addEventListener('click', validarFormulario);
+		input.click()
+		input.removeEventListener('click', validarFormulario)
+	});
+
+	selectsEdit.forEach((select) => {
+		select.addEventListener('click', validarFormulario)
+		select.click()
+		select.removeEventListener('click', validarFormulario)
+	});
+})*/

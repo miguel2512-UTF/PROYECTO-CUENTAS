@@ -1,129 +1,95 @@
 
+celda = new PdfPCell(new Phrase("#", fuenteTituloColumnas));
+celda.setBackgroundColor(Color.lightGray);
+celda.setHorizontalAlignment(Element.ALIGN_CENTER);
+celda.setVerticalAlignment(Element.ALIGN_CENTER);
+celda.setPadding(15);
+TablaCompromisos.addCell(celda);
 
-<!--MODAL REGISTRAR-->
-<div class="modal fade" id="modal-add">
-<div class="modal-dialog modal-dialog-centered" role="document">
-<div class="modal-content">
-<div class="modal-header">
-<h4 class="modal-title">Registrar Compromiso</h4>
-<button type="button" class="close cancel" data-dismiss="modal"><span>&times;</span>
-</button>
-</div>
-<form th:action="@{/compromiso/reg}" method="post" th:object="${compromiso}" id="formulario">
-<div class="modal-body">
-<!-- Grupo: Numero de factura -->
-<div class="form-group" id="grupo__numeroFac">
-<label for="">Número Factura</label>
-<div class="formulario__grupo-input">
-<input th:field="*{numeroFac}" type="number" class="form-control input-default" placeholder="" autocomplete="off">
-<i class="formulario__validacion-estado fas fa-times-circle"></i>
-</div>
-<p class="formulario__input-error"> tiene que ser de minimo 5 digitos y maximo 10 digitos.</p>
-<div class="form-text text-danger" th:if="${errorMessage}" th:text="${errorMessage}"></div>
-</div>
-<!-- Grupo: Nombre Empresa-->
-<div class="form-group" id="grupo__nombreEm">
-<label for="">Nombre Empresa</label>
-<div class="formulario__grupo-input">
-<input th:field="*{nombreEm}" type="text" class="form-control input-default" placeholder="" autocomplete="off">
-<i class="formulario__validacion-estado fas fa-times-circle"></i>
-</div>
-<p class="formulario__input-error"> Tiene que ser mínimo 1 caracter de longitud y máximo 10 de longitud. Solo puede haber un espacio y el nombre de la empresa no puede contener caracteres especiales.</p>
-<div class="form-text text-danger" th:if="${#fields.hasErrors('nombreEm')} and ${modalAdd}" th:errors="*{nombreEm}"></div>
-</div>
-<!-- Grupo: Fecha Pago Oportuno-->
-<div class="form-group" id="grupo__fecha">
-<label for="">Fecha Pago Oportuno</label>
-<div class="formulario__grupo-input">
-<input th:field="*{fecha}"  type="date" th:min="${fechaActual}" th:max="${fechaMax}" autocomplete="off">
-<i class="formulario__validacion-estado fas fa-times-circle"></i>
-</div>
-<p class="formulario__input-error">Elige una opción</p>
-<div class="form-text text-danger" th:if="${#fields.hasErrors('fecha')} and ${modalAdd}" th:errors="*{fecha}"></div>
-</div>
-<!-- Grupo: Fecha Suspensión-->
-<div class="form-group" id="grupo__fechaS">
-<label for="">Fecha Suspensión</label>
-<div class="formulario__grupo-input">
-<input th:field="*{fechaS}"  type="date"  th:min="${fechaActual}" th:max="${fechaMax}"  autocomplete="off">
-<i class="formulario__validacion-estado fas fa-times-circle"></i>
-</div>
-<p class="formulario__input-error"> Elige una opción</p>
-<div class="form-text text-danger" th:if="${#fields.hasErrors('fechaS')} and ${modalAdd}" th:errors="*{fechaS}"></div>
-</div>
-<!-- Grupo: metodo pago-->
-<div class="form-group" id="grupo__metodo">
-<label for="">Método de Pago</label>
-<div class="formulario__grupo-input">
-<select th:field="*{metodo}" class="form-control input-default">
-<option value="" id="metodo" selected>Seleccionar</option>
-<option value="Efectivo">Efectivo</option>
-<option value="Aplicacion">Aplicación</option>
-</select>
-<i class="formulario__validacion-estado fas fa-times-circle"></i>
-</div>
-<p class="formulario__input-error"> Elige una opción</p>
-<div class="form-text text-danger" th:if="${#fields.hasErrors('metodo')} and ${modalAdd}" th:errors="*{metodo}"></div>
-</div>
-<!-- Grupo: Total Pago-->
-<div class="form-group" id="grupo__total">
-<label for="">Total de Pago</label>
-<div class="formulario__grupo-input">
-<input th:field="*{total}" type="number" class="form-control input-default" placeholder="" autocomplete="off">
-<i class="formulario__validacion-estado fas fa-times-circle"></i>
-</div>
-<p class="formulario__input-error">Tiene que ingresar un valor minimo de 100 pesos</p>
-<div class="form-text text-danger" th:if="${#fields.hasErrors('total')} and ${modalAdd}" th:errors="*{total}"></div>
-</div>
-<!-- Grupo: Seleccionar Usuario-->
-<div class="form-group" id="grupo__usuario">
-<label for="">Usuario</label>
-<div class="formulario__grupo-input">
-<select th:field="*{usuario}" class="form-control input-default">
-<option value="" id="metodo" selected>Seleccionar Usuario</option>
-<th:block th:each="Usuario : ${usuario}">
-<option th:text="${Usuario.nombresUsuario}+' '+${Usuario.apellidosUsuario}" th:value="${Usuario.idUsuario}"></option>
-</th:block>
-</select>
-<i class="formulario__validacion-estado fas fa-times-circle"></i>
-</div>
-<p class="formulario__input-error"> Elige una opción</p>
-<div class="form-text text-danger" th:if="${#fields.hasErrors('usuario')} and ${modalAdd}" th:errors="*{usuario}"></div>
-</div>
-<!-- Grupo: Seleccionar Tipo Compromiso-->
-<div class="form-group" id="grupo__tipocompromiso">}
-<label for="">Tipo Compromiso</label>
-<div class="formulario__grupo-input">
-<select th:field="*{tipocompromiso}" class="form-control input-default">
-<option value="" id="metodo" selected>Seleccionar Tipo Compromiso</option>
-<th:block th:each="TipoCompromiso : ${tipocompromiso}">
-<option th:text="${TipoCompromiso.nombre}" th:value="${TipoCompromiso.id}"></option>
-</th:block>
-</select>
-<i class="formulario__validacion-estado fas fa-times-circle"></i>
-</div>
-<p class="formulario__input-error"> Elige una opción</p>
-<div class="form-text text-danger" th:if="${#fields.hasErrors('tipocompromiso')} and ${modalAdd}" th:errors="*{tipocompromiso}"></div>
-</div>
-<!-- Grupo:Estado-->
-<div class="formulario__grupo" id="grupo__estado">
-<label for="">Estado</label>
-<div class="formulario__grupo-input">
-<select th:field="*{estadoCom}" class="form-control input-default">
-<option value="" id="metodo" selected>Seleccionar Estado</option>
-<option value="Pago">Pago</option>
-<option value="Por pagar">Por pagar</option>
-</select>
-<i class="formulario__validacion-estado fas fa-times-circle"></i>
-</div>
-<p class="formulario__input-error"> Elige una opción</p>
-<div class="form-text text-danger" th:if="${#fields.hasErrors('estadoCom')} and ${modalAdd}" th:errors="*{estadoCom}"></div>
-</div>
-<div class="modal-footer">
-<button type="button" class="btn btn-secondary cancel" data-dismiss="modal" id="cancel">Cancelar</button>
-<button type="submit" class="btn btn-primary" id="Registrar">Registrar</button>
-</div>
-</form>
-</div>
-</div>
-</div>
+celda = new PdfPCell(new Phrase("Numero Factura", fuenteTituloColumnas));
+celda.setBackgroundColor(Color.lightGray);
+celda.setHorizontalAlignment(Element.ALIGN_CENTER);
+celda.setVerticalAlignment(Element.ALIGN_CENTER);
+celda.setPadding(15);
+TablaCompromisos.addCell(celda);
+
+celda = new PdfPCell(new Phrase("Nombre Empresa", fuenteTituloColumnas));
+celda.setBackgroundColor(Color.lightGray);
+celda.setHorizontalAlignment(Element.ALIGN_CENTER);
+celda.setVerticalAlignment(Element.ALIGN_CENTER);
+celda.setPadding(15);
+TablaCompromisos.addCell(celda);
+
+celda = new PdfPCell(new Phrase("Fecha Pago", fuenteTituloColumnas));
+celda.setBackgroundColor(Color.lightGray);
+celda.setHorizontalAlignment(Element.ALIGN_CENTER);
+celda.setVerticalAlignment(Element.ALIGN_CENTER);
+celda.setPadding(15);
+TablaCompromisos.addCell(celda);
+
+celda = new PdfPCell(new Phrase("Fecha Suspension", fuenteTituloColumnas));
+celda.setBackgroundColor(Color.lightGray);
+celda.setHorizontalAlignment(Element.ALIGN_CENTER);
+celda.setVerticalAlignment(Element.ALIGN_CENTER);
+celda.setPadding(15);
+TablaCompromisos.addCell(celda);
+
+celda = new PdfPCell(new Phrase("Metodo Pago", fuenteTituloColumnas));
+celda.setBackgroundColor(Color.lightGray);
+celda.setHorizontalAlignment(Element.ALIGN_CENTER);
+celda.setVerticalAlignment(Element.ALIGN_CENTER);
+celda.setPadding(15);
+TablaCompromisos.addCell(celda);
+
+celda = new PdfPCell(new Phrase("Total", fuenteTituloColumnas));
+celda.setBackgroundColor(Color.lightGray);
+celda.setHorizontalAlignment(Element.ALIGN_CENTER);
+celda.setVerticalAlignment(Element.ALIGN_CENTER);
+celda.setPadding(15);
+TablaCompromisos.addCell(celda);
+
+celda = new PdfPCell(new Phrase("Usuario", fuenteTituloColumnas));
+celda.setBackgroundColor(Color.lightGray);
+celda.setHorizontalAlignment(Element.ALIGN_CENTER);
+celda.setVerticalAlignment(Element.ALIGN_CENTER);
+celda.setPadding(15);
+TablaCompromisos.addCell(celda);
+
+celda = new PdfPCell(new Phrase("Tipo Compromiso", fuenteTituloColumnas));
+celda.setBackgroundColor(Color.lightGray);
+celda.setHorizontalAlignment(Element.ALIGN_CENTER);
+celda.setVerticalAlignment(Element.ALIGN_CENTER);
+celda.setPadding(15);
+TablaCompromisos.addCell(celda);
+
+celda = new PdfPCell(new Phrase("Estado", fuenteTituloColumnas));
+celda.setBackgroundColor(Color.lightGray);
+celda.setHorizontalAlignment(Element.ALIGN_CENTER);
+celda.setVerticalAlignment(Element.ALIGN_CENTER);
+celda.setPadding(15);
+TablaCompromisos.addCell(celda);
+
+celda = new PdfPCell(new Phrase("REPORTE COMPROMISOS", fuenteTitulo));
+celda.setBorder(0);
+celda.setBackgroundColor(new Color(7, 183, 18));
+celda.setHorizontalAlignment(Element.ALIGN_CENTER);
+celda.setVerticalAlignment(Element.ALIGN_CENTER);
+celda.setPadding(30);
+
+TablaTitulo.addCell(celda);
+TablaTitulo.setSpacingAfter(30);
+
+PdfPCell celda = null;
+
+// FUENTES
+        Font fuenteTitulo = FontFactory.getFont(FontFactory.HELVETICA_BOLD, 20, Color.WHITE);
+        Font fuenteTituloColumnas = FontFactory.getFont(FontFactory.HELVETICA_BOLD, 12, Color.black);
+
+
+        // TITULO TABLA
+        PdfPTable TablaTitulo = new PdfPTable(1);
+        // MARGENES TABLA
+        document.setMargins(-30, -30, 40, 20);
+
+        // LLAMAR TITULO
+        document.add(TablaTitulo);
