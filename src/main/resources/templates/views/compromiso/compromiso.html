@@ -28,7 +28,7 @@
 		href="https://fonts.googleapis.com/css2?family=Poppins:wght@100;200;300;400;500;600;700;800;900&family=Roboto:wght@100;300;400;500;700;900&display=swap"
 		rel="stylesheet">
 	<!-- Estilos Validación -->
-	<link rel="stylesheet" href="../assets/css/validacion.css">
+	<link rel="stylesheet" href="../assets/css/validacionC.css">
 </head>
 
 <body>
@@ -946,53 +946,47 @@
                                                      data-toggle="modal" data-target=".generarReporte"
                                                      title="ver reporte" target="_white">Reporte PDF</button>
 													 <!--modal pdf-->
-													 <div class="modal fade generarReporte" tabindex="-1" role="dialog"
-aria-labelledby="mySmallModalLabel" aria-hidden="true">
-<div role="document"
-    class="modal-dialog modal-sm modal-dialog-centered">
-    <div class="modal-content">
-        <div class="modal-header">
-            <h4 class="modal-title">Generar Reporte</h4>
-            <button type="button" class="close cancel"
-                data-dismiss="modal"><span>&times;</span></button>
-        </div>
-		<form th:action="@{/compromiso/listar/}" method="get">
-            <div class="modal-body">
-                <input hidden type="text" name="format"
-                    id="format" value="pdf" />
-                <div>
-                    <select class="form-control" name="id" id="id">
-                        <option selected value="0">Todos los Usuarios</option>
-                        <th:block th:each=" u : ${usuario}">
-                            <option th:value="${u.idUsuario}" th:text="${u.nombresUsuario}+' '+${u.apellidosUsuario}"> </option>
-                        </th:block>
-                    </select>
-                </div>
-                <br>
-                <div>
-                    <select class="form-control " name="estado">
-                        <option selected value="0">Todos</option>
-                        <option  value="2"><span
-                            class="badge light badge-warning"><i
-                                class="fa fa-circle text-warning mr-1"></i>Por pagar</span></option>
-                        <option value="1"><span 
-                            class="badge light badge-success"><i
-                                class="fa fa-circle text-success mr-1"></i>Pago</span></option>
-                    </select>
-                </div>
-                <br><br>
-                <div>
-                    <button type="button"
-                        class="btn btn-secondary cancel"
-                        data-dismiss="modal">Cancelar</button>
-                    <button type="submit"
-                        class="btn btn-primary">Generar</button>
-                </div>
-            </div>
-        </form>
+													<div class="modal fade generarReporte" tabindex="-1" role="dialog" aria-labelledby="mySmallModalLabel" aria-hidden="true">
+													<div role="document"
+    													class="modal-dialog modal-sm modal-dialog-centered">
+    													<div class="modal-content">
+        													<div class="modal-header">
+            													<h4 class="modal-title">Generar Reporte</h4>
+            													<button type="button" class="close cancel" data-dismiss="modal"><span>&times;</span></button>
+        													</div>
+															<form th:action="@{/compromiso/listar/}" method="get">
+            													<div class="modal-body">
+                													<input hidden type="text" name="format" id="format" value="pdf" />
+                													<div>
+                    													<select class="form-control" name="id" id="id">
+                        													<option selected value="0">Todos los Usuarios</option>
+                        													<th:block th:each=" u : ${usuario}">
+                            													<option th:value="${u.idUsuario}" th:text="${u.nombresUsuario}+' '+${u.apellidosUsuario}"> </option>
+                        													</th:block>
+                    													</select>
+                													</div>
+                													<br>
+                													<div>
+                    													<select class="form-control " name="estado">
+                        													<option selected value="0">Todos</option>
+                        													<option  value="2"><span
+                            													class="badge light badge-warning"><i
+                                													class="fa fa-circle text-warning mr-1"></i>Por pagar</span></option>
+                        													<option value="1"><span 
+                            													class="badge light badge-success"><i
+                                													class="fa fa-circle text-success mr-1"></i>Pago</span></option>
+                    													</select>
+                													</div>
+                													<br><br>
+            													</div>
+																<div class="modal-footer">
+																	<button type="button" class="btn btn-secondary cancel btn-sm" data-dismiss="modal">Cancelar</button>
+																	<button type="submit" class="btn btn-primary btn-sm">Generar</button>
+																</div>
+        													</form>
     </div>
 </div>
-</div>
+													</div>
 													<button onClick="toggle(this)" class="btn btn-square btn-sm btn-primary">Mostrar todas</button>
 													<button type="button" class="btn btn-square btn-sm btn-primary dropdown-toggle" data-toggle="dropdown">
 														Mostrar Columnas
@@ -1130,7 +1124,7 @@ aria-labelledby="mySmallModalLabel" aria-hidden="true">
 						<button type="button" class="close cancel" data-dismiss="modal"><span>&times;</span></button>
 					</div>
 					<form th:action="@{/compromiso/reg}" method="post" th:object="${compromiso}" id="formulario">
-						<div class="modal-body">
+						<div class="modal-body formP">
 							<!-- Grupo: Numero de factura -->
 							<div class="form-group" id="grupo__numeroFac">
 								<label for="">Número Factura</label>
