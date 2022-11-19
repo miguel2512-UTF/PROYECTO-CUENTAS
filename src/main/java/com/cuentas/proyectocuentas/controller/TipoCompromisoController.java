@@ -11,6 +11,7 @@ import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.bind.annotation.SessionAttributes;
 import org.springframework.web.bind.support.SessionStatus;
 
@@ -67,20 +68,27 @@ public class TipoCompromisoController {
           status.setComplete();
             return "redirect:listar";
         }    
-        @PostMapping("/add1")
-        public String reg1(@Valid TipoCompromiso tipocompromiso, BindingResult res, Model m, SessionStatus status) throws Exception{
-            
+        @PostMapping("/reg1")
+    public String reg1(@Valid TipoCompromiso tipocompromiso, BindingResult res, Model m, SessionStatus status)
+            throws Exception {
+        m.addAttribute("tipocompromisos", tipocompromisod.findAll());
 
-            if(res.hasErrors()){
-              
-                return "views/tipocompromiso/tipocompromiso";
-                }
-                tipocompromisod.save(tipocompromiso);
-                status.setComplete();
-               
-             return "redirect:listar";
+        if (res.hasErrors()) {
+            m.addAttribute("modalEdit","");
+            return "views/tipocompromiso/tipocompromiso";
         }
-        
+        tipocompromisod.save(tipocompromiso);
+        status.setComplete();
+
+        return "redirect:listar";
+    }
+    @GetMapping("/editar")
+    @ResponseBody
+    public TipoCompromiso editar(Integer id) {
+        return tipocompromisod.findOne(id);
+    }
+    
+
         @GetMapping("/editar/{id}")
         public String editar(@PathVariable Integer id,Model m){
             TipoCompromiso tipocompromiso=null;

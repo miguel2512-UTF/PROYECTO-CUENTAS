@@ -825,7 +825,10 @@
 											</td>
 											<td>
 												<div class="d-flex">
-													<a th:href="@{editar/(id=${c.id})}" class="eBtn btn btn-primary shadow btn-xs sharp mr-1" id="editar"><i class="fa fa-pencil"></i></a>
+													<a th:href="@{editar/(id=${c.id})}"
+															class="eBtn btn btn-primary shadow btn-xs sharp mr-1"
+															id="editar"><i class="fa fa-pencil"></i></a>
+
 													<a href="" th:if="${c.estado.equalsIgnoreCase('inactivo')}" data-toggle="modal" th:attr="data-target='#modal-delete'+${c.id}" class="btn btn-secondary shadow btn-xs sharp btn-toggle"><i class='bx bx-toggle-left'></i></i></a>
 													<a href="" th:if="${c.estado.equalsIgnoreCase('activo')}" data-toggle="modal" th:attr="data-target='#modal-delete'+${c.id}" class="btn btn-secondary shadow btn-xs sharp btn-toggle"><i class='bx bxs-toggle-right'></i></i></a>
 												</div>
@@ -920,8 +923,9 @@
 		</div>
 	</div>
 
-  <!-- MODAL-EDITAR -->
-  <div class="modal fade" id="modal-edit">
+
+	<!--MODAL EDITAR-->
+<div class="modal fade" id="modal-edit">
 	<div class="modal-dialog modal-dialog-centered" role="document">
 		<div class="modal-content">
 			<div class="modal-header">
@@ -929,48 +933,47 @@
 				<button type="button" class="close" data-dismiss="modal"><span>&times;</span>
 				</button>
 			</div>
-			<form th:action="@{/tipocompromiso/editar/{id}}" method="post" th:object="${tipocompromiso}" id="">
+			<form th:action="@{/tipocompromiso/reg1}" method="post" th:object="${tipocompromiso}" id="formularioEdit">
 				<div class="modal-body">
-					<input type="hidden" th:value="*{id}">
-					<div class="form-group">
+					<input type="hidden" th:field="*{id}">
+					<div class="form-group" id="grupo__nombre">
 						<label for="">Nombre</label>
 						<div class="formulario__grupo-input">
-						<input type="text" id="nombre" th:value="*{nombre}" class="form-control input-default " placeholder="">
-					    <i class="formulario__validacion-estado fas fa-times-circle"></i>
-					    </div>
-						<p class="formulario__input-error"> correo no valido, debe contener la sintaxis de email</p>
-						<div class="form-text text-danger" th:if="${#fields.hasErrors('nombre')} and ${modalEdit}" th:errors="*{nombre}"></div>
-					</div>
-					                      
-					<div class="form-group" id="grupo__descripcion">
-						<label for="">descripcion</label>
-						<div class="formulario__grupo-input">
-							<input type="text" th:value="*{descripcion}" class="form-control input-default " placeholder="" autocomplete="off">
+							<input type="text" th:field="*{nombre}" class="form-control input-default" placeholder="" autocomplete="off">
 							<i class="formulario__validacion-estado fas fa-times-circle"></i>
+							<div class="form-text text-danger" th:if="${#fields.hasErrors('nombre')} and ${modalEdit}" th:errors="*{nombre}"></div>
 						</div>
-						<p class="formulario__input-error"> correo no valido, debe contener la sintaxis de email</p>
-						<div class="form-text text-danger" th:if="${#fields.hasErrors('descripcion')} and ${modalEdit}" th:errors="*{descripcion}"></div>
-					</div>                        
-					            
-					<div class="form-group">
+					</div>
+					<div class="form-group" id="grupo__descripcion">
+						<label for="">Descripción</label>
+						<div class="formulario__grupo-input">
+							<input type="text" th:field="*{descripcion}" class="form-control input-default" placeholder="" autocomplete="off">
+							<i class="formulario__validacion-estado fas fa-times-circle"></i>
+							<div class="form-text text-danger" th:if="${#fields.hasErrors('descripcion')} and ${modalEdit}" th:errors="*{descripcion}"></div>
+						</div>
+					</div>
+					<div class="form-group" id="grupo__estado" hidden>
 						<label for="">Estado</label>
-						<select th:field="*{estado}" class="form-control input-default">
-							<option value="" id="estado" selected>Seleccionar</option>
-							<option value="activo">Activo</option>
-							<option value="inactivo">Inactivo</option>
-						</select>
-						<div class="form-text text-danger" th:if="${#fields.hasErrors('estado')} and ${modalEdit}" th:errors="*{estado}"></div>
-					</div>                        
+						<div class="formulario__grupo-input">
+							<select th:field="*{estado}" class="form-control input-default">
+								<option value="" id="estado" selected>Seleccionar</option>
+								<option value="activo">Activo</option>
+									<option value="inactivo">Inactivo</option>
+							</select>
+							<i class="formulario__validacion-estado fas fa-times-circle"></i>
+							<div class="form-text text-danger" th:if="${#fields.hasErrors('estado')} and ${modalEdit}" th:errors="*{estado}"></div>
+						</div>
+					</div>
 				</div>
 				<div class="modal-footer">
-					<button type="button" class="btn btn-secondary" data-dismiss="modal">Cancelar</button>
+					<button type="button" class="btn btn-secondary cancel" data-dismiss="modal">Cancelar</button>
 					<button type="submit" class="btn btn-primary" id="Editar">Editar</button>
 				</div>
 			</form>
 		</div>
 	</div>
 </div>
-        
+  
 
        
 	  
@@ -1077,6 +1080,7 @@
 
 	<!-- Validación JS -->
 	<script th:src="@{/assets/js/validacionTipoC.js}"></script>
+	<script th:src="@{/assets/js/mainTipoC.js}"></script>
 
 	<script th:inline="javascript" th:if="${modalAdd}">
 		$("#modal-add").modal("show");
@@ -1106,7 +1110,7 @@
 				confirmButtonText: 'si, editar!'
 			}).then((result) => {
 				if (result.value) {
-					if(campos.nombresUsuario && campos.apellidosUsuario && campos.correoUsuario && campos.tipoUsuario){
+					if(campos.nombre && campos.descripcion && campos.estado ){
 						form.submit()
 					}else{
 						inputs.forEach((input) => {
