@@ -195,7 +195,7 @@ selectsEdit.forEach((select) => {
 formularioEditar.addEventListener('submit',(e)=>{
 	e.preventDefault()
 
-	if(campos.nombreEm && campos.metodo){
+	if(campos.nombreEm && campos.metodo && campos.total){
 		formularioEditar.submit()
 	}else{
 		inputsEdit.forEach((input) => {
