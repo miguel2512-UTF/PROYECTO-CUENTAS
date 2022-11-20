@@ -12,7 +12,6 @@ import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 
 import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.PathVariable;
 
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
@@ -105,11 +104,5 @@ public class IndexController {
         return "views/principal-admin";
     }
     
-@GetMapping("/nn/{idUsuario}")
-public String nn(@PathVariable Integer idCom, Model m){
-    if (idCom > 0) {
-        m.addAttribute("usar","");
-    }
-    return "views/principal-admin";
-}
+
 }

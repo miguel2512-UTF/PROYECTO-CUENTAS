@@ -597,15 +597,18 @@
 														<h6 class="mb-1" th:text="'El compromiso: ' + ${g.tipocompromiso.nombre} + ', con un valor de : '+${g.total} + ' pesos'"></h6>
 														<div hidden>
 															<small class="d-block" id="estado" th:text="${g.estadoCom}"></small>
+															<small class="d-block" id="fecha" th:text="${g.fecha}"></small>
+
 														</div>
-														<small class="d-block"  th:text="'vence el: '+${g.fecha}"></small>
-													
+														
+														<small class="d-block" > Paga antes para evitar suspencion!</small>
+													 <hr>
 													</div>
 												</div>
 											</li>
 										</ul>
 									</div>
-                                    <a class="all-notification" href="javascript:void(0)">See all notifications <i class="ti-arrow-right"></i></a>
+                                    <a class="all-notification" th:href="@{/compromiso}">See all notifications <i class="ti-arrow-right"></i></a>
                                 </div>
                             </li>
 							<li class="nav-item dropdown notification_dropdown">
@@ -1310,6 +1313,10 @@
         ***********************************-->
 
 
+
+
+
+
     </div>
     <!--**********************************
         Main wrapper end
@@ -1333,10 +1340,7 @@
 			});
 		});
 	</script>
-		
-
 		<script>
-
 			window.onload = function(){
 			 Push.Permission.request();
 			}
@@ -1354,7 +1358,20 @@
 			}, 1000);
 		   }
 		 </script>
-		
+		<script >
+            const fechacompromiso = document.getElementById('fecha');  
+
+         const hoy =Date.now()
+
+         var fechaFin    = new Date(fechacompromiso.innerHTML).getTime();
+		 var diff = fechaFin - hoy;
+
+         const dias=diff/(1000*60*60*24) ;
+         const resultado =Math.trunc(dias);
+	 //mostrar al  html dias que faltan para el pago oportuno
+     document.getElementById("mostrarfecha").innerHTML='Vence en: '+resultado +' dias'  ;
+
+        </script>
 		 
 		 <script src="https://cdnjs.cloudflare.com/ajax/libs/push.js/1.0.8/push.min.js"></script>
 	
