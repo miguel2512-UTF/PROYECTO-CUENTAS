@@ -64,7 +64,7 @@ public class ListarCompromisoPdf extends AbstractPdfView {
 
      
         // FUENTES
-        Font fuenteTitulo = FontFactory.getFont(FontFactory.HELVETICA_BOLD, 20, Color.WHITE);
+        Font fuenteTitulo = FontFactory.getFont(FontFactory.HELVETICA_BOLD, 25, Color.white);
         Font fuenteTituloColumnas = FontFactory.getFont(FontFactory.HELVETICA_BOLD, 12, Color.black);
 
         // HOJA HORIZONTAL
@@ -76,93 +76,116 @@ public class ListarCompromisoPdf extends AbstractPdfView {
         document.open();
         PdfPCell celda = null;
 
-        
+        //IMAGEN: LOGO
+        Image image = Image.getInstance("https://lh3.googleusercontent.com/fife/AAbDypBM4AdBwzYAeFejRsYGVfjZYVdfsJJCEX1YSrhPvUS4BRvAqE4hGS_su1IU2C9Zk-Q7ODLn3785a1sUplwseDNvctGR_1rS77W85lU_Lbaalxy1tu9enaeU-gmNYtxPKWcfkg-ZsfHUD3k1qWSmTip1ZRoLUGjCXfCCIyY5KuexWG8DzZ3T0pk-Mef6DOopHPW_gLKPZaAtM6vurUZWuQD-RPZYTwDbFWBBc7QenWAIuaOao68kxapry4w8wwPQ3Hcfb_7L6uJmAfn47b6Qqk8PV_DqIRSPvhT4afzZ04txKsMCEerRTfOW1SgZTcNn7TAqXWDNaNIf7pajUswDKwT2XGq5TGVAD6IE02OsNWQHY6JyzZnYp4s2f7F0dHDqQ9aIsYZdw9T91ARe2OXg4NAAgNpCnrCO_tz6IIv1SU_6WwJKwBLKt-ukZJQpjdIdVRSOWENbZIiS-k5vBG6F6LfFQi3uTimcNPgo0fK8E91zGeWid8v5bmJtx2fvXG3S-BmkYB9xbNRugkNE0dOUJmIjpR5jdE1Kc66FIc848pEcHWG9fDUkMasPl44VW7u4GcdktnWoZCBCe1Ho4dTtxhk8kNLizISho3XTrgQ9zg7Mgwsatv4SnEg6yoUMGO8p6dx9pr24NW1nnSJWQcRXFCkJTFLySIeLb26DWVloVa8hfhXaSMIrqnwecsYoAPzjBLFgoGe0i8TfOEpdqYhiQMli267c0TRnn1GMhEGMVNu-bfjcRlB_KhJGGDI5Ga_SOR79sRQ2PCaSM2KRSoshRcXYXM0ExfuRcnoE_FYlhAgMESpsNS8sJjr3zrCj5RDPKBT1AOK52rLdXCLtJJ2eY_QTzNUzamLVXt9K5ju5j0C7F1dyoqqmFs1SLBTx2jEsT7QM_0M-VhIpKFRAEEXAbwNpqizCh1H3S_XuMibnHkENkSIOpTGVALhCgr50Ds03u3n6NZ85ltPIHZ4XG1B6806sykolPJOJz4Fwy71xlt_Rq7M9IrvItk4q1F37XKh6qbSPOv4=w512");
+       image.setAlignment(Element.ALIGN_LEFT);
+       image.setAlignment(Element.ALIGN_LEFT);
+      // image.scaleAbsoluteHeight(100);
+       //image.scaleAbsoluteWidth(300);
+       image.scaleToFit(200, 100);
+    
+       
+
+
         // TITULO TABLA
         PdfPTable TablaTitulo = new PdfPTable(1);
 
         celda = new PdfPCell(new Phrase("REPORTE COMPROMISOS", fuenteTitulo));
-        celda.setBorder(0);
+        //celda.setBorder(0);
+        TablaTitulo.setSpacingBefore(20);
         celda.setBackgroundColor(new Color(7, 183, 18));
         celda.setHorizontalAlignment(Element.ALIGN_CENTER);
         celda.setVerticalAlignment(Element.ALIGN_CENTER);
         celda.setPadding(30);
-
+       //  celda.setBorderColor(new Color(7, 183, 18));
         TablaTitulo.addCell(celda);
         TablaTitulo.setSpacingAfter(30);
 
         
         // TITULO TABLA
         PdfPTable TablaCompromisos = new PdfPTable(10);
-        TablaCompromisos.setWidths(new float[] { 2f, 2f, 2f, 2f, 2f, 2f, 2f, 2f, 2f, 2f });
+        TablaCompromisos.setWidths(new float[] { 2, 5, 6, 6, 6, 4, 4, 4, 6, 5 });
 
         celda = new PdfPCell(new Phrase("#", fuenteTituloColumnas));
         celda.setBackgroundColor(Color.lightGray);
         celda.setHorizontalAlignment(Element.ALIGN_CENTER);
         celda.setVerticalAlignment(Element.ALIGN_CENTER);
-        celda.setPadding(15);
+        celda.setPaddingTop(12);
+        celda.setPaddingBottom(8);
         TablaCompromisos.addCell(celda);
 
         celda = new PdfPCell(new Phrase("Numero Factura", fuenteTituloColumnas));
         celda.setBackgroundColor(Color.lightGray);
         celda.setHorizontalAlignment(Element.ALIGN_CENTER);
         celda.setVerticalAlignment(Element.ALIGN_CENTER);
-        celda.setPadding(15);
+        celda.setPaddingTop(10);
+        celda.setPaddingBottom(8);
         TablaCompromisos.addCell(celda);
 
         celda = new PdfPCell(new Phrase("Nombre Empresa", fuenteTituloColumnas));
         celda.setBackgroundColor(Color.lightGray);
         celda.setHorizontalAlignment(Element.ALIGN_CENTER);
         celda.setVerticalAlignment(Element.ALIGN_CENTER);
-        celda.setPadding(15);
+        celda.setPaddingTop(10);
+        celda.setPaddingBottom(8);
         TablaCompromisos.addCell(celda);
 
         celda = new PdfPCell(new Phrase("Fecha Pago", fuenteTituloColumnas));
-        celda.setBackgroundColor(Color.lightGray);
+        //celda.setBackgroundColor(Color.lightGray);
+        celda.setBackgroundColor(new Color(
+            144, 226, 100));
         celda.setHorizontalAlignment(Element.ALIGN_CENTER);
         celda.setVerticalAlignment(Element.ALIGN_CENTER);
-        celda.setPadding(15);
+        celda.setPaddingTop(10);
+        celda.setPaddingBottom(8);
         TablaCompromisos.addCell(celda);
 
         celda = new PdfPCell(new Phrase("Fecha Suspension", fuenteTituloColumnas));
         celda.setBackgroundColor(Color.lightGray);
         celda.setHorizontalAlignment(Element.ALIGN_CENTER);
         celda.setVerticalAlignment(Element.ALIGN_CENTER);
-        celda.setPadding(15);
+        celda.setPaddingTop(10);
+        celda.setPaddingBottom(8);
         TablaCompromisos.addCell(celda);
 
         celda = new PdfPCell(new Phrase("Metodo Pago", fuenteTituloColumnas));
         celda.setBackgroundColor(Color.lightGray);
         celda.setHorizontalAlignment(Element.ALIGN_CENTER);
         celda.setVerticalAlignment(Element.ALIGN_CENTER);
-        celda.setPadding(15);
+        celda.setPaddingTop(10);
+        celda.setPaddingBottom(8);
         TablaCompromisos.addCell(celda);
 
         celda = new PdfPCell(new Phrase("Total", fuenteTituloColumnas));
         celda.setBackgroundColor(Color.lightGray);
         celda.setHorizontalAlignment(Element.ALIGN_CENTER);
         celda.setVerticalAlignment(Element.ALIGN_CENTER);
-        celda.setPadding(15);
+        celda.setPaddingTop(12);
+        celda.setPaddingBottom(8);
         TablaCompromisos.addCell(celda);
 
         celda = new PdfPCell(new Phrase("Usuario", fuenteTituloColumnas));
         celda.setBackgroundColor(Color.lightGray);
         celda.setHorizontalAlignment(Element.ALIGN_CENTER);
         celda.setVerticalAlignment(Element.ALIGN_CENTER);
-        celda.setPadding(15);
+        celda.setPaddingTop(12);
+        celda.setPaddingBottom(8);
         TablaCompromisos.addCell(celda);
 
         celda = new PdfPCell(new Phrase("Tipo Compromiso", fuenteTituloColumnas));
         celda.setBackgroundColor(Color.lightGray);
         celda.setHorizontalAlignment(Element.ALIGN_CENTER);
         celda.setVerticalAlignment(Element.ALIGN_CENTER);
-        celda.setPadding(15);
+        celda.setPaddingTop(10);
+        celda.setPaddingBottom(8);
         TablaCompromisos.addCell(celda);
 
         celda = new PdfPCell(new Phrase("Estado", fuenteTituloColumnas));
         celda.setBackgroundColor(Color.lightGray);
         celda.setHorizontalAlignment(Element.ALIGN_CENTER);
         celda.setVerticalAlignment(Element.ALIGN_CENTER);
-        celda.setPadding(15);
+        celda.setPaddingTop(12);
+        celda.setPaddingBottom(8);
         TablaCompromisos.addCell(celda);
 
         compromiso.forEach(compr -> {
@@ -179,13 +202,7 @@ public class ListarCompromisoPdf extends AbstractPdfView {
             TablaCompromisos.addCell(compr.getEstadoCom());
         });
 
-      //IMAGEN: LOGO
-        Image image = Image.getInstance("https://lh3.googleusercontent.com/fife/AAbDypBM4AdBwzYAeFejRsYGVfjZYVdfsJJCEX1YSrhPvUS4BRvAqE4hGS_su1IU2C9Zk-Q7ODLn3785a1sUplwseDNvctGR_1rS77W85lU_Lbaalxy1tu9enaeU-gmNYtxPKWcfkg-ZsfHUD3k1qWSmTip1ZRoLUGjCXfCCIyY5KuexWG8DzZ3T0pk-Mef6DOopHPW_gLKPZaAtM6vurUZWuQD-RPZYTwDbFWBBc7QenWAIuaOao68kxapry4w8wwPQ3Hcfb_7L6uJmAfn47b6Qqk8PV_DqIRSPvhT4afzZ04txKsMCEerRTfOW1SgZTcNn7TAqXWDNaNIf7pajUswDKwT2XGq5TGVAD6IE02OsNWQHY6JyzZnYp4s2f7F0dHDqQ9aIsYZdw9T91ARe2OXg4NAAgNpCnrCO_tz6IIv1SU_6WwJKwBLKt-ukZJQpjdIdVRSOWENbZIiS-k5vBG6F6LfFQi3uTimcNPgo0fK8E91zGeWid8v5bmJtx2fvXG3S-BmkYB9xbNRugkNE0dOUJmIjpR5jdE1Kc66FIc848pEcHWG9fDUkMasPl44VW7u4GcdktnWoZCBCe1Ho4dTtxhk8kNLizISho3XTrgQ9zg7Mgwsatv4SnEg6yoUMGO8p6dx9pr24NW1nnSJWQcRXFCkJTFLySIeLb26DWVloVa8hfhXaSMIrqnwecsYoAPzjBLFgoGe0i8TfOEpdqYhiQMli267c0TRnn1GMhEGMVNu-bfjcRlB_KhJGGDI5Ga_SOR79sRQ2PCaSM2KRSoshRcXYXM0ExfuRcnoE_FYlhAgMESpsNS8sJjr3zrCj5RDPKBT1AOK52rLdXCLtJJ2eY_QTzNUzamLVXt9K5ju5j0C7F1dyoqqmFs1SLBTx2jEsT7QM_0M-VhIpKFRAEEXAbwNpqizCh1H3S_XuMibnHkENkSIOpTGVALhCgr50Ds03u3n6NZ85ltPIHZ4XG1B6806sykolPJOJz4Fwy71xlt_Rq7M9IrvItk4q1F37XKh6qbSPOv4=w512");
-       image.setAlignment(Element.ALIGN_LEFT);
-       image.setAlignment(Element.ALIGN_LEFT);
-      // image.scaleAbsoluteHeight(100);
-       //image.scaleAbsoluteWidth(300);
-       image.scaleToFit(200, 100);
+      
        
        
        
