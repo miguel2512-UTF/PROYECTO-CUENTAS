@@ -45,6 +45,14 @@ public class ListarCompromisoPdf extends AbstractPdfView {
             Compromiso iterar = i.next();
             if (dato == 0 && estado == 0) {
                 compromiso.add(iterar);
+            } else if (dato == 0 && estado == 2){
+                if (iterar.getEstadoCom().equalsIgnoreCase("Por pagar")) {
+                    compromiso.add(iterar);
+                }
+            } else if (dato == 0 && estado == 1){
+                if (iterar.getEstadoCom().equalsIgnoreCase("pago")) {
+                    compromiso.add(iterar);
+                }
             } else if (dato != 0) {
                 if (iterar.getUsuario().getIdUsuario() == dato && estado == 0) {
                     compromiso.add(iterar);
