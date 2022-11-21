@@ -965,9 +965,18 @@
 				//mostrar al html dias que faltan para el pago oportuno
 				const dias = diff/(1000*60*60*24)+2;
 				const resultado =Math.trunc(dias);
-
+              if(resultado>0){
 				document.querySelectorAll("#mostrarfecha")[index].innerHTML='Vence en: '+resultado+' días';
 				index++
+			};
+			if(resultado<0){
+				document.querySelectorAll("#mostrarfecha")[index].innerHTML='ya vencio';
+				index++
+			};
+			if(resultado==0){
+				document.querySelectorAll("#mostrarfecha")[index].innerHTML='vence hoy';
+				index++
+			}
 			});
 
         </script>
