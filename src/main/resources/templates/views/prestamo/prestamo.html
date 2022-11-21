@@ -1551,14 +1551,14 @@
 
 	<!-- Validacion Pagos -->
 	<script>
-			const valor=document.getElementById("valorPrestamo");
-			const total=document.getElementById("totalPago");
+			const valor2=document.getElementById("valorPrestamo");
+			const totalp=document.getElementById("totalPago");
 	
-			window.onmouseover = function cambiarMax() {
-			  let valor1=parseInt(valor.options[valor.selectedIndex].textContent)
-			  total.setAttribute("max", valor1)
+			 function cambiarMax() {
+			  let valorp=parseInt(valor2.options[valor2.selectedIndex].textContent)
+			  totalp.setAttribute("max", valorp)
 			}
-			valor.addEventListener("click", cambiarMax)
+			valor2.addEventListener("onmouseover", cambiarMax)
 	</script>
 
 	<!-- Validacion de Abonos  -->
@@ -1566,11 +1566,11 @@
 		const valora=document.getElementById("valor");
 		const totala=document.getElementById("totalAbono");
 
-		window.onmouseover = function cambiarMax() {
+		 function cambiarMax() {
 		  let valor1=parseInt(valora.options[valora.selectedIndex].textContent)
 		  totala.setAttribute("max", valor1)
 		}
-		valora.addEventListener("click", cambiarMax)
+		valora.addEventListener("onmouseover", cambiarMax)
 </script>
 
 </body>
