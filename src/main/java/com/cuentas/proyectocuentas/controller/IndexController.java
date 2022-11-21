@@ -12,7 +12,6 @@ import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 
 import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.PathVariable;
 
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
@@ -22,18 +21,22 @@ import com.cuentas.proyectocuentas.model.IUsuario;
 import com.cuentas.proyectocuentas.model.TipoCompromiso;
 import com.cuentas.proyectocuentas.model.Usuario;
 import com.cuentas.proyectocuentas.service.ICompromisoService;
+import com.cuentas.proyectocuentas.service.IPrestamoService;
 import com.cuentas.proyectocuentas.service.ITipoCompromisoService;
 
 @Controller
 public class IndexController {
     @Autowired
     private IUsuario usuarioI;
+
     @Autowired
     private ICompromisoService compromisod;
    
     @Autowired
     private ITipoCompromisoService tipocompromisod;
-    
+
+    @Autowired
+    private IPrestamoService prestamoI;
 
     @RequestMapping(value = "/",method = RequestMethod.GET) 
     public String index(){
@@ -96,20 +99,14 @@ public class IndexController {
         LocalDate date=LocalDate.now();
         LocalDate notificar=date.plusDays(5);
         m.addAttribute("notificar", notificar);
-        
-            m.addAttribute("compromisos", compromisod.findAll());
-            List<TipoCompromiso> tipocompromiso = tipocompromisod.findAll();
-            m.addAttribute("tipocompromiso", tipocompromiso);
+        m.addAttribute("compromisos", compromisod.findAll());
+        List<TipoCompromiso> tipocompromiso = tipocompromisod.findAll();
+        m.addAttribute("tipocompromiso", tipocompromiso);
            
-       
+        m.addAttribute("prestamos", prestamoI.findAll());
+
         return "views/principal-admin";
     }
     
-@GetMapping("/nn/{idUsuario}")
-public String nn(@PathVariable Integer idCom, Model m){
-    if (idCom > 0) {
-        m.addAttribute("usar","");
-    }
-    return "views/principal-admin";
-}
+
 }

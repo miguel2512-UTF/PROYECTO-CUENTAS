@@ -46,21 +46,20 @@ public class ListarCompromisoPdf extends AbstractPdfView {
             if (dato == 0 && estado == 0) {
                 compromiso.add(iterar);
             } else if (dato != 0) {
-                if (iterar.getUsuario().getIdUsuario() == dato) {
+                if (iterar.getUsuario().getIdUsuario() == dato && estado == 0) {
                     compromiso.add(iterar);
                 }
-            }
-            if (estado == 2) {
-                if (iterar.getEstadoCom().equalsIgnoreCase("Por pagar")) {
-                    compromiso.add(iterar);
+                else if (iterar.getUsuario().getIdUsuario() == dato && estado == 2) {
+                    if (iterar.getEstadoCom().equalsIgnoreCase("Por pagar")) {
+                        compromiso.add(iterar);
+                    }
+                }
+                else if (iterar.getUsuario().getIdUsuario() == dato && estado == 1) {
+                    if (iterar.getEstadoCom().equalsIgnoreCase("pago")) {
+                        compromiso.add(iterar);
+                    }
                 }
             }
-            if (estado == 1) {
-                if (iterar.getEstadoCom().equalsIgnoreCase("pago")) {
-                    compromiso.add(iterar);
-                }
-            }
-
         }
 
      
