@@ -600,8 +600,8 @@
 															<small class="d-block" id="fecha" th:text="${g.fecha}"></small>
 
 														</div>
-														<small id="mostrarfecha"></small>
-														<small class="d-block" > Paga antes para evitar suspensión!</small>
+														<h6 class="mb-1" id="mostrarfecha"></h6>
+														<small class="d-block" id="mensaje"> </small>
 													 <hr>
 													</div>
 												</div>
@@ -963,11 +963,27 @@
 				console.log(diff);
 
 				//mostrar al html dias que faltan para el pago oportuno
-				const dias = diff/(1000*60*60*24)+2;
+				const dias = diff/(1000*60*60*24)+1;
 				const resultado =Math.trunc(dias);
-
+              if(resultado>0){
 				document.querySelectorAll("#mostrarfecha")[index].innerHTML='Vence en: '+resultado+' días';
+				document.querySelectorAll("#mostrarfecha")[index].setAttribute("style", "color:#4CAF50;");
+				document.querySelectorAll("#mensaje")[index].innerHTML='Paga antes para evitar la suspencion!';
 				index++
+			};
+			if(resultado<0){
+				document.querySelectorAll("#mostrarfecha")[index].innerHTML='ya vencio';
+				document.querySelectorAll("#mostrarfecha")[index].setAttribute("style", "color:red;");
+				document.querySelectorAll("#mensaje")[index].innerHTML='Puede ser que su sevicio fue suspendido o proximamente suspendido';
+				index++
+
+			};
+			if(resultado==0){
+				document.querySelectorAll("#mostrarfecha")[index].innerHTML='vence hoy';
+				document.querySelectorAll("#mostrarfecha")[index].setAttribute("style", "color:#4CAF50;");
+				document.querySelectorAll("#mensaje")[index].innerHTML='Pago hoy para evitar suspencion!';
+				index++
+			}
 			});
 
         </script>
