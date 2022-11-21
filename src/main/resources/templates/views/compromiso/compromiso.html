@@ -954,12 +954,17 @@
 															<form th:action="@{/compromiso/listar/}" method="get">
             													<div class="modal-body">
                 													<input hidden type="text" name="format" id="format" value="pdf" />
-                													<div>
+                													<div sec:authorize="hasAnyAuthority('ADMINISTRADOR')">
                     													<select class="form-control" name="id" id="id">
                         													<option selected value="0">Todos los Usuarios</option>
                         													<th:block th:each=" u : ${usuario}">
                             													<option th:value="${u.idUsuario}" th:text="${u.nombresUsuario}+' '+${u.apellidosUsuario}"> </option>
                         													</th:block>
+                    													</select>
+                													</div>
+                													<div sec:authorize="hasAnyAuthority('CONTADOR','ADMIN DEL HOGAR')" hidden>
+                    													<select class="form-control" name="id" id="id">
+                        													<option th:text="${session.usuario.nombresUsuario}" th:value="${session.usuario.idUsuario}" selected></option>
                     													</select>
                 													</div>
                 													<br>
@@ -1069,7 +1074,7 @@
 															th:attr="data-target='#modal-delete'+${g.idCom}"
 															class="btn btn-secondary shadow btn-xs sharp btn-toggle"><i
 																class='bx bx-toggle-left'></i></i></a>
-																<a href="" th:if="${g.estadoCom.equalsIgnoreCase('pago')}"
+																<a th:if="${g.estadoCom.equalsIgnoreCase('pago')}"
 															class="btn btn-secondary shadow btn-xs sharp btn-toggle"><i
 																class='bx bxs-toggle-right'></i></i></a>
 													</div>

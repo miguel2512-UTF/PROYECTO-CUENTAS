@@ -44,19 +44,19 @@ public class ListarPrestamoPdf extends AbstractPdfView {
                 Prestamo iterar = i.next();
                 if (user == 0 && estado == 0) {
                     prestamo.add(iterar);
-                } else if (user!=0) {
-                    if (iterar.getUsuario().getIdUsuario()== user) {
+                } else if (user != 0) {
+                    if (iterar.getUsuario().getIdUsuario() == user && estado == 0) {
                         prestamo.add(iterar);
                     }
-                }
-                if (estado==2) {
-                    if (iterar.getEstadoPrestamo().equals("Activo")) {
-                        prestamo.add(iterar);
+                    else if (iterar.getUsuario().getIdUsuario() == user && estado == 2) {
+                        if (iterar.getEstadoPrestamo().equalsIgnoreCase("Activo")) {
+                            prestamo.add(iterar);
+                        }
                     }
-                }
-                if (estado==1) {
-                    if (iterar.getEstadoPrestamo().equals("Inactivo")) {
-                        prestamo.add(iterar);
+                    else if (iterar.getUsuario().getIdUsuario() == user && estado == 1) {
+                        if (iterar.getEstadoPrestamo().equalsIgnoreCase("Inactivo")) {
+                            prestamo.add(iterar);
+                        }
                     }
                 }
             }
