@@ -100,14 +100,14 @@ public class ListarCompromisoPdf extends AbstractPdfView {
 
         celda = new PdfPCell(new Phrase("REPORTE COMPROMISOS", fuenteTitulo));
         //celda.setBorder(0);
-        TablaTitulo.setSpacingBefore(20);
+        TablaTitulo.setSpacingBefore(30);
         celda.setBackgroundColor(new Color(7, 183, 18));
         celda.setHorizontalAlignment(Element.ALIGN_CENTER);
         celda.setVerticalAlignment(Element.ALIGN_CENTER);
         celda.setPadding(30);
        //  celda.setBorderColor(new Color(7, 183, 18));
         TablaTitulo.addCell(celda);
-        TablaTitulo.setSpacingAfter(30);
+        TablaTitulo.setSpacingAfter(20);
 
         
         // TITULO TABLA
@@ -115,7 +115,7 @@ public class ListarCompromisoPdf extends AbstractPdfView {
         TablaCompromisos.setWidths(new float[] { 2, 5, 6, 6, 6, 4, 4, 4, 6, 5 });
 
         celda = new PdfPCell(new Phrase("#", fuenteTituloColumnas));
-        celda.setBackgroundColor(Color.lightGray);
+        celda.setBackgroundColor(new Color(144, 226, 100));
         celda.setHorizontalAlignment(Element.ALIGN_CENTER);
         celda.setVerticalAlignment(Element.ALIGN_CENTER);
         celda.setPaddingTop(12);
@@ -123,7 +123,7 @@ public class ListarCompromisoPdf extends AbstractPdfView {
         TablaCompromisos.addCell(celda);
 
         celda = new PdfPCell(new Phrase("Numero Factura", fuenteTituloColumnas));
-        celda.setBackgroundColor(Color.lightGray);
+        celda.setBackgroundColor(new Color(144, 226, 100));
         celda.setHorizontalAlignment(Element.ALIGN_CENTER);
         celda.setVerticalAlignment(Element.ALIGN_CENTER);
         celda.setPaddingTop(10);
@@ -131,7 +131,7 @@ public class ListarCompromisoPdf extends AbstractPdfView {
         TablaCompromisos.addCell(celda);
 
         celda = new PdfPCell(new Phrase("Nombre Empresa", fuenteTituloColumnas));
-        celda.setBackgroundColor(Color.lightGray);
+        celda.setBackgroundColor(new Color(144, 226, 100));
         celda.setHorizontalAlignment(Element.ALIGN_CENTER);
         celda.setVerticalAlignment(Element.ALIGN_CENTER);
         celda.setPaddingTop(10);
@@ -140,8 +140,7 @@ public class ListarCompromisoPdf extends AbstractPdfView {
 
         celda = new PdfPCell(new Phrase("Fecha Pago", fuenteTituloColumnas));
         //celda.setBackgroundColor(Color.lightGray);
-        celda.setBackgroundColor(new Color(
-            144, 226, 100));
+        celda.setBackgroundColor(new Color(144, 226, 100));
         celda.setHorizontalAlignment(Element.ALIGN_CENTER);
         celda.setVerticalAlignment(Element.ALIGN_CENTER);
         celda.setPaddingTop(10);
@@ -149,7 +148,7 @@ public class ListarCompromisoPdf extends AbstractPdfView {
         TablaCompromisos.addCell(celda);
 
         celda = new PdfPCell(new Phrase("Fecha Suspension", fuenteTituloColumnas));
-        celda.setBackgroundColor(Color.lightGray);
+        celda.setBackgroundColor(new Color(144, 226, 100));
         celda.setHorizontalAlignment(Element.ALIGN_CENTER);
         celda.setVerticalAlignment(Element.ALIGN_CENTER);
         celda.setPaddingTop(10);
@@ -157,7 +156,7 @@ public class ListarCompromisoPdf extends AbstractPdfView {
         TablaCompromisos.addCell(celda);
 
         celda = new PdfPCell(new Phrase("Metodo Pago", fuenteTituloColumnas));
-        celda.setBackgroundColor(Color.lightGray);
+        celda.setBackgroundColor(new Color(144, 226, 100));
         celda.setHorizontalAlignment(Element.ALIGN_CENTER);
         celda.setVerticalAlignment(Element.ALIGN_CENTER);
         celda.setPaddingTop(10);
@@ -165,7 +164,7 @@ public class ListarCompromisoPdf extends AbstractPdfView {
         TablaCompromisos.addCell(celda);
 
         celda = new PdfPCell(new Phrase("Total", fuenteTituloColumnas));
-        celda.setBackgroundColor(Color.lightGray);
+        celda.setBackgroundColor(new Color(144, 226, 100));
         celda.setHorizontalAlignment(Element.ALIGN_CENTER);
         celda.setVerticalAlignment(Element.ALIGN_CENTER);
         celda.setPaddingTop(12);
@@ -173,7 +172,7 @@ public class ListarCompromisoPdf extends AbstractPdfView {
         TablaCompromisos.addCell(celda);
 
         celda = new PdfPCell(new Phrase("Usuario", fuenteTituloColumnas));
-        celda.setBackgroundColor(Color.lightGray);
+        celda.setBackgroundColor(new Color(144, 226, 100));
         celda.setHorizontalAlignment(Element.ALIGN_CENTER);
         celda.setVerticalAlignment(Element.ALIGN_CENTER);
         celda.setPaddingTop(12);
@@ -181,7 +180,7 @@ public class ListarCompromisoPdf extends AbstractPdfView {
         TablaCompromisos.addCell(celda);
 
         celda = new PdfPCell(new Phrase("Tipo Compromiso", fuenteTituloColumnas));
-        celda.setBackgroundColor(Color.lightGray);
+        celda.setBackgroundColor(new Color(144, 226, 100));
         celda.setHorizontalAlignment(Element.ALIGN_CENTER);
         celda.setVerticalAlignment(Element.ALIGN_CENTER);
         celda.setPaddingTop(10);
@@ -189,7 +188,7 @@ public class ListarCompromisoPdf extends AbstractPdfView {
         TablaCompromisos.addCell(celda);
 
         celda = new PdfPCell(new Phrase("Estado", fuenteTituloColumnas));
-        celda.setBackgroundColor(Color.lightGray);
+        celda.setBackgroundColor(new Color(144, 226, 100));
         celda.setHorizontalAlignment(Element.ALIGN_CENTER);
         celda.setVerticalAlignment(Element.ALIGN_CENTER);
         celda.setPaddingTop(12);

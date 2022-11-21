@@ -955,6 +955,7 @@
             													<div class="modal-body">
                 													<input hidden type="text" name="format" id="format" value="pdf" />
                 													<div sec:authorize="hasAnyAuthority('ADMINISTRADOR')">
+																		<label>Seleccione un usuario</label>
                     													<select class="form-control" name="id" id="id">
                         													<option selected value="0">Todos los Usuarios</option>
                         													<th:block th:each=" u : ${usuario}">
@@ -969,6 +970,7 @@
                 													</div>
                 													<br>
                 													<div>
+																		<label>Seleccione un estado</label>
                     													<select class="form-control " name="estado">
                         													<option selected value="0">Todos</option>
                         													<option  value="2"><span
