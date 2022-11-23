@@ -1,7 +1,7 @@
 package com.cuentas.proyectocuentas.controller;
 
 import javax.validation.Valid;
-
+import java.util.List;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -11,9 +11,12 @@ import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.ResponseBody;
-
+import com.cuentas.proyectocuentas.model.Compromiso;
+import com.cuentas.proyectocuentas.model.TipoCompromiso;
 import com.cuentas.proyectocuentas.model.Usuario;
 import com.cuentas.proyectocuentas.service.IUsuarioService;
+import com.cuentas.proyectocuentas.service.ITipoCompromisoService;
+import com.cuentas.proyectocuentas.service.ICompromisoService;
 
 @Controller
 @RequestMapping("/usuario")
@@ -21,11 +24,24 @@ public class UsuarioController {
     @Autowired
     private IUsuarioService usuarioI;
 
+    @Autowired
+    private ICompromisoService compromisod;
+   
+    @Autowired
+    private ITipoCompromisoService tipocompromisod;
+
     @GetMapping("/listar")
     public String listar(Model m){
         m.addAttribute("usuarios", usuarioI.findAll());
         Usuario usuario=new Usuario();
         m.addAttribute("usuario",usuario);
+
+        Compromiso compromiso=new Compromiso();
+        m.addAttribute("compromiso",compromiso);
+
+        m.addAttribute("compromisos", compromisod.findAll());
+        List<TipoCompromiso> tipocompromiso = tipocompromisod.findAll();
+        m.addAttribute("tipocompromiso", tipocompromiso);
         
         return "views/usuario/usuario";
     }

@@ -5,7 +5,8 @@ import java.nio.file.Files;
 import java.nio.file.Path;
 import java.nio.file.Paths;
     import java.time.LocalDate;
- 
+import java.util.List;
+
 import javax.validation.Valid;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -22,9 +23,13 @@ import org.springframework.web.bind.annotation.SessionAttributes;
 import org.springframework.web.bind.support.SessionStatus;
 import org.springframework.web.multipart.MultipartFile;
 
+import com.cuentas.proyectocuentas.model.Compromiso;
 import com.cuentas.proyectocuentas.model.PagoPrestamo;
+import com.cuentas.proyectocuentas.model.TipoCompromiso;
+import com.cuentas.proyectocuentas.service.ICompromisoService;
 import com.cuentas.proyectocuentas.service.IPagoPrestamoService;
 import com.cuentas.proyectocuentas.service.IPrestamoService;
+import com.cuentas.proyectocuentas.service.ITipoCompromisoService;
 
  
 @Controller
@@ -36,7 +41,14 @@ public class PagoPrestamoController {
     private IPagoPrestamoService pagoprestamoI;
 
     @Autowired
-    private IPrestamoService prestamoI;
+    private IPrestamoService prestamoI; 
+     
+    @Autowired
+    private ICompromisoService compromisod;
+   
+    @Autowired
+    private ITipoCompromisoService tipocompromisod;
+
 
     //LISTAR
     @GetMapping("/listar") 
@@ -52,6 +64,14 @@ public class PagoPrestamoController {
 
         m.addAttribute("fechaPagoMin", fechaPagoMin);
         m.addAttribute("fechaPagoMax", fechaPagoMax);
+
+        Compromiso compromiso=new Compromiso();
+        m.addAttribute("compromiso",compromiso);
+
+        m.addAttribute("compromisos", compromisod.findAll());
+        List<TipoCompromiso> tipocompromiso = tipocompromisod.findAll();
+        m.addAttribute("tipocompromiso", tipocompromiso);
+              
 
         return "views/pagoprestamo/pagoprestamo";
     }
