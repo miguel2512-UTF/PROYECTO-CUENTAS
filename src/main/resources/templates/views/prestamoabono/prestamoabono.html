@@ -841,6 +841,7 @@
 								  							<div class="modal-content">
 																<div class="modal-header">
 									  								<h5 class="modal-title">Eliminar Abono</h5>
+																	<button type="button" class="close cancel" data-dismiss="modal"><span>&times;</span></button>
 																</div>
 																<div class="modal-body">
 									  								<p>Esta seguro que desea ELIMINAR el Abono?</p>
@@ -914,7 +915,8 @@
 														<div class="formulario__grupo" id="grupo__imagenAbono">
 															<label for="imagenAbono" class="formulario__label">Imagen Abono</label>
 															<div class="formulario__grupo-input">
-																<input type="file" class="form-control input-default" name="file" >
+																<input type="file" class="custom-file-input form-control input-default " name="file"  accept="image/*">
+																<label  class="custom-file-label form-control">Imagen Abono</label>
 																<i class="formulario__validacion-estado fas fa-times-circle"></i>
 															</div>
 															<p class="formulario__input-error">Imagen Abono</p>

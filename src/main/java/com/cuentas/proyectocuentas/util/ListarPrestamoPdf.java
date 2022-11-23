@@ -22,7 +22,6 @@ import com.lowagie.text.Font;
 import com.lowagie.text.pdf.PdfWriter;
 import com.lowagie.text.Element;
 import com.lowagie.text.FontFactory;
-import com.lowagie.text.PageSize;
 import com.lowagie.text.Phrase;
 import com.lowagie.text.pdf.PdfPCell;
 import com.lowagie.text.pdf.PdfPTable;
@@ -147,8 +146,6 @@ public class ListarPrestamoPdf extends AbstractPdfView {
 
             //IMAGEN: LOGO
             Image logo = Image.getInstance("https://lh3.googleusercontent.com/fife/AAbDypBM4AdBwzYAeFejRsYGVfjZYVdfsJJCEX1YSrhPvUS4BRvAqE4hGS_su1IU2C9Zk-Q7ODLn3785a1sUplwseDNvctGR_1rS77W85lU_Lbaalxy1tu9enaeU-gmNYtxPKWcfkg-ZsfHUD3k1qWSmTip1ZRoLUGjCXfCCIyY5KuexWG8DzZ3T0pk-Mef6DOopHPW_gLKPZaAtM6vurUZWuQD-RPZYTwDbFWBBc7QenWAIuaOao68kxapry4w8wwPQ3Hcfb_7L6uJmAfn47b6Qqk8PV_DqIRSPvhT4afzZ04txKsMCEerRTfOW1SgZTcNn7TAqXWDNaNIf7pajUswDKwT2XGq5TGVAD6IE02OsNWQHY6JyzZnYp4s2f7F0dHDqQ9aIsYZdw9T91ARe2OXg4NAAgNpCnrCO_tz6IIv1SU_6WwJKwBLKt-ukZJQpjdIdVRSOWENbZIiS-k5vBG6F6LfFQi3uTimcNPgo0fK8E91zGeWid8v5bmJtx2fvXG3S-BmkYB9xbNRugkNE0dOUJmIjpR5jdE1Kc66FIc848pEcHWG9fDUkMasPl44VW7u4GcdktnWoZCBCe1Ho4dTtxhk8kNLizISho3XTrgQ9zg7Mgwsatv4SnEg6yoUMGO8p6dx9pr24NW1nnSJWQcRXFCkJTFLySIeLb26DWVloVa8hfhXaSMIrqnwecsYoAPzjBLFgoGe0i8TfOEpdqYhiQMli267c0TRnn1GMhEGMVNu-bfjcRlB_KhJGGDI5Ga_SOR79sRQ2PCaSM2KRSoshRcXYXM0ExfuRcnoE_FYlhAgMESpsNS8sJjr3zrCj5RDPKBT1AOK52rLdXCLtJJ2eY_QTzNUzamLVXt9K5ju5j0C7F1dyoqqmFs1SLBTx2jEsT7QM_0M-VhIpKFRAEEXAbwNpqizCh1H3S_XuMibnHkENkSIOpTGVALhCgr50Ds03u3n6NZ85ltPIHZ4XG1B6806sykolPJOJz4Fwy71xlt_Rq7M9IrvItk4q1F37XKh6qbSPOv4=w512");
-            // logo.setAlignment(Element.ALIGN_RIGHT);
-            // logo.setAlignment(Element.ALIGN_RIGHT);
             logo.setAlignment(Image.ALIGN_LEFT);
             logo.scaleToFit(200, 100);
             // logo.setSpacingAfter();
@@ -355,7 +352,6 @@ public class ListarPrestamoPdf extends AbstractPdfView {
 
                     TablaPagos.addCell(image);
                 } catch (BadElementException | IOException e) {
-                    // TODO Auto-generated catch block
                     e.printStackTrace();
                 }
                 // TablaPagos.addCell(pp.getImagenPago());
