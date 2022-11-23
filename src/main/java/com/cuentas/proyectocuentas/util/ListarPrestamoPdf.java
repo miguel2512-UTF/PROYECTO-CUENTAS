@@ -40,31 +40,31 @@ public class ListarPrestamoPdf extends AbstractPdfView {
         Integer estado = Integer.parseInt(request.getParameter("estado"));
 
         @SuppressWarnings("unchecked")
-        List<Prestamo> prestamos =(List<Prestamo>) model.get("prestamos");
-        List<Prestamo> prestamo = new ArrayList<Prestamo>();
-        Iterator<Prestamo> i = prestamos.iterator();
+            List<Prestamo> prestamos =(List<Prestamo>) model.get("prestamos");
+            List<Prestamo> prestamo = new ArrayList<Prestamo>();
+            Iterator<Prestamo> i = prestamos.iterator();
 
-        while (i.hasNext()) {
-            Prestamo iterar = i.next();
-            if (user == 0 && estado == 0) {
-                prestamo.add(iterar);
-
-            }
-            else if (user!=0) {
-                if (iterar.getUsuario().getIdUsuario()== user) {
-
-                } else if (user != 0) {
-                    if (iterar.getUsuario().getIdUsuario() == user && estado == 0) {
-
+            while (i.hasNext()) {
+                Prestamo iterar = i.next();
+                if (user == 0 && estado == 0) {
+                    prestamo.add(iterar);
+                }else if(user == 0 && estado == 1){
+                    if (iterar.getEstadoPrestamo().equalsIgnoreCase("Activo")) {
                         prestamo.add(iterar);
                     }
-                    else if (iterar.getUsuario().getIdUsuario() == user && estado == 2) {
-                        if (iterar.getEstadoPrestamo().equalsIgnoreCase("Activo")) {
+                }else if(user == 0 && estado == 2){
+                    if (iterar.getEstadoPrestamo().equalsIgnoreCase("Inactivo")) {
+                        prestamo.add(iterar);
+                    }
+                }else if(user != 0){
+                    if(iterar.getUsuario().getIdUsuario()== user && estado == 0){
+                        prestamo.add(iterar);
+                    }else if(iterar.getUsuario().getIdUsuario()== user && estado == 1){
+                        if(iterar.getEstadoPrestamo().equalsIgnoreCase("Activo")){
                             prestamo.add(iterar);
                         }
-                    }
-                    else if (iterar.getUsuario().getIdUsuario() == user && estado == 1) {
-                        if (iterar.getEstadoPrestamo().equalsIgnoreCase("Inactivo")) {
+                    }else if(iterar.getUsuario().getIdUsuario() == user && estado == 2){
+                        if(iterar.getEstadoPrestamo().equalsIgnoreCase("Inactivo")){
                             prestamo.add(iterar);
                         }
                     }
@@ -78,8 +78,31 @@ public class ListarPrestamoPdf extends AbstractPdfView {
             Iterator<PagoPrestamo> p = pagos.iterator();
 
             while (p.hasNext()) {
-                PagoPrestamo iterarp = p.next();
-                pago.add(iterarp);
+            
+                PagoPrestamo iterar = p.next();
+                if (user == 0 && estado == 0) {
+                    pago.add(iterar);
+                }else if(user == 0 && estado == 1){
+                    if (iterar.getPrestamo().getEstadoPrestamo().equalsIgnoreCase("Activo")) {
+                        pago.add(iterar);
+                    }
+                }else if(user == 0 && estado == 2){
+                    if (iterar.getPrestamo().getEstadoPrestamo().equalsIgnoreCase("Inactivo")) {
+                        pago.add(iterar);
+                    }
+                }else if(user != 0){
+                    if(iterar.getPrestamo().getUsuario().getIdUsuario()== user && estado == 0){
+                        pago.add(iterar);
+                    }else if(iterar.getPrestamo().getUsuario().getIdUsuario()== user && estado == 1){
+                        if(iterar.getPrestamo().getEstadoPrestamo().equalsIgnoreCase("Activo")){
+                            pago.add(iterar);
+                        }
+                    }else if(iterar.getPrestamo().getUsuario().getIdUsuario() == user && estado == 2){
+                        if(iterar.getPrestamo().getEstadoPrestamo().equalsIgnoreCase("Inactivo")){
+                            pago.add(iterar);
+                        }
+                    }
+                }
             }
 
             //ABONOS
@@ -89,19 +112,50 @@ public class ListarPrestamoPdf extends AbstractPdfView {
             Iterator<PrestamoAbono> a = abonos.iterator();
 
             while (a.hasNext()) {
-                PrestamoAbono iterara = a.next();
-                abono.add(iterara);
+                // PrestamoAbono iterar = a.next();
+                // abono.add(iterar);
+
+                PrestamoAbono iterar = a.next();
+                if (user == 0 && estado == 0) {
+                    abono.add(iterar);
+                }else if(user == 0 && estado == 1){
+                    if (iterar.getPrestamo().getEstadoPrestamo().equalsIgnoreCase("Activo")) {
+                        abono.add(iterar);
+                    }
+                }else if(user == 0 && estado == 2){
+                    if (iterar.getPrestamo().getEstadoPrestamo().equalsIgnoreCase("Inactivo")) {
+                        abono.add(iterar);
+                    }
+                }else if(user != 0){
+                    if(iterar.getPrestamo().getUsuario().getIdUsuario()== user && estado == 0){
+                        abono.add(iterar);
+                    }else if(iterar.getPrestamo().getUsuario().getIdUsuario()== user && estado == 1){
+                        if(iterar.getPrestamo().getEstadoPrestamo().equalsIgnoreCase("Activo")){
+                            abono.add(iterar);
+                        }
+                    }else if(iterar.getPrestamo().getUsuario().getIdUsuario() == user && estado == 2){
+                        if(iterar.getPrestamo().getEstadoPrestamo().equalsIgnoreCase("Inactivo")){
+                            abono.add(iterar);
+                        }
+                    }
+                }
             }
 
             // FUENTES
             Font fuenteTitulo = FontFactory.getFont(FontFactory.HELVETICA_BOLD, 20, Color.WHITE);
             Font fuenteTituloColumnas = FontFactory.getFont(FontFactory.HELVETICA_BOLD, 12, Color.black);
 
-            // HOJA HORIZONTAL
-            //  document.setPageSize(PageSize.LETTER.rotate());
+            //IMAGEN: LOGO
+            Image logo = Image.getInstance("https://lh3.googleusercontent.com/fife/AAbDypBM4AdBwzYAeFejRsYGVfjZYVdfsJJCEX1YSrhPvUS4BRvAqE4hGS_su1IU2C9Zk-Q7ODLn3785a1sUplwseDNvctGR_1rS77W85lU_Lbaalxy1tu9enaeU-gmNYtxPKWcfkg-ZsfHUD3k1qWSmTip1ZRoLUGjCXfCCIyY5KuexWG8DzZ3T0pk-Mef6DOopHPW_gLKPZaAtM6vurUZWuQD-RPZYTwDbFWBBc7QenWAIuaOao68kxapry4w8wwPQ3Hcfb_7L6uJmAfn47b6Qqk8PV_DqIRSPvhT4afzZ04txKsMCEerRTfOW1SgZTcNn7TAqXWDNaNIf7pajUswDKwT2XGq5TGVAD6IE02OsNWQHY6JyzZnYp4s2f7F0dHDqQ9aIsYZdw9T91ARe2OXg4NAAgNpCnrCO_tz6IIv1SU_6WwJKwBLKt-ukZJQpjdIdVRSOWENbZIiS-k5vBG6F6LfFQi3uTimcNPgo0fK8E91zGeWid8v5bmJtx2fvXG3S-BmkYB9xbNRugkNE0dOUJmIjpR5jdE1Kc66FIc848pEcHWG9fDUkMasPl44VW7u4GcdktnWoZCBCe1Ho4dTtxhk8kNLizISho3XTrgQ9zg7Mgwsatv4SnEg6yoUMGO8p6dx9pr24NW1nnSJWQcRXFCkJTFLySIeLb26DWVloVa8hfhXaSMIrqnwecsYoAPzjBLFgoGe0i8TfOEpdqYhiQMli267c0TRnn1GMhEGMVNu-bfjcRlB_KhJGGDI5Ga_SOR79sRQ2PCaSM2KRSoshRcXYXM0ExfuRcnoE_FYlhAgMESpsNS8sJjr3zrCj5RDPKBT1AOK52rLdXCLtJJ2eY_QTzNUzamLVXt9K5ju5j0C7F1dyoqqmFs1SLBTx2jEsT7QM_0M-VhIpKFRAEEXAbwNpqizCh1H3S_XuMibnHkENkSIOpTGVALhCgr50Ds03u3n6NZ85ltPIHZ4XG1B6806sykolPJOJz4Fwy71xlt_Rq7M9IrvItk4q1F37XKh6qbSPOv4=w512");
+            // logo.setAlignment(Element.ALIGN_RIGHT);
+            // logo.setAlignment(Element.ALIGN_RIGHT);
+            logo.setAlignment(Image.ALIGN_LEFT);
+            logo.scaleToFit(200, 100);
+            // logo.setSpacingAfter();
+
 
             // MARGENES TABLA
-            document.setMargins(-30, -30, 40, 20);
+            document.setMargins(1, 1, 20, 20);
             document.open();
             PdfPCell celda = null;
             PdfPCell celda2 = null;
@@ -116,10 +170,14 @@ public class ListarPrestamoPdf extends AbstractPdfView {
             celda.setBackgroundColor(new Color(7, 183, 18));
             celda.setHorizontalAlignment(Element.ALIGN_CENTER);
             celda.setVerticalAlignment(Element.ALIGN_CENTER);
+            celda.setPaddingLeft(40);
+            celda.setPaddingRight(40);
             celda.setPadding(30);
+            
 
             TablaTitulo.addCell(celda);
-            TablaTitulo.setSpacingAfter(10);
+            TablaTitulo.setSpacingAfter(15);
+            TablaTitulo.setSpacingBefore(10);
 
 
             // TITULO TABLA PRÉSTAMOS
@@ -166,7 +224,7 @@ public class ListarPrestamoPdf extends AbstractPdfView {
             TablaPrestamos2.setWidths(new float[] { 1f, 1f, 1f, 1f, 1f, 1f });
             TablaPrestamos2.setSpacingAfter(25);
 
-            celda2 = new PdfPCell(new Phrase("Nombre Prestamista", fuenteTituloColumnas));
+            celda2 = new PdfPCell(new Phrase("Nombre Usuario", fuenteTituloColumnas));
             celda2.setBackgroundColor(Color.lightGray);
             celda2.setHorizontalAlignment(Element.ALIGN_CENTER);
             celda2.setVerticalAlignment(Element.ALIGN_CENTER);
@@ -393,6 +451,8 @@ public class ListarPrestamoPdf extends AbstractPdfView {
 
             });
 
+            //LLAMAR AL ICONO
+            document.add(logo);
 
             // LLAMAR TITULO
             document.add(TablaTitulo);
@@ -418,7 +478,8 @@ public class ListarPrestamoPdf extends AbstractPdfView {
             //TABLA
             document.add(TablaAbonos);
 
-        }}
+        }
+    
+    }
 
-
-}
+    

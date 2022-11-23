@@ -14,6 +14,8 @@
 	<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.1/jquery.min.js"></script>
 	<script th:src="@{/assets/js/mainPrestamo.js}"></script> 
 	<!-- Estilos -->
+	<!-- Toastr -->
+    <link rel="stylesheet" th:href="@{/assets/dashboard/vendor/toastr/css/toastr.min.css}">
 	<link rel="stylesheet" th:href="@{/assets/css/util.css}">
     <link href='https://unpkg.com/boxicons@2.1.2/css/boxicons.min.css' rel='stylesheet'>
 	<link rel="stylesheet" th:href="@{/assets/dashboard/vendor/chartist/css/chartist.min.css}">
@@ -821,20 +823,12 @@
 																		</div>
 																		<br>
 																		<div>
-																			<select name="formato" class="form-control" id="">
-																				<option value="">Formato</option>
-																				<option value="1">PDF</option>
-																				<option value="2">EXCEL</option>
-																			</select>
-																		</div>
-																		<br>
-																		<div>
 																			<select class="form-control" name="estado" id="estado">
 																				<option selected value="0">Todos</option>
-																				<option  value="2"><span
+																				<option  value="1"><span
 																					class="badge light badge-warning"><i
 																						class="fa fa-circle text-warning mr-1"></i>Activo</span></option>
-																				<option value="1"><span 
+																				<option value="2"><span 
 																					class="badge light badge-success"><i
 																						class="fa fa-circle text-success mr-1"></i>Inactivo</span></option>
 																			</select>
@@ -920,8 +914,8 @@
 												<div class="d-flex">
 												<a href="" data-toggle="modal" th:attr="data-target='#modal-addPago'+${Pr.idPrestamo}" title="Registrar Pago" class="btn shadow btn-xs sharp mr-1"><i class="fa-solid fa-money-check-dollar"></i></a>
 												<a href="" data-toggle="modal" th:attr="data-target='#modal-addAbono'+${Pr.idPrestamo}" title="Registrar Abono" class="btn btn-secondary shadow btn-xs sharp mr-1"><i class="fa-solid fa-money-check-dollar"></i></a>
-                              					<a role="button" th:href="@{/pagoprestamo/listar}" title="Tabla de Pagp" class="btn shadow btn-xs sharp mr-1"><i class="fa-solid fa-table"></i></a>
-                              					<a role="button" th:href="@{/prestamoabono/listar}" title="Tabla de Abono" class="btn btn-secondary shadow btn-xs sharp mr-1"><i class="fa-solid fa-table"></i></a>
+                              					<!-- <a role="button" th:href="@{/pagoprestamo/listar}" title="Tabla de Pagp" class="btn shadow btn-xs sharp mr-1"><i class="fa-solid fa-table"></i></a> -->
+                              					<!-- <a role="button" th:href="@{/prestamoabono/listar}" title="Tabla de Abono" class="btn btn-secondary shadow btn-xs sharp mr-1"><i class="fa-solid fa-table"></i></a> -->
 												<a href="" class="btn shadow btn-xs sharp mr-1" data-toggle="modal" th:attr="data-target='#modal-listarPaAb'+${Pr.idPrestamo}" title="Ver Pagos y Abonos"><i class="fa-solid fa-eye"></i></a>
 												</div> 
 												                        
@@ -951,7 +945,7 @@
 														<a href="" th:if="${Pr.estadoPrestamo.equalsIgnoreCase('activo')}" data-toggle="modal" th:attr="data-target='#modal-cestado'+${Pr.idPrestamo}" class="btn btn-secondary shadow btn-xs sharp btn-toggle"><i class='bx bxs-toggle-right'></i></a>
 										
 														<!-- VER ABONOS Y PAGOS -->
-														<a href="" class="btn shadow btn-xs sharp mr-1" data-toggle="modal" th:attr="data-target='#modal-listarPaAb'+${Pr.idPrestamo}" title="Ver Pagos y Abonos"><i class="fa-solid fa-eye"></i></a>
+														<!-- <a href="" class="btn shadow btn-xs sharp mr-1" data-toggle="modal" th:attr="data-target='#modal-listarPaAb'+${Pr.idPrestamo}" title="Ver Pagos y Abonos"><i class="fa-solid fa-eye"></i></a> -->
 													</div>
 
 													<!-- MODAL ELIMINAR -->
@@ -1160,13 +1154,13 @@
                 												<div class="modal-body formP" >
 																	<div style="text-align: center;">
 																		<th:block th:each="Pa:${pagos}" th:if="${Pa.prestamo.idPrestamo}==${Pr.idPrestamo}">
-																			<p style="font-size: 12px;">Se pago <strong th:text="${Pa.totalPago}"></strong> el día <strong th:text="${Pa.fechaPago}"></strong></p>
+																			<p style="font-size: 12px;">Se pago <strong th:text="${Pa.totalPago}"></strong> la fecha <strong th:text="${Pa.fechaPago}"></strong></p>
 																		</th:block>
 																		<h5><a th:href="@{/pagoprestamo/listar}">Más detalles..</a></h5>
 																	</div>
 																	<div style="text-align: center;">
 																		<th:block th:each="Ab:${abonos}" th:if="${Ab.prestamo.idPrestamo}==${Pr.idPrestamo}">
-																		<p style="font-size: 12px;">Se abono <strong th:text="${Ab.totalAbono}"></strong> el día <strong th:text="${Ab.fechaAbono}"></strong></p>
+																		<p style="font-size: 12px;">Se abono <strong th:text="${Ab.totalAbono}"></strong> la fecha <strong th:text="${Ab.fechaAbono}"></strong></p>
 																		</th:block>
 																		<h5><a th:href="@{/prestamoabono/listar}">Más detalles..</a></h5>
 																	</div>
@@ -1190,6 +1184,7 @@
 				</div>
 			</div>
 		</div>
+		<button type="button" class="btn btn-dark mb-2  mr-2" id="toastr-success-bottom-right" hidden>Bottom Right</button>
 
 		<!-- MODAL REGISTRAR --> 
 		<div class="modal fade" id="modal-add">
@@ -1206,7 +1201,7 @@
 					<div class="formulario__grupo" id="grupo__documentoPrestamista">
 						<label for="documentoPrestamista" class="formulario__label">Documento </label>
 						<div class="formulario__grupo-input">
-							<input type="number" class="form-control input-default" name="documentoPrestamista" id="documentoPrestamista" placeholder="1079032167">
+							<input type="number" class="form-control input-default" name="documentoPrestamista" id="documentoPrestamista" >
 							<i class="formulario__validacion-estado fas fa-times-circle"></i>
 						</div>
 						<p class="formulario__input-error">Documento Prestamista.</p>
@@ -1220,7 +1215,7 @@
 					<div class="formulario__grupo" id="grupo__nombrePrestamista">
 						<label for="nombrePrestamista" class="formulario__label">Nombre Prestamista</label>
 						<div class="formulario__grupo-input">
-							<input type="text" class="form-control input-default" name="nombrePrestamista" id="nombrePrestamista" placeholder="Cristhian López">
+							<input type="text" class="form-control input-default" name="nombrePrestamista" id="nombrePrestamista" >
 							<i class="formulario__validacion-estado fas fa-times-circle"></i>
 						</div>
 						<p class="formulario__input-error">Nombre Prestamista</p>
@@ -1271,7 +1266,7 @@
 					<div class="formulario__grupo" id="grupo__valorPrestamo">
 						<label for="valorPrestamo" class="formulario__label">Valor Préstamo</label>
 						<div class="formulario__grupo-input">
-							<input type="text" class="form-control input-default" name="valorPrestamo" id="valorPrestamo" placeholder="1000000">
+							<input type="text" class="form-control input-default" name="valorPrestamo" id="valorPrestamo">
 							<i class="formulario__validacion-estado fas fa-times-circle"></i>
 						</div>
 						<p class="formulario__input-error">Valor préstamo.</p>
@@ -1279,13 +1274,12 @@
 							<div class="form-text text-danger" th:if="${#fields.hasErrors('valorPrestamo')}" th:errors="*{valorPrestamo}"></div>
 						</div>
 					</div>
-					
 
 					<!-- Grupo: Tasa Prestamo -->
 					<div class="formulario__grupo" id="grupo__tasaPrestamo">
 						<label for="tasaPrestamo" class="formulario__label">Tasa Préstamo</label>
 						<div class="formulario__grupo-input">
-							<input type="number" class="form-control input-default" name="tasaPrestamo" id="tasaPrestamo" step="0.01" placeholder="1.5">
+							<input type="number" class="form-control input-default" name="tasaPrestamo" id="tasaPrestamo" step="0.01" >
 							<i class="formulario__validacion-estado fas fa-times-circle"></i>
 						</div>
 						<p class="formulario__input-error">Tasa Préstamo</p>
@@ -1320,7 +1314,7 @@
 					<div class="formulario__grupo" id="grupo__numeroCuotas">
 						<label for="numeroCuotas" class="formulario__label">Número Cuotas</label>
 						<div class="formulario__grupo-input">
-							<input type="number" class="form-control input-default" name="numeroCuotas" id="numeroCuotas" placeholder="12">
+							<input type="number" class="form-control input-default" name="numeroCuotas" id="numeroCuotas">
 							<i class="formulario__validacion-estado fas fa-times-circle"></i>
 						</div>
 						<p class="formulario__input-error">Número Cuotas.</p>
@@ -1380,12 +1374,28 @@
 							<div class="formulario__grupo" id="grupo__nombrePrestamista">
 								<label for="nombrePrestamista" class="formulario__label">Nombre Prestamista</label>
 								<div class="formulario__grupo-input">
-									<input type="text" class="form-control input-default"  id="nombrePrestamista" placeholder="Cristhian López" th:field="*{nombrePrestamista}">
+									<input type="text" class="form-control input-default"  id="nombrePrestamista"  th:field="*{nombrePrestamista}">
 									<i class="formulario__validacion-estado fas fa-times-circle"></i>
 								</div>
 								<p class="formulario__input-error">Nombre Prestamista</p>
 								<div class="error">
 									<div class="form-text text-danger" th:if="${#fields.hasErrors('nombrePrestamista')}" th:errors="*{nombrePrestamista}"></div>
+								</div>
+							</div>
+
+							<!-- Grupo: Nombre Usuario-->
+							<div class="formulario__grupo" id="grupo__nombreUsuario" hidden>
+								<label for="" class="formulario__label" >Nombre Usuario</label>
+								<div class="formulario__grupo-input">
+									<!-- <input type="text" th:value="${session.usuario.idUsuario}" th:text="${session.usuario.nombresUsuario}"> -->
+									<select th:field="*{usuario}">
+										<option th:value="${session.usuario.idUsuario}" th:text="${session.usuario.nombresUsuario}" selected></option>
+									</select>
+									<i class="formulario__validacion-estado fas fa-times-circle"></i>
+								</div>
+								<p class="formulario__input-error">Nombre Usuario</p>
+								<div class="error">
+									<div class="form-text text-danger" th:if="${#fields.hasErrors('usuario')}" th:errors="*{usuario}"></div>
 								</div>
 							</div>
 
@@ -1406,7 +1416,7 @@
 							<div class="formulario__grupo" id="grupo__valorPrestamo">
 								<label for="valorPrestamo" class="formulario__label">Valor Préstamo</label>
 								<div class="formulario__grupo-input">
-									<input type="text" class="form-control input-default"  id="valorPrestamo" placeholder="1000000" th:field="*{valorPrestamo}">
+									<input type="text" class="form-control input-default"  id="valorPrestamo"  th:field="*{valorPrestamo}">
 									<i class="formulario__validacion-estado fas fa-times-circle"></i>
 								</div>
 								<p class="formulario__input-error">Valor préstamo.</p>
@@ -1415,11 +1425,24 @@
 								</div>
 							</div>
 
+							<!-- Grupo: Valor Prestamo Inicial-->
+							<div class="formulario__grupo" id="grupo__valorPrestamo" hidden>
+								<label for="valorPrestamoInicial" class="formulario__label">Valor Préstamo Inicial</label>
+								<div class="formulario__grupo-input">
+									<input type="text" class="form-control input-default" name="valorPrestamoInicial" id="valorPrestamoInicial">
+									<i class="formulario__validacion-estado fas fa-times-circle"></i>
+								</div>
+								<p class="formulario__input-error">Valor préstamo.</p>
+								<div class="error">
+									<div class="form-text text-danger" th:if="${#fields.hasErrors('valorPrestamoInicial')}" th:errors="*{valorPrestamoInicial}"></div>
+								</div>
+							</div>
+
 							<!-- Grupo: Tasa Prestamo -->
 							<div class="formulario__grupo" id="grupo__tasaPrestamo">
 								<label for="tasaPrestamo" class="formulario__label">Tasa Préstamo</label>
 								<div class="formulario__grupo-input">
-									<input type="text" class="form-control input-default"  id="tasaPrestamo" placeholder="1.5" th:field="*{tasaPrestamo}">
+									<input type="text" class="form-control input-default"  id="tasaPrestamo"  th:field="*{tasaPrestamo}">
 									<i class="formulario__validacion-estado fas fa-times-circle"></i>
 								</div>
 								<p class="formulario__input-error">Tasa Préstamo</p>
@@ -1452,7 +1475,7 @@
 							<div class="formulario__grupo" id="grupo__numeroCuotas">
 								<label for="numeroCuotas" class="formulario__label">Número Cuotas</label>
 								<div class="formulario__grupo-input">
-									<input type="number" class="form-control input-default" placeholder="12" id="numeroCuotas" th:field="*{numeroCuotas}">
+									<input type="number" class="form-control input-default"  id="numeroCuotas" th:field="*{numeroCuotas}">
 									<i class="formulario__validacion-estado fas fa-times-circle"></i>
 								</div>
 								<p class="formulario__input-error">Número Cuotas.</p>
@@ -1571,6 +1594,37 @@
 		  totala.setAttribute("max", valor1)
 		}
 		valora.addEventListener("onmouseover", cambiarMax)
+</script>
+<!-- Toastr -->
+<script th:src="@{/assets/dashboard/vendor/toastr/js/toastr.min.js}"></script>
+
+<!-- All init script -->
+<!-- th:if="${param.success and param.success!=0}" -->
+<script th:inline="javascript" th:if="${param.success}">
+	$("#toastr-success-bottom-right").on("click", function () {
+			toastr.success("Acción realizada exitosamente", "Cambios Guardados", {
+				positionClass: "toast-bottom-right",
+				timeOut: 5e3,
+				closeButton: !0,
+				debug: !1,
+				newestOnTop: !0,
+				progressBar: !0,
+				preventDuplicates: !0,
+				onclick: null,
+				showDuration: "300",
+				hideDuration: "1000",
+				extendedTimeOut: "1000",
+				showEasing: "swing",
+				hideEasing: "linear",
+				showMethod: "fadeIn",
+				hideMethod: "fadeOut",
+				tapToDismiss: !1
+			})
+		}
+
+	)
+
+	$("#toastr-success-bottom-right").click()
 </script>
 
 </body>

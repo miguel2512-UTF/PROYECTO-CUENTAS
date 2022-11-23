@@ -84,7 +84,7 @@ public class UsuarioController {
         }
         return "redirect:/usuario/listar";
     }
-
+ 
     @GetMapping("/cambioestado/{idUsuario}")
     public String cambioestado(@PathVariable Integer idUsuario){
         Usuario usuario = new Usuario();
