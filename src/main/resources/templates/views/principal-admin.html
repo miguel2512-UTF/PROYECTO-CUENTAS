@@ -933,22 +933,9 @@
 		});
 	</script>
 		<script>
-			window.onload = function(){
+		window.onload = function(){
 			 Push.Permission.request();
 			}
-			const estado = document.getElementById('estado');
-		   if(estado.innerHTML=='Por pagar'){
-			setTimeout(() => {
-			 Push.create('Tienes Compromisos pendientes',{
-				 body: 'has Click para ver mas...',
-				 icon: '/assets/img/pendiente.png',
-				 timeout: '7000',
-				 onClick : function(){
-					location.href='/proyecto/compromiso/listar'
-				 }
-			 });
-			}, 1000);
-		   }
 		 </script>
 		<script>
             const fechacompromiso = document.querySelectorAll('#fecha');  
@@ -985,7 +972,22 @@
 				index++
 			}
 			});
-
+			
+			
+			const estado = document.getElementById('estado');
+		   if(estado.innerHTML=='Por pagar'|| resultado <7){
+			setTimeout(() => {
+			 Push.create('Tienes Compromisos que vencen en menos de una semana ',{
+				 body: 'has Click para ver mas...',
+				 icon: '/assets/img/pendiente.png',
+				 timeout: '7000',
+				 onClick : function(){
+					location.href='/proyecto/compromiso/listar'
+				 }
+			 });
+			}, 1000);
+		   }
+		
         </script>
 		 
 		 <script src="https://cdnjs.cloudflare.com/ajax/libs/push.js/1.0.8/push.min.js"></script>
