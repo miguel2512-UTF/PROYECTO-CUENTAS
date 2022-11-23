@@ -987,7 +987,7 @@
 																		<div class="formulario__grupo" id="grupo__prestamo">
 																			<label for="prestamo" class="formulario__label">Valor Prestamo</label>
 																			<div class="formulario__grupo-input">
-																				<select name="prestamo" class="form-control input-default" id="valorPrestamo">
+																				<select name="prestamo" class="form-control input-default valorPrestamoPago" id="valorPrestamo">
 																					<option th:text="${Pr.valorPrestamo}" th:value="${Pr.idPrestamo}" selected></option>
 																				</select>
 																				<i class="formulario__validacion-estado fas fa-times-circle"></i>
@@ -1012,9 +1012,9 @@
 
 																		<!-- Grupo: Total Pago-->
 																		<div class="formulario__grupo" id="grupo__totalPago">
-																			<label for="totalPago" class="formulario__label">Total Pago</label>
+																			<label for="totalPago" class="formulario__label" >Total Pago</label>
 																			<div class="formulario__grupo-input">
-																				<input type="number" class="form-control input-default" min="1" name="totalPago" id="totalPago" >
+																				<input type="number" class="form-control input-default totalPagoP" min="1" name="totalPago" id="totalPago" >
 																				<i class="formulario__validacion-estado fas fa-times-circle"></i>
 																			</div>
 																			<p class="formulario__input-error">Total Pago</p>
@@ -1062,7 +1062,7 @@
 																		<div class="formulario__grupo" id="grupo__prestamo">
 																			<label for="" class="formulario__label">Valor Préstamo</label>
 																			<div class="formulario__grupo-input">
-																				<select name="prestamo" class="form-control input-default" id="valor">
+																				<select name="prestamo" class="form-control input-default valorPrestamoAbono" id="valor">
 																					<option th:value="${Pr.idPrestamo}" th:text="${Pr.valorPrestamo}" selected >Seleccionar</option>
 																				</select>
 																				<i class="formulario__validacion-estado fas fa-times-circle"></i>
@@ -1090,7 +1090,7 @@
 																		<div class="formulario__grupo" id="grupo__totalAbono">
 																		<label for="totalAbono" class="formulario__label">Total Abono</label>
 																		<div class="formulario__grupo-input">
-																			<input type="number" class="form-control input-default"  name="totalAbono" id="totalAbono" >
+																			<input type="number" class="form-control input-default totalAbonoA"  name="totalAbono" id="totalAbono" >
 																			<i class="formulario__validacion-estado fas fa-times-circle"></i>
 																		</div>
 																		<p class="formulario__input-error">Total Abono</p>
@@ -1551,27 +1551,25 @@
 
 	<!-- Validacion Pagos -->
 	<script>
-			const valor2=document.getElementById("valorPrestamo");
-			const totalp=document.getElementById("totalPago");
-	
-			 function cambiarMax() {
-			  let valorp=parseInt(valor2.options[valor2.selectedIndex].textContent)
-			  totalp.setAttribute("max", valorp)
-			}
-			valor2.addEventListener("onmouseover", cambiarMax)
+		const valor2=document.querySelectorAll(".valorPrestamoPago");
+		const totalp=document.querySelectorAll(".totalPagoP");
+
+		for (let i = 0; i < valor2.length; i++) {
+			let valorp=parseInt(valor2[i].options[valor2[i].selectedIndex].textContent)
+			totalp[i].setAttribute("max", valorp)
+		}
 	</script>
 
 	<!-- Validacion de Abonos  -->
 	<script>
-		const valora=document.getElementById("valor");
-		const totala=document.getElementById("totalAbono");
+		const valora=document.querySelectorAll(".valorPrestamoAbono");
+		const totala=document.querySelectorAll(".totalAbonoA");
 
-		 function cambiarMax() {
-		  let valor1=parseInt(valora.options[valora.selectedIndex].textContent)
-		  totala.setAttribute("max", valor1)
+		for (let i = 0; i < valora.length; i++) {
+			let valorp=parseInt(valora[i].options[valora[i].selectedIndex].textContent)
+			totala[i].setAttribute("max", valorp)
 		}
-		valora.addEventListener("onmouseover", cambiarMax)
-</script>
+	</script>
 
 </body>
 </html>
