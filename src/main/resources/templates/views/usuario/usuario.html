@@ -1154,10 +1154,62 @@
 	<script th:src="@{/assets/dashboard/vendor/toastr/js/toastr.min.js}"></script>
 
 	<!-- All init script -->
-	<!-- th:if="${param.success and param.success!=0}" -->
-	<script th:inline="javascript" th:if="${param.success}">
+	<script th:inline="javascript" th:if="${param.create}">
 		$("#toastr-success-bottom-right").on("click", function () {
-                toastr.success("Acción realizada exitosamente", "Cambios Guardados", {
+				toastr.success("Acción realizada exitosamente", "Registro Creado", {
+					positionClass: "toast-bottom-right",
+					timeOut: 5e3,
+					closeButton: !0,
+					debug: !1,
+					newestOnTop: !0,
+					progressBar: !0,
+					preventDuplicates: !0,
+					onclick: null,
+					showDuration: "300",
+					hideDuration: "1000",
+					extendedTimeOut: "1000",
+					showEasing: "swing",
+					hideEasing: "linear",
+					showMethod: "fadeIn",
+					hideMethod: "fadeOut",
+					tapToDismiss: !1
+				})
+			}
+
+		)
+
+		$("#toastr-success-bottom-right").click()
+	</script>
+	<script th:inline="javascript" th:if="${param.update}">
+		$("#toastr-success-bottom-right").on("click", function () {
+				toastr.success("Acción realizada exitosamente", "Cambios Guardados", {
+					positionClass: "toast-bottom-right",
+					timeOut: 5e3,
+					closeButton: !0,
+					debug: !1,
+					newestOnTop: !0,
+					progressBar: !0,
+					preventDuplicates: !0,
+					onclick: null,
+					showDuration: "300",
+					hideDuration: "1000",
+					extendedTimeOut: "1000",
+					showEasing: "swing",
+					hideEasing: "linear",
+					showMethod: "fadeIn",
+					hideMethod: "fadeOut",
+					tapToDismiss: !1
+				})
+			}
+
+		)
+
+		$("#toastr-success-bottom-right").click()
+	</script>
+
+	<script th:inline="javascript" th:if="${modalAdd}">
+		$("#toastr-success-bottom-right").on("click", function () {
+                toastr.error("El registro no pudo ser creado", "Error", {
                     positionClass: "toast-bottom-right",
                     timeOut: 5e3,
                     closeButton: !0,
@@ -1177,7 +1229,34 @@
                 })
             }
 
-		)
+        )
+
+		$("#toastr-success-bottom-right").click()
+	</script>
+
+	<script th:inline="javascript" th:if="${modalEdit}">
+		$("#toastr-success-bottom-right").on("click", function () {
+                toastr.error("Los cambios no han podido ser guardados", "Error", {
+                    positionClass: "toast-bottom-right",
+                    timeOut: 5e3,
+                    closeButton: !0,
+                    debug: !1,
+                    newestOnTop: !0,
+                    progressBar: !0,
+                    preventDuplicates: !0,
+                    onclick: null,
+                    showDuration: "300",
+                    hideDuration: "1000",
+                    extendedTimeOut: "1000",
+                    showEasing: "swing",
+                    hideEasing: "linear",
+                    showMethod: "fadeIn",
+                    hideMethod: "fadeOut",
+                    tapToDismiss: !1
+                })
+            }
+
+        )
 
 		$("#toastr-success-bottom-right").click()
 	</script>

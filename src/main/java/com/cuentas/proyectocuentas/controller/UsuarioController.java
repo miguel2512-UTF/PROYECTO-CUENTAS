@@ -33,7 +33,7 @@ public class UsuarioController {
     @PostMapping("/add")
     public String add(@Valid Usuario usuario, BindingResult res, Model m){
         m.addAttribute("usuarios", usuarioI.findAll());
-        int idSuccess=0;
+        String success="";
         if (res.hasErrors()) {
             if (usuario.getIdUsuario()==0) {
                 m.addAttribute("modalAdd","");
@@ -57,7 +57,7 @@ public class UsuarioController {
             usuario.setApellidosUsuario(usuario.getApellidosUsuario().toLowerCase());
             try {
                 usuarioI.createUser(usuario);
-                idSuccess=0;
+                success="create";
             } catch (Exception e) {
                 m.addAttribute("modalAdd","");
                 m.addAttribute("errorMessage",e.getMessage());
@@ -65,10 +65,10 @@ public class UsuarioController {
             } 
         }else if (usuario.getIdUsuario()>0) {
             usuarioI.save(usuario);
-            idSuccess=usuario.getIdUsuario();
+            success="update";
         }
         
-        return "redirect:/usuario/listar?success="+idSuccess;
+        return "redirect:/usuario/listar?"+success;
     }
 
     @GetMapping("/editar")
@@ -97,7 +97,7 @@ public class UsuarioController {
             usuarioI.save(usuario);
         }
 
-        return "redirect:/usuario/listar?success=true";
+        return "redirect:/usuario/listar?update";
     }
 
     @GetMapping("/registrar")
