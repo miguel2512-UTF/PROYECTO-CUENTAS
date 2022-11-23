@@ -1438,21 +1438,26 @@
 							<input type="hidden" th:field="*{idCom}">
 							<div class="form-group">
 								<label for="">Número Factura</label>
-								<input type="number" th:field="*{numeroFac}" class="form-control input-default " placeholder="" readonly>
+								<input type="number" name="numeroFac" th:field="*{numeroFac}" class="form-control input-default " placeholder="" readonly>
+								<p class="formulario__input-error"> tiene que ser de minimo 5 digitos y maximo 10
+									digitos.</p>
 								<div class="form-text text-danger" th:if="${#fields.hasErrors('numeroFac')} and ${modalEdit}" th:errors="*{numeroFac}"></div>
 							</div>
 							<div class="form-group" id="grupo__nombreEm">
 								<label for="">Nombre Empresa</label>
 								<div class="formulario__grupo-input">
-									<input type="text" th:field="*{nombreEm}" class="form-control input-default" placeholder="" autocomplete="off">
+									<input type="text" name="nombreEm"  th:field="*{nombreEm}" class="form-control input-default" placeholder="" autocomplete="off">
 									<i class="formulario__validacion-estado fas fa-times-circle"></i>
+									<p class="formulario__input-error"> Tiene que ser mínimo 2 caracter de longitud y máximo
+										10 de longitud. Solo puede haber un espacio y el nombre de la empresa no puede
+										contener caracteres especiales.</p>
 									<div class="form-text text-danger" th:if="${#fields.hasErrors('nombreEm')} and ${modalEdit}" th:errors="*{nombreEm}"></div>
 								</div>
 							</div>
 							<div class="form-group" id="grupo__fecha">
 								<label for="">Fecha Pago Oportuno</label>
 								<div class="formulario__grupo-input">
-									<input type="date" th:field="*{fecha}" th:min="${fechaActual}" th:max="${fechaMax}" class="form-control input-default " placeholder="" autocomplete="off">
+									<input type="date"  th:field="*{fecha}" th:min="${fechaActual}" th:max="${fechaMax}" class="form-control input-default " placeholder="" autocomplete="off">
 									<div class="form-text text-danger" th:if="${#fields.hasErrors('fecha')} and ${modalEdit}" th:errors="*{fecha}"></div>
 								</div>
 							</div>
@@ -1466,19 +1471,20 @@
 							<div class="form-group" id="grupo__metodo">
 								<label for="">Método de Pago</label>
 								<div class="formulario__grupo-input">
-									<select th:field="*{metodo}" class="form-control input-default" required>
+									<select th:field="*{metodo}" name="metodo" class="form-control input-default" required>
 										<option value="" id="metodoP" selected>Seleccionar</option>
 										<option value="Efectivo">Efectivo</option>
 										<option value="Aplicacion">Aplicación</option>
 									</select>
 									<i class="formulario__validacion-estado fas fa-times-circle"></i>
+									<p class="formulario__input-error">Tienes que elegir una opcion </p>
 									<div class="form-text text-danger" th:if="${#fields.hasErrors('metodo')} and ${modalEdit}" th:errors="*{metodo}"></div>
 								</div>
 							</div>
 							<div class="form-group" id="grupo__total">
 								<label for="">Total de Pago</label>
 								<div class="formulario__grupo-input">
-									<input  type="number" th:field="*{total}" class="form-control input-default" placeholder="" autocomplete="off" readonly>
+									<input  type="number" name="total"  th:field="*{total}" class="form-control input-default" placeholder="" autocomplete="off" readonly>
 									<i class="formulario__validacion-estado fas fa-times-circle"></i>
 								</div>
 								<div class="form-text text-danger" th:if="${#fields.hasErrors('total')} and ${modalEdit}" th:errors="*{total}"></div>
@@ -1486,19 +1492,20 @@
 							<div class="form-group" id="grupo__usuario" hidden>
 								<label for="">Usuario</label>
 								<div class="formulario__grupo-input">
-									<select th:field="*{usuario}" class="form-control input-default">
+									<select th:field="*{usuario}" name="usuario"  class="form-control input-default">
 										<option th:value="${session.usuario.idUsuario}"
 												th:text="${session.usuario.nombresUsuario}" id="metodo" selected>Seleccionar
 										</option>
 									</select>
 									<i class="formulario__validacion-estado fas fa-times-circle"></i>
+									<p class="formulario__input-error">Tienes que ingresar un valor minimo de 10000 pesos</p>
 									<div class="form-text text-danger" th:if="${#fields.hasErrors('usuario')} and ${modalEdit}" th:errors="*{usuario}"></div>
 								</div>
 							</div>
 							<div class="form-group" id="grupo__tipocompromiso" hidden>
 								<label for="">Tipo Compromiso</label>
 								<div class="formulario__grupo-input">
-									<select th:field="*{tipocompromiso}" class="form-control input-default">
+									<select th:field="*{tipocompromiso}" name="tipocompromiso"  class="form-control input-default">
 										<option value="" id="tipo" selected>Seleccionar</option>
 										<th:block th:each="TipoCompromiso : ${tipocompromiso}">
 											<option th:text="${TipoCompromiso.nombre}" th:value="${TipoCompromiso.id}">
@@ -1506,18 +1513,20 @@
 										</th:block>
 									</select>
 									<i class="formulario__validacion-estado fas fa-times-circle"></i>
+									<p class="formulario__input-error"> Tienes que elegir una opcion</p>
 									<div class="form-text text-danger" th:if="${#fields.hasErrors('tipocompromiso')} and ${modalEdit}" th:errors="*{tipocompromiso}"></div>
 								</div>
 							</div>
 							<div class="form-group" id="grupo__estadoCom" hidden>
 								<label for="">Estado</label>
 								<div class="formulario__grupo-input">
-									<select th:field="*{estadoCom}" class="form-control input-default">
+									<select th:field="*{estadoCom}" name="estadoCom"  class="form-control input-default">
 										<option value="" id="estadoC" selected>Seleccionar</option>
 										<option value="Pago">Pago</option>
 										<option value="Por pagar">Por pagar</option>
 									</select>
 									<i class="formulario__validacion-estado fas fa-times-circle"></i>
+									<p class="formulario__input-error"> Tienes que elegir una opcion</p>
 									<div class="form-text text-danger" th:if="${#fields.hasErrors('estadoCom')} and ${modalEdit}" th:errors="*{estadoCom}"></div>
 								</div>
 							</div>
@@ -1652,7 +1661,7 @@
 		});
 	</script>
 
-	<!--<script>
+	<script>
 		$('#Editar').on('click',function(e){
 			e.preventDefault();
 			var form = $(this).parents('form');
@@ -1665,7 +1674,7 @@
 				confirmButtonText: 'si, editar!'
 			}).then((result) => {
 				if (result.value) {
-					if(campos.nombreEm && campos.metodo && campos.total){
+					if(campos.nombreEm && campos.metodo){
 						formularioEditar.submit()
 					}else{
 						inputsEdit.forEach((input) => {
@@ -1683,7 +1692,7 @@
 				}
 			});
 		});
-  	</script>-->
+  	</script>
 
 
 	
