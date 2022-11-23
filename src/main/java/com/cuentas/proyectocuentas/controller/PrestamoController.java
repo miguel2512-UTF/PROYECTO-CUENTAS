@@ -83,7 +83,7 @@ public class PrestamoController {
     @PostMapping("/add")
     public String add(@Valid Prestamo prestamo, BindingResult res, Model m, SessionStatus status){
         m.addAttribute("prestamos", prestamoI.findAll());
-         
+        int idSuccess=0;
         if (res.hasErrors()) {
             return "views/prestamo/prestamo";
         }
@@ -99,13 +99,16 @@ public class PrestamoController {
             prestamo.setValorPrestamo(valor);
 
             prestamo.setValorPrestamoInicial(prestamo.getValorPrestamo());
+            idSuccess=0;
 
         }
 
         prestamoI.save(prestamo);
+        idSuccess=prestamo.getIdPrestamo();
+
         status.setComplete();
  
-        return "redirect:listar";
+        return "redirect:listar?success="+idSuccess;
     }
 
     // @GetMapping("/formulario")
