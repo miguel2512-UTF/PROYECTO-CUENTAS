@@ -813,12 +813,17 @@
 																<form th:action="@{/prestamo/listar/}" method="get">
 																	<div class="modal-body">
 																		<input hidden type="text" name="format" id="format" value="pdf" />
-																		<div>
+																		<div sec:authorize="hasAnyAuthority('ADMINISTRADOR')">
 																			<select class="form-control" name="usuario" id="usuario">
 																				<option selected value="0">Todos los Usuarios</option>
-																				<th:block th:each=" u : ${usuario}">
+																				<th:block th:each=" u : ${usuario}"> 
 																					<option th:value="${u.idUsuario}" th:text="${u.nombresUsuario}+' '+${u.apellidosUsuario}"> </option>
 																				</th:block>
+																			</select>
+																		</div>
+																		<div sec:authorize="hasAnyAuthority('CONTADOR','ADMIN DEL HOGAR')" hidden>
+																			<select class="form-control" name="usuario" id="usuario">
+																				<option th:text="${session.usuario.nombresUsuario}" th:value="${session.usuario.idUsuario}" selected></option>
 																			</select>
 																		</div>
 																		<br>
@@ -850,7 +855,7 @@
 													<div class="dropdown-menu">
 														<a class="dropdown-item"><input class="MBtn" type="checkbox" name="col" value="bar1" id="doc"> Documento</a>
 														<!-- <a class="dropdown-item"><input class="MBtn" type="checkbox" name="col" value="bar1" id="nombre"> Nombre</a> -->
-														<a class="dropdown-item"><input class="MBtn" type="checkbox" name="col" value="bar1" id="user"> Usuario</a>
+														<a sec:authorize="hasAnyAuthority('ADMINISTRADOR')" class="dropdown-item"><input class="MBtn" type="checkbox" name="col" value="bar1" id="user"> Usuario</a>
 														<!-- <a class="dropdown-item"><input class="MBtn" type="checkbox" name="col" value="bar1" id="fecha"> Fecha</a> -->
 														<!-- <a class="dropdown-item"><input class="MBtn" type="checkbox" name="col" value="bar1" id="valorP"> Valor Préstamo</a> -->
 														<a class="dropdown-item"><input class="MBtn" type="checkbox" name="col" value="bar1" id="valorI"> Valor Inicial</a>
@@ -878,7 +883,7 @@
                         						<th>Id</th>
                         						<th class="doc">Documento Prestamista</th>
                         						<th class="nombre">Nombre Prestamista</th>
-												<th class="user">Nombre Usuario</th>
+												<th sec:authorize="hasAnyAuthority('ADMINISTRADOR')" class="user">Nombre Usuario</th>
                         						<th class="fecha">Fecha de Pago Oportuno</th>
                         						<th class="valorP">Valor del Préstamos</th>
 												<th class="valorI">Valor inicial</th>
@@ -901,7 +906,7 @@
 												<td th:text="${Pr.idPrestamo}"></td>
                         						<td class="doc" th:text="${Pr.documentoPrestamista}"></td>
 												<td class="nombre" th:text="${Pr.nombrePrestamista}"></td>
-												<td class="user" th:text="${Pr.usuario.nombresUsuario}"></td>
+												<td sec:authorize="hasAnyAuthority('ADMINISTRADOR')" class="user" th:text="${Pr.usuario.nombresUsuario}"></td>
                         						<td class="fecha" th:text="${Pr.fechaPagoOportuno}"></td>
                         						<td class="valorP" th:text="${Pr.valorPrestamo}"></td>
 												<td class="valorI" th:text="${Pr.valorPrestamoInicial}"></td>
@@ -1963,6 +1968,6 @@
 		$("#toastr-success-bottom-right").click()
 	</script>
 
-
+	<script th:inline="javascript" th:if="${param.add}">$("#modal-add").modal("show");</script>	
 </body>
 </html>

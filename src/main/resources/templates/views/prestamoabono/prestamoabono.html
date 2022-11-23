@@ -874,7 +874,7 @@
 															<div class="formulario__grupo-input">
 																<select th:field="*{prestamo}" class="form-control input-default" id="prestamo">
 																	<option value="" selected >Seleccionar</option>
-																	<option th:each="Pr:${prestamo}" th:text="${Pr.valorPrestamo}" th:value="${Pr.idPrestamo}"></option>
+																	<option th:each="Pr:${prestamo}" th:text="${Pr.valorPrestamo}" th:value="${Pr.idPrestamo}" th:if="${Pr.usuario.nombresUsuario == session.usuario.nombresUsuario}"></option>
 																</select>
 																<i class="formulario__validacion-estado fas fa-times-circle"></i>
 															</div>
@@ -1016,5 +1016,6 @@
         valor.addEventListener("click", cambiarMax)
   </script>
 
+	<script th:inline="javascript" th:if="${param.add}">$("#modal-add").modal("show");</script>	
 </body>
 </html>

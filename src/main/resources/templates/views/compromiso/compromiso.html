@@ -1002,7 +1002,7 @@
 														<a class="dropdown-item"><input class="MBtn" type="checkbox" name="col" value="bar1" id="fechaS"> Fecha Suspensión</a>
 														<a class="dropdown-item"><input class="MBtn" type="checkbox" name="col" value="bar1" id="metodo"> Método</a>
 														<!-- <a class="dropdown-item"><input class="MBtn" type="checkbox" name="col" value="bar1" id="total"> Total</a> -->
-														<a class="dropdown-item"><input class="MBtn" type="checkbox" name="col" value="bar1" id="user"> Usuario</a>
+														<a sec:authorize="hasAnyAuthority('ADMINISTRADOR')" class="dropdown-item"><input class="MBtn" type="checkbox" name="col" value="bar1" id="user"> Usuario</a>
 														<a class="dropdown-item"><input class="MBtn" type="checkbox" name="col" value="bar1" id="tipo"> Tipo</a>
 														<!-- <a class="dropdown-item"><input class="MBtn" type="checkbox" name="col" value="bar1" id="estadoC"> Estado</a> -->
 														<!-- <a class="dropdown-item"><input class="MBtn" type="checkbox" name="col" value="bar1" id="acciones"> Acciones</a> -->
@@ -1032,7 +1032,7 @@
 												<th class="fechaS">Fecha Suspension</th>
 												<th class="metodo">Metodo Pago</th>
 												<th class="total">Total</th>
-												<th class="user">Usuario</th>
+												<th sec:authorize="hasAnyAuthority('ADMINISTRADOR')" class="user">Usuario</th>
 												<th class="tipo">Tipo Compromiso</th>
 												<th class="estadoC">Estado</th>
 												<th class="acciones">Acciones</th>
@@ -1055,7 +1055,7 @@
 												<td class="fechaS" th:text="${g.fechaS}"></td>
 												<td class="metodo" th:text="${g.metodo}"></td>
 												<td class="total" th:text="${g.Total}"></td>
-												<td class="user" th:text="${g.usuario.nombresUsuario}"></td>
+												<td sec:authorize="hasAnyAuthority('ADMINISTRADOR')" class="user" th:text="${g.usuario.nombresUsuario}"></td>
 												<td class="tipo" th:text="${g.tipocompromiso.nombre}"></td>
 												<td class="estadoC">
 													<span th:if="${g.estadoCom.equalsIgnoreCase('por pagar')}"
@@ -1362,7 +1362,7 @@
 									th:errors="*{total}"></div>
 							</div>
 							<!-- Grupo: Seleccionar Usuario-->
-							<div class="form-group" id="grupo__usuario">
+							<div class="form-group" id="grupo__usuario" hidden>
 								<label for="">Usuario</label>
 								<div class="formulario__grupo-input">
 									<select th:field="*{usuario}" class="form-control input-default">
@@ -1694,7 +1694,7 @@
 		});
   	</script>
 
-
+	<script th:inline="javascript" th:if="${param.add}">$("#modal-add").modal("show");</script>	
 	
 	<script src="//cdn.jsdelivr.net/npm/sweetalert2@11"></script>
 
