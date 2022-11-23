@@ -21,6 +21,10 @@ $(document).ready(function(){
                 $('#modal-edit #estadoP').text(user.estadoPrestamo)
                 $('#modal-edit #estadoP').val(user.estadoPrestamo);
                 $('#modal-edit #estadoP').attr('selected','')
+                // $('#modal-edit #valorPrestamoInicial').attr(user.valorPrestamoInicial);
+                $('#modal-edit #valorPrestamoInicial').val(user.valorPrestamoInicial);
+                $('#modal-edit #valorPrestamoInicial').text(user.valorPrestamoInicial);
+
             });
             $('#modal-edit').modal();
         } else {
