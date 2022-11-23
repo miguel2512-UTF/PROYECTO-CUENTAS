@@ -143,7 +143,7 @@ selects.forEach((select) => {
 formulario.addEventListener('submit',(e)=>{
 	e.preventDefault()
 
-	if(campos.numeroFac && campos.nombreEm && campos.metodo && campos.total && campos.usuario && campos.tipocompromiso && campos.estadoCom){
+	if(campos.nombreEm && campos.metodo){
 		formulario.submit()
 	}else{
 		inputs.forEach((input) => {
@@ -175,7 +175,7 @@ cancelButton.forEach((button) => {
     })
 });
 
-/*validacion editar
+//validacion editar
 const formularioEditar = document.getElementById('formularioEdit');
 const inputsEdit = document.querySelectorAll('#formularioEdit input');
 const selectsEdit = document.querySelectorAll('#formularioEdit select');
@@ -195,7 +195,7 @@ selectsEdit.forEach((select) => {
 formularioEditar.addEventListener('submit',(e)=>{
 	e.preventDefault()
 
-	if(campos.nombreEm && campos.metodo && campos.total){
+	if(campos.numeroFac && campos.nombreEm && campos.metodo && campos.total && campos.usuario && campos.tipocompromiso && campos.estadoCom){
 		formularioEditar.submit()
 	}else{
 		inputsEdit.forEach((input) => {
@@ -239,4 +239,4 @@ editButton.addEventListener('click',()=>{
 		select.click()
 		select.removeEventListener('click', validarFormulario)
 	});
-})*/
+})

@@ -595,76 +595,28 @@
                                 </a>
                                 <div class="dropdown-menu rounded dropdown-menu-right">
                                     <div id="DZ_W_Notification1" class="widget-media dz-scroll p-3 height380">
-										<ul class="timeline">
+										<ul class="timeline" th:if="(${g.estadoCom} == 'Por pagar') and ( ${g.usuario.nombresUsuario == session.usuario.nombresUsuario})" th:each="g:${compromisos}">
 											<li>
 												<div class="timeline-panel">
-													<div class="media mr-2">
-														<img alt="image" width="50" src="images/avatar/1.jpg">
+													<div class="media mr-2 media-info" id="letra">
+														<small th:text="${g.tipocompromiso.nombre.charAt(0)}"></small>
 													</div>
 													<div class="media-body">
-														<h6 class="mb-1">Dr sultads Send you Photo</h6>
-														<small class="d-block">29 July 2020 - 02:26 PM</small>
-													</div>
-												</div>
-											</li>
-											<li>
-												<div class="timeline-panel">
-													<div class="media mr-2 media-info">
-														KG
-													</div>
-													<div class="media-body">
-														<h6 class="mb-1">Resport created successfully</h6>
-														<small class="d-block">29 July 2020 - 02:26 PM</small>
-													</div>
-												</div>
-											</li>
-											<li>
-												<div class="timeline-panel">
-													<div class="media mr-2 media-success">
-														<i class="fa fa-home"></i>
-													</div>
-													<div class="media-body">
-														<h6 class="mb-1">Reminder : Treatment Time!</h6>
-														<small class="d-block">29 July 2020 - 02:26 PM</small>
-													</div>
-												</div>
-											</li>
-											 <li>
-												<div class="timeline-panel">
-													<div class="media mr-2">
-														<img alt="image" width="50" src="images/avatar/1.jpg">
-													</div>
-													<div class="media-body">
-														<h6 class="mb-1">Dr sultads Send you Photo</h6>
-														<small class="d-block">29 July 2020 - 02:26 PM</small>
-													</div>
-												</div>
-											</li>
-											<li>
-												<div class="timeline-panel">
-													<div class="media mr-2 media-danger">
-														KG
-													</div>
-													<div class="media-body">
-														<h6 class="mb-1">Resport created successfully</h6>
-														<small class="d-block">29 July 2020 - 02:26 PM</small>
-													</div>
-												</div>
-											</li>
-											<li>
-												<div class="timeline-panel">
-													<div class="media mr-2 media-primary">
-														<i class="fa fa-home"></i>
-													</div>
-													<div class="media-body">
-														<h6 class="mb-1">Reminder : Treatment Time!</h6>
-														<small class="d-block">29 July 2020 - 02:26 PM</small>
+														<h6 class="mb-1" th:text="'El compromiso: ' + ${g.tipocompromiso.nombre} + ', con un valor de : '+${g.total} + ' pesos'"></h6>
+														<div hidden>
+															<small class="d-block" id="estado" th:text="${g.estadoCom}"></small>
+															<small class="d-block" id="fecha" th:text="${g.fecha}"></small>
+
+														</div>
+														<h6 class="mb-1" id="mostrarfecha"></h6>
+														<small class="d-block" id="mensaje"> </small>
+													 <hr>
 													</div>
 												</div>
 											</li>
 										</ul>
 									</div>
-                                    <a class="all-notification" href="javascript:void(0)">See all notifications <i class="ti-arrow-right"></i></a>
+                                    <a class="all-notification" th:href="@{/compromiso}">Mirar todas las notificaciones <i class="ti-arrow-right"></i></a>
                                 </div>
                             </li>
 							<li class="nav-item dropdown notification_dropdown">
@@ -865,7 +817,7 @@
 															<div class="formulario__grupo-input">
 																<select th:field="*{prestamo}" class="form-control input-default" id="valorPrestamo">
 																	<option value="" selected >Seleccionar</option>
-																	<option th:each="Pr:${prestamo}" th:text="${Pr.valorPrestamo}" th:value="${Pr.idPrestamo}"></option>
+																	<option th:each="Pr:${prestamo}" th:text="${Pr.valorPrestamo}" th:value="${Pr.idPrestamo}" th:if="${Pr.usuario.nombresUsuario == session.usuario.nombresUsuario}"></option>
 																</select>
 																<i class="formulario__validacion-estado fas fa-times-circle"></i>
 															</div>
@@ -1009,5 +961,45 @@
 
 </script>
 
+<script th:inline="javascript" th:if="${param.add}">$("#modal-add").modal("show");</script>	
+<script>
+	const fechacompromiso = document.querySelectorAll('#fecha');  
+
+	const hoy = Date.now()
+	let index=0
+
+	fechacompromiso.forEach((fecha) => {
+		var fechaFin = new Date(fecha.innerHTML).getTime();
+		var diff = fechaFin - hoy;
+
+		console.log(diff);
+
+		//mostrar al html dias que faltan para el pago oportuno
+		const dias = diff/(1000*60*60*24)+1;
+		const resultado =Math.trunc(dias);
+	  if(resultado>0){
+		document.querySelectorAll("#mostrarfecha")[index].innerHTML='Vence en: '+(resultado+1)+' días';
+		document.querySelectorAll("#mostrarfecha")[index].setAttribute("style", "color:#4CAF50;");
+		document.querySelectorAll("#mensaje")[index].innerHTML='Paga antes para evitar la suspencion!';
+		index++
+	};
+	if(resultado<0){
+		document.querySelectorAll("#mostrarfecha")[index].innerHTML='ya venció';
+		document.querySelectorAll("#mostrarfecha")[index].setAttribute("style", "color:red;");
+		document.querySelectorAll("#mensaje")[index].innerHTML='Puede ser que su sevicio fue suspendido o próximamente suspendido';
+		index++
+
+	};
+	if(resultado==0){
+		document.querySelectorAll("#mostrarfecha")[index].innerHTML='vence hoy';
+		document.querySelectorAll("#mostrarfecha")[index].setAttribute("style", "color:#4CAF50;");
+		document.querySelectorAll("#mensaje")[index].innerHTML='Pago hoy para evitar suspencion!';
+		index++
+	}
+	});
+	
+	
+	
+</script>
 </body>
 </html>

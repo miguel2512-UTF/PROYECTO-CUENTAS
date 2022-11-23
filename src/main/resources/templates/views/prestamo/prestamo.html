@@ -597,76 +597,28 @@
                                 </a>
                                 <div class="dropdown-menu rounded dropdown-menu-right">
                                     <div id="DZ_W_Notification1" class="widget-media dz-scroll p-3 height380">
-										<ul class="timeline">
+										<ul class="timeline" th:if="(${g.estadoCom} == 'Por pagar') and ( ${g.usuario.nombresUsuario == session.usuario.nombresUsuario})" th:each="g:${compromisos}">
 											<li>
 												<div class="timeline-panel">
-													<div class="media mr-2">
-														<img alt="image" width="50" src="images/avatar/1.jpg">
+													<div class="media mr-2 media-info" id="letra">
+														<small th:text="${g.tipocompromiso.nombre.charAt(0)}"></small>
 													</div>
 													<div class="media-body">
-														<h6 class="mb-1">Dr sultads Send you Photo</h6>
-														<small class="d-block">29 July 2020 - 02:26 PM</small>
-													</div>
-												</div>
-											</li>
-											<li>
-												<div class="timeline-panel">
-													<div class="media mr-2 media-info">
-														KG
-													</div>
-													<div class="media-body">
-														<h6 class="mb-1">Resport created successfully</h6>
-														<small class="d-block">29 July 2020 - 02:26 PM</small>
-													</div>
-												</div>
-											</li>
-											<li>
-												<div class="timeline-panel">
-													<div class="media mr-2 media-success">
-														<i class="fa fa-home"></i>
-													</div>
-													<div class="media-body">
-														<h6 class="mb-1">Reminder : Treatment Time!</h6>
-														<small class="d-block">29 July 2020 - 02:26 PM</small>
-													</div>
-												</div>
-											</li>
-											 <li>
-												<div class="timeline-panel">
-													<div class="media mr-2">
-														<img alt="image" width="50" src="images/avatar/1.jpg">
-													</div>
-													<div class="media-body">
-														<h6 class="mb-1">Dr sultads Send you Photo</h6>
-														<small class="d-block">29 July 2020 - 02:26 PM</small>
-													</div>
-												</div>
-											</li>
-											<li>
-												<div class="timeline-panel">
-													<div class="media mr-2 media-danger">
-														KG
-													</div>
-													<div class="media-body">
-														<h6 class="mb-1">Resport created successfully</h6>
-														<small class="d-block">29 July 2020 - 02:26 PM</small>
-													</div>
-												</div>
-											</li>
-											<li>
-												<div class="timeline-panel">
-													<div class="media mr-2 media-primary">
-														<i class="fa fa-home"></i>
-													</div>
-													<div class="media-body">
-														<h6 class="mb-1">Reminder : Treatment Time!</h6>
-														<small class="d-block">29 July 2020 - 02:26 PM</small>
+														<h6 class="mb-1" th:text="'El compromiso: ' + ${g.tipocompromiso.nombre} + ', con un valor de : '+${g.total} + ' pesos'"></h6>
+														<div hidden>
+															<small class="d-block" id="estado" th:text="${g.estadoCom}"></small>
+															<small class="d-block" id="fecha" th:text="${g.fecha}"></small>
+
+														</div>
+														<h6 class="mb-1" id="mostrarfecha"></h6>
+														<small class="d-block" id="mensaje"> </small>
+													 <hr>
 													</div>
 												</div>
 											</li>
 										</ul>
 									</div>
-                                    <a class="all-notification" href="javascript:void(0)">See all notifications <i class="ti-arrow-right"></i></a>
+                                    <a class="all-notification" th:href="@{/compromiso}">Mirar todas las notificaciones <i class="ti-arrow-right"></i></a>
                                 </div>
                             </li>
 							<li class="nav-item dropdown notification_dropdown">
@@ -813,12 +765,17 @@
 																<form th:action="@{/prestamo/listar/}" method="get">
 																	<div class="modal-body">
 																		<input hidden type="text" name="format" id="format" value="pdf" />
-																		<div>
+																		<div sec:authorize="hasAnyAuthority('ADMINISTRADOR')">
 																			<select class="form-control" name="usuario" id="usuario">
 																				<option selected value="0">Todos los Usuarios</option>
-																				<th:block th:each=" u : ${usuario}">
+																				<th:block th:each=" u : ${usuario}"> 
 																					<option th:value="${u.idUsuario}" th:text="${u.nombresUsuario}+' '+${u.apellidosUsuario}"> </option>
 																				</th:block>
+																			</select>
+																		</div>
+																		<div sec:authorize="hasAnyAuthority('CONTADOR','ADMIN DEL HOGAR')" hidden>
+																			<select class="form-control" name="usuario" id="usuario">
+																				<option th:text="${session.usuario.nombresUsuario}" th:value="${session.usuario.idUsuario}" selected></option>
 																			</select>
 																		</div>
 																		<br>
@@ -850,7 +807,7 @@
 													<div class="dropdown-menu">
 														<a class="dropdown-item"><input class="MBtn" type="checkbox" name="col" value="bar1" id="doc"> Documento</a>
 														<!-- <a class="dropdown-item"><input class="MBtn" type="checkbox" name="col" value="bar1" id="nombre"> Nombre</a> -->
-														<a class="dropdown-item"><input class="MBtn" type="checkbox" name="col" value="bar1" id="user"> Usuario</a>
+														<a sec:authorize="hasAnyAuthority('ADMINISTRADOR')" class="dropdown-item"><input class="MBtn" type="checkbox" name="col" value="bar1" id="user"> Usuario</a>
 														<!-- <a class="dropdown-item"><input class="MBtn" type="checkbox" name="col" value="bar1" id="fecha"> Fecha</a> -->
 														<!-- <a class="dropdown-item"><input class="MBtn" type="checkbox" name="col" value="bar1" id="valorP"> Valor Préstamo</a> -->
 														<a class="dropdown-item"><input class="MBtn" type="checkbox" name="col" value="bar1" id="valorI"> Valor Inicial</a>
@@ -878,7 +835,7 @@
                         						<th>Id</th>
                         						<th class="doc">Documento Prestamista</th>
                         						<th class="nombre">Nombre Prestamista</th>
-												<th class="user">Nombre Usuario</th>
+												<th sec:authorize="hasAnyAuthority('ADMINISTRADOR')" class="user">Nombre Usuario</th>
                         						<th class="fecha">Fecha de Pago Oportuno</th>
                         						<th class="valorP">Valor del Préstamos</th>
 												<th class="valorI">Valor inicial</th>
@@ -892,6 +849,343 @@
 										</thead>
                         				<tbody>
                           					<tr th:each="Pr:${prestamos}" id="tablerow" th:if="${Pr.usuario.nombresUsuario == session.usuario.nombresUsuario}">
+                            					<td>
+													<div class="custom-control custom-checkbox">
+														<input type="checkbox" class="custom-control-input" id="customCheckBox3" required="">
+														<label class="custom-control-label" for="customCheckBox3"></label>
+													</div>
+												</td>
+												<td th:text="${Pr.idPrestamo}"></td>
+                        						<td class="doc" th:text="${Pr.documentoPrestamista}"></td>
+												<td class="nombre" th:text="${Pr.nombrePrestamista}"></td>
+												<td sec:authorize="hasAnyAuthority('ADMINISTRADOR')" class="user" th:text="${Pr.usuario.nombresUsuario}"></td>
+                        						<td class="fecha" th:text="${Pr.fechaPagoOportuno}"></td>
+                        						<td class="valorP" th:text="${Pr.valorPrestamo}"></td>
+												<td class="valorI" th:text="${Pr.valorPrestamoInicial}"></td>
+                        						<td class="tasa" th:text="${Pr.tasaPrestamo} +'%' "></td> 
+                        						<td class="periodo" th:text="${Pr.periodoCuota}"></td>
+                        						<td class="cuotas" th:text="${Pr.numeroCuotas}"></td>
+                        						<td class="pagos-abonos" th:if="${Pr.valorPrestamo>0}">
+												
+                            					
+												<div class="d-flex">
+												<a href="" data-toggle="modal" th:attr="data-target='#modal-addPago'+${Pr.idPrestamo}" title="Registrar Pago" class="btn shadow btn-xs sharp mr-1"><i class="fa-solid fa-money-check-dollar"></i></a>
+												<a href="" data-toggle="modal" th:attr="data-target='#modal-addAbono'+${Pr.idPrestamo}" title="Registrar Abono" class="btn btn-secondary shadow btn-xs sharp mr-1"><i class="fa-solid fa-money-check-dollar"></i></a>
+                              					<!-- <a role="button" th:href="@{/pagoprestamo/listar}" title="Tabla de Pagp" class="btn shadow btn-xs sharp mr-1"><i class="fa-solid fa-table"></i></a> -->
+                              					<!-- <a role="button" th:href="@{/prestamoabono/listar}" title="Tabla de Abono" class="btn btn-secondary shadow btn-xs sharp mr-1"><i class="fa-solid fa-table"></i></a> -->
+												<a href="" class="btn shadow btn-xs sharp mr-1" data-toggle="modal" th:attr="data-target='#modal-listarPaAb'+${Pr.idPrestamo}" title="Ver Pagos y Abonos"><i class="fa-solid fa-eye"></i></a>
+												</div> 
+												                        
+                      							</td>
+                      							<td th:if="${Pr.valorPrestamo==0}">
+                        						Este préstamo ya esta pago
+												<a href="" class="btn shadow btn-xs sharp mr-1" data-toggle="modal" th:attr="data-target='#modal-listarPaAb'+${Pr.idPrestamo}" title="Ver Pagos y Abonos"><i class="fa-solid fa-eye"></i></a>
+											</td>
+												<td class="estadoP">
+													<span th:if="${Pr.estadoPrestamo.equalsIgnoreCase('inactivo')}" class="badge light badge-warning" id="estado"><i class="fa fa-circle text-warning mr-1"></i>Inactivo</span>
+													<span th:if="${Pr.estadoPrestamo.equalsIgnoreCase('activo')}" class="badge light badge-success" id="estado"><i class="fa fa-circle text-success mr-1"></i>Activo</span>
+												</td>
+												<td class="acciones">
+													<div class="d-flex">
+														<!-- EDITAR -->
+														<a th:href="@{editar/(idPrestamo=${Pr.idPrestamo})}" class="eBtn btn btn-primary shadow btn-xs sharp mr-1" id="editar"><i class="fa fa-pencil"></i></a>													
+														
+														<!-- ELIMINAR -->
+														<a href="" data-toggle="modal" th:attr="data-target='#modal-delete'+${Pr.idPrestamo}">
+															<svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" 
+															class="btn shadow btn-xs sharp mr-1"  viewBox="0 0 16 16">
+															<path d="M2.5 1a1 1 0 0 0-1 1v1a1 1 0 0 0 1 1H3v9a2 2 0 0 0 2 2h6a2 2 0 0 0 2-2V4h.5a1 1 0 0 0 1-1V2a1 1 0 0 0-1-1H10a1 1 0 0 0-1-1H7a1 1 0 0 0-1 1H2.5zm3 4a.5.5 0 0 1 .5.5v7a.5.5 0 0 1-1 0v-7a.5.5 0 0 1 .5-.5zM8 5a.5.5 0 0 1 .5.5v7a.5.5 0 0 1-1 0v-7A.5.5 0 0 1 8 5zm3 .5v7a.5.5 0 0 1-1 0v-7a.5.5 0 0 1 1 0z"/></svg>
+														</a>
+
+														<!-- INACTIVAR-ACTIVAR -->
+														<a href="" th:if="${Pr.estadoPrestamo.equalsIgnoreCase('inactivo')}" data-toggle="modal" th:attr="data-target='#modal-cestado'+${Pr.idPrestamo}" class="btn btn-secondary shadow btn-xs sharp btn-toggle"><i class='bx bx-toggle-left'></i></a>
+														<a href="" th:if="${Pr.estadoPrestamo.equalsIgnoreCase('activo')}" data-toggle="modal" th:attr="data-target='#modal-cestado'+${Pr.idPrestamo}" class="btn btn-secondary shadow btn-xs sharp btn-toggle"><i class='bx bxs-toggle-right'></i></a>
+										
+														<!-- VER ABONOS Y PAGOS -->
+														<!-- <a href="" class="btn shadow btn-xs sharp mr-1" data-toggle="modal" th:attr="data-target='#modal-listarPaAb'+${Pr.idPrestamo}" title="Ver Pagos y Abonos"><i class="fa-solid fa-eye"></i></a> -->
+													</div>
+
+													<!-- MODAL ELIMINAR -->
+													<div class="modal fade" tabindex="-1" th:id="modal-delete+${Pr.idPrestamo}">
+														<div class="modal-dialog">
+			  												<div class="modal-content">
+																<div class="modal-header">
+					  												<h5 class="modal-title">Eliminar Préstamo</h5>
+																</div>
+																<div class="modal-body">
+					  												<p>Esta seguro que desea ELIMINAR el Préstamo?</p>
+				  												</div>
+																<div class="modal-footer">
+					  												<button type="button" class="btn btn-secondary" data-dismiss="modal">Cancelar</button>
+					  												<a role="button" class="btn btn-primary" th:href="@{/prestamo/delete/}+${Pr.idPrestamo}"> Eliminar Préstamo</a>
+																</div>
+			  												</div>
+														</div>
+													</div>
+
+													<!-- MODAL REGISTRAR PAGO-->
+													<div class="modal fade" th:id="modal-addPago+${Pr.idPrestamo}">
+														<div class="modal-dialog modal-dialog-centered" role="document">
+															<div class="modal-content">
+																<div class="modal-header">
+																	<h4 class="modal-title">Registrar Pago</h4>
+																	<button type="button" class="close cancel" data-dismiss="modal"><span>&times;</span></button>
+																</div> 
+																<form th:action="@{/prestamo/addPago}" method="post" th:object="${prestamo}" id="formularioPago" enctype="multipart/form-data">
+																	<div class="modal-body">
+
+																		<!-- Grupo: Valor Prestamo --> 
+																		<div class="formulario__grupo" id="grupo__prestamo">
+																			<label for="prestamo" class="formulario__label">Valor Prestamo</label>
+																			<div class="formulario__grupo-input">
+																				<select name="prestamo" class="form-control input-default valorPrestamoPago" id="valorPrestamo">
+																					<option th:text="${Pr.valorPrestamo}" th:value="${Pr.idPrestamo}" selected></option>
+																				</select>
+																				<i class="formulario__validacion-estado fas fa-times-circle"></i>
+																			</div>
+																			<p class="formulario__input-error">Valor Prestamo</p>
+																		</div>
+																		<!-- <div class="error">
+																			<div class="form-text text-danger" th:if="${#fields.hasErrors('prestamo')}" th:errors="*{prestamo}"></div>
+																		</div> -->
+
+																		<!-- Grupo: Fecha Pago -->
+																		<div class="formulario__grupo" id="grupo__fechaPago">
+																			<label for="fechaPago" class="formulario__label">Fecha Pago</label>
+																			<div class="formulario__grupo-input">
+																				<input type="date" class="form-control input-default" name="fechaPago" id="fechaPago" th:min="${fechaPagoMin}" th:max="${fechaPagoMax}">
+																			</div>
+																			<p class="formulario__input-error">Fecha Pago</p>
+																			<!-- <div class="error">
+																				<div class="form-text text-danger" th:if="${#fields.hasErrors('fechaPago')}" th:errors="*{fechaPago}"></div>
+																			</div> -->
+																		</div>
+
+																		<!-- Grupo: Total Pago-->
+																		<div class="formulario__grupo" id="grupo__totalPago">
+																			<label for="totalPago" class="formulario__label" >Total Pago</label>
+																			<div class="formulario__grupo-input">
+																				<input type="number" th:value="${Pr.valorPrestamoInicial/Pr.numeroCuotas}" class="form-control input-default totalPagoP" min="1" name="totalPago" id="totalPago" readonly>
+																				<i class="formulario__validacion-estado fas fa-times-circle"></i>
+																			</div>
+																			<p class="formulario__input-error">Total Pago</p>
+																		</div>
+																		<!-- <div class="error">
+																			<div class="form-text text-danger" th:if="${#fields.hasErrors('totalPago')}" th:errors="*{totalPago}"></div>
+																		</div> -->
+
+																		<!-- Grupo: Imagen Pago -->
+																		<div class="formulario__grupo" id="grupo__imagenPago">
+																			<label for="imagenPago" class="formulario__label">Imagen Pago</label>
+																			<div class="formulario__grupo-input">
+																				<input type="file" class="form-control input-default" name="file" accept="image/*">
+																				<i class="formulario__validacion-estado fas fa-times-circle"></i>
+																			</div>
+																			<p class="formulario__input-error">Imagen Pago</p>
+																			<!-- <div class="error">
+																				<div class="form-text text-danger" th:if="${#fields.hasErrors('file')}" th:errors="*{file}"></div>
+																			</div> -->
+																		</div>
+
+																		<div class="form-text text-danger" th:if="${errorMessage} and ${modalAdd}" th:text="${errorMessage}"></div>                                
+					  												</div>
+					  												<div class="modal-footer">
+						  												<button type="button" class="btn btn-secondary cancel" data-dismiss="modal" id="cancel">Cancelar</button>
+						  												<button type="submit" class="btn btn-primary" id="RegistrarPago">Registrar</button>
+					  												</div>
+																</form>
+															</div>
+														</div>
+													</div>
+
+													<!-- MODAL REGISTRAR ABONO-->
+													<div class="modal fade" th:id="modal-addAbono+${Pr.idPrestamo}">
+														<div class="modal-dialog modal-dialog-centered" role="document">
+															<div class="modal-content">
+																<div class="modal-header">
+																	<h4 class="modal-title">Registrar Abono</h4>
+																	<button type="button" class="close cancel" data-dismiss="modal"><span>&times;</span></button>
+																</div> 
+																<form th:action="@{/prestamo/addAbono}" method="post" th:object="${abono}" id="formularioAbono" enctype="multipart/form-data">
+																	<div class="modal-body">
+
+																		<!-- Grupo: Valor Prestamo --> 
+																		<div class="formulario__grupo" id="grupo__prestamo">
+																			<label for="" class="formulario__label">Valor Préstamo</label>
+																			<div class="formulario__grupo-input">
+																				<select name="prestamo" class="form-control input-default valorPrestamoAbono" id="valor">
+																					<option th:value="${Pr.idPrestamo}" th:text="${Pr.valorPrestamo}" selected >Seleccionar</option>
+																				</select>
+																				<i class="formulario__validacion-estado fas fa-times-circle"></i>
+																			</div>
+																			<p class="formulario__input-error">Valor Préstamo</p>
+																			<!-- <div class="error">
+																				<div class="form-text text-danger" th:if="${#fields.hasErrors('prestamo')}" th:errors="*{prestamo}"></div>
+																			</div> -->
+																		</div>
+
+																		<!-- Grupo: Fecha Abono -->
+																		<div class="formulario__grupo" id="grupo__fechaAbono">
+																			<label for="fechaAbono" class="formulario__label">Fecha Abono</label>
+																			<div class="formulario__grupo-input">
+																				<input type="date" class="form-control input-default" name="fechaAbono" id="fechaAbono" th:min="${fechaAbonoMin}" th:max="${fechaAbonoMax}">
+																				<i class="formulario__validacion-estado fas fa-times-circle"></i>
+																			</div>
+																			<p class="formulario__input-error">Fecha Abono</p>
+																			<!-- <div class="error">
+																				<div class="form-text text-danger" th:if="${#fields.hasErrors('fechaAbono)}" th:errors="*{fechaAbono}"></div>
+																			</div> -->
+																		</div>
+
+																		<!-- Grupo: Total Abono-->
+																		<div class="formulario__grupo" id="grupo__totalAbono">
+																		<label for="totalAbono" class="formulario__label">Total Abono</label>
+																		<div class="formulario__grupo-input">
+																			<input type="number" class="form-control input-default totalAbonoA"  name="totalAbono" id="totalAbono" >
+																			<i class="formulario__validacion-estado fas fa-times-circle"></i>
+																		</div>
+																		<p class="formulario__input-error">Total Abono</p>
+																		<!-- <div class="error">
+																			<div class="form-text text-danger" th:if="${#fields.hasErrors('totalAbono)}" th:errors="*{totalAbono}"></div>
+																		</div> -->
+																		</div>
+
+																		<!-- Grupo: Imagen Abono -->
+																		<div class="formulario__grupo" id="grupo__imagenAbono">
+																			<label for="imagenAbono" class="formulario__label">Imagen Abono</label>
+																			<div class="formulario__grupo-input">
+																				<input type="file" class="form-control input-default" name="file"  accept="image/*">
+																				<i class="formulario__validacion-estado fas fa-times-circle"></i>
+																			</div>
+																			<p class="formulario__input-error">Imagen Abono</p>
+																			<!-- <div class="error">
+																				<div class="form-text text-danger" th:if="${#fields.hasErrors('file)}" th:errors="*{file}"></div>
+																			</div> -->
+																		</div>
+
+																		<div class="form-text text-danger" th:if="${errorMessage} and ${modalAdd}" th:text="${errorMessage}"></div>                                
+					  												</div>
+					  												<div class="modal-footer">
+						  												<button type="button" class="btn btn-secondary cancel" data-dismiss="modal" id="cancel">Cancelar</button>
+						  												<button type="submit" class="btn btn-primary" id="Registrar">Registrar</button>
+					  												</div>
+																</form>
+															</div>
+														</div>
+													</div>
+
+													<!-- MODAL ESTADO -->
+													<div class="modal fade" th:id="modal-cestado+${Pr.idPrestamo}">
+														<div class="modal-dialog modal-dialog-centered" role="document">
+															<div class="modal-content">
+																<div class="modal-header">
+																	<h4 th:if="${Pr.estadoPrestamo.equalsIgnoreCase('activo')}" class="modal-title">Inactivar Préstamo</h4>
+																	<h4 th:if="${Pr.estadoPrestamo.equalsIgnoreCase('inactivo')}" class="modal-title">Activar Préstamo</h4>
+																	<button type="button" class="close" data-dismiss="modal"><span>&times;</span>
+																	</button>
+																</div>
+																<!-- <form action="/"> -->
+																	<div class="modal-body">
+																		<p th:if="${Pr.estadoPrestamo.equalsIgnoreCase('activo')}">¿Está seguro que desea inactivar este préstamo?</p>
+																		<p th:if="${Pr.estadoPrestamo.equalsIgnoreCase('inactivo')}">¿Está seguro que desea activar este préstamo?</p>                      
+																	</div>
+																	<div class="modal-footer">
+																		<button type="button" class="btn btn-secondary" data-dismiss="modal">Cancelar</button>
+																		<a th:if="${Pr.estadoPrestamo.equalsIgnoreCase('activo')}" th:href="@{/prestamo/cambioestado/}+${Pr.idPrestamo}"><button type="submit" class="btn btn-primary">Inactivar</button></a>
+																		<a th:if="${Pr.estadoPrestamo.equalsIgnoreCase('inactivo')}" th:href="@{/prestamo/cambioestado/}+${Pr.idPrestamo}"><button type="submit" class="btn btn-primary">Activar</button></a>
+																	</div>
+																<!-- </form> -->
+															</div>
+														</div>
+													</div>
+
+													<!-- MODAL MOSTRAR PAGOS Y ABONOS  -->
+    												<div class="modal fade" th:id="modal-listarPaAb+${Pr.idPrestamo}">
+        												<div class="modal-dialog modal-lg">
+            												<div class="modal-content">
+                												<div class="modal-header">
+                    												<h3 class="modal-title">Pagos y Abonos.</h3>
+                    												<button type="button" class="close" data-dismiss="modal"><span>&times;</span>
+                    												</button>
+                												</div>
+                												<div class="modal-body formP" >
+																	<div style="text-align: center;">
+																		<th:block th:each="Pa:${pagos}" th:if="${Pa.prestamo.idPrestamo}==${Pr.idPrestamo}">
+																			<p style="font-size: 12px;">Se pago <strong th:text="${Pa.totalPago}"></strong> la fecha <strong th:text="${Pa.fechaPago}"></strong></p>
+																		</th:block>
+																		<h5><a th:href="@{/pagoprestamo/listar}">Más detalles..</a></h5>
+																	</div>
+																	<div style="text-align: center;">
+																		<th:block th:each="Ab:${abonos}" th:if="${Ab.prestamo.idPrestamo}==${Pr.idPrestamo}">
+																		<p style="font-size: 12px;">Se abono <strong th:text="${Ab.totalAbono}"></strong> la fecha <strong th:text="${Ab.fechaAbono}"></strong></p>
+																		</th:block>
+																		<h5><a th:href="@{/prestamoabono/listar}">Más detalles..</a></h5>
+																	</div>
+																</div>
+
+                												<div class="modal-footer">
+																	<button type="button" class="btn btn-secondary" data-dismiss="modal">Cerrar</button>
+																	<!-- <button type="submit" class="btn btn-primary" data-dismiss="modal">Cerrar</button> -->
+																</div>
+            												</div>
+        												</div>
+    												</div>
+						  						</td>
+					  						</tr>
+										</tbody>
+				  					</table>
+								</div>
+							</div>
+						</div>
+					</div>
+				</div>
+                <div class="row" sec:authorize="hasAnyAuthority('ADMINISTRADOR')">
+					<div class="col-12">
+                        <div class="card">
+                            <div class="card-header">
+                                <h4 class="card-title">Lista de Administrador</h4>
+                            </div>
+                            <div class="card-body">
+                                <div class="table-responsive">
+                                    <!-- <div class="centrar mb-3" style="display: flex; justify-content: center;">
+                                        <button type="button" class="btn btn-rounded btn-primary mr-3"><span
+                                            class="btn-icon-left text-primary"><i class="fa fa-plus color-info"></i>
+                                        </span>Agregar</button>
+                                    </div> -->
+                                    
+                                    <div class="alert alert-warning alert-dismissible fade show" th:if="${prestamos.size()==0}">
+                                        <svg viewBox="0 0 24 24" width="24" height="24" stroke="currentColor" stroke-width="2" fill="none" stroke-linecap="round" stroke-linejoin="round" class="mr-2"><path d="M10.29 3.86L1.82 18a2 2 0 0 0 1.71 3h16.94a2 2 0 0 0 1.71-3L13.71 3.86a2 2 0 0 0-3.42 0z"></path><line x1="12" y1="9" x2="12" y2="13"></line><line x1="12" y1="17" x2="12.01" y2="17"></line></svg>
+                                        <strong>Precaución!</strong> No existen Préstamos para mostrar
+                                        <button type="button" class="close h-100" data-dismiss="alert" aria-label="Close"><span><i class="mdi mdi-close"></i></span>
+                                        </button>
+                                    </div>
+                                    
+                                    <table id="example5" class="display min-w850">
+                                        <thead>
+                                            <tr>
+                                                <th>
+													<div class="custom-control custom-checkbox">
+														<input type="checkbox" class="custom-control-input" id="checkAll" required="">
+														<label class="custom-control-label" for="checkAll"></label>
+													</div>
+												</th>
+                        						<th>Id</th>
+                        						<th class="doc">Documento Prestamista</th>
+                        						<th class="nombre">Nombre Prestamista</th>
+												<th class="user">Nombre Usuario</th>
+                        						<th class="fecha">Fecha de Pago Oportuno</th>
+                        						<th class="valorP">Valor del Préstamos</th>
+												<th class="valorI">Valor inicial</th>
+                        						<th class="tasa">Tasa de Préstamos</th>
+                        						<th class="periodo">Periodo de Coutas</th>
+                        						<th class="cuotas">Número de Cuotas</th>
+                        						<th class="pagos-abonos">Pagos y Abonos</th>
+                        						<th class="estadoP">Estado</th>
+                        						<th class="acciones">Acciones</th>
+                       						</tr>
+										</thead>
+                        				<tbody>
+                          					<tr th:each="Pr:${prestamos}" id="tablerow">
                             					<td>
 													<div class="custom-control custom-checkbox">
 														<input type="checkbox" class="custom-control-input" id="customCheckBox3" required="">
@@ -982,7 +1276,7 @@
 																		<div class="formulario__grupo" id="grupo__prestamo">
 																			<label for="prestamo" class="formulario__label">Valor Prestamo</label>
 																			<div class="formulario__grupo-input">
-																				<select name="prestamo" class="form-control input-default" id="valorPrestamo">
+																				<select name="prestamo" class="form-control input-default valorPrestamoPago" id="valorPrestamo">
 																					<option th:text="${Pr.valorPrestamo}" th:value="${Pr.idPrestamo}" selected></option>
 																				</select>
 																				<i class="formulario__validacion-estado fas fa-times-circle"></i>
@@ -1007,9 +1301,9 @@
 
 																		<!-- Grupo: Total Pago-->
 																		<div class="formulario__grupo" id="grupo__totalPago">
-																			<label for="totalPago" class="formulario__label">Total Pago</label>
+																			<label for="totalPago" class="formulario__label" >Total Pago</label>
 																			<div class="formulario__grupo-input">
-																				<input type="number" class="form-control input-default" min="1" name="totalPago" id="totalPago" >
+																				<input type="number" class="form-control input-default totalPagoP" min="1" name="totalPago" id="totalPago" >
 																				<i class="formulario__validacion-estado fas fa-times-circle"></i>
 																			</div>
 																			<p class="formulario__input-error">Total Pago</p>
@@ -1058,7 +1352,7 @@
 																		<div class="formulario__grupo" id="grupo__prestamo">
 																			<label for="" class="formulario__label">Valor Préstamo</label>
 																			<div class="formulario__grupo-input">
-																				<select name="prestamo" class="form-control input-default" id="valor">
+																				<select name="prestamo" class="form-control input-default valorPrestamoAbono" id="valor">
 																					<option th:value="${Pr.idPrestamo}" th:text="${Pr.valorPrestamo}" selected >Seleccionar</option>
 																				</select>
 																				<i class="formulario__validacion-estado fas fa-times-circle"></i>
@@ -1086,7 +1380,7 @@
 																		<div class="formulario__grupo" id="grupo__totalAbono">
 																		<label for="totalAbono" class="formulario__label">Total Abono</label>
 																		<div class="formulario__grupo-input">
-																			<input type="number" class="form-control input-default"  name="totalAbono" id="totalAbono" >
+																			<input type="number" class="form-control input-default totalAbonoA"  name="totalAbono" id="totalAbono" >
 																			<i class="formulario__validacion-estado fas fa-times-circle"></i>
 																		</div>
 																		<p class="formulario__input-error">Total Abono</p>
@@ -1579,58 +1873,97 @@
 
 	<!-- Validacion Pagos -->
 	<script>
-			const valor2=document.getElementById("valorPrestamo");
-			const totalp=document.getElementById("totalPago");
-	
-			 function cambiarMax() {
-			  let valorp=parseInt(valor2.options[valor2.selectedIndex].textContent)
-			  totalp.setAttribute("max", valorp)
-			}
-			valor2.addEventListener("onmouseover", cambiarMax)
+		const valor2=document.querySelectorAll(".valorPrestamoPago");
+		const totalp=document.querySelectorAll(".totalPagoP");
+
+		for (let i = 0; i < valor2.length; i++) {
+			let valorp=parseInt(valor2[i].options[valor2[i].selectedIndex].textContent)
+			totalp[i].setAttribute("max", valorp)
+		}
 	</script>
 
 	<!-- Validacion de Abonos  -->
 	<script>
-		const valora=document.getElementById("valor");
-		const totala=document.getElementById("totalAbono");
+		const valora=document.querySelectorAll(".valorPrestamoAbono");
+		const totala=document.querySelectorAll(".totalAbonoA");
 
-		 function cambiarMax() {
-		  let valor1=parseInt(valora.options[valora.selectedIndex].textContent)
-		  totala.setAttribute("max", valor1)
+		for (let i = 0; i < valora.length; i++) {
+			let valorp=parseInt(valora[i].options[valora[i].selectedIndex].textContent)
+			totala[i].setAttribute("max", valorp)
 		}
-		valora.addEventListener("onmouseover", cambiarMax)
-</script>
-<!-- Toastr -->
-<script th:src="@{/assets/dashboard/vendor/toastr/js/toastr.min.js}"></script>
+	</script>
 
-<!-- All init script -->
-<!-- th:if="${param.success and param.success!=0}" -->
-<script th:inline="javascript" th:if="${param.success}">
-	$("#toastr-success-bottom-right").on("click", function () {
-			toastr.success("Acción realizada exitosamente", "Cambios Guardados", {
-				positionClass: "toast-bottom-right",
-				timeOut: 5e3,
-				closeButton: !0,
-				debug: !1,
-				newestOnTop: !0,
-				progressBar: !0,
-				preventDuplicates: !0,
-				onclick: null,
-				showDuration: "300",
-				hideDuration: "1000",
-				extendedTimeOut: "1000",
-				showEasing: "swing",
-				hideEasing: "linear",
-				showMethod: "fadeIn",
-				hideMethod: "fadeOut",
-				tapToDismiss: !1
-			})
+	<!-- Toastr -->
+	<script th:src="@{/assets/dashboard/vendor/toastr/js/toastr.min.js}"></script>
+
+	<!-- All init script -->
+	<!-- th:if="${param.success and param.success!=0}" -->
+	<script th:inline="javascript" th:if="${param.success}">
+		$("#toastr-success-bottom-right").on("click", function () {
+				toastr.success("Acción realizada exitosamente", "Cambios Guardados", {
+					positionClass: "toast-bottom-right",
+					timeOut: 5e3,
+					closeButton: !0,
+					debug: !1,
+					newestOnTop: !0,
+					progressBar: !0,
+					preventDuplicates: !0,
+					onclick: null,
+					showDuration: "300",
+					hideDuration: "1000",
+					extendedTimeOut: "1000",
+					showEasing: "swing",
+					hideEasing: "linear",
+					showMethod: "fadeIn",
+					hideMethod: "fadeOut",
+					tapToDismiss: !1
+				})
+			}
+
+		)
+
+		$("#toastr-success-bottom-right").click()
+	</script>
+	<script>
+		const fechacompromiso = document.querySelectorAll('#fecha');  
+
+		const hoy = Date.now()
+		let index=0
+
+		fechacompromiso.forEach((fecha) => {
+			var fechaFin = new Date(fecha.innerHTML).getTime();
+			var diff = fechaFin - hoy;
+
+			console.log(diff);
+
+			//mostrar al html dias que faltan para el pago oportuno
+			const dias = diff/(1000*60*60*24)+1;
+			const resultado =Math.trunc(dias);
+		  if(resultado>0){
+			document.querySelectorAll("#mostrarfecha")[index].innerHTML='Vence en: '+(resultado+1)+' días';
+			document.querySelectorAll("#mostrarfecha")[index].setAttribute("style", "color:#4CAF50;");
+			document.querySelectorAll("#mensaje")[index].innerHTML='Paga antes para evitar la suspencion!';
+			index++
+		};
+		if(resultado<0){
+			document.querySelectorAll("#mostrarfecha")[index].innerHTML='ya venció';
+			document.querySelectorAll("#mostrarfecha")[index].setAttribute("style", "color:red;");
+			document.querySelectorAll("#mensaje")[index].innerHTML='Puede ser que su sevicio fue suspendido o próximamente suspendido';
+			index++
+
+		};
+		if(resultado==0){
+			document.querySelectorAll("#mostrarfecha")[index].innerHTML='vence hoy';
+			document.querySelectorAll("#mostrarfecha")[index].setAttribute("style", "color:#4CAF50;");
+			document.querySelectorAll("#mensaje")[index].innerHTML='Pago hoy para evitar suspencion!';
+			index++
 		}
+		});
+		
+		
+		
+	</script>
 
-	)
-
-	$("#toastr-success-bottom-right").click()
-</script>
-
+	<script th:inline="javascript" th:if="${param.add}">$("#modal-add").modal("show");</script>	
 </body>
 </html>

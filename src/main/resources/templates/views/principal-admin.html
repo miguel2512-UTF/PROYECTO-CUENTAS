@@ -933,22 +933,9 @@
 		});
 	</script>
 		<script>
-			window.onload = function(){
+		window.onload = function(){
 			 Push.Permission.request();
 			}
-			const estado = document.getElementById('estado');
-		   if(estado.innerHTML=='Por pagar'){
-			setTimeout(() => {
-			 Push.create('Tienes Compromisos pendientes',{
-				 body: 'has Click para ver mas...',
-				 icon: '/assets/img/pendiente.png',
-				 timeout: '7000',
-				 onClick : function(){
-					location.href='/proyecto/compromiso/listar'
-				 }
-			 });
-			}, 1000);
-		   }
 		 </script>
 		<script>
             const fechacompromiso = document.querySelectorAll('#fecha');  
@@ -966,15 +953,15 @@
 				const dias = diff/(1000*60*60*24)+1;
 				const resultado =Math.trunc(dias);
               if(resultado>0){
-				document.querySelectorAll("#mostrarfecha")[index].innerHTML='Vence en: '+resultado+' días';
+				document.querySelectorAll("#mostrarfecha")[index].innerHTML='Vence en: '+(resultado+1)+' días';
 				document.querySelectorAll("#mostrarfecha")[index].setAttribute("style", "color:#4CAF50;");
 				document.querySelectorAll("#mensaje")[index].innerHTML='Paga antes para evitar la suspencion!';
 				index++
 			};
 			if(resultado<0){
-				document.querySelectorAll("#mostrarfecha")[index].innerHTML='ya vencio';
+				document.querySelectorAll("#mostrarfecha")[index].innerHTML='ya venció';
 				document.querySelectorAll("#mostrarfecha")[index].setAttribute("style", "color:red;");
-				document.querySelectorAll("#mensaje")[index].innerHTML='Puede ser que su sevicio fue suspendido o proximamente suspendido';
+				document.querySelectorAll("#mensaje")[index].innerHTML='Puede ser que su sevicio fue suspendido o próximamente suspendido';
 				index++
 
 			};
@@ -985,7 +972,22 @@
 				index++
 			}
 			});
-
+			
+			
+			const estado = document.getElementById('estado');
+		   if(estado.innerHTML=='Por pagar'|| resultado <7){
+			setTimeout(() => {
+			 Push.create('Tienes Compromisos que vencen en menos de una semana ',{
+				 body: 'has Click para ver mas...',
+				 icon: '/assets/img/pendiente.png',
+				 timeout: '7000',
+				 onClick : function(){
+					location.href='/proyecto/compromiso/listar'
+				 }
+			 });
+			}, 1000);
+		   }
+		
         </script>
 		 
 		 <script src="https://cdnjs.cloudflare.com/ajax/libs/push.js/1.0.8/push.min.js"></script>

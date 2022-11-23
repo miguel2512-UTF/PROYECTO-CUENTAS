@@ -1,7 +1,7 @@
 package com.cuentas.proyectocuentas.controller;
 
 import javax.validation.Valid;
-
+import com.cuentas.proyectocuentas.model.Compromiso;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -17,7 +17,7 @@ import org.springframework.web.bind.support.SessionStatus;
 
 import com.cuentas.proyectocuentas.model.TipoCompromiso;
 import com.cuentas.proyectocuentas.service.ITipoCompromisoService;
-
+import com.cuentas.proyectocuentas.service.ICompromisoService;
 @Controller
 @SessionAttributes("tipocompromiso")
 @RequestMapping("/tipocompromiso")
@@ -25,6 +25,9 @@ public class TipoCompromisoController {
     
     @Autowired
     private ITipoCompromisoService tipocompromisod;
+    @Autowired
+    private ICompromisoService compromisod;
+   
       
         @GetMapping("/form")
         public String form(Model m){
@@ -39,6 +42,11 @@ public class TipoCompromisoController {
             m.addAttribute("tipocompromisos", tipocompromisod.findAll());
             TipoCompromiso tipocompromiso=new TipoCompromiso();
             m.addAttribute("tipocompromiso",tipocompromiso);
+
+            Compromiso compromiso=new Compromiso();
+            m.addAttribute("compromiso",compromiso);
+            m.addAttribute("compromisos", compromisod.findAll());
+            
 
             return "views/tipocompromiso/tipocompromiso";
         }

@@ -13,11 +13,11 @@
                 <ul aria-expanded="false">
                     <li><a class="has-arrow" href="javascript:void()" aria-expanded="false">Tipo Compromisos</a>
                         <ul aria-expanded="false">
-                            <li><a href="/">Agregar</a></li>
+                            <li><a th:href="@{/tipocompromiso/listar?add}">Agregar</a></li>
                             <li><a th:href="@{/tipocompromiso}">Mostrar</a></li>
                         </ul>
                     </li>
-                    <li><a href="/">Agregar Compromiso</a></li>
+                    <li><a th:href="@{/compromiso/listar?add}">Agregar Compromiso</a></li>
                     <li><a th:href="@{/compromiso}">Mostrar Compromisos</a></li>
                 </ul>
             </li>
@@ -26,17 +26,17 @@
                     <span class="nav-text">Préstamos</span>
                 </a>
                 <ul aria-expanded="false">
-                    <li><a th:href="@{/prestamo/listar}">Agregar Préstamo</a></li>
+                    <li><a th:href="@{/prestamo/listar?add}">Agregar Préstamo</a></li>
                     <li><a th:href="@{/prestamo}">Mostrar Préstamos</a></li>
                     <li><a class="has-arrow" href="javascript:void()" aria-expanded="false">Abonos</a>
                         <ul aria-expanded="false">
-                            <li><a th:href="@{/prestamoabono}">Agregar</a></li>
+                            <li><a th:href="@{/prestamoabono/listar?add}">Agregar</a></li>
                             <li><a th:href="@{/prestamoabono}">Mostrar</a></li>
                         </ul>
                     </li>
                     <li><a class="has-arrow" href="javascript:void()" aria-expanded="false">Pagos</a>
                         <ul aria-expanded="false">
-                            <li><a th:href="@{/pagoprestamo}">Agregar</a></li>
+                            <li><a th:href="@{/pagoprestamo/listar?add}">Agregar</a></li>
                             <li><a th:href="@{/pagoprestamo}">Mostrar</a></li>
                         </ul>
                     </li>
@@ -47,7 +47,7 @@
                     <span class="nav-text">Usuarios</span>
                 </a>
                 <ul aria-expanded="false">
-                    <li><a href="/">Agregar Usuario</a></li>
+                    <li><a th:href="@{/usuario/listar?add}">Agregar Usuario</a></li>
                     <li><a th:href="@{/usuario}">Mostrar Usuarios</a></li>
                 </ul>
             </li>
