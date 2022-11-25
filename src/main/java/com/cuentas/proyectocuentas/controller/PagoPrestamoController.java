@@ -83,7 +83,7 @@ public class PagoPrestamoController {
     @RequestParam("file") MultipartFile imagenPago, SessionStatus status){
         m.addAttribute("pagoprestamos", pagoprestamoI.findAll());
         m.addAttribute("prestamo", prestamoI.findAll());
-
+        int idSuccess=0;
         if (res.hasErrors()) {
             return "views/pagoprestamo/pagoprestamo";
         }
@@ -97,7 +97,7 @@ public class PagoPrestamoController {
                 Files.write(rutaCompleta, bytesImg);
 
                 pagoprestamo.setImagenPago(imagenPago.getOriginalFilename());
-
+                idSuccess=0;
             } catch (IOException e) {
                 e.printStackTrace();
             }
@@ -105,8 +105,8 @@ public class PagoPrestamoController {
         Integer valorprestamo=pagoprestamo.getPrestamo().getValorPrestamo()-pagoprestamo.getTotalPago();
         pagoprestamo.getPrestamo().setValorPrestamo(valorprestamo);
         pagoprestamoI.save(pagoprestamo);
-
-        return "redirect:listar";
+        idSuccess=pagoprestamo.getIdPagoPrestamo();
+        return "redirect:listar?success="+idSuccess;
     }
     
 

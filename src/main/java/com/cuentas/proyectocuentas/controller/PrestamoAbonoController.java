@@ -78,7 +78,7 @@ public class PrestamoAbonoController {
      @RequestParam("file") MultipartFile imagenAbono ,SessionStatus status){
         m.addAttribute("prestamoabonos", prestamoabonoI.findAll());
         m.addAttribute("prestamo", prestamoI.findAll());
-
+        int idSuccess=0;
         if (res.hasErrors()) {
             return "views/prestamoabono/prestamoabono";
         }
@@ -93,7 +93,7 @@ public class PrestamoAbonoController {
                 Files.write(rutaCompleta, bytesImg);
 
                 abono.setImagenAbono(imagenAbono.getOriginalFilename());
-                
+                idSuccess=0;
             } catch (Exception e) {
                 e.printStackTrace();
             }
@@ -103,8 +103,9 @@ public class PrestamoAbonoController {
         abono.getPrestamo().setValorPrestamo(valorprestamo);
         prestamoabonoI.save(abono);
         status.setComplete(); 
+        idSuccess=abono.getIdPrestamoAbono();
 
-        return "redirect:listar";
+        return "redirect:listar?success="+idSuccess;
     }
 
     // @GetMapping("/formulario")

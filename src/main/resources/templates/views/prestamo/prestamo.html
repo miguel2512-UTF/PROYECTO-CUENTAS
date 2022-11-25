@@ -777,11 +777,11 @@
 																			<select class="form-control" name="usuario" id="usuario">
 																				<option th:text="${session.usuario.nombresUsuario}" th:value="${session.usuario.idUsuario}" selected></option>
 																			</select>
-																		</div>
+																		</div> 
 																		<br>
 																		<div>
 																			<select class="form-control" name="estado" id="estado">
-																				<option selected value="0">Todos</option>
+																				<option selected value="0">Todos los estados</option>
 																				<option  value="1"><span
 																					class="badge light badge-warning"><i
 																						class="fa fa-circle text-warning mr-1"></i>Activo</span></option>
@@ -797,8 +797,8 @@
 																		<button type="submit" class="btn btn-primary btn-sm">Generar</button>
 																	</div>
 																</form>
-		</div>
-	</div>
+															</div>
+														</div>
 														</div>
 													<button onClick="toggle(this)" class="btn btn-square btn-sm btn-primary">Mostrar todas</button>
 													<button type="button" class="btn btn-square btn-sm btn-primary dropdown-toggle" data-toggle="dropdown">
@@ -848,7 +848,7 @@
                        						</tr>
 										</thead>
                         				<tbody>
-                          					<tr th:each="Pr:${prestamos}" id="tablerow" th:if="${Pr.usuario.nombresUsuario == session.usuario.nombresUsuario}">
+                          					<tr th:each="Pr:${prestamos}" id="tablerow" th:if="${Pr.usuario.idUsuario == session.usuario.idUsuario}">
                             					<td>
 													<div class="custom-control custom-checkbox">
 														<input type="checkbox" class="custom-control-input" id="customCheckBox3" required="">
@@ -1141,7 +1141,7 @@
 				</div>
                 <div class="row" sec:authorize="hasAnyAuthority('ADMINISTRADOR')">
 					<div class="col-12">
-                        <div class="card">
+                        <div class="card"> 
                             <div class="card-header">
                                 <h4 class="card-title">Lista de Administrador</h4>
                             </div>
@@ -1955,7 +1955,7 @@
 		if(resultado==0){
 			document.querySelectorAll("#mostrarfecha")[index].innerHTML='vence hoy';
 			document.querySelectorAll("#mostrarfecha")[index].setAttribute("style", "color:#4CAF50;");
-			document.querySelectorAll("#mensaje")[index].innerHTML='Pago hoy para evitar suspencion!';
+			document.querySelectorAll("#mensaje")[index].innerHTML='Paga hoy para evitar suspensión!';
 			index++
 		}
 		});

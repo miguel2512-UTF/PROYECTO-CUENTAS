@@ -119,7 +119,6 @@ public class PrestamoController {
 
             prestamo.setValorPrestamoInicial(prestamo.getValorPrestamo());
             idSuccess=0;
-
         }
 
         prestamoI.save(prestamo);
@@ -157,7 +156,7 @@ public class PrestamoController {
     @RequestParam("file") MultipartFile imagenPago, SessionStatus status){
         m.addAttribute("pagoprestamos", pagoprestamoI.findAll());
         m.addAttribute("prestamo", prestamoI.findAll());
-
+        int idSuccess=0;
         if (res.hasErrors()) {
             return "views/prestamo/prestamo";
         } 
@@ -172,6 +171,7 @@ public class PrestamoController {
 
                 pagoprestamo.setImagenPago(imagenPago.getOriginalFilename());
 
+                idSuccess=0;
             } catch (IOException e) {
                 e.printStackTrace();
             }
@@ -179,8 +179,10 @@ public class PrestamoController {
         Integer valorprestamo=pagoprestamo.getPrestamo().getValorPrestamo()-pagoprestamo.getTotalPago();
         pagoprestamo.getPrestamo().setValorPrestamo(valorprestamo);
         pagoprestamoI.save(pagoprestamo);
+        idSuccess=pagoprestamo.getIdPagoPrestamo();
 
-        return "redirect:listar";
+
+        return "redirect:listar?success="+idSuccess;
     }
 
     //REGISTRAR ABONO
@@ -189,7 +191,7 @@ public class PrestamoController {
      @RequestParam("file") MultipartFile imagenAbono ,SessionStatus status){
         m.addAttribute("prestamoabonos", prestamoabonoI.findAll());
         m.addAttribute("prestamo", prestamoI.findAll());
-
+        int idSuccess=0;
         if (res.hasErrors()) {
             return "views/prestamoabono/prestamoabono";
         }
@@ -204,6 +206,7 @@ public class PrestamoController {
                 Files.write(rutaCompleta, bytesImg);
 
                 abono.setImagenAbono(imagenAbono.getOriginalFilename());
+                idSuccess=0;
                 
             } catch (Exception e) {
                 e.printStackTrace();
@@ -213,9 +216,10 @@ public class PrestamoController {
         Integer valorprestamo=abono.getPrestamo().getValorPrestamo()-abono.getTotalAbono();
         abono.getPrestamo().setValorPrestamo(valorprestamo);
         prestamoabonoI.save(abono);
+        idSuccess=abono.getIdPrestamoAbono();
         status.setComplete(); 
 
-        return "redirect:listar";
+        return "redirect:listar?success="+idSuccess;
     }
 
     
