@@ -830,7 +830,7 @@
 																</select>
 																<i class="formulario__validacion-estado fas fa-times-circle"></i>
 															</div>
-															<p class="formulario__input-error">Valor Préstamo</p>
+															<p class="formulario__input-error">Selecciona un Préstamo, este campo es obligatorio.</p>
 														</div>
 														<div class="error">
 															<div class="form-text text-danger" th:if="${#fields.hasErrors('prestamo')}" th:errors="*{prestamo}"></div>
@@ -843,7 +843,7 @@
 																<input type="date" class="form-control input-default" name="fechaAbono" id="fechaAbono" th:min="${fechaAbonoMin}" th:max="${fechaAbonoMax}">
 																<i class="formulario__validacion-estado fas fa-times-circle"></i>
 															</div>
-															<p class="formulario__input-error">Fecha Abono</p>
+															<p class="formulario__input-error">Selecciona la fecha del abono, este campo es obligatorio.</p>
 														</div>
 														<div class="error">
 															<div class="form-text text-danger" th:if="${#fields.hasErrors('fechaAbono')}" th:errors="*{fechaAbono}"></div>
@@ -856,7 +856,7 @@
 															<input type="number" class="form-control input-default"  name="totalAbono" id="totalAbono" >
 															<i class="formulario__validacion-estado fas fa-times-circle"></i>
 														</div>
-														<p class="formulario__input-error">Total Abono</p>
+														<p class="formulario__input-error">Ingresa el valor del abono, este campo es obligatorio.</p>
 														</div>
 														<div class="error">
 															<div class="form-text text-danger" th:if="${#fields.hasErrors('totalAbono')}" th:errors="*{totalAbono}"></div>
@@ -866,11 +866,11 @@
 														<div class="formulario__grupo" id="grupo__imagenAbono">
 															<label for="imagenAbono" class="formulario__label">Imagen Abono</label>
 															<div class="formulario__grupo-input">
-																<input type="file" class="custom-file-input form-control input-default " name="file"  accept="image/*">
+																<input type="file" class="custom-file-input form-control input-default " name="file"  accept="image/*" required>
 																<label  class="custom-file-label form-control">Imagen Abono</label>
 																<i class="formulario__validacion-estado fas fa-times-circle"></i>
 															</div>
-															<p class="formulario__input-error">Imagen Abono</p>
+															<p class="formulario__input-error">Selecciona la imagen del abono, este campo es obligatorio.</p>
 														</div>
 														<div class="error">
 															<!-- <div class="form-text text-danger" th:if="${#fields.hasErrors('file')}" th:errors="*{file}"></div> -->
@@ -897,9 +897,9 @@
                         <div class="card">
                             <div class="card-header">
                                 <h4 class="card-title">Lista de Administrador</h4>
-                                <button type="button" class="nBtn btn btn-rounded btn-primary"><span class="btn-icon-left text-primary">
+                                <!-- <button type="button" class="nBtn btn btn-rounded btn-primary"><span class="btn-icon-left text-primary">
 								<i class="fa fa-plus color-info"></i>
-                                </span>Agregar</button>
+                                </span>Agregar</button> -->
                             </div>
                             <div class="card-body">
                                 <div class="table-responsive">
@@ -916,10 +916,10 @@
                                         </button>
                                     </div>
 
-                                    <div class="custom-control custom-checkbox mb-3 check-xs mt-3">
+                                    <!-- <div class="custom-control custom-checkbox mb-3 check-xs mt-3">
                                         <input type="checkbox" class="custom-control-input" id="mostrar" required>
                                         <label class="custom-control-label" for="">Mostrar Abonos inactivos</label>
-                                    </div>
+                                    </div> -->
                                     <table id="example5" class="display min-w850">
                                         <thead>
                                             <tr>

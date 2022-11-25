@@ -913,7 +913,7 @@
 					  												<h5 class="modal-title">Eliminar Préstamo</h5>
 																</div>
 																<div class="modal-body">
-					  												<p>Esta seguro que desea ELIMINAR el Préstamo?</p>
+					  												<p>¿Esta seguro que desea ELIMINAR el Préstamo?</p>
 				  												</div>
 																<div class="modal-footer">
 					  												<button type="button" class="btn btn-secondary" data-dismiss="modal">Cancelar</button>
@@ -943,7 +943,7 @@
 																				</select>
 																				<i class="formulario__validacion-estado fas fa-times-circle"></i>
 																			</div>
-																			<p class="formulario__input-error">Valor Prestamo</p>
+																			<p class="formulario__input-error">Selecciona un Préstamo, este campo es obligatorio.</p>
 																		</div>
 																		<!-- <div class="error">
 																			<div class="form-text text-danger" th:if="${#fields.hasErrors('prestamo')}" th:errors="*{prestamo}"></div>
@@ -955,7 +955,7 @@
 																			<div class="formulario__grupo-input">
 																				<input type="date" class="form-control input-default" name="fechaPago" id="fechaPago" th:min="${fechaPagoMin}" th:max="${fechaPagoMax}">
 																			</div>
-																			<p class="formulario__input-error">Fecha Pago</p>
+																			<p class="formulario__input-error">Selecciona una fecha, este campo es obligatorio.</p>
 																			<!-- <div class="error">
 																				<div class="form-text text-danger" th:if="${#fields.hasErrors('fechaPago')}" th:errors="*{fechaPago}"></div>
 																			</div> -->
@@ -968,7 +968,7 @@
 																				<input type="number" th:value="${Pr.valorPrestamoInicial/Pr.numeroCuotas}" class="form-control input-default totalPagoP" min="1" name="totalPago" id="totalPago" readonly>
 																				<i class="formulario__validacion-estado fas fa-times-circle"></i>
 																			</div>
-																			<p class="formulario__input-error">Total Pago</p>
+																			<p class="formulario__input-error">Ingresa el valor del pago, este campo es obligatorio.</p>
 																		</div>
 																		<!-- <div class="error">
 																			<div class="form-text text-danger" th:if="${#fields.hasErrors('totalPago')}" th:errors="*{totalPago}"></div>
@@ -978,10 +978,10 @@
 																		<div class="formulario__grupo" id="grupo__imagenPago">
 																			<label for="imagenPago" class="formulario__label">Imagen Pago</label>
 																			<div class="formulario__grupo-input">
-																				<input type="file" class="form-control input-default" name="file" accept="image/*">
+																				<input type="file" class="form-control input-default" name="file" accept="image/*" required>
 																				<i class="formulario__validacion-estado fas fa-times-circle"></i>
 																			</div>
-																			<p class="formulario__input-error">Imagen Pago</p>
+																			<p class="formulario__input-error">Selecciona la imagen del pago, este campo es obligatorio</p>
 																			<!-- <div class="error">
 																				<div class="form-text text-danger" th:if="${#fields.hasErrors('file')}" th:errors="*{file}"></div>
 																			</div> -->
@@ -1018,7 +1018,7 @@
 																				</select>
 																				<i class="formulario__validacion-estado fas fa-times-circle"></i>
 																			</div>
-																			<p class="formulario__input-error">Valor Préstamo</p>
+																			<p class="formulario__input-error">Selecciona un Préstamo, este campo es obligatorio.</p>
 																			<!-- <div class="error">
 																				<div class="form-text text-danger" th:if="${#fields.hasErrors('prestamo')}" th:errors="*{prestamo}"></div>
 																			</div> -->
@@ -1031,7 +1031,7 @@
 																				<input type="date" class="form-control input-default" name="fechaAbono" id="fechaAbono" th:min="${fechaAbonoMin}" th:max="${fechaAbonoMax}">
 																				<i class="formulario__validacion-estado fas fa-times-circle"></i>
 																			</div>
-																			<p class="formulario__input-error">Fecha Abono</p>
+																			<p class="formulario__input-error">Selecciona la fecha del abono, este campo es obligatorio.</p>
 																			<!-- <div class="error">
 																				<div class="form-text text-danger" th:if="${#fields.hasErrors('fechaAbono)}" th:errors="*{fechaAbono}"></div>
 																			</div> -->
@@ -1044,7 +1044,7 @@
 																			<input type="number" class="form-control input-default totalAbonoA"  name="totalAbono" id="totalAbono" >
 																			<i class="formulario__validacion-estado fas fa-times-circle"></i>
 																		</div>
-																		<p class="formulario__input-error">Total Abono</p>
+																		<p class="formulario__input-error">Ingresa el valor del abono, este campo es obligatorio.</p>
 																		<!-- <div class="error">
 																			<div class="form-text text-danger" th:if="${#fields.hasErrors('totalAbono)}" th:errors="*{totalAbono}"></div>
 																		</div> -->
@@ -1054,10 +1054,10 @@
 																		<div class="formulario__grupo" id="grupo__imagenAbono">
 																			<label for="imagenAbono" class="formulario__label">Imagen Abono</label>
 																			<div class="formulario__grupo-input">
-																				<input type="file" class="form-control input-default" name="file"  accept="image/*">
+																				<input type="file" class="form-control input-default" name="file"  accept="image/*" required>
 																				<i class="formulario__validacion-estado fas fa-times-circle"></i>
 																			</div>
-																			<p class="formulario__input-error">Imagen Abono</p>
+																			<p class="formulario__input-error">Selecciona la imagen del abono, este campo es obligatorio.</p>
 																			<!-- <div class="error">
 																				<div class="form-text text-danger" th:if="${#fields.hasErrors('file)}" th:errors="*{file}"></div>
 																			</div> -->
@@ -1281,7 +1281,7 @@
 																				</select>
 																				<i class="formulario__validacion-estado fas fa-times-circle"></i>
 																			</div>
-																			<p class="formulario__input-error">Valor Prestamo</p>
+																			<p class="formulario__input-error">Selecciona un Préstamo, este campo es obligatorio.</p>
 																		</div>
 																		<!-- <div class="error">
 																			<div class="form-text text-danger" th:if="${#fields.hasErrors('prestamo')}" th:errors="*{prestamo}"></div>
@@ -1293,7 +1293,7 @@
 																			<div class="formulario__grupo-input">
 																				<input type="date" class="form-control input-default" name="fechaPago" id="fechaPago" th:min="${fechaPagoMin}" th:max="${fechaPagoMax}">
 																			</div>
-																			<p class="formulario__input-error">Fecha Pago</p>
+																			<p class="formulario__input-error">Selecciona la fecha del pago, este campo es obligatorio.</p>
 																			<!-- <div class="error">
 																				<div class="form-text text-danger" th:if="${#fields.hasErrors('fechaPago')}" th:errors="*{fechaPago}"></div>
 																			</div> -->
@@ -1306,7 +1306,7 @@
 																				<input type="number" class="form-control input-default totalPagoP" min="1" name="totalPago" id="totalPago" >
 																				<i class="formulario__validacion-estado fas fa-times-circle"></i>
 																			</div>
-																			<p class="formulario__input-error">Total Pago</p>
+																			<p class="formulario__input-error">Ingresa el valor del pago, este campo es obligatorio.</p>
 																		</div>
 																		<!-- <div class="error">
 																			<div class="form-text text-danger" th:if="${#fields.hasErrors('totalPago')}" th:errors="*{totalPago}"></div>
@@ -1316,11 +1316,11 @@
 																		<div class="formulario__grupo" id="grupo__imagenPago">
 																			<label for="imagenPago" class="formulario__label">Imagen Pago</label>
 																			<div class="formulario__grupo-input">
-																				<input type="file" class="custom-file-input form-control input-default " name="file"  accept="image/*">
+																				<input type="file" class="custom-file-input form-control input-default " name="file"  accept="image/*" required>
 																				<label  class="custom-file-label form-control">Imagen Pago</label>
 																				<i class="formulario__validacion-estado fas fa-times-circle"></i>
 																			</div>
-																			<p class="formulario__input-error">Imagen Pago</p>
+																			<p class="formulario__input-error">Selecciona la imagen del pago, este campo es obligatorio.</p>
 																			<!-- <div class="error">
 																				<div class="form-text text-danger" th:if="${#fields.hasErrors('file')}" th:errors="*{file}"></div>
 																			</div> -->
@@ -1357,7 +1357,7 @@
 																				</select>
 																				<i class="formulario__validacion-estado fas fa-times-circle"></i>
 																			</div>
-																			<p class="formulario__input-error">Valor Préstamo</p>
+																			<p class="formulario__input-error">Selecciona un Préstamo, este campo es obligatorio.</p>
 																			<!-- <div class="error">
 																				<div class="form-text text-danger" th:if="${#fields.hasErrors('prestamo')}" th:errors="*{prestamo}"></div>
 																			</div> -->
@@ -1370,7 +1370,7 @@
 																				<input type="date" class="form-control input-default" name="fechaAbono" id="fechaAbono" th:min="${fechaAbonoMin}" th:max="${fechaAbonoMax}">
 																				<i class="formulario__validacion-estado fas fa-times-circle"></i>
 																			</div>
-																			<p class="formulario__input-error">Fecha Abono</p>
+																			<p class="formulario__input-error">Selecciona la fecha del abono, este campo es obligatorio.</p>
 																			<!-- <div class="error">
 																				<div class="form-text text-danger" th:if="${#fields.hasErrors('fechaAbono)}" th:errors="*{fechaAbono}"></div>
 																			</div> -->
@@ -1383,7 +1383,7 @@
 																			<input type="number" class="form-control input-default totalAbonoA"  name="totalAbono" id="totalAbono" >
 																			<i class="formulario__validacion-estado fas fa-times-circle"></i>
 																		</div>
-																		<p class="formulario__input-error">Total Abono</p>
+																		<p class="formulario__input-error">Ingresa el valor del abono, este campo es obligatorio.</p>
 																		<!-- <div class="error">
 																			<div class="form-text text-danger" th:if="${#fields.hasErrors('totalAbono)}" th:errors="*{totalAbono}"></div>
 																		</div> -->
@@ -1393,11 +1393,11 @@
 																		<div class="formulario__grupo" id="grupo__imagenAbono">
 																			<div  class="formulario__label">Imagen Abono</div>
 																			<div class="formulario__grupo-input">
-																				<input type="file" class="custom-file-input form-control input-default " name="file"  accept="image/*">
+																				<input type="file" class="custom-file-input form-control input-default " name="file"  accept="image/*" required>
 																				<label  class="custom-file-label form-control">Imagen Abono</label>
 																				<i class="formulario__validacion-estado fas fa-times-circle"></i>
 																			</div>
-																			<p class="formulario__input-error">Imagen Abono</p>
+																			<p class="formulario__input-error">Selecciona la imagen del abono, este campo es obligatorio.</p>
 																			<!-- <div class="error">
 																				<div class="form-text text-danger" th:if="${#fields.hasErrors('file)}" th:errors="*{file}"></div>
 																			</div> -->
@@ -1503,7 +1503,7 @@
 							<input type="number" class="form-control input-default" name="documentoPrestamista" id="documentoPrestamista" >
 							<i class="formulario__validacion-estado fas fa-times-circle"></i>
 						</div>
-						<p class="formulario__input-error">Documento Prestamista.</p>
+						<p class="formulario__input-error">Ingresa el documento del prestamista de 8 a 10 digitos, este campo es obligatorio.</p>
 						<div class="error">
 							<div class="form-text text-danger" th:if="${#fields.hasErrors('documentoPrestamista')}" th:errors="*{documentoPrestamista}"></div>
 						</div>
@@ -1517,7 +1517,7 @@
 							<input type="text" class="form-control input-default" name="nombrePrestamista" id="nombrePrestamista" >
 							<i class="formulario__validacion-estado fas fa-times-circle"></i>
 						</div>
-						<p class="formulario__input-error">Nombre Prestamista</p>
+						<p class="formulario__input-error">Ingresa el nombre del prestamista, este campo es obligatorio.</p>
 						<div class="error">
 							<div class="form-text text-danger" th:if="${#fields.hasErrors('nombrePrestamista')}" th:errors="*{nombrePrestamista}"></div>
 						</div>
@@ -1534,7 +1534,7 @@
 							</select>
 							<i class="formulario__validacion-estado fas fa-times-circle"></i>
 						</div>
-						<p class="formulario__input-error">Nombre Usuario</p>
+						<p class="formulario__input-error">Este campo es automatico, revisa tu inicio de sesión.</p>
 						<div class="error">
 							<div class="form-text text-danger" th:if="${#fields.hasErrors('usuario')}" th:errors="*{usuario}"></div>
 						</div>
@@ -1554,7 +1554,7 @@
 								<a href="" class="btn shadow btn-xs sharp mr-1" title="Ver Pagos y Abonos"><i class="fa-solid fa-eye"></i></a>
 								</td> -->
 						</div>
-						<p class="formulario__input-error">Fecha Pago Oportuno</p>
+						<p class="formulario__input-error">Ingresa la fecha del préstamo, este campo es obligatorio.</p>
 						<div class="error">
 							<div class="form-text text-danger" th:if="${#fields.hasErrors('fechaPagoOportuno')}" th:errors="*{fechaPagoOportuno}"></div>
 						</div>
@@ -1568,7 +1568,7 @@
 							<input type="text" class="form-control input-default" name="valorPrestamo" id="valorPrestamo">
 							<i class="formulario__validacion-estado fas fa-times-circle"></i>
 						</div>
-						<p class="formulario__input-error">Valor préstamo.</p>
+						<p class="formulario__input-error">Ingresa el valor del préstamo, este campo es obligatorio.</p>
 						<div class="error">
 							<div class="form-text text-danger" th:if="${#fields.hasErrors('valorPrestamo')}" th:errors="*{valorPrestamo}"></div>
 						</div>
@@ -1581,7 +1581,7 @@
 							<input type="number" class="form-control input-default" name="tasaPrestamo" id="tasaPrestamo" step="0.01" >
 							<i class="formulario__validacion-estado fas fa-times-circle"></i>
 						</div>
-						<p class="formulario__input-error">Tasa Préstamo</p>
+						<p class="formulario__input-error">Ingresa la tasa del préstamo, este campo es obligatorio.</p>
 						<div class="error">
 							<div class="form-text text-danger" th:if="${#fields.hasErrors('tasaPrestamo')}" th:errors="*{tasaPrestamo}"></div>
 						</div>
@@ -1590,7 +1590,7 @@
 
 					<!-- Grupo: Periodo Cuentas -->
 					<div class="formulario__grupo" id="grupo__periodoCuota">
-						<label for="periodoCuota" class="formulario__label">Periodo Cuentas</label>
+						<label for="periodoCuota" class="formulario__label">Periodo Cuotas</label>
 						<div class="formulario__grupo-input">
 							<select th:field="*{periodoCuota}" class="form-control input-default">
 								<option value="" id="periodo" selected>Seleccionar</option>
@@ -1602,7 +1602,7 @@
 							</select>
 							<i class="formulario__validacion-estado fas fa-times-circle"></i>
 						</div>
-						<p class="formulario__input-error">Periodo Cuentas</p>
+						<p class="formulario__input-error">Seleccione el periodo de cuota, este campo es obligatorio.</p>
 						<div class="error">
 							<div class="form-text text-danger" th:if="${#fields.hasErrors('periodoCuota')}" th:errors="*{periodoCuota}"></div>
 						</div>
@@ -1616,7 +1616,7 @@
 							<input type="number" class="form-control input-default" name="numeroCuotas" id="numeroCuotas">
 							<i class="formulario__validacion-estado fas fa-times-circle"></i>
 						</div>
-						<p class="formulario__input-error">Número Cuotas.</p>
+						<p class="formulario__input-error">Ingresa la cantidad de cuotas del préstamo, este campo es obligatorio.</p>
 						<div class="error">
 							<div class="form-text text-danger" th:if="${#fields.hasErrors('numeroCuotas')}" th:errors="*{numeroCuotas}"></div>
 						</div>
