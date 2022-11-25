@@ -2,11 +2,9 @@ package com.cuentas.proyectocuentas.util;
 
 import java.awt.Color;
 import java.io.IOException;
-import java.time.LocalDate;
 import java.util.List;
 import java.util.Map;
 import java.util.ArrayList;
-import java.util.Date;
 import java.util.Iterator;
 
 import javax.servlet.http.HttpServletRequest;
@@ -151,9 +149,7 @@ public class ListarPrestamoPdf extends AbstractPdfView {
             logo.setAlignment(Image.ALIGN_LEFT);
             logo.scaleToFit(200, 100);
 
-            //FECHA AUTOMATICA
-            LocalDate fecha = LocalDate.now();
-            // Date fechaa= fecha
+            
 
 
             // MARGENES TABLA
@@ -358,6 +354,8 @@ public class ListarPrestamoPdf extends AbstractPdfView {
                     TablaPagos.addCell(image);
                 } catch (BadElementException | IOException e) {
                     e.printStackTrace();
+                    TablaPagos.addCell("No se detecto una imagen");
+
                 }
                 // TablaPagos.addCell(pp.getImagenPago());
             });
@@ -442,8 +440,9 @@ public class ListarPrestamoPdf extends AbstractPdfView {
 
                     TablaAbonos.addCell(image);
                 } catch (BadElementException | IOException e) {
-                    // TODO Auto-generated catch block
                     e.printStackTrace();
+                    TablaAbonos.addCell("No de detecto una imagen");
+
                 }
 
 

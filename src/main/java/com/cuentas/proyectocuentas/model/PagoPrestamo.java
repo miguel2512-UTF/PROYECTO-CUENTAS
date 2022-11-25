@@ -27,6 +27,7 @@ public class PagoPrestamo {
     private Integer totalPago;
  
     private String imagenPago;
+    
 
     /*Relacion de muchos a uno (Pago a Prestamo) */
     @ManyToOne(fetch = FetchType.LAZY)
@@ -38,7 +39,7 @@ public class PagoPrestamo {
     }
 
     public PagoPrestamo(Integer idPagoPrestamo, @NotEmpty String fechaPago, @NotEmpty Integer totalPago,
-            @NotEmpty String imagenPago, Prestamo prestamo) {
+            @NotEmpty  String imagenPago, Prestamo prestamo) {
         this.idPagoPrestamo = idPagoPrestamo;
         this.fechaPago = fechaPago;
         this.totalPago = totalPago;
