@@ -604,7 +604,7 @@
 													<div class="media-body">
 														<h6 class="mb-1" th:text="'El compromiso: ' + ${g.tipocompromiso.nombre} + ', con un valor de : '+${g.total} + ' pesos'"></h6>
 														<div hidden>
-															<small class="d-block" id="estado" th:text="${g.estadoCom}"></small>
+															<small class="d-block" th:text="${g.estadoCom}"></small>
 															<small class="d-block" id="fecha" th:text="${g.fecha}"></small>
 
 														</div>
@@ -1054,8 +1054,8 @@
 			e.preventDefault();
 			var form = $(this).parents('form');
 			Swal.fire({
-				title: 'seguro quieres realizar esta accion?',
-				text: "ya no podras dar vuelta atras!",
+				title: 'seguro quieres realizar esta acción?',
+				text: "ya no podras dar vuelta atrás!",
 				showCancelButton: true,
 				confirmButtonColor: '#3085d6',
 				cancelButtonColor: '#d33',
@@ -1099,7 +1099,7 @@
 		  if(resultado>0){
 			document.querySelectorAll("#mostrarfecha")[index].innerHTML='Vence en: '+(resultado+1)+' días';
 			document.querySelectorAll("#mostrarfecha")[index].setAttribute("style", "color:#4CAF50;");
-			document.querySelectorAll("#mensaje")[index].innerHTML='Paga antes para evitar la suspencion!';
+			document.querySelectorAll("#mensaje")[index].innerHTML='Paga antes para evitar la suspensión!';
 			index++
 		};
 		if(resultado<0){
@@ -1112,7 +1112,7 @@
 		if(resultado==0){
 			document.querySelectorAll("#mostrarfecha")[index].innerHTML='vence hoy';
 			document.querySelectorAll("#mostrarfecha")[index].setAttribute("style", "color:#4CAF50;");
-			document.querySelectorAll("#mensaje")[index].innerHTML='Pago hoy para evitar suspencion!';
+			document.querySelectorAll("#mensaje")[index].innerHTML='Paga hoy para evitar suspensión!';
 			index++
 		}
 		});

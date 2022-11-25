@@ -5,9 +5,8 @@ const cancelButton = document.querySelectorAll('.cancel')
 	 
 
 const expresiones = {
-	nombre: /^[A-Za-zÀ-ÿ]{1,10}[\s]{0,1}[A-Za-zÀ-ÿ]{1,10}$/, 
-    descripcion: /^[A-Za-zÀ-ÿ]{1,10}[\s]{0,1}[A-Za-zÀ-ÿ]{1,10}$/,
-	
+	nombre: /^[A-Za-zÀ-ÿ]{1,10}$/, 
+    descripcion: /^(.|\s)*[a-zA-Z]+(.|\s)*$/,
 }
 		
 const campos = {

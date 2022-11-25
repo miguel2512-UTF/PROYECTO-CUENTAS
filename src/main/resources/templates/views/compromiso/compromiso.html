@@ -712,7 +712,7 @@
 													<div class="media-body">
 														<h6 class="mb-1" th:text="'El compromiso: ' + ${g.tipocompromiso.nombre} + ', con un valor de : '+${g.total} + ' pesos'"></h6>
 														<div hidden>
-															<small class="d-block" id="estado" th:text="${g.estadoCom}"></small>
+															<small class="d-block" th:text="${g.estadoCom}"></small>
 															<small class="d-block" id="fecha" th:text="${g.fecha}"></small>
 
 														</div>
@@ -990,7 +990,7 @@
 											</tr>
 										</thead>
 										<tbody>
-											<tr th:each="g:${compromisos}" id="tablerow" th:if="${g.usuario.idUsuario == session.usuario.idUsuario">
+											<tr th:each="g:${compromisos}" id="tablerow" th:if="${g.usuario.idUsuario == session.usuario.idUsuario}">
 												<td>
 													<div class="custom-control custom-checkbox">
 														<input type="checkbox" class="custom-control-input"
@@ -1562,6 +1562,7 @@
 		}
 
 		function mostrar() {
+			console.log("aaaaa");
 			if (checkbox.checked == true) {
 				for (let index = 0; index < estado.length; index++) {
 					if (estado[index].textContent == "Pago") {
@@ -1668,7 +1669,7 @@
               if(resultado>0){
 				document.querySelectorAll("#mostrarfecha")[index].innerHTML='Vence en: '+(resultado+1)+' días';
 				document.querySelectorAll("#mostrarfecha")[index].setAttribute("style", "color:#4CAF50;");
-				document.querySelectorAll("#mensaje")[index].innerHTML='Paga antes para evitar la suspencion!';
+				document.querySelectorAll("#mensaje")[index].innerHTML='Paga antes para evitar la suspensión!';
 				index++
 			};
 			if(resultado<0){
@@ -1681,7 +1682,7 @@
 			if(resultado==0){
 				document.querySelectorAll("#mostrarfecha")[index].innerHTML='vence hoy';
 				document.querySelectorAll("#mostrarfecha")[index].setAttribute("style", "color:#4CAF50;");
-				document.querySelectorAll("#mensaje")[index].innerHTML='Pago hoy para evitar suspencion!';
+				document.querySelectorAll("#mensaje")[index].innerHTML='Paga hoy para evitar suspensión!';
 				index++
 			}
 			});
