@@ -2,6 +2,7 @@ package com.cuentas.proyectocuentas.util;
 
 import java.awt.Color;
 import java.io.IOException;
+import java.time.LocalDate;
 import java.util.List;
 import java.util.Map;
 import java.util.ArrayList;
@@ -34,6 +35,9 @@ public class ListarPrestamoPdf extends AbstractPdfView {
                                     HttpServletRequest request, HttpServletResponse response) throws Exception {
 
 
+
+        // Fecha diaria automatica
+        LocalDate time = LocalDate.now();
 
         Integer user = Integer.parseInt(request.getParameter("usuario"));
         Integer estado = Integer.parseInt(request.getParameter("estado"));
@@ -160,6 +164,18 @@ public class ListarPrestamoPdf extends AbstractPdfView {
             PdfPCell celdap = null;
             PdfPCell celdaa = null;
 
+            //FECHA
+            PdfPTable TablaFecha = new PdfPTable(1);
+            TablaFecha.setWidths(new float[] { 0.1f});
+            TablaFecha.setSpacingAfter(10);
+            TablaFecha.setTotalWidth(12);
+            // TablaFecha.setHorizontalAlignment(Element.ALIGN_LEFT);
+            // TablaFecha.setHorizontalAlignment(Element.ALIGN_RIGHT);
+
+            // TablaFecha.setBackgroundColor(new Color(7, 183, 18));
+            TablaFecha.setWidthPercentage(20);
+
+            TablaFecha.addCell("Fecha: "+time.toString());
             // TITULO TABLA
             PdfPTable TablaTitulo = new PdfPTable(1);
 
@@ -176,7 +192,6 @@ public class ListarPrestamoPdf extends AbstractPdfView {
             TablaTitulo.addCell(celda);
             TablaTitulo.setSpacingAfter(15);
             TablaTitulo.setSpacingBefore(10);
-
 
             // TITULO TABLA PRÉSTAMOS
             PdfPTable TablaPrestamos = new PdfPTable(5);
@@ -451,9 +466,10 @@ public class ListarPrestamoPdf extends AbstractPdfView {
 
             });
 
+
             //LLAMAR AL ICONO
             document.add(logo);
-            // document.add(fecha);
+            document.add(TablaFecha);
 
 
             // LLAMAR TITULO
