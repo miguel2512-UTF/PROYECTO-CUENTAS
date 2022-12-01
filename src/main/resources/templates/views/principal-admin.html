@@ -853,7 +853,7 @@
 										<div class="d-flex mb-4 align-items-center" th:each="Pr:${prestamos}" th:if="${Pr.usuario.nombresUsuario == session.usuario.nombresUsuario}">
 											<span class="date-icon mr-3" th:text="${Pr.numeroCuotas}">3</span>
 											<div>
-												<h6 class="fs-16"><a href="workout-statistic.html" class="text-black" th:text="${Pr.nombrePrestamista}">Nombre Prestador</a></h6>
+												<h6 class="fs-16"><a th:href="@{/prestamo}" class="text-black" th:text="${Pr.nombrePrestamista}">Nombre Prestador</a></h6>
 												<!-- <span class="fs-14" th:text="${Pr.valorPrestamo}">750000 / 1200000</span> -->
 												<span class="fs-14"> <t th:text="${Pr.valorPrestamo}"></t> | <t th:text="${Pr.valorPrestamoInicial}"></t> </span>
 											</div>
@@ -955,7 +955,7 @@
               if(resultado>0){
 				document.querySelectorAll("#mostrarfecha")[index].innerHTML='Vence en: '+(resultado+1)+' días';
 				document.querySelectorAll("#mostrarfecha")[index].setAttribute("style", "color:#4CAF50;");
-				document.querySelectorAll("#mensaje")[index].innerHTML='Paga antes para evitar la suspencion!';
+				document.querySelectorAll("#mensaje")[index].innerHTML='Paga antes para evitar la suspensión!';
 				index++
 			};
 			if(resultado<0){
@@ -968,7 +968,7 @@
 			if(resultado==0){
 				document.querySelectorAll("#mostrarfecha")[index].innerHTML='vence hoy';
 				document.querySelectorAll("#mostrarfecha")[index].setAttribute("style", "color:#4CAF50;");
-				document.querySelectorAll("#mensaje")[index].innerHTML='Pago hoy para evitar suspencion!';
+				document.querySelectorAll("#mensaje")[index].innerHTML='Paga hoy para evitar suspensión!';
 				index++
 			}
 			});
@@ -990,7 +990,7 @@
 		
         </script>
 		 
-		 <script src="https://cdnjs.cloudflare.com/ajax/libs/push.js/1.0.8/push.min.js"></script>
+		<script src="https://cdnjs.cloudflare.com/ajax/libs/push.js/1.0.8/push.min.js"></script>
 	
 </body>
 </html>
