@@ -90,7 +90,7 @@ public class PrestamoController {
         m.addAttribute("compromisos", compromisod.findAll());
         List<TipoCompromiso> tipocompromiso = tipocompromisod.findAll();
         m.addAttribute("tipocompromiso", tipocompromiso);
-              
+
 
         return "views/prestamo/prestamo";
 
@@ -108,7 +108,6 @@ public class PrestamoController {
         }
 
         if (prestamo.getIdPrestamo()==null){  
-
             //Convertimos de entero a DOUBLE
             Double a = Double.valueOf(prestamo.getValorPrestamo()); 
             Double tasa=(prestamo.getTasaPrestamo() * a )/100;
@@ -120,6 +119,8 @@ public class PrestamoController {
             prestamo.setValorPrestamoInicial(prestamo.getValorPrestamo());
             idSuccess=0;
         }
+        
+        
 
         prestamoI.save(prestamo);
         idSuccess=prestamo.getIdPrestamo();
@@ -176,10 +177,19 @@ public class PrestamoController {
                 e.printStackTrace();
             }
         }
+        
+
         Integer valorprestamo=pagoprestamo.getPrestamo().getValorPrestamo()-pagoprestamo.getTotalPago();
         pagoprestamo.getPrestamo().setValorPrestamo(valorprestamo);
+
+        if(pagoprestamo.getPrestamo().getValorPrestamo()<0){
+            pagoprestamo.getPrestamo().setValorPrestamo(0);
+        }
+
         pagoprestamoI.save(pagoprestamo);
         idSuccess=pagoprestamo.getIdPagoPrestamo();
+
+       
 
 
         return "redirect:listar?success="+idSuccess;
@@ -215,6 +225,11 @@ public class PrestamoController {
         }
         Integer valorprestamo=abono.getPrestamo().getValorPrestamo()-abono.getTotalAbono();
         abono.getPrestamo().setValorPrestamo(valorprestamo);
+
+        if(abono.getPrestamo().getValorPrestamo()<0){
+            abono.getPrestamo().setValorPrestamo(0);
+        }
+
         prestamoabonoI.save(abono);
         idSuccess=abono.getIdPrestamoAbono();
         status.setComplete(); 

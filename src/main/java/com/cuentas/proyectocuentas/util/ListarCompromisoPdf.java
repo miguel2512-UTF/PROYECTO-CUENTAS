@@ -1,6 +1,9 @@
 package com.cuentas.proyectocuentas.util;
 
 import java.awt.Color;
+import java.time.LocalDate;
+import java.time.LocalDateTime;
+import java.time.format.DateTimeFormatter;
 import java.util.List;
 import java.util.Map;
 import java.util.ArrayList;
@@ -69,7 +72,12 @@ public class ListarCompromisoPdf extends AbstractPdfView {
                 }
             }
         }
-
+        // Fecha diaria automatica
+        LocalDate time = LocalDate.now();
+        // Hora automatica
+        LocalDateTime hora = LocalDateTime.now();
+        String formato="HH:mm";
+        DateTimeFormatter.ofPattern(formato).format(hora).toString();
      
         // FUENTES
         Font fuenteTitulo = FontFactory.getFont(FontFactory.HELVETICA_BOLD, 25, Color.white);
@@ -83,6 +91,32 @@ public class ListarCompromisoPdf extends AbstractPdfView {
         document.setMargins(40, 10, 40, 20);
         document.open();
         PdfPCell celda = null;
+        PdfPCell celdah = null;
+        PdfPCell celdaf = null;
+
+        //FECHA
+        PdfPTable TablaFecha = new PdfPTable(1);
+        TablaFecha.setWidths(new float[] { 10f});
+        // TablaFecha.setSpacingAfter(10);
+        TablaFecha.setTotalWidth(1);
+        TablaFecha.setHorizontalAlignment(Element.ALIGN_RIGHT);
+        // TablaFecha.setHorizontalAlignment(Element.ALIGN_RIGHT);
+        celdaf = new PdfPCell(new Phrase("Fecha: "+time.toString()));
+        celdah = new PdfPCell(new Phrase("Hora: "+DateTimeFormatter.ofPattern(formato).format(hora).toString()));
+        celdaf.setPadding(0);
+        celdaf.setBorder(0);
+        TablaFecha.addCell(celdaf);
+        celdah.setPadding(0);
+        celdah.setBorder(0);
+        
+        TablaFecha.addCell(celdah);
+
+         // TablaFecha.setBackgroundColor(new Color(7, 183, 18));
+         TablaFecha.setWidthPercentage(23);
+
+        //  TablaFecha.addCell("Fecha: "+time.toString());
+
+
 
         //IMAGEN: LOGO
         Image image = Image.getInstance("https://lh3.googleusercontent.com/fife/AAbDypBM4AdBwzYAeFejRsYGVfjZYVdfsJJCEX1YSrhPvUS4BRvAqE4hGS_su1IU2C9Zk-Q7ODLn3785a1sUplwseDNvctGR_1rS77W85lU_Lbaalxy1tu9enaeU-gmNYtxPKWcfkg-ZsfHUD3k1qWSmTip1ZRoLUGjCXfCCIyY5KuexWG8DzZ3T0pk-Mef6DOopHPW_gLKPZaAtM6vurUZWuQD-RPZYTwDbFWBBc7QenWAIuaOao68kxapry4w8wwPQ3Hcfb_7L6uJmAfn47b6Qqk8PV_DqIRSPvhT4afzZ04txKsMCEerRTfOW1SgZTcNn7TAqXWDNaNIf7pajUswDKwT2XGq5TGVAD6IE02OsNWQHY6JyzZnYp4s2f7F0dHDqQ9aIsYZdw9T91ARe2OXg4NAAgNpCnrCO_tz6IIv1SU_6WwJKwBLKt-ukZJQpjdIdVRSOWENbZIiS-k5vBG6F6LfFQi3uTimcNPgo0fK8E91zGeWid8v5bmJtx2fvXG3S-BmkYB9xbNRugkNE0dOUJmIjpR5jdE1Kc66FIc848pEcHWG9fDUkMasPl44VW7u4GcdktnWoZCBCe1Ho4dTtxhk8kNLizISho3XTrgQ9zg7Mgwsatv4SnEg6yoUMGO8p6dx9pr24NW1nnSJWQcRXFCkJTFLySIeLb26DWVloVa8hfhXaSMIrqnwecsYoAPzjBLFgoGe0i8TfOEpdqYhiQMli267c0TRnn1GMhEGMVNu-bfjcRlB_KhJGGDI5Ga_SOR79sRQ2PCaSM2KRSoshRcXYXM0ExfuRcnoE_FYlhAgMESpsNS8sJjr3zrCj5RDPKBT1AOK52rLdXCLtJJ2eY_QTzNUzamLVXt9K5ju5j0C7F1dyoqqmFs1SLBTx2jEsT7QM_0M-VhIpKFRAEEXAbwNpqizCh1H3S_XuMibnHkENkSIOpTGVALhCgr50Ds03u3n6NZ85ltPIHZ4XG1B6806sykolPJOJz4Fwy71xlt_Rq7M9IrvItk4q1F37XKh6qbSPOv4=w512");
@@ -216,6 +250,8 @@ public class ListarCompromisoPdf extends AbstractPdfView {
 
 
         document.add(image);
+        document.add(TablaFecha);
+    
         // LLAMAR TITULO
         document.add(TablaTitulo);
 

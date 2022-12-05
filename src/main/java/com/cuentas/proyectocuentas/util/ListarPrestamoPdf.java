@@ -3,6 +3,8 @@ package com.cuentas.proyectocuentas.util;
 import java.awt.Color;
 import java.io.IOException;
 import java.time.LocalDate;
+import java.time.LocalDateTime;
+import java.time.format.DateTimeFormatter;
 import java.util.List;
 import java.util.Map;
 import java.util.ArrayList;
@@ -38,6 +40,10 @@ public class ListarPrestamoPdf extends AbstractPdfView {
 
         // Fecha diaria automatica
         LocalDate time = LocalDate.now();
+        // Hora automatica
+        LocalDateTime hora = LocalDateTime.now();
+        String formato="HH:mm";
+        DateTimeFormatter.ofPattern(formato).format(hora).toString();
 
         Integer user = Integer.parseInt(request.getParameter("usuario"));
         Integer estado = Integer.parseInt(request.getParameter("estado"));
@@ -163,19 +169,32 @@ public class ListarPrestamoPdf extends AbstractPdfView {
             PdfPCell celda2 = null;
             PdfPCell celdap = null;
             PdfPCell celdaa = null;
+            PdfPCell celdaf = null;
+            PdfPCell celdah = null;
 
             //FECHA
             PdfPTable TablaFecha = new PdfPTable(1);
-            TablaFecha.setWidths(new float[] { 0.1f});
-            TablaFecha.setSpacingAfter(10);
-            TablaFecha.setTotalWidth(12);
-            // TablaFecha.setHorizontalAlignment(Element.ALIGN_LEFT);
+            TablaFecha.setWidths(new float[] { 10f});
+            // TablaFecha.setSpacingAfter(10);
+            TablaFecha.setTotalWidth(1);
+            TablaFecha.setHorizontalAlignment(Element.ALIGN_RIGHT);
             // TablaFecha.setHorizontalAlignment(Element.ALIGN_RIGHT);
+            celdaf = new PdfPCell(new Phrase("Fecha: "+time.toString()));
+            celdah = new PdfPCell(new Phrase("Hora: "+DateTimeFormatter.ofPattern(formato).format(hora).toString()));
+            celdaf.setPadding(0);
+            celdaf.setBorder(0);
+            TablaFecha.addCell(celdaf);
+            celdah.setPadding(0);
+            celdah.setBorder(0);
+            
+            TablaFecha.addCell(celdah);
 
-            // TablaFecha.setBackgroundColor(new Color(7, 183, 18));
-            TablaFecha.setWidthPercentage(20);
+             // TablaFecha.setBackgroundColor(new Color(7, 183, 18));
+             TablaFecha.setWidthPercentage(27);
 
-            TablaFecha.addCell("Fecha: "+time.toString());
+            //  TablaFecha.addCell("Fecha: "+time.toString());
+
+           
             // TITULO TABLA
             PdfPTable TablaTitulo = new PdfPTable(1);
 
@@ -393,7 +412,7 @@ public class ListarPrestamoPdf extends AbstractPdfView {
 
             // TITULO TABLA
             PdfPTable TablaAbonos = new PdfPTable(5);
-            TablaAbonos.setWidths(new float[] { 0.3f, 1f, 1f, 1f, 4f });
+            TablaAbonos.setWidths(new float[] {0.3f, 1.2f, 1f, 0.8f, 3.9f });
             TablaAbonos.setSpacingAfter(10);
 
             celdaa = new PdfPCell(new Phrase("Id", fuenteTituloColumnas));
@@ -469,8 +488,9 @@ public class ListarPrestamoPdf extends AbstractPdfView {
 
             //LLAMAR AL ICONO
             document.add(logo);
+           
             document.add(TablaFecha);
-
+            
 
             // LLAMAR TITULO
             document.add(TablaTitulo);
