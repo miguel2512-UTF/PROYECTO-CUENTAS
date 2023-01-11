@@ -28,7 +28,11 @@ public class UserDetailsServiceImpl implements UserDetailsService{
             builder = User.withUsername(correo);
             builder.disabled(false);
             builder.password(usuario.getContrasenaUsuario());
-            builder.authorities(getAuthorities(usuario));
+            if (usuario.getEstadoUsuario().equalsIgnoreCase("activo")) {
+                builder.authorities(getAuthorities(usuario));
+            }else{
+                builder.authorities("INACTIVO");
+            }
         } else {
             throw new UsernameNotFoundException("usuario no encontrado");
         }

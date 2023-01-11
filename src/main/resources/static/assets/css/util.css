@@ -4,3 +4,26 @@
     justify-content: space-between;
     margin-bottom: 0.5rem;
 }
+
+.row-query{
+    display: flex;
+    align-items: center;
+}
+
+.row-query select{
+    width: 20%;
+    margin-left: 1rem;
+}
+
+.modal-fullscreen {
+    width: 100vw;
+    max-width: none;
+    height: 100%;
+    margin: 0;
+}
+
+.modal-fullscreen .modal-content {
+    height: 100%;
+    border: 0;
+    border-radius: 0;
+}

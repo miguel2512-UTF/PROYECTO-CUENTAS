@@ -1112,8 +1112,8 @@
 																	<div style="text-align: center;">
 																		<th:block th:each="Pa:${pagos}" th:if="${Pa.prestamo.idPrestamo}==${Pr.idPrestamo}">
 																			<p style="font-size: 12px;">Se pago <strong th:text="${Pa.totalPago}"></strong> la fecha <strong th:text="${Pa.fechaPago}"></strong></p>
+																			<h5><a th:href="@{/pagoprestamo/listar/}+${Pr.idPrestamo}">Más detalles..</a></h5>
 																		</th:block>
-																		<h5><a th:href="@{/pagoprestamo/listar}">Más detalles..</a></h5>
 																	</div>
 																	<div style="text-align: center;">
 																		<th:block th:each="Ab:${abonos}" th:if="${Ab.prestamo.idPrestamo}==${Pr.idPrestamo}">

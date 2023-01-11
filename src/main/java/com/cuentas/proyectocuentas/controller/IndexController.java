@@ -84,14 +84,15 @@ public class IndexController {
 
         String username = auth.getName();
 
-
         if (session.getAttribute("usuario")==null) {
             Usuario usuario = usuarioI.findByCorreoUsuario(username);
             usuario.setContrasenaUsuario(null);
             session.setAttribute("usuario", usuario);    
         }
 
-       
+        if (usuarioI.findByCorreoUsuario(username).getEstadoUsuario().equalsIgnoreCase("inactivo")) {
+            return "error/inactivo";
+        }
 
         Compromiso compromiso=new Compromiso();
         m.addAttribute("compromiso",compromiso);
@@ -100,6 +101,20 @@ public class IndexController {
         LocalDate notificar=date.plusDays(5);
         m.addAttribute("notificar", notificar);
         m.addAttribute("compromisos", compromisod.findAll());
+        // Compromiso[]comp=new Compromiso[compromisod.findAll().size()];
+        // TipoCompromiso tipocom=new TipoCompromiso();
+        // List<Compromiso>compr=compromisod.findAll();
+        // for(int i=0;i<compr.toArray().length;i++){
+        //     comp[i]=compr.get(i);
+        //     Usuario user=new Usuario();
+        //     user.setIdUsuario(comp[i].getUsuario().getIdUsuario());
+        //     comp[i].setUsuario(user);
+        //     comp[i].setTipocompromiso(tipocom);
+        // }
+            
+        // System.out.println(comp.length);
+        // System.out.println(comp[0].getUsuario().getNombresUsuario());
+        // m.addAttribute("comp", comp);
         List<TipoCompromiso> tipocompromiso = tipocompromisod.findAll();
         m.addAttribute("tipocompromiso", tipocompromiso);
            

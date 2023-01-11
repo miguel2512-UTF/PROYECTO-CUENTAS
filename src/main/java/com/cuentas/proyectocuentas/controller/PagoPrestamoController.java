@@ -49,6 +49,34 @@ public class PagoPrestamoController {
     @Autowired
     private ITipoCompromisoService tipocompromisod;
 
+    //LISTAR
+    @GetMapping("/listar/{idPrestamo}") 
+    public String listar1(Model m, @PathVariable int idPrestamo){
+        System.out.println(idPrestamo);
+        m.addAttribute("idPrestamo", idPrestamo);
+        m.addAttribute("prestamoC", prestamoI.findOne(idPrestamo));
+        m.addAttribute("pagoprestamos", pagoprestamoI.findAll());
+        PagoPrestamo pagoprestamo=new PagoPrestamo();
+        m.addAttribute("pagoprestamo", pagoprestamo);
+        m.addAttribute("prestamo", prestamoI.findAll());
+
+        LocalDate date = LocalDate.now();
+        LocalDate fechaPagoMin = date.minusWeeks(2);
+        LocalDate fechaPagoMax = date.plusYears(1);
+
+        m.addAttribute("fechaPagoMin", fechaPagoMin);
+        m.addAttribute("fechaPagoMax", fechaPagoMax);
+
+        Compromiso compromiso=new Compromiso();
+        m.addAttribute("compromiso",compromiso);
+
+        m.addAttribute("compromisos", compromisod.findAll());
+        List<TipoCompromiso> tipocompromiso = tipocompromisod.findAll();
+        m.addAttribute("tipocompromiso", tipocompromiso);
+            
+
+        return "views/pagoprestamo/pagoprestamo";
+    }        
 
     //LISTAR
     @GetMapping("/listar") 
