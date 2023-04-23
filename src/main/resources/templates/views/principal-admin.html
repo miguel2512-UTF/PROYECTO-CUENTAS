@@ -597,9 +597,8 @@
 													<div class="media-body">
 														<h6 class="mb-1" th:text="'El compromiso: ' + ${g.tipocompromiso.nombre} + ', con un valor de : '+${g.total} + ' pesos'"></h6>
 														<div hidden>
-															<small class="d-block" id="estado" th:text="${g.estadoCom}"></small>
+															<small class="d-block" id="estadoCom" th:text="${g.estadoCom}"></small>
 															<small class="d-block" id="fecha" th:text="${g.fecha}"></small>
-
 														</div>
 														<h6 class="mb-1" id="mostrarfecha"></h6>
 														<small class="d-block" id="mensaje"> </small>
@@ -742,7 +741,7 @@
 													</div>
 													<div class="info mb-3">
 														<h4 class="fs-20 "><a class="text-black" id="id" th:text="${g.nombreEm}"></a></h4>
-														<span class="text-danger font-w600" id="estado" th:text="${g.estadoCom}"></span>
+														<span class="text-danger font-w600" th:text="${g.estadoCom}"></span>
 													</div>
 												</div>
 												<div class="col-xl-2 col-xxl-4 col-lg-2 col-sm-4 activities mb-3 mr-auto pl-3 pr-3 text-sm-center">
@@ -777,7 +776,7 @@
 													</div>
 													<div class="info mb-3">
 														<h4 class="fs-20 "><a class="text-black" id="id" th:text="${g.nombreEm}"></a></h4>
-														<span class="text-danger font-w600" id="estado" th:text="${g.estadoCom}"></span>
+														<span class="text-danger font-w600" th:text="${g.estadoCom}"></span>
 													</div>
 												</div>
 												<div class="col-xl-2 col-xxl-4 col-lg-2 col-sm-4 activities mb-3 mr-auto pl-3 pr-3 text-sm-center">
@@ -812,7 +811,7 @@
 													</div>
 													<div class="info mb-3">
 														<h4 class="fs-20 "><a class="text-black" id="id" th:text="${g.nombreEm}"></a></h4>
-														<span class="text-danger font-w600" id="estado" th:text="${g.estadoCom}"></span>
+														<span class="text-danger font-w600" th:text="${g.estadoCom}"></span>
 													</div>
 												</div>
 												<div class="col-xl-2 col-xxl-4 col-lg-2 col-sm-4 activities mb-3 mr-auto pl-3 pr-3 text-sm-center">
@@ -960,16 +959,21 @@
 			});
 		});
 	</script>
-		<script>
+		<!-- <script>
 		window.onload = function(){
 			 Push.Permission.request();
 			}
-		 </script>
-		<script>
+		 </script> -->
+		<script th:fragment="notificaciones">
+			window.onload = function(){
+			 Push.Permission.request();
+			}
+
             const fechacompromiso = document.querySelectorAll('#fecha');  
 
 			const hoy = Date.now()
 			let index=0
+			let resultado;
 
 			fechacompromiso.forEach((fecha) => {
 				var fechaFin = new Date(fecha.innerHTML).getTime();
@@ -979,9 +983,9 @@
 
 				//mostrar al html dias que faltan para el pago oportuno
 				const dias = diff/(1000*60*60*24)+1;
-				const resultado =Math.trunc(dias);
+				resultado =Math.trunc(dias);
               if(resultado>0){
-				document.querySelectorAll("#mostrarfecha")[index].innerHTML='Vence en: '+(resultado+1)+' días';
+				document.querySelectorAll("#mostrarfecha")[index].innerHTML='Vence en: '+(resultado)+' días';
 				document.querySelectorAll("#mostrarfecha")[index].setAttribute("style", "color:#4CAF50;");
 				document.querySelectorAll("#mensaje")[index].innerHTML='Paga antes para evitar la suspensión!';
 				index++
@@ -1000,27 +1004,24 @@
 				index++
 			}
 			});
-			
-			
-			const estado = document.getElementById('estado');
-		   if(estado.innerHTML=='Por pagar'|| resultado <7){
-			setTimeout(() => {
-			 Push.create('Tienes Compromisos que vencen en menos de una semana ',{
-				 body: 'has Click para ver mas...',
-				 icon: '/assets/img/pendiente.png',
-				 timeout: '7000',
-				 onClick : function(){
-					location.href='/proyecto/compromiso/listar'
-				 }
-			 });
-			}, 1000);
-		   }
-		
-        </script>
+
+			const estadoCom = document.getElementById('estadoCom');
+			if(estadoCom.innerHTML=='Por pagar'&& resultado <7){
+				setTimeout(() => {
+				Push.create('Tienes Compromisos que vencen en menos de una semana ',{
+					body: 'has Click para ver mas...',
+					icon: 'https://i.imgur.com/x2Wc296.png',
+					timeout: '7000',
+					onClick : function(){
+						location.href='/proyecto/compromiso/listar'
+					}
+				});
+				}, 5000);
+			}
+		</script>
 		
 		<script th:inline="javascript" th:if="${param.active}">$("#modal-active").modal("show")</script>
 
 		<script src="https://cdnjs.cloudflare.com/ajax/libs/push.js/1.0.8/push.min.js"></script>
-		
 </body>
 </html>

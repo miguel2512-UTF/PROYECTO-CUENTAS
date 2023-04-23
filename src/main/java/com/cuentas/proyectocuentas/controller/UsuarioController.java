@@ -123,6 +123,22 @@ public class UsuarioController {
         return "views/usuario/usuario-register";
     }
     
+    @GetMapping("/inactivarAll")
+    public String inactivarAll(int[]idUsuario){
+        for (int i = 0; i < idUsuario.length; i++) {
+            Usuario user=usuarioI.findOne(idUsuario[i]);
+            if (user.getEstadoUsuario().equalsIgnoreCase("activo")) {
+                user.setEstadoUsuario("Inactivo");
+            }else if(user.getEstadoUsuario().equalsIgnoreCase("inactivo")){
+                user.setEstadoUsuario("Activo");
+            }
+
+            usuarioI.save(user);
+        }
+
+        return "redirect:/usuario";
+    }
+    
     // @GetMapping("/login")
     // public String login(Model m){
     //     m.addAttribute("usuario", new Usuario());

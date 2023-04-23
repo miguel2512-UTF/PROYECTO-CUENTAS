@@ -712,9 +712,8 @@
 													<div class="media-body">
 														<h6 class="mb-1" th:text="'El compromiso: ' + ${g.tipocompromiso.nombre} + ', con un valor de : '+${g.total} + ' pesos'"></h6>
 														<div hidden>
-															<small class="d-block" th:text="${g.estadoCom}"></small>
+															<small class="d-block" id="estadoCom" th:text="${g.estadoCom}"></small>
 															<small class="d-block" id="fecha" th:text="${g.fecha}"></small>
-
 														</div>
 														<h6 class="mb-1" id="mostrarfecha"></h6>
 														<small class="d-block" id="mensaje"> </small>
@@ -1542,9 +1541,9 @@
 		});
 	</script>
 	<script>
-		var checkbox = document.getElementById('mostrar');
-		var row = document.querySelectorAll('#tablerow');
-		var estado = document.querySelectorAll('#estado');
+		let checkbox = document.getElementById('mostrar');
+		let row = document.querySelectorAll('#tablerow');
+		let estado = document.querySelectorAll('#estado');
 
 		checkbox.addEventListener("click", mostrar)
 
@@ -1650,47 +1649,9 @@
 	
 	<script src="//cdn.jsdelivr.net/npm/sweetalert2@11"></script>
 
-	
-		<script>
-            const fechacompromiso = document.querySelectorAll('#fecha');  
+	<script th:replace="/views/principal-admin :: notificaciones"></script>
 
-			const hoy = Date.now()
-			let index=0
-
-			fechacompromiso.forEach((fecha) => {
-				var fechaFin = new Date(fecha.innerHTML).getTime();
-				var diff = fechaFin - hoy;
-
-				console.log(diff);
-
-				//mostrar al html dias que faltan para el pago oportuno
-				const dias = diff/(1000*60*60*24)+1;
-				const resultado =Math.trunc(dias);
-              if(resultado>0){
-				document.querySelectorAll("#mostrarfecha")[index].innerHTML='Vence en: '+(resultado+1)+' días';
-				document.querySelectorAll("#mostrarfecha")[index].setAttribute("style", "color:#4CAF50;");
-				document.querySelectorAll("#mensaje")[index].innerHTML='Paga antes para evitar la suspensión!';
-				index++
-			};
-			if(resultado<0){
-				document.querySelectorAll("#mostrarfecha")[index].innerHTML='ya venció';
-				document.querySelectorAll("#mostrarfecha")[index].setAttribute("style", "color:red;");
-				document.querySelectorAll("#mensaje")[index].innerHTML='Puede ser que su sevicio fue suspendido o próximamente suspendido';
-				index++
-
-			};
-			if(resultado==0){
-				document.querySelectorAll("#mostrarfecha")[index].innerHTML='vence hoy';
-				document.querySelectorAll("#mostrarfecha")[index].setAttribute("style", "color:#4CAF50;");
-				document.querySelectorAll("#mensaje")[index].innerHTML='Paga hoy para evitar suspensión!';
-				index++
-			}
-			});
-			
-			
-			
-        </script>
-		 
+	<script src="https://cdnjs.cloudflare.com/ajax/libs/push.js/1.0.8/push.min.js"></script>
 </body>
 
 </html>

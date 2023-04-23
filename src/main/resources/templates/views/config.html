@@ -12,6 +12,7 @@
     <!-- JS para CRUD -->
 	<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.1/jquery.min.js"></script>
 	<!-- <script th:src="@{/assets/js/main.js}"></script> -->
+	<script th:src="@{/assets/js/password.js}"></script>
 	<!-- Toastr -->
     <link rel="stylesheet" th:href="@{/assets/dashboard/vendor/toastr/css/toastr.min.css}">
 	<!-- Estilos -->
@@ -752,7 +753,8 @@
                                                 </div>
                                             </div>
                                         </div>
-                                    </div> 
+										<a th:href="@{/settings/test/}+${session.usuario.idUsuario}+'/'+${session.usuario.contrasenaUsuario}" class="btn btn-primary" id="test" hidden>Test</a>
+									</div> 
                                 </form>
                             </div>
                         </div>
@@ -768,12 +770,12 @@
 							<button type="button" class="close cancel" data-dismiss="modal"><span>&times;</span>
 							</button>
 						</div>
-						<form th:action="@{/settings/password}" method="post">
+						<form th:action="@{/settings/password}" method="post" id="formpassword">
 							<div class="modal-body">
 								<input name="idUsuario" type="text" th:value="${session.usuario.idUsuario}" hidden>
 								<div class="form-group">
 									<label for="">Contraseña anterior</label>
-									<input name="oldpassword" type="password" class="form-control" th:value="${oldpassword}">
+									<input name="oldpassword" type="password" class="form-control" id="oldpassword" th:value="${oldpassword}">
 								</div>	
 								<div class="form-group">
 									<label for="">Contraseña nueva</label>
@@ -783,12 +785,37 @@
 									<label for="">Confirmar contraseña</label>
 									<input name="confirmpassword" type="password" class="form-control" th:value="${confirmpassword}">
 								</div>
-								<div class="text-danger" th:each="error:${valid}" th:if="${valid}" th:text="${error}"></div>	
+								<div class="text-danger" th:each="error:${valid}" th:if="${valid}" th:text="${error}"></div>
+								<div class="text-danger ans"></div>	
 							</div>
 							<div class="modal-footer">
 								<button type="button" class="btn btn-secondary cancel" data-dismiss="modal" id="cancel">Cancelar</button>
-								<button type="submit" class="btn btn-primary" id="Registrar">Guardar</button>
+								<button type="submit" class="btn btn-primary" id="save">Guardar</button>
 							</div>	
+							<script th:inline="javascript">
+								let btn_save=document.getElementById('save')
+								let btn_test=document.getElementById('test')
+								let form=document.getElementById('formpassword')
+								let username = /*[[${session.usuario.idUsuario}]]*/ null;
+								let password=document.getElementById('oldpassword')
+								
+								form.addEventListener('submit',(e)=>{
+									e.preventDefault()
+									
+									if (password==null) {
+										password=""
+									}
+									test.setAttribute("href",`/proyecto/settings/test/${username}/${password.value}`)
+									test.click()
+								})
+
+								let btn_close=document.getElementById('cancel')
+								btn_close.addEventListener("click",()=>{
+									$('#oldpassword').val('')
+									$('.ans').text('')
+								})
+								
+							</script>
 						</form>
 					</div>
 				</div>

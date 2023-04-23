@@ -14,7 +14,8 @@
 	<script th:src="@{/assets/js/main.js}"></script>
 	<!-- Toastr -->
     <link rel="stylesheet" th:href="@{/assets/dashboard/vendor/toastr/css/toastr.min.css}">
-	<!-- Estilos -->
+	<!-- Estilos Util-->
+	<link rel="stylesheet" th:href="@{/assets/css/util.css}">
     <link href='https://unpkg.com/boxicons@2.1.2/css/boxicons.min.css' rel='stylesheet'>
 	<link rel="stylesheet" th:href="@{/assets/dashboard/vendor/chartist/css/chartist.min.css}">
     <link th:href="@{/assets/dashboard/vendor/bootstrap-select/dist/css/bootstrap-select.min.css}" rel="stylesheet">
@@ -743,17 +744,36 @@
                                         </button>
                                     </div>
 
-                                    <div class="custom-control custom-checkbox mb-3 check-xs mt-3">
-                                        <input type="checkbox" class="custom-control-input" id="mostrar" required>
-                                        <label class="custom-control-label" for="">Mostrar Usuarios inactivos</label>
-                                    </div>
+									<div class="row-cuentas">
+										<div class="custom-control custom-checkbox mb-3 check-xs mt-3">
+											<input type="checkbox" class="custom-control-input" id="mostrar" required>
+											<label class="custom-control-label" for="">Mostrar Usuarios inactivos</label>
+										</div>
+										<div class="basic-dropdown">
+											<div class="dropdown">
+												<div class="btn-group mb-2 btn-group-sm">
+													<a id="inactivarAll" class="btn btn-square btn-sm btn-primary" href="" hidden>Inactivar</a>
+													<a id="inactivarAll" class="btn btn-square btn-sm btn-primary" href="" hidden>Activar</a>
+													<button class="btn btn-square btn-sm btn-primary"
+                                                     data-toggle="modal" data-target=".generarReporte"
+                                                     title="ver reporte" target="_white">Reporte PDF</button>
+													
+													<button onClick="toggle(this)" class="btn btn-square btn-sm btn-primary">Mostrar todas</button>
+													<button type="button" class="btn btn-square btn-sm btn-primary dropdown-toggle" data-toggle="dropdown">
+														Mostrar Columnas
+													</button>
+												</div>
+											</div>
+										</div>
+									</div>
+                                    
                                     <table id="example5" class="display min-w850">
                                         <thead>
                                             <tr>
                                                 <th>
 													<div class="custom-control custom-checkbox">
-														<input type="checkbox" class="custom-control-input" id="checkAll" required="">
-														<label class="custom-control-label" for="checkAll"></label>
+														<input type="checkbox" class="custom-control-input" id="checkTodos" required="">
+														<label class="custom-control-label" for="checkTodos"></label>
 													</div>
 												</th>
                                                 <th>ID</th>
@@ -768,8 +788,8 @@
                                             <tr th:each="u:${usuarios}" id="tablerow">
 												<td>
 													<div class="custom-control custom-checkbox">
-														<input type="checkbox" class="custom-control-input" id="customCheckBox3" required="">
-														<label class="custom-control-label" for="customCheckBox3"></label>
+														<input type="checkbox" name="foo" class="custom-control-input" id="customCheckBox" th:value="${u.idUsuario}" required="">
+														<label class="custom-control-label" for=""></label>
 													</div>
 												</td>
 												<td th:text="${u.idUsuario}"></td>
@@ -812,6 +832,47 @@
 													</div>
 												</td>
                                             </tr>
+											<script>
+												const check=document.querySelectorAll("#customCheckBox")
+												let deleteAll=document.querySelectorAll("#inactivarAll")
+												let array=[]
+										
+												check.forEach((checkbox)=>{
+													checkbox.addEventListener("click",(element)=>{
+														if (checkbox.checked == true) {
+															array.push(element.target.value)
+															
+															deleteAll.forEach((btn)=>{
+																btn.removeAttribute("hidden","")
+															})
+															
+															deleteAll.forEach((btn)=>{
+																btn.setAttribute("href",`/proyecto/usuario/inactivarAll/?idUsuario=${array}`)
+															})
+														}else{
+															array.splice(array.indexOf(element.target.value), 1)
+															
+															if(array.length==0){
+																deleteAll.forEach((btn) => {
+																	btn.setAttribute("hidden","")
+																});	
+															}
+
+															deleteAll.forEach((btn)=>{
+																btn.setAttribute("href",`/proyecto/usuario/inactivarAll/?idUsuario=${array}`)
+															})
+														}
+													})
+												})
+												
+												let checkAll = document.getElementById("checkTodos")
+												checkAll.addEventListener("click",(e)=>{
+													checkboxes = document.getElementsByName('foo');
+													for(let i=0; i<checkboxes.length;i++) {
+														checkboxes[i].click()
+													}
+												})
+											</script>
                                         </tbody>
                                     </table>
                                 </div>
