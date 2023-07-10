@@ -1,7 +1,10 @@
 package com.cuentas.proyectocuentas.controller;
 
 import javax.validation.Valid;
-import java.util.List;
+
+import java.util.HashMap;
+import java.util.Map;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -12,7 +15,6 @@ import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.ResponseBody;
 import com.cuentas.proyectocuentas.model.Compromiso;
-import com.cuentas.proyectocuentas.model.TipoCompromiso;
 import com.cuentas.proyectocuentas.model.Usuario;
 import com.cuentas.proyectocuentas.service.IUsuarioService;
 import com.cuentas.proyectocuentas.service.ITipoCompromisoService;
@@ -32,16 +34,14 @@ public class UsuarioController {
 
     @GetMapping("/listar")
     public String listar(Model m){
-        m.addAttribute("usuarios", usuarioI.findAll());
-        Usuario usuario=new Usuario();
-        m.addAttribute("usuario",usuario);
+        Map<String, Object> attributesList = new HashMap<>();
+        attributesList.put("usuarios", usuarioI.findAll());
+        attributesList.put("usuario", new Usuario());
+        attributesList.put("compromiso", new Compromiso());
+        attributesList.put("compromisos", compromisod.findAll());
+        attributesList.put("tipocompromiso", tipocompromisod.findAll());
 
-        Compromiso compromiso=new Compromiso();
-        m.addAttribute("compromiso",compromiso);
-
-        m.addAttribute("compromisos", compromisod.findAll());
-        List<TipoCompromiso> tipocompromiso = tipocompromisod.findAll();
-        m.addAttribute("tipocompromiso", tipocompromiso);
+        m.addAllAttributes(attributesList);
         
         return "views/usuario/usuario";
     }

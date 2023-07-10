@@ -8,6 +8,7 @@ public interface IUsuarioService{
     public List<Usuario> findAll();
     public void save(Usuario usuario);
     public Usuario findOne(Integer idUsuario);
+    public Usuario findOneByEmail(String email);
     public void delete(Integer idUsuario);
     public Usuario createUser(Usuario usuario) throws Exception;
     // public Usuario login(Usuario usuario);

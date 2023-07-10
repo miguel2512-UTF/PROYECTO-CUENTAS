@@ -37,7 +37,7 @@ public class UsuarioService implements IUsuarioService{
         usuarioI.deleteById(idUsuario);
     }
 
-    private boolean checkEmailAvailable(Usuario usuario) throws Exception{
+    public boolean checkEmailAvailable(Usuario usuario) throws Exception{
         Usuario emailFound=usuarioI.findByCorreoUsuario(usuario.getCorreoUsuario());
         if (emailFound!=null) {
             throw new Exception("Email no disponible");
@@ -51,6 +51,12 @@ public class UsuarioService implements IUsuarioService{
             usuario.setContrasenaUsuario(passwordEncoder.encode(usuario.getContrasenaUsuario()));
             usuario = usuarioI.save(usuario);
         }
+        return usuario;
+    }
+
+    @Override
+    public Usuario findOneByEmail(String email) {
+        Usuario usuario = usuarioI.findByCorreoUsuario(email);
         return usuario;
     }
 
