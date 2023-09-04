@@ -798,7 +798,7 @@
 								</div>
 							</li>
 							<!-- User Profile -->
-							<li th:replace="/views/layouts/header-profile :: header-profile"></li>
+							<li th:replace="views/layouts/header-profile :: header-profile"></li>
 						</ul>
 					</div>
 				</nav>
@@ -811,7 +811,7 @@
 		<!--**********************************
             Sidebar start
         ***********************************-->
-		<div th:replace="/views/layouts/sidebar :: sidebar"></div>
+		<div th:replace="views/layouts/sidebar :: sidebar"></div>
 		<!--**********************************
             Sidebar end
         ***********************************-->
@@ -1649,7 +1649,7 @@
 	
 	<script src="//cdn.jsdelivr.net/npm/sweetalert2@11"></script>
 
-	<script th:replace="/views/principal-admin :: notificaciones"></script>
+	<script th:replace="views/principal-admin :: notificaciones"></script>
 
 	<script src="https://cdnjs.cloudflare.com/ajax/libs/push.js/1.0.8/push.min.js"></script>
 </body>
