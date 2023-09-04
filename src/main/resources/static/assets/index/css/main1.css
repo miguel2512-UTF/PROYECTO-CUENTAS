@@ -2046,9 +2046,13 @@ ol {
 /*======================================
     Hero Area CSS
 ========================================*/
+.hero-area-backdrop {
+  backdrop-filter: brightness(0.5);
+}
+
 .hero-area {
   position: relative;
-  background-image: url(https://uvg.edu.mx/blog/wp-content/uploads/2021/04/post_thumbnail-993441cf84b42c333b6a346d8eb58ba3.jpeg);
+  background-image: url(https://www.contpaqi.com/fotos-blog/Importancia_cuentas_por_cobrar.jpg);
   background-size:cover;
   background-position: center;
   z-index: 0;
