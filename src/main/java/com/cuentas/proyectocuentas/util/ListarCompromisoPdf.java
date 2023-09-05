@@ -130,7 +130,7 @@ public class ListarCompromisoPdf extends AbstractPdfView {
 
 
         //IMAGEN: LOGO
-        Image image = Image.getInstance("src/main/resources/static/assets/img/Logo-cuentascasa.png");
+        Image image = Image.getInstance("./src/main/resources/static/assets/img/Logo-cuentascasa.png");
        image.setAlignment(Element.ALIGN_LEFT);
        image.setAlignment(Element.ALIGN_LEFT);
       // image.scaleAbsoluteHeight(100);
