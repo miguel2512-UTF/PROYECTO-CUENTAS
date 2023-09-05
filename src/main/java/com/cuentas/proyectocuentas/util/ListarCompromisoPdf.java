@@ -1,6 +1,8 @@
 package com.cuentas.proyectocuentas.util;
 
 import java.awt.Color;
+import java.nio.file.Files;
+import java.nio.file.Paths;
 import java.time.LocalDate;
 import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
@@ -130,7 +132,15 @@ public class ListarCompromisoPdf extends AbstractPdfView {
 
 
         //IMAGEN: LOGO
-        Image image = Image.getInstance("./src/main/resources/static/assets/img/Logo-cuentascasa.png");
+        String userDirectory = Paths.get("")
+        .toAbsolutePath()
+        .toString();
+        Object[] stream = Files.list(Paths.get(userDirectory)).toArray();
+        System.out.println(userDirectory);
+        for (int index = 0; index < stream.length; index++) {
+            System.out.println(stream[index]);
+        }
+        Image image = Image.getInstance("../src/main/resources/static/assets/img/Logo-cuentascasa.png");
        image.setAlignment(Element.ALIGN_LEFT);
        image.setAlignment(Element.ALIGN_LEFT);
       // image.scaleAbsoluteHeight(100);
