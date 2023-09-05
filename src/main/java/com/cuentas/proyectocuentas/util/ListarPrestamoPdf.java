@@ -155,7 +155,7 @@ public class ListarPrestamoPdf extends AbstractPdfView {
             Font fuenteTituloColumnas = FontFactory.getFont(FontFactory.HELVETICA_BOLD, 12, Color.black);
 
             //IMAGEN: LOGO
-            Image logo = Image.getInstance("src/main/resources/static/assets/img/Logo-cuentascasa.png");
+            Image logo = Image.getInstance("https://i.imgur.com/20tSIrE.png");
             logo.setAlignment(Image.ALIGN_LEFT);
             logo.scaleToFit(200, 100);
 
