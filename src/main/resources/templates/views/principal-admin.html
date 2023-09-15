@@ -900,6 +900,8 @@
 											</div>
 										</div>
 									</div>
+
+									<a th:href="@{/compromiso/listar}" id="route" hidden></a>
 								</div>
 							</div>
 						</div>
@@ -1008,12 +1010,11 @@
 			const estadoCom = document.getElementById('estadoCom');
 			if(estadoCom.innerHTML=='Por pagar'&& resultado <7){
 				setTimeout(() => {
-				Push.create('Tienes Compromisos que vencen en menos de una semana ',{
-					body: 'has Click para ver mas...',
+				Push.create('Tienes compromisos que vencen en menos de una semana ',{
+					body: 'haz click para ver mas...',
 					icon: 'https://i.imgur.com/x2Wc296.png',
-					timeout: '7000',
 					onClick : function(){
-						location.href='/proyecto/compromiso/listar'
+						window.open(document.getElementById("route").getAttribute("href"), "_blank", "popup")
 					}
 				});
 				}, 5000);
