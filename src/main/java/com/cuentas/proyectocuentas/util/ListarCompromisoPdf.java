@@ -46,7 +46,9 @@ public class ListarCompromisoPdf extends AbstractPdfView {
 
         Usuario user = getUser();
         if (dato!=user.getIdUsuario() && !user.getTipoUsuario().equalsIgnoreCase("administrador")) {
-            response.sendError(403);
+            response.setStatus(403);
+            response.getOutputStream().println("No tienes permiso para ver este recurso");
+            response.getOutputStream().close();
         }
 
         @SuppressWarnings("unchecked")

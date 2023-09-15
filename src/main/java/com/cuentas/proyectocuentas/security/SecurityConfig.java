@@ -33,7 +33,7 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter{
 
     @Override
     protected void configure(HttpSecurity http) throws Exception {
-        http.authorizeRequests().antMatchers("/","/assets/**","/usuario/**").permitAll().antMatchers("/inicio","/settings/activar").hasAnyAuthority("INACTIVO","ADMINISTRADOR","CONTADOR","ADMIN DEL HOGAR").antMatchers("/compromiso/**","/tipocompromiso/**","/prestamo/**","/pagoprestamo/**","/prestamoabono/**","/settings/**").hasAnyAuthority("ADMINISTRADOR","CONTADOR","ADMIN DEL HOGAR").anyRequest().authenticated()
+        http.authorizeRequests().antMatchers("/","/assets/**").permitAll().antMatchers("/inicio","/settings/activar").hasAnyAuthority("INACTIVO","ADMINISTRADOR","CONTADOR","ADMIN DEL HOGAR").antMatchers("/usuario/**", "/compromiso/**","/tipocompromiso/**","/prestamo/**","/pagoprestamo/**","/prestamoabono/**","/settings/**").hasAnyAuthority("ADMINISTRADOR","CONTADOR","ADMIN DEL HOGAR").anyRequest().authenticated()
 
         .and()
             .formLogin().loginPage("/login")

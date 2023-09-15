@@ -753,7 +753,7 @@
                                                 </div>
                                             </div>
                                         </div>
-										<a th:href="@{/settings/test/}+${session.usuario.idUsuario}+'/'+${session.usuario.contrasenaUsuario}" class="btn btn-primary" id="test" hidden>Test</a>
+										<a th:route="@{/settings/test}" class="btn btn-primary" id="test" hidden>Test</a>
 									</div> 
                                 </form>
                             </div>
@@ -802,11 +802,14 @@
 								form.addEventListener('submit',(e)=>{
 									e.preventDefault()
 									
-									if (password==null) {
-										password=""
+									if (password.value == "") {
+										document.querySelector(".ans").textContent = "La contraseña anterior es requerida"
+										return
 									}
-									test.setAttribute("href",`/proyecto/settings/test/${username}/${password.value}`)
-									test.click()
+
+									const contextHref = btn_test.getAttribute("route")
+									btn_test.setAttribute("href", `${contextHref}/${username}/${password.value}`)
+									btn_test.click()
 								})
 
 								let btn_close=document.getElementById('cancel')
