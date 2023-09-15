@@ -1997,7 +1997,7 @@ ol {
 }
 
 @media (max-width: 767px) {
-  .header .button {
+  .header .mobile-menu-btn {
     display: none;
   }
 }
@@ -2047,6 +2047,10 @@ ol {
     Hero Area CSS
 ========================================*/
 .hero-area-backdrop {
+  position: absolute;
+  top: 0;
+  height: 100%;
+  width: 100%;
   backdrop-filter: brightness(0.5);
 }
 
@@ -2160,6 +2164,7 @@ ol {
 @media (max-width: 767px) {
   .hero-area .hero-content {
     padding: 0 10px;
+    padding-top: 30px;
     text-align: center;
   }
   .hero-area .hero-content h1 {
